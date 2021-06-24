@@ -1,101 +1,59 @@
-   <template lang="">
-   <v-card
-      :loading="loading"
-      class="mx-auto my-12"
-      max-width="400"
-   >
-      <template slot="progress">
-         <v-progress-linear
-         color="deep-purple"
-         height="10"
-         indeterminate
-         ></v-progress-linear>
-      </template>
-
-      <v-img
-         height="250"
-         src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-      ></v-img>
-
-      <v-card-title>Cafe Badilico</v-card-title>
-          <v-text-field
-            outlined
-            label="Prepend inner"
-            prepend-inner-icon="mdi-map-marker"
-          ></v-text-field>
-      <v-card-text>
-         <v-row
-         align="center"
-         class="mx-0"
-         >
-         <v-rating
-            :value="4.5"
-            color="amber"
-            dense
-            half-increments
-            readonly
-            size="14"
-         ></v-rating>
-
-         <div class="grey--text ms-4">
-            4.5 (413)
-         </div>
-         </v-row>
-
-         <div class="my-4 text-subtitle-1">
-         $ • Italian, Cafe
-         </div>
-
-         <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating.</div>
-      </v-card-text>
-
-      <v-divider class="mx-4"></v-divider>
-
-      <v-card-title>Tonight's availability</v-card-title>
-
-      <v-card-text>
-         <v-chip-group
-         v-model="selection"
-         active-class="deep-purple accent-4 white--text"
-         column
-         >
-         <v-chip>5:30PM</v-chip>
-
-         <v-chip>7:30PM</v-chip>
-
-         <v-chip>8:00PM</v-chip>
-
-         <v-chip>9:00PM</v-chip>
-         </v-chip-group>
-      </v-card-text>
-
-      <v-card-actions>
-         <v-btn
-         color="deep-purple lighten-2"
-         text
-         @click="reserve"
-         >
-         Reserve
-         </v-btn>
-      </v-card-actions>
+<template lang="">
+   <v-card 
+      :loading="loading" 
+      class="mx-xs-5 mx-auto my-12 py-5 px-10"
+      max-width="430" 
+   > 
+   <v-card-subtitle 
+      class="text-center"
+   > 
+      Авторизация
+   </v-card-subtitle> 
+   <v-text-field
+      v-model="loginFields.username" 
+      outlined 
+      label="Логин"
+      prepend-inner-icon="mdi-account" 
+      dense 
+   ></v-text-field> 
+   <v-text-field
+      v-model="loginFields.password" 
+      :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+      :type="showPassword ? 'text':'password'"
+      @click:append="showPassword = !showPassword"
+      outlined
+      label="Пароль" 
+      prepend-inner-icon="mdi-lock" 
+      dense 
+   ></v-text-field> 
+   <v-btn
+      dark 
+      color="blue-grey darken-2" 
+      elevation="1" 
+      @click="loginHandler"
+   > 
+   Войти 
+   </v-btn> 
    </v-card>
-   </template>
+</template>
 <script>
-  export default {
-    data: () => ({
+import {mapActions} from 'vuex'
+export default {
+   data: () => ({
       loading: false,
-      selection: 1,
-    }),
+      showPassword: false,
+      loginFields:{
+         username:'user-1',
+         password:'123456'
+      }
+   }),
 
-    methods: {
-      reserve () {
-        this.loading = true
-
-        setTimeout(() => (this.loading = false), 2000)
-      },
-    },
-  }
+   methods: {
+      ...mapActions(['LOGIN']),
+      loginHandler(){
+         this.LOGIN(this.loginFields)
+      }
+   },
+}
 </script>
-   <style lang="">
-      
-   </style>
+<style lang=""></style>
