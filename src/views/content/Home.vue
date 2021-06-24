@@ -7,9 +7,15 @@
   >
   <v-toolbar-title>Page title</v-toolbar-title>
   <v-spacer></v-spacer>
-  <v-btn icon>
-    <v-icon>mdi-heart</v-icon>
+  <v-btn @click="Home" router to="/Home" icon>
+    <v-icon>mdi-home</v-icon>
   </v-btn>
+  <v-btn @click="Login" router to="/login" icon>
+    <v-icon>mdi-login</v-icon>
+  </v-btn>
+    <v-btn @click="Home" router to="" icon>
+      <v-icon>mdi-format-align-left</v-icon>
+    </v-btn>
   </v-app-bar>
     <v-main class="grey lighten-2">
           <v-container>
@@ -38,8 +44,10 @@
   </v-app>
 </template>
 <script>
-
+import Login from './Login.vue'
 export default {
-
+  components:{
+    Login
+  }
 }
 </script>
