@@ -5,11 +5,8 @@
     color="primary"
     dark
   >
-  <v-toolbar-title>Page title</v-toolbar-title>
+  <v-toolbar-title>TS KSE</v-toolbar-title>
   <v-spacer></v-spacer>
-  <v-btn @click="Home" router to="/Home" icon>
-    <v-icon>mdi-home</v-icon>
-  </v-btn>
   <v-btn @click="Login" router to="/login" icon>
     <v-icon>mdi-login</v-icon>
   </v-btn>
@@ -30,12 +27,12 @@
             </v-col>
 
             <v-col
-              v-for="j in 6"
+              v-for="j in 4"
               :key="`${n}${j}`"
               cols="6"
               md="2"
             >
-              <v-sheet height="150"></v-sheet>
+              <v-sheet height="150" ></v-sheet>
             </v-col>
           </template>
            </v-row>

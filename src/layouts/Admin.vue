@@ -4,7 +4,7 @@
          <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
          <v-toolbar-title>TS KSE</v-toolbar-title>
          <v-spacer></v-spacer>
-         <v-btn plain icon>
+         <v-btn @click="Home" router to="/" plain icon>
          <v-icon>mdi-home</v-icon>
          </v-btn>
          <v-btn plain small> Выйти </v-btn>

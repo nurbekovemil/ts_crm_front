@@ -30,7 +30,7 @@
       dark 
       color="blue-grey darken-2" 
       elevation="1" 
-      @click="loginHandler"
+      @click="handleSubmit"
    > 
    Войти 
    </v-btn> 
@@ -40,20 +40,25 @@
 import {mapActions} from 'vuex'
 export default {
    data: () => ({
-      loading: false,
-      showPassword: false,
       loginFields:{
+         loading: false,
+         showPassword: false,
          username:'user-1',
          password:'123456'
       }
    }),
+   
+//    components:{
+//     Admin
+//   },
 
    methods: {
       ...mapActions(['LOGIN']),
-      loginHandler(){
-         this.LOGIN(this.loginFields)
-      }
-   },
+      handleSubmit () {
+      this.LOGIN(this.loginFields)
+      },  
 }
+};
 </script>
-<style lang=""></style>
+<style lang="">
+</style>
