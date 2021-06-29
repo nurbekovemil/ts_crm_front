@@ -7,17 +7,18 @@
          <v-btn @click="Home" router to="/" plain icon>
          <v-icon>mdi-home</v-icon>
          </v-btn>
-         <v-btn plain small> Выйти </v-btn>
+         <v-btn plain small router to="/login"> Выйти</v-btn>
       </v-app-bar>
       <v-navigation-drawer v-model="drawer" app dark color="blue-grey darken-2">
          <v-list-item>
          <v-list-item-avatar>
-            <v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
+            <!-- <v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img> -->
+            <img v-bind:src="'./public/kse-icon-mini.png'" />
          </v-list-item-avatar>
 
          <v-list-item-content>
             <v-list-item-title>{{GET_USER.username}}</v-list-item-title>
-            <v-list-item-subtitle>admin</v-list-item-subtitle>
+            <v-list-item-subtitle  v-if="isAdmin">admin</v-list-item-subtitle>
          </v-list-item-content>
          </v-list-item>
          <v-divider></v-divider>
@@ -76,9 +77,21 @@
    <script>
    import {mapGetters} from 'vuex'
 
-   export default {
+export default {
+  computed : {
+      ...mapGetters(['GET_USER']),
+    },
+    async created() {
+         if (localStorage.getItem('user') === 'user') {
+           this.isUser = true
+         } else if (localStorage.getItem('user') === 'admin') {
+           this.isAdmin = true
+         }
+       },
       data: () => ({
-         cards: ['Today', 'Yesterday'],
+         isUser: false,
+         isAdmin: false,
+         cards: ['Заявку на продажу', 'Заявки на покупку'],
          drawer: null,
          links: [
             ['mdi-view-dashboard', 'Панель управления'],
@@ -88,8 +101,5 @@
             ['mdi-handshake', 'Зделки'],
          ],
       }),
-      computed: {
-         ...mapGetters(['GET_USER'])
-      }
    }
    </script>

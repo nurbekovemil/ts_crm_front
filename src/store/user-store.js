@@ -2,14 +2,18 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import router from '../router'
+
 Vue.use(Vuex, axios)
 
 export default{
    state: {
       isAuth: false,
-      user:{
-         username: 'Emil'
-      }
+      token: localStorage.getItem('token') || '',
+      user:{},
+      users:[
+         {id: 1, username: 'emil', password: '12345', role: 'ADMIN'},
+         {id: 2, username: 'marsel', password: '12345', role: 'USER'},
+      ]
    },
    mutations:{
       SET_USER(state, data){
@@ -17,11 +21,11 @@ export default{
       },
       SET_IS_AUTH(state, data){
          state.isAuth = data
-      }
+      },
    },
    actions:{
-      async LOGIN({commit, state}, data){
-         commit('SET_USER', {username: 'marsel'})
+      async LOGIN({commit}, s){
+         commit('SET_USER', {username: 'user'})
          commit('SET_IS_AUTH', true)
          router.push('/admin')
       }

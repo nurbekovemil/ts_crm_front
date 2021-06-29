@@ -26,6 +26,9 @@
       prepend-inner-icon="mdi-lock" 
       dense 
    ></v-text-field> 
+   <p class="request" slot="text" v-if="loading">
+          {{ request }}
+        </p>
    <v-btn
       dark 
       color="blue-grey darken-2" 
@@ -42,9 +45,10 @@ export default {
    data: () => ({
       loginFields:{
          loading: false,
+         request: 'Произошла ошибка при авторизации! Неверное имя или пароль!',
          showPassword: false,
-         username:'user-1',
-         password:'123456'
+         username:'',
+         password:''
       }
    }),
    
