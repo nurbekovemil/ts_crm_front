@@ -75,19 +75,12 @@
    </template>
 
    <script>
-   import {mapGetters} from 'vuex'
+import {mapGetters} from 'vuex'
 
 export default {
   computed : {
       ...mapGetters(['GET_USER']),
     },
-    async created() {
-         if (localStorage.getItem('user') === 'user') {
-           this.isUser = true
-         } else if (localStorage.getItem('user') === 'admin') {
-           this.isAdmin = true
-         }
-       },
       data: () => ({
          isUser: false,
          isAdmin: false,

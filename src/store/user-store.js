@@ -8,11 +8,10 @@ Vue.use(Vuex, axios)
 export default{
    state: {
       isAuth: false,
-      token: localStorage.getItem('token') || '',
       user:{},
       users:[
-         {id: 1, username: 'emil', password: '12345', role: 'ADMIN'},
-         {id: 2, username: 'marsel', password: '12345', role: 'USER'},
+         {id: 1, username: 'emil', password: '123', role: 'ADMIN'},
+         {id: 2, username: 'marsel', password: '123', role: 'USER'},
       ]
    },
    mutations:{
@@ -24,10 +23,10 @@ export default{
       },
    },
    actions:{
-      async LOGIN({commit}, s){
+      async LOGIN({commit}, state){
          commit('SET_USER', {username: 'user'})
          commit('SET_IS_AUTH', true)
-         router.push('/admin')
+         router.push('/') 
       }
    },
    getters:{
