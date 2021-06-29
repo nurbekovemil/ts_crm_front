@@ -42,6 +42,7 @@ router.beforeEach((to, from, next)=>{
     next('/admin')
     return
   }
+
   next()
 })
 
