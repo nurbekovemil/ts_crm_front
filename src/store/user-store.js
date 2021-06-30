@@ -20,7 +20,7 @@ export default{
    },
    actions:{
       async LOGIN({commit}, data){
-         axios.post('/user/login', data)
+         await axios.post('/user/login', data)
             .then(res => {
                const {data} = res
                localStorage.setItem('token', data.token)
@@ -31,6 +31,22 @@ export default{
             .catch(err => {
                commit('SET_IS_AUTH', false)
             })
+      },
+      async GET_ME({commit}){
+         if(localStorage.getItem('token')){
+            await axios.get('/user/me')
+            .then(res => {
+               const {data} = res
+               commit('SET_IS_AUTH', true)
+               commit('SET_USER', data.username)
+               router.push('/admin')
+            })
+            .catch(err => {
+               commit('SET_IS_AUTH', false)
+               localStorage.removeItem('token')
+               router.push('/login')
+            })
+         }
       },
       LOGOUT({commit}){
          localStorage.removeItem('token')
