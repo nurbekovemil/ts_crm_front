@@ -7,10 +7,10 @@
   >
   <v-toolbar-title>TS KSE</v-toolbar-title>
   <v-spacer></v-spacer>
-  <v-btn @click="Login" router to="/login" icon>
+  <v-btn router to="/login" icon>
     <v-icon>mdi-login</v-icon>
   </v-btn>
-    <v-btn @click="Home" router to="" icon>
+    <v-btn router to="/" icon>
       <v-icon>mdi-format-align-left</v-icon>
     </v-btn>
   </v-app-bar>
