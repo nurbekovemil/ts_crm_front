@@ -43,12 +43,11 @@
 import {mapActions} from 'vuex'
 export default {
    data: () => ({
+      loading: false,
+      showPassword: false,
       loginFields:{
-         loading: false,
-         request: 'Произошла ошибка при авторизации! Неверное имя или пароль!',
-         showPassword: false,
-         username:'',
-         password:''
+         username:'test',
+         password:'123456789'
       }
    }),
    

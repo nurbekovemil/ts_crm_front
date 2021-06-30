@@ -8,11 +8,7 @@ Vue.use(Vuex, axios)
 export default{
    state: {
       isAuth: false,
-      user:{},
-      users:[
-         {id: 1, username: 'emil', password: '123', role: 'ADMIN'},
-         {id: 2, username: 'marsel', password: '123', role: 'USER'},
-      ]
+      user:{}
    },
    mutations:{
       SET_USER(state, data){
@@ -23,10 +19,23 @@ export default{
       },
    },
    actions:{
-      async LOGIN({commit}, state){
-         commit('SET_USER', {username: 'user'})
-         commit('SET_IS_AUTH', true)
-         router.push('/') 
+      async LOGIN({commit}, data){
+         axios.post('/user/login', data)
+            .then(res => {
+               const {data} = res
+               localStorage.setItem('token', data.token)
+               commit('SET_USER', data.username)
+               commit('SET_IS_AUTH', true)
+               router.push('/admin')
+            })
+            .catch(err => {
+               commit('SET_IS_AUTH', false)
+            })
+      },
+      LOGOUT({commit}){
+         localStorage.removeItem('token')
+         commit('SET_IS_AUTH', false)
+         router.push('/login')
       }
    },
    getters:{
