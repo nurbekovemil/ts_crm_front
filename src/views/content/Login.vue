@@ -59,7 +59,8 @@ export default {
       ...mapActions(['LOGIN']),
       handleSubmit () {
       this.LOGIN(this.loginFields)
-      },  
+      },
+      
 }
 };
 </script>

@@ -7,12 +7,16 @@
   >
   <v-toolbar-title>TS KSE</v-toolbar-title>
   <v-spacer></v-spacer>
-  <v-btn router to="/login" icon>
-    <v-icon>mdi-login</v-icon>
+  <v-btn class="md-succes" router to="Login">
+    <template v-if="!GET_IS_AUTH" icon>
+      Войти
+      <v-icon >mdi-account</v-icon>
+    </template>
+    <template v-else>
+      {{GET_USER}}
+      <v-icon>mdi-account</v-icon>
+    </template>   
   </v-btn>
-    <v-btn router to="/" icon>
-      <v-icon>mdi-format-align-left</v-icon>
-    </v-btn>
   </v-app-bar>
     <v-main class="grey lighten-2">
           <v-container>
@@ -59,10 +63,14 @@
   
 </template>
 <script>
+import {mapActions, mapGetters} from 'vuex'
 import Login from './Login.vue'
 export default {
+  computed:{
+    ...mapGetters(['GET_IS_AUTH', 'GET_USER'])
+  },
   components:{
     Login
-  }
+  },
 }
 </script>
