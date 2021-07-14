@@ -7,12 +7,16 @@
   >
   <v-toolbar-title>TS KSE</v-toolbar-title>
   <v-spacer></v-spacer>
-  <v-btn router to="/login" icon>
-    <v-icon>mdi-login</v-icon>
+  <v-btn class="md-succes" router to="Login">
+    <template v-if="!GET_IS_AUTH" icon>
+      Войти
+      <v-icon >mdi-account</v-icon>
+    </template>
+    <template v-else>
+      {{GET_USER}}
+      <v-icon>mdi-account</v-icon>
+    </template>   
   </v-btn>
-    <v-btn router to="/" icon>
-      <v-icon>mdi-format-align-left</v-icon>
-    </v-btn>
   </v-app-bar>
     <v-main class="grey lighten-2">
           <v-container>
@@ -38,13 +42,35 @@
            </v-row>
           </v-container>
     </v-main>
+    <footer class="footer">
+    <div class="container">
+      <!-- <nav>
+        <ul>
+          <li>
+            <router-link to="/home"> Товарно-сырьевой сектор </router-link>
+          </li>
+        </ul>
+      </nav> -->
+      <div class="copyright text-center">
+        &copy; {{ new Date().getFullYear() }}
+        <a href="https://www.kse.kg/" target="_blank">
+          Kyrgyz Stock Exchange
+        </a>
+      </div>
+    </div>
+  </footer>
   </v-app>
+  
 </template>
 <script>
+import {mapActions, mapGetters} from 'vuex'
 import Login from './Login.vue'
 export default {
+  computed:{
+    ...mapGetters(['GET_IS_AUTH', 'GET_USER'])
+  },
   components:{
     Login
-  }
+  },
 }
 </script>

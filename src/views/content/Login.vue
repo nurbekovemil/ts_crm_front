@@ -47,7 +47,7 @@ export default {
       showPassword: false,
       loginFields:{
          username:'test',
-         password:'123456'
+         password:'123456789'
       }
    }),
    
@@ -59,7 +59,8 @@ export default {
       ...mapActions(['LOGIN']),
       handleSubmit () {
       this.LOGIN(this.loginFields)
-      },  
+      },
+      
 }
 };
 </script>

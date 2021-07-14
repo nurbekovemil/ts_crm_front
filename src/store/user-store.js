@@ -55,7 +55,7 @@ export default{
       LOGOUT({commit}){
          localStorage.removeItem('token')
          commit('SET_IS_AUTH', false)
-         router.push('/login')
+         router.push('/')
       }
    },
    getters:{
