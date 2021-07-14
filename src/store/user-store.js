@@ -1,53 +1,57 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
 import router from '../router'
-
-Vue.use(Vuex, axios)
+import api from './api'
+Vue.use(Vuex)
 
 export default{
    state: {
       isAuth: false,
-      user:{}
+      user:{},
+      userMenus: []
    },
    mutations:{
       SET_USER(state, data){
-         state.user = data
+         state.user = data.user
+         state.userMenus = data.menus
       },
       SET_IS_AUTH(state, data){
          state.isAuth = data
       },
    },
    actions:{
-      async LOGIN({commit}, data){
-         await axios.post('/user/login', data)
-            .then(res => {
-               const {data} = res
-               localStorage.setItem('token', data.token)
-               commit('SET_USER', data.username)
-               commit('SET_IS_AUTH', true)
-               router.push('/admin')
-            })
-            .catch(err => {
-               commit('SET_IS_AUTH', false)
-            })
-      },
-      async GET_ME({commit}){
-         if(localStorage.getItem('token')){
-            await axios.get('/user/me')
-            .then(res => {
-               const {data} = res
-               commit('SET_IS_AUTH', true)
-               commit('SET_USER', data.username)
-               router.push('/admin')
-            })
-            .catch(err => {
-               commit('SET_IS_AUTH', false)
-               localStorage.removeItem('token')
-               router.push('/login')
-            })
+      async LOGIN({commit}, loginData){
+         try {
+            const {data} = await api.userLogin(loginData)
+            localStorage.setItem('token', data.token)
+            commit('SET_IS_AUTH', true)
+            commit('SET_USER', data)
+
+            router.push('/dashboard')
+         } catch (error) {
+            localStorage.removeItem('token')
+            commit('SET_IS_AUTH', false)
+            console.log(error) //временная обработка ошибки
          }
       },
+      async GET_ME({commit}){
+         try {
+            if(!localStorage.getItem('token')) {
+               return
+            }
+            const {data} = await api.userGetMe()
+            commit('SET_IS_AUTH', true)
+            commit('SET_USER', data)
+            console.log(data)
+            router.push('/dashboard')
+         } catch (error) {
+            localStorage.removeItem('token')
+            commit('SET_IS_AUTH', false)
+            router.push('/login')
+            console.log(error) //временная обработка ошибки
+         }
+      },
+
       LOGOUT({commit}){
          localStorage.removeItem('token')
          commit('SET_IS_AUTH', false)
@@ -60,6 +64,9 @@ export default{
       },
       GET_IS_AUTH(state){
          return state.isAuth
+      },
+      GET_USER_MENU(state){
+         return state.userMenus
       }
    }
 }

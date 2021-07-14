@@ -1,8 +1,18 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/content/Home.vue'
-import Login from '../views/content/Login.vue'
+
+// admin pages
+import {Dashboard, Users, Orders, Deals,} from '../views/admin'
+
+// content pages
+import {Home, Login} from '../views/content'
+
+// admin layout
 import Admin from '../layouts/Admin.vue'
+
+// content layout
+// ...
+
 import store from '../store'
 Vue.use(VueRouter)
 
@@ -13,12 +23,33 @@ const routes = [
     component: Home
   },
   {
-    path: '/admin',
-    name: 'Admin',
+    path: '/dashboard',
     component: Admin,
     meta: {
       isAuth: true
-    }
+    },
+    children: [
+      {
+        path: '/',
+        name: 'Панель управления',
+        component: Dashboard,
+      },
+      {
+        path: '/dashboard/users',
+        name: 'Пользователи',
+        component: Users,
+      },
+      {
+        path: '/dashboard/orders',
+        name: 'Отчеты',
+        component: Orders,
+      },
+      {
+        path: '/dashboard/deals',
+        name: 'Сделки',
+        component: Deals,
+      },
+    ]
   },
   {
     path: '/login',
@@ -38,8 +69,8 @@ router.beforeEach((to, from, next)=>{
     next('/login')
     return
   }
-  if(to.path === '/login' && store.getters.GET_IS_AUTH){
-    next('/admin')
+  if(to.path == '/login' && store.getters.GET_IS_AUTH){
+    next('/dashboard')
     return
   }
 
