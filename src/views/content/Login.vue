@@ -46,7 +46,7 @@ export default {
       loading: false,
       showPassword: false,
       loginFields:{
-         username:'test',
+         username:'admin',
          password:'123456789'
       }
    }),

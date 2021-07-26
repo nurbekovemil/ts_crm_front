@@ -8,7 +8,8 @@ export default{
    state: {
       isAuth: false,
       user:{},
-      userMenus: []
+      userMenus: [],
+      users: [],
    },
    mutations:{
       SET_USER(state, data){
@@ -56,6 +57,13 @@ export default{
          localStorage.removeItem('token')
          commit('SET_IS_AUTH', false)
          router.push('/')
+      },
+      
+      async getUserList({commit}) {
+         try {
+           const {data} = await Api.UserList()
+           commit('setUsersList', data)
+         } catch (error) {}
       }
    },
    getters:{
@@ -67,6 +75,9 @@ export default{
       },
       GET_USER_MENU(state){
          return state.userMenus
-      }
+      },
+      getAllUsersList(state) {
+         return state.users
+       },
    }
 }

@@ -48,7 +48,7 @@ const routes = [
         path: '/dashboard/deals',
         name: 'Сделки',
         component: Deals,
-      },
+      }
     ]
   },
   {

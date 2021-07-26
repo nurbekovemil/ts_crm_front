@@ -18,7 +18,7 @@
 
             <v-list-item-content>
                <v-list-item-title>{{GET_USER.username}}</v-list-item-title>
-               <v-list-item-subtitle>{{GET_USER.role}}</v-list-item-subtitle>
+               <!-- <v-list-item-subtitle>{{GET_USER.role}}</v-list-item-subtitle> -->
             </v-list-item-content>
             </v-list-item>
             <v-divider></v-divider>
