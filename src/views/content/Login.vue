@@ -46,8 +46,13 @@ export default {
       loading: false,
       showPassword: false,
       loginFields:{
+<<<<<<< HEAD
          username:'admin',
          password:'123456789'
+=======
+         username:'test',
+         password:'123456'
+>>>>>>> 5fd0f5694a1850c052ec46ec4bbc97e9d70f55ce
       }
    }),
    

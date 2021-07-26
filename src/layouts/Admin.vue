@@ -2,7 +2,7 @@
       <v-app id="inspire">
          <v-app-bar flat class="white">
             <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-            <v-toolbar-title>TS KSE</v-toolbar-title>
+            <v-toolbar-title>TS KSE • {{this.$router.history.current.name}}</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-btn router to="/" plain icon>
             <v-icon>mdi-home</v-icon>
@@ -38,7 +38,13 @@
 
          <v-main class="pt-0 pl-0">
             <v-container>
-               <router-view/>
+               <v-row>
+                  <v-col>
+                     <v-card>
+                        <router-view/>
+                     </v-card>
+                  </v-col>
+               </v-row>
             </v-container>
          </v-main>
       </v-app>
