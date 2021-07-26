@@ -7,13 +7,13 @@
   >
   <v-toolbar-title>TS KSE</v-toolbar-title>
   <v-spacer></v-spacer>
-  <v-btn class="md-succes" router to="Login">
+  <v-btn class="md-succes" router to="/login">
     <template v-if="!GET_IS_AUTH" icon>
       Войти
       <v-icon >mdi-account</v-icon>
     </template>
     <template v-else>
-      {{GET_USER}}
+      {{GET_USER.username}}
       <v-icon>mdi-account</v-icon>
     </template>   
   </v-btn>
