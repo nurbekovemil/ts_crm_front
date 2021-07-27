@@ -1,5 +1,6 @@
 <template lang="">
    <v-simple-table>
+      <v-btn>Add user</v-btn>
     <template>
       <thead>
         <tr>
