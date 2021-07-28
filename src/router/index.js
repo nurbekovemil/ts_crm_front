@@ -7,11 +7,9 @@ import {Dashboard, Users, Orders, Deals,} from '../views/admin'
 // content pages
 import {Home, Login} from '../views/content'
 
-// admin layout
+// layouts
 import Admin from '../layouts/Admin.vue'
-
-// content layout
-// ...
+import Content from '../layouts/Content.vue'
 
 import store from '../store'
 Vue.use(VueRouter)
@@ -20,7 +18,19 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Content,
+    children: [
+      {
+        path: '/',
+        name: 'Home',
+        component: Home
+      },
+      {
+        path: '/login',
+        name: 'Login',
+        component: Login
+      }
+    ]
   },
   {
     path: '/dashboard',
@@ -51,11 +61,6 @@ const routes = [
       }
     ]
   },
-  {
-    path: '/login',
-    name: 'Login',
-    component: Login
-  }
 ]
 
 const router = new VueRouter({

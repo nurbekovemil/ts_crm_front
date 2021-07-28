@@ -3,6 +3,7 @@
       :loading="loading" 
       class="mx-xs-5 mx-auto my-12 py-5 px-10"
       max-width="430" 
+      max-height="1000" 
    > 
    <v-card-subtitle 
       class="text-center"
@@ -31,7 +32,7 @@
         </p>
    <v-btn
       dark 
-      color="blue-grey darken-2" 
+      color="indigo darken-2" 
       elevation="1" 
       @click="handleSubmit"
    > 
