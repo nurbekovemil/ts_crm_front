@@ -1,76 +1,157 @@
 <template>
-  <v-app>
-    <v-app-bar
-    flat
-    color="primary"
-    dark
-  >
-  <v-toolbar-title>TS KSE</v-toolbar-title>
-  <v-spacer></v-spacer>
-  <v-btn class="md-succes" router to="/login">
-    <template v-if="!GET_IS_AUTH" icon>
-      Войти
-      <v-icon >mdi-account</v-icon>
-    </template>
-    <template v-else>
-      {{GET_USER.username}}
-      <v-icon>mdi-account</v-icon>
-    </template>   
-  </v-btn>
-  </v-app-bar>
-    <v-main class="grey lighten-2">
-          <v-container>
-            <v-row> 
-            <template v-for="n in 3">
-            <v-col
-              :key="n"
-              class="mt-2"
-              cols="12"
+  <div>
+    <v-parallax
+      height="300"
+      src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
+    >
+      <v-row
+        align="center"
+        justify="center"
+      >
+        <v-col
+          class="text-center"
+          cols="5"
+        >
+          <h1 class="text-h4 font-weight-thin mb-4">
+            Товарный сырьевой сектор
+          </h1>
+          <v-text-field
+            solo
+            append-icon="mdi-magnify"
+            label="Введите описание товара"
+            @click:append="toggleMarker"
+          ></v-text-field>   
+        </v-col>
+      </v-row>
+    </v-parallax>
+    <v-row>
+      <v-col>
+        <h3 class="py-3">Заявки на продажу</h3>
+        <v-sheet
+            class="mx-auto"
+            elevation="0"
+            max-width="100%"
+          >
+            <v-slide-group
+              v-model="model"
+              class="pa-4"
+              show-arrows
             >
-              <strong>Category {{ n }}</strong>
-            </v-col>
+              <v-slide-item
+                v-for="n in 15"
+                :key="n"
+                v-slot="{ active, toggle }"
+              >
+                <v-card
+                  :color="active ? 'primary' : 'grey lighten-1'"
+                  class="ma-4"
+                  height="100"
+                  width="250"
+                  :dark="active ? true : false"
+                  @click="toggle"
+                >
+                  <v-card-title>title</v-card-title>
+                </v-card>
+              </v-slide-item>
+            </v-slide-group>
 
-            <v-col
-              v-for="j in 4"
-              :key="`${n}${j}`"
-              cols="6"
-              md="2"
+            <v-expand-transition>
+              <v-sheet
+                v-if="model != null"
+                height="200"
+                tile
+              >
+                <v-row
+                  class="fill-height"
+                  align="center"
+                  justify="center"
+                >
+                  <h3 class="text-h6">
+                    Selected {{ model }}
+                  </h3>
+                </v-row>
+              </v-sheet>
+            </v-expand-transition>
+        </v-sheet>
+      </v-col>
+      <v-col>
+        <h3 class="py-3">Заявки на покупку</h3>
+        <v-sheet
+            class="mx-auto"
+            elevation="0"
+            max-width="100%"
+          >
+            <v-slide-group
+              v-model="model"
+              class="pa-4"
+              show-arrows
             >
-              <v-sheet height="150" ></v-sheet>
-            </v-col>
-          </template>
-           </v-row>
-          </v-container>
-    </v-main>
-    <footer class="footer">
-    <div class="container">
-      <!-- <nav>
-        <ul>
-          <li>
-            <router-link to="/home"> Товарно-сырьевой сектор </router-link>
-          </li>
-        </ul>
-      </nav> -->
-      <div class="copyright text-center">
-        &copy; {{ new Date().getFullYear() }}
-        <a href="https://www.kse.kg/" target="_blank">
-          Kyrgyz Stock Exchange
-        </a>
-      </div>
-    </div>
-  </footer>
-  </v-app>
-  
+              <v-slide-item
+                v-for="n in 15"
+                :key="n"
+                v-slot="{ active, toggle }"
+              >
+                <v-card
+                  :color="active ? 'primary' : 'grey lighten-1'"
+                  class="ma-4"
+                  height="100"
+                  width="250"
+                  @click="toggle"
+                >
+                  <v-row
+                    class="fill-height"
+                    align="center"
+                    justify="center"
+                  >
+                    <v-scale-transition>
+                      <v-icon
+                        v-if="active"
+                        color="white"
+                        size="48"
+                        v-text="'mdi-close-circle-outline'"
+                      ></v-icon>
+                    </v-scale-transition>
+                  </v-row>
+                </v-card>
+              </v-slide-item>
+            </v-slide-group>
+
+            <v-expand-transition>
+              <v-sheet
+                v-if="model != null"
+                height="200"
+                tile
+              >
+                <v-row
+                  class="fill-height"
+                  align="center"
+                  justify="center"
+                >
+                  <h3 class="text-h6">
+                    Selected {{ model }}
+                  </h3>
+                </v-row>
+              </v-sheet>
+            </v-expand-transition>
+        </v-sheet>
+      </v-col>
+    </v-row>
+  </div>
 </template>
+
 <script>
 import {mapActions, mapGetters} from 'vuex'
-import Login from './Login.vue'
 export default {
+  data: () => ({
+    model: null
+  }),
   computed:{
     ...mapGetters(['GET_IS_AUTH', 'GET_USER'])
   },
-  components:{
-    Login
-  },
+  methods: {
+    toggleMarker(){
+      console.log('text')
+    }
+  }
 }
 </script>

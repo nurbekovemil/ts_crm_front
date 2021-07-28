@@ -1,21 +1,14 @@
 <template>
-  <footer class="footer">
-    <div class="container">
-      <nav>
-        <ul>
-          <li>
-            <router-link to="/"> Товарно-сырьевой сектор </router-link>
-          </li>
-        </ul>
-      </nav>
-      <div class="copyright text-center">
-        &copy; {{ new Date().getFullYear() }}
-        <a href="https://www.kse.kg/" target="_blank">
-          Kyrgyz Stock Exchange
-        </a>
+    <footer class="footer">
+      <div class="container">
+        <div class="copyright text-center">
+          &copy; {{ new Date().getFullYear() }}
+          <a href="https://www.kse.kg/" target="_blank">
+            Kyrgyz Stock Exchange
+          </a>
+        </div>
       </div>
-    </div>
-  </footer>
+    </footer> 
 </template>
 <script>
 export default {}
