@@ -2,12 +2,9 @@
    <div>
       <h1>Товары</h1>
    </div>
-</template>
+     </template>
 <script>
-export default {
-   
-}
+export default {};
 </script>
 <style lang="">
-   
 </style>
