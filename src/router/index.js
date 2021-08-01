@@ -5,7 +5,7 @@ import VueRouter from 'vue-router'
 import {Dashboard, Users, Orders, Deals, Products} from '../views/admin'
 
 // content pages
-import {Home, Login} from '../views/content'
+import {Handbook, Home, Login} from '../views/content'
 
 // layouts
 import Admin from '../layouts/Admin.vue'
@@ -24,6 +24,11 @@ const routes = [
         path: '/',
         name: 'Home',
         component: Home
+      },
+      {
+        path: '/handbooks',
+        name: 'Справочник',
+        component: Handbook
       },
       {
         path: '/login',

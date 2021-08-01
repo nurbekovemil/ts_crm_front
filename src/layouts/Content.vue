@@ -2,22 +2,25 @@
   <v-app>
     <v-app-bar
     flat
-    color="indigo darken-2"
+    color="primary lighten-1"
     dark
   >
   <v-toolbar-title>TS KSE</v-toolbar-title>
    <v-spacer></v-spacer>
       <v-btn   elevation="0" plain small  router to="/">
-      Главная 
-   </v-btn>
-    <v-btn   elevation="0" plain small  router to="/login">
-      <template v-if="!GET_IS_AUTH" icon>
-        Войти
-      </template>
-      <template v-else>
-        {{GET_USER.username}}
-      </template>   
-    </v-btn>
+        Главная 
+      </v-btn>
+      <v-btn plain small  router to="/handbooks">
+        Справочник 
+      </v-btn>
+      <v-btn   elevation="0" plain small  router to="/login">
+        <template v-if="!GET_IS_AUTH" icon>
+          Войти
+        </template>
+        <template v-else>
+          {{GET_USER.username}}
+        </template>   
+      </v-btn>
   </v-app-bar>
 
     <v-main class="grey lighten-5">

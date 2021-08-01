@@ -1,16 +1,15 @@
 <template lang="">
    <v-simple-table>
-      <v-btn>Add user</v-btn>
     <template>
       <thead>
         <tr>
            <th width="5%">
            </th>
             <th class="text-left">
-               Name
+               Пользователь
             </th>
             <th class="text-left">
-               Role
+               Роль
             </th>
         </tr>
       </thead>
