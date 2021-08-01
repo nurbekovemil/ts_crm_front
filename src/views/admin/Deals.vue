@@ -1,6 +1,5 @@
 <template lang="">
    <div>
-      <h1>Сделки</h1>
    </div>
 </template>
 <script>
