@@ -32,6 +32,7 @@
   </v-simple-table>
 </template>
 <script>
+import { mapActions, mapGetters } from "vuex";
 export default {
    data: () => ({
       selectedItem: 1,
@@ -44,5 +45,4 @@ export default {
 }
 </script>
 <style lang="">
-   
 </style>

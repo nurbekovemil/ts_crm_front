@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 // admin pages
-import {Dashboard, Users, Orders, Deals,} from '../views/admin'
+import {Dashboard, Users, Orders, Deals, Products} from '../views/admin'
 
 // content pages
 import {Handbook, Home, Login} from '../views/content'
@@ -64,6 +64,11 @@ const routes = [
         name: 'Сделки',
         component: Deals,
       },
+      {
+        path: '/dashboard/products',
+        name: 'Товары',
+        component: Products,
+      }
     ]
   },
 ]
