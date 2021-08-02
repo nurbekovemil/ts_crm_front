@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 // admin pages
-import {Dashboard, Users, Orders, Deals, Products} from '../views/admin'
+import {Dashboard, Users, Orders, Deals, Products, Profile} from '../views/admin'
 
 // content pages
 import {Handbook, Home, Login} from '../views/content'
@@ -68,6 +68,11 @@ const routes = [
         path: '/dashboard/products',
         name: 'Товары',
         component: Products,
+      },
+      {
+        path: '/profile',
+        name: 'Profile',
+        component: Profile
       }
     ]
   },
