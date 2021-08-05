@@ -1,5 +1,6 @@
 <template>
    <v-row>
+
       <v-col cols="3">
          <v-card
             class="mx-auto"
@@ -11,7 +12,6 @@
                dense
             >
                <v-list-item-group
-                  v-model="selectedItem"
                   color="primary"
                >
                   <v-list-item
@@ -35,7 +35,8 @@
          <v-card
             class="mx-auto"
             max-width="100%"
-         >
+         >  
+          
             <v-sheet class="pa-4 primary lighten-1">
                <v-text-field
                v-model="search"
@@ -49,29 +50,51 @@
                ></v-text-field>
 
             </v-sheet>
-            <v-card-text>
-               <v-treeview
-               :items="items"
-               :search="search"
-               :filter="filter"
-               :open.sync="open"
-               >
-               <template v-slot:prepend="{ item }">
-                  <v-icon
-                     v-if="item.children"
-                     v-text="`mdi-${item.id === 1 ? 'home-variant' : 'folder-network'}`"
-                  ></v-icon>
-               </template>
-               </v-treeview>
-            </v-card-text>
+            <v-row>
+              <v-col cols="6">
+                <v-card-text>
+                  <v-treeview
+                  :active.sync="active"
+                  :items="items"
+                  :search="search"
+                  :open.sync="open"
+                  activatable
+                  return-object
+                  selected-color="indigo"
+                  open-on-click
+                  >
+                    <template v-slot:prepend="{ item }">
+                        <v-icon
+                          v-if="item.children"
+                          v-text="`mdi-${item.id === 1 ? 'home-variant' : 'folder-network'}`"
+                        ></v-icon>
+                    </template>
+                  </v-treeview>
+                </v-card-text>
+              </v-col>
+              <v-divider 
+                vertical 
+                v-if="active.length"
+                class="my-6"
+                ></v-divider>
+              <v-col cols="6">
+                <v-scroll-y-transition mode="out-in">
+                  <v-card flat>
+                    <v-card-title v-if="active.length">{{active[0].name}}</v-card-title>
+                  </v-card>
+                </v-scroll-y-transition>
+              </v-col>
+            </v-row>
          </v-card>
       </v-col>
+
    </v-row>
 </template>
 <script>
   export default {
     data: () => ({
-       selectedItem: 0,
+      active:[],
+      selectedItem: null,
       items2: [
         { text: 'My Files', icon: 'mdi-folder' },
         { text: 'Shared with me', icon: 'mdi-account-multiple' },
@@ -149,14 +172,6 @@
       ],
       open: [1, 2],
       search: null,
-      caseSensitive: false,
-    }),
-    computed: {
-      filter () {
-        return this.caseSensitive
-          ? (item, search, textKey) => item[textKey].indexOf(search) > -1
-          : undefined
-      },
-    },
+    })
   }
 </script>
