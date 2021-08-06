@@ -13,7 +13,7 @@
           cols="5"
         >
           <h1 class="text-h4 font-weight-thin mb-4">
-            Товарный сырьевой сектор
+            Товарно сырьевой сектор
           </h1>
           <v-text-field
             solo

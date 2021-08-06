@@ -11,16 +11,28 @@
       </v-btn>
       <v-btn @click="logout" plain small> Выйти</v-btn>
     </v-app-bar>
-    <v-navigation-drawer v-model="drawer" app dark color="blue-grey darken-2" >
-      <v-list-group no-action :value="false" prepend-icon="mdi-account-circle" >
+    <v-navigation-drawer v-model="drawer" app dark color="blue-grey darken-2">
+      <v-list-group no-action :value="false" prepend-icon="mdi-account-circle">
         <template v-slot:activator>
           <v-list-item-title>{{ GET_USER.username }}</v-list-item-title>
         </template>
-        <v-list-item v-for="(item, i) in 3" :key="i" link>
-          <v-list-item-title v-text="item">
-            
-          </v-list-item-title>
-        </v-list-item>
+        <!-- <v-list-item v-for="(item, i) in 3" :key="i" link> -->
+        
+          <!-- <v-list-item-title v-text="item">   
+          </v-list-item-title> -->
+          <v-list-item
+            v-for="(item, i) in admins"
+            router
+            :to="item.route"
+            :key="i"
+            link
+          >
+          <v-list-item-icon>
+              <v-icon v-text="item.icon" class="ma-2"></v-icon>
+            </v-list-item-icon>
+            <v-list-item-title v-text="item.title"></v-list-item-title>
+          </v-list-item>
+        
       </v-list-group>
 
       <v-divider> </v-divider>
@@ -63,8 +75,15 @@ import { mapActions, mapGetters } from "vuex";
 
 export default {
   data: () => ({
-    cards: ["Заявку на продажу", "Заявки на покупку"],
     drawer: null,
+    admins: [
+      {
+        route: '/dashboard/profile', icon: 'mdi-account-multiple-outline', title:'Мой профиль'
+      },
+      {
+        route: '/dashboard/settings', icon: 'mdi-wrench', title:'Настройки'
+      },
+      ],
   }),
   computed: {
     ...mapGetters(["GET_USER", "GET_USER_MENU"]),
