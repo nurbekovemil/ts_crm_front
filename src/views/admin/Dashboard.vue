@@ -31,7 +31,7 @@
       </template>
     </v-data-table>
 
-    <h4><br>Заявки на продажу</h4>
+    <h4><br>Заявки на покупку</h4>
     <v-data-table
       :headers="headers"
       :items="desserts"
