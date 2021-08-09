@@ -15,8 +15,8 @@
       </thead>
       <tbody>
         <tr
-          v-for="item in 10"
-          :key="item"
+          v-for="user in GET_USER_LIST"
+          :key="user.id"
         >
          <td>
             <v-avatar
@@ -24,8 +24,8 @@
                size="36"
             ></v-avatar>
          </td>
-          <td>User {{ item }}</td>
-          <td>Role {{ item }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.role }}</td>
         </tr>
       </tbody>
     </template>
@@ -36,12 +36,20 @@ import { mapActions, mapGetters } from "vuex";
 export default {
    data: () => ({
       selectedItem: 1,
-      items: [
-        { text: 'Admin', icon: 'mdi-account' },
-        { text: 'Emil', icon: 'mdi-account' },
-        { text: 'Marsel', icon: 'mdi-account' },
-      ],
+      
    }),
+   computed:{
+      ...mapGetters(['GET_USER_LIST']),
+   },
+   mounted(){
+      this.get_User_Lists()
+   },
+   methods:{
+      ...mapActions(['USERLIST']),
+      get_User_Lists(){
+         this.USERLIST()
+      }
+   }
 }
 </script>
 <style lang="">

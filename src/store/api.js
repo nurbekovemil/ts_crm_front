@@ -19,7 +19,7 @@ export default {
    userGetMe(){
       return api.get('/users/me')
    },
-   UserList(){
-      return Api.get('/users/')
+   userList(){
+      return api.get('/users/')
     },
 }
