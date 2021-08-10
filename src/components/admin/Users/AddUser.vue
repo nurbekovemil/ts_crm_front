@@ -35,15 +35,21 @@
                </v-col>
                <v-col cols="12">
                   <v-text-field
-                     label="Email"
+                     label="Логин"
                      required
+                     outlined
+                     dense
+                     prepend-inner-icon="mdi-account"
                   ></v-text-field>
                </v-col>
                <v-col cols="12">
                   <v-text-field
-                     label="Password"
+                     label="Пароль"
                      type="password"
                      required
+                     outlined
+                     dense
+                     prepend-inner-icon="mdi-lock"
                   ></v-text-field>
                </v-col>
                <v-col
@@ -52,7 +58,7 @@
                >
                   <v-select
                      :items="['1', '2']"
-                     label="Role"
+                     label="Роль"
                      required
                   ></v-select>
                </v-col>
@@ -71,14 +77,14 @@
                text
                @click="closeAddUserDialog"
             >
-               Close
+               Закрыть
             </v-btn>
             <v-btn
                color="blue darken-1"
                text
                @click="closeAddUserDialog"
             >
-               Add
+               Добавить
             </v-btn>
          </v-card-actions>
          </v-card>

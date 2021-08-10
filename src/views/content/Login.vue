@@ -11,7 +11,8 @@
       Авторизация
    </v-card-subtitle> 
    <v-text-field
-      v-model="loginFields.username"
+      v-model="loginFields.username" 
+      outlined 
       label="Логин"
       prepend-inner-icon="mdi-account" 
       dense 
@@ -21,6 +22,7 @@
       :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
       :type="showPassword ? 'text':'password'"
       @click:append="showPassword = !showPassword"
+      outlined
       label="Пароль" 
       prepend-inner-icon="mdi-lock" 
       dense 
