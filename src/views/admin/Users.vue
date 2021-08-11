@@ -76,7 +76,7 @@
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
-import AddUser from '@/components/admin/Users/AddUser.vue'
+import AddUser from "@/components/admin/Users/AddUser.vue";
 export default {
   data: () => ({
     dialog: false,
@@ -87,7 +87,7 @@ export default {
     ],
   }),
   components: {
-    AddUser
+    AddUser,
   },
   computed: {
     ...mapGetters(["GET_USER_LIST"]),
@@ -101,7 +101,7 @@ export default {
       this.USERLIST();
     },
     addUser() {
-      this.dialog = !this.dialog
+      this.dialog = !this.dialog;
     },
   },
 };

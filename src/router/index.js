@@ -71,12 +71,12 @@ const routes = [
       },
       {
         path: '/dashboard/profile',
-        name: 'Profile',
+        name: 'Профиль',
         component: Profile
       },
       {
         path: '/dashboard/settings',
-        name: 'Settings',
+        name: 'Настройки',
         component: Settings
       }
     ]
