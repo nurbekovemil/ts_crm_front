@@ -1,42 +1,40 @@
 <template>
-  <v-card class="overflow-hidden" color="light-blue lighten-3" dark>
-    <v-toolbar flat color="light-blue">
-      <v-icon>mdi-wrench</v-icon>
-      <v-toolbar-title class="font-weight-light">
+  <v-card class="overflow-hidden">
+    <v-toolbar flat>
+      <v-icon>mdi-cog-outline</v-icon>
+      <v-toolbar-title class="font-weight-light ma-4">
         Сменить пароль
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn
-        color="light-blue lighten-3"
-        fab
-        small
-        @click="isEditing = !isEditing"
-      >
-        <v-icon v-if="isEditing"> mdi-close </v-icon>
-        <v-icon v-else> mdi-pencil </v-icon>
-      </v-btn>
     </v-toolbar>
 
-    <v-col cols="12" sm="6">
-      <v-text-field
-        :disabled="!isEditing"
-        label="Новый пароль"
-        hint=""
-      ></v-text-field>
-    </v-col>
+    <v-row class="px-3">
+      <v-col cols="6" sm="6">
+        <v-text-field
+          label="Новый пароль"
+          :append-icon="newPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="newPassword ? 'text' : 'password'"
+          @click:append="newPassword = !newPassword"
+          outlined
+          dense
+        ></v-text-field>
+      </v-col>
 
-    <v-col cols="12" sm="6">
-      <v-text-field
-        :disabled="!isEditing"
-        label="Подтверждение пароля"
-        hint=""
-        persistent-hint
-      ></v-text-field>
-    </v-col>
+      <v-col cols="6" sm="6">
+        <v-text-field
+          label="Подтверждение пароля"
+          :append-icon="confirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="confirmPassword ? 'text' : 'password'"
+          @click:append="confirmPassword = !confirmPassword"
+          outlined
+          dense
+        ></v-text-field>
+      </v-col>
+    </v-row>
     <v-divider></v-divider>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn :disabled="!isEditing" color="success" @click="save"> Save </v-btn>
+      <v-btn color="success" @click="save"> Сохранить </v-btn>
     </v-card-actions>
     <v-snackbar v-model="hasSaved" :timeout="2000" absolute bottom left>
       Your profile has been updated
@@ -48,6 +46,8 @@
 export default {
   data() {
     return {
+      confirmPassword: false,
+      newPassword: false,
       hasSaved: false,
       isEditing: null,
       model: null,
