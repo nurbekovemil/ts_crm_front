@@ -1,5 +1,6 @@
 <template lang="">
-   <v-simple-table>
+  <v-card>
+    <v-simple-table>
     <template>
       <thead>
         <tr>
@@ -27,10 +28,9 @@
           :key="user.id"
         >
          <td>
-            <v-avatar
-               color="grey darken-1"
-               size="36"
-            ></v-avatar>
+            <v-avatar size="36">
+              <img src="https://cdn.vuetifyjs.com/images/john.jpg" />
+            </v-avatar>
          </td>
           <td>{{ user.username }}</td>
           <td>{{ user.role }}</td>
@@ -73,6 +73,7 @@
     </template>
       <AddUser :dialog="dialog" @closeAddUserDialog="addUser"/>
   </v-simple-table>
+  </v-card>
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
@@ -82,8 +83,8 @@ export default {
     dialog: false,
     selectedItem: 1,
     items: [
-      { id: 1, title: "edit", icon: "mdi-pencil" },
-      { id: 2, title: "remove", icon: "mdi-close" },
+      { id: 1, title: "Редактировать", icon: "mdi-pencil" },
+      { id: 2, title: "Удалить", icon: "mdi-delete" },
     ],
   }),
   components: {
