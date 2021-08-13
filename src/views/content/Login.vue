@@ -46,6 +46,7 @@
 <script>
 import { mapActions } from "vuex";
 export default {
+
   data: () => ({
     loading: false,
     showPassword: false,
@@ -54,10 +55,6 @@ export default {
       password: "123456",
     },
   }),
-
-  //    components:{
-  //     Admin
-  //   },
 
   methods: {
     ...mapActions(["LOGIN"]),
