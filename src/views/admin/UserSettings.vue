@@ -8,7 +8,7 @@
       <v-spacer></v-spacer>
     </v-toolbar>
 
-    <v-row class="px-3">
+    <v-row class="pa-3">
       <v-col cols="6" sm="6">
         <v-text-field
           label="Новый пароль"
@@ -17,6 +17,7 @@
           @click:append="newPassword = !newPassword"
           outlined
           dense
+          prepend-inner-icon="mdi-lock"
         ></v-text-field>
       </v-col>
 
@@ -28,6 +29,7 @@
           @click:append="confirmPassword = !confirmPassword"
           outlined
           dense
+          prepend-inner-icon="mdi-lock"
         ></v-text-field>
       </v-col>
     </v-row>
@@ -37,7 +39,7 @@
       <v-btn color="success" @click="save"> Сохранить </v-btn>
     </v-card-actions>
     <v-snackbar v-model="hasSaved" :timeout="2000" absolute bottom left>
-      Your profile has been updated
+      Ваш профиль был обновлен
     </v-snackbar>
   </v-card>
 </template>
