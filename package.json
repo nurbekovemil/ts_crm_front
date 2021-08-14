@@ -7,6 +7,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@material-ui/core": "^4.12.3",
     "axios": "^0.21.1",
     "bootstrap-icons": "^1.5.0",
     "core-js": "^3.6.5",

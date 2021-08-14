@@ -10,6 +10,7 @@ export default{
       user:{},
       userMenus: [],
       users: [],
+      usersList: [],
    },
    mutations:{
       SET_USER(state, data){
@@ -19,6 +20,9 @@ export default{
       SET_IS_AUTH(state, data){
          state.isAuth = data
       },
+      SETUSERSLIST(state, usersList) {
+         state.usersList = usersList
+       },
    },
    actions:{
       async LOGIN({commit}, loginData){
@@ -59,12 +63,13 @@ export default{
          router.push('/')
       },
       
-      async getUserList({commit}) {
+      async USERLIST({commit}) {
          try {
-           const {data} = await Api.UserList()
-           commit('setUsersList', data)
-         } catch (error) {}
-      }
+           const {data} = await api.userList()
+           commit('SETUSERSLIST', data)
+         } catch (error) {
+         }
+      },
    },
    getters:{
       GET_USER(state) {
@@ -76,8 +81,8 @@ export default{
       GET_USER_MENU(state){
          return state.userMenus
       },
-      getAllUsersList(state) {
-         return state.users
+      GET_USER_LIST(state) {
+         return state.usersList
        },
    }
 }
