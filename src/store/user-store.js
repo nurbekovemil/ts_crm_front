@@ -22,7 +22,7 @@ export default{
       },
       SETUSERSLIST(state, usersList) {
          state.usersList = usersList
-       },
+      },
    },
    actions:{
       async LOGIN({commit}, loginData){
@@ -31,7 +31,6 @@ export default{
             localStorage.setItem('token', data.token)
             commit('SET_IS_AUTH', true)
             commit('SET_USER', data)
-
             router.push('/dashboard')
          } catch (error) {
             localStorage.removeItem('token')
@@ -63,6 +62,15 @@ export default{
          router.push('/')
       },
       
+      async CREATEUSER({dispatch}, user){
+         try {
+            const {data} = await api.createUser(user)
+            dispatch('USERLIST')
+         } catch (error) {
+            console.log(error)
+         }
+      },
+
       async USERLIST({commit}) {
          try {
            const {data} = await api.userList()
@@ -70,6 +78,15 @@ export default{
          } catch (error) {
          }
       },
+
+      async DELETEUSER({dispatch}, id){
+         try {
+            const {data} = await api.deleteUser(id)
+            dispatch('USERLIST')
+         } catch (error) {
+            console.log(error)
+         }
+      }
    },
    getters:{
       GET_USER(state) {

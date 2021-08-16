@@ -58,7 +58,8 @@
                 :key="i"
                 link
                 dense
-                @click="test(item.id)"
+                @click="delete_User(item.id)"
+
               >
               <v-list-item-icon>
                 <v-icon v-text="item.icon"></v-icon>
@@ -73,7 +74,7 @@
       </tbody>
     </template>
       <AddUser :dialog="dialog" @closeAddUserDialog="addUser"/>
-      <EditUser :editDialog="editDialog" @closeEditUserDialog="editUser" />
+      <EditUгтser :editDialog="editDialog" @closeEditUserDialog="editUser" />
   </v-simple-table>
   </v-card>
 </template>
@@ -102,16 +103,17 @@ export default {
     this.get_User_Lists();
   },
   methods: {
-    ...mapActions(["USERLIST"]),
+    ...mapActions(["USERLIST", "DELETEUSER"]),
     get_User_Lists() {
       this.USERLIST();
     },
     addUser() {
       this.dialog = !this.dialog;
     },
-    editUser() {
-      this.editDialog = !this.editDialog;
-    },
+    deleteUser(id){
+      console.log(id)
+      this.DELETEUSER(id)
+    }
   },
 };
 </script>
