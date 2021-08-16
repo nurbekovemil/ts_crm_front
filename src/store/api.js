@@ -22,4 +22,7 @@ export default {
    userList(){
       return api.get('/users/')
     },
+   deleteUser(id){
+       return api.delete('/users/' + id)
+    },
 }

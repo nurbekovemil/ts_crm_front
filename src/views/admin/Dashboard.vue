@@ -66,9 +66,6 @@
 <script>
 import {mapActions, mapGetters} from 'vuex'
 export default {
-   // data: () => ({     
-   //    // cards: ['Заявку на продажу', 'Заявки на покупку'],
-   // }),
    data () {
       return {
         search: '',

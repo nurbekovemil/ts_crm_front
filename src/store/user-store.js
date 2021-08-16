@@ -70,6 +70,15 @@ export default{
          } catch (error) {
          }
       },
+      async DELETEUSER({commit, dispatch}, id) {
+         try {
+            
+           await api.deleteUser(id)
+           dispatch('USERLIST')
+         } catch (err) {
+           return err
+         }
+       },
    },
    getters:{
       GET_USER(state) {

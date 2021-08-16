@@ -57,7 +57,8 @@
                 :key="i"
                 link
                 dense
-                @click="test(item.id)"
+                @click="delete_User(item.id)"
+
               >
               <v-list-item-icon>
                 <v-icon v-text="item.icon"></v-icon>
@@ -82,7 +83,7 @@ export default {
     dialog: false,
     selectedItem: 1,
     items: [
-      { id: 1, title: "edit", icon: "mdi-pencil" },
+      { id: 1, title: "edit", icon: "mdi-pencil"  },
       { id: 2, title: "remove", icon: "mdi-close" },
     ],
   }),
@@ -96,13 +97,16 @@ export default {
     this.get_User_Lists();
   },
   methods: {
-    ...mapActions(["USERLIST"]),
+    ...mapActions(["USERLIST", "DELETEUSER"]),
     get_User_Lists() {
       this.USERLIST();
     },
     addUser() {
       this.dialog = !this.dialog;
     },
+    delete_User(id){
+      this.DELETEUSER(id);
+    }
   },
 };
 </script>
