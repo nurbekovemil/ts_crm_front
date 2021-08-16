@@ -57,7 +57,12 @@
                 :key="i"
                 link
                 dense
+<<<<<<< HEAD
                 @click="deleteUser(user.id)"
+=======
+                @click="delete_User(item.id)"
+
+>>>>>>> b3094fa7e29958403cf9ee0407e38170bf3083ab
               >
               <v-list-item-icon>
                 <v-icon v-text="item.icon"></v-icon>
