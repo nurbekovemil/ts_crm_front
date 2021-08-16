@@ -34,7 +34,7 @@
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6">
-                <v-select :items="['1', '2']" label="Роль" required></v-select>
+                <v-select :items="['1', '2']" label="Роль"></v-select>
               </v-col>
               <v-col cols="12" sm="6"> </v-col>
             </v-row>
@@ -42,10 +42,8 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="closeAddUserDialog">
-            Закрыть
-          </v-btn>
-          <v-btn color="blue darken-1" text @click="closeAddUserDialog">
+          <v-btn color="red" text @click="closeAddUserDialog"> Закрыть </v-btn>
+          <v-btn color="success" text @click="closeAddUserDialog">
             Добавить
           </v-btn>
         </v-card-actions>
@@ -54,12 +52,11 @@
   </v-row>
 </template>
 
-
-      <script>
+<script>
 export default {
   props: ["dialog"],
   data: () => ({
-     showPassword: false,
+    showPassword: false,
   }),
   methods: {
     closeAddUserDialog() {
@@ -69,5 +66,5 @@ export default {
 };
 </script>
 
-      <style lang="">
+<style lang="">
 </style>`
