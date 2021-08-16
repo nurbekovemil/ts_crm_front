@@ -1,17 +1,14 @@
 <template>
   <v-app id="inspire">
-    <v-app-bar flat class="white">
+    <v-app-bar app flat class="white">
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title
-        >TS KSE • {{ this.$router.history.current.name }}</v-toolbar-title
-      >
+      <v-toolbar-title>{{ this.$router.history.current.name }}</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn router to="/" plain icon>
         <v-icon>mdi-home</v-icon>
       </v-btn>
       <v-btn @click="logout" plain small> Выйти</v-btn>
     </v-app-bar>
-
     <v-navigation-drawer
       v-model="drawer"
       app
@@ -19,13 +16,27 @@
       src="../assets/sidebar-5.jpg"
       color="blue-grey darken-2"
     >
-      <v-list-group  no-action nav :value="false" prepend-icon="mdi-account-circle">
+      <v-list-item>
+        <v-list-item-avatar tile>
+          <v-img max-width="50" src="../assets/avatar.png" />
+        </v-list-item-avatar>
+        <v-list-item-content>
+          <v-list-item-title class="text-h6"> TS KSE </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      <v-divider> </v-divider>
+
+      <v-list-group
+        no-action
+        nav
+        :value="false"
+        prepend-icon="mdi-account"
+      >
         <template v-slot:activator>
           <v-list-item-title>{{ GET_USER.username }}</v-list-item-title>
         </template>
         <v-list nav dense>
           <v-list-item
-            
             v-for="(item, i) in admins"
             router
             :to="item.route"
@@ -35,7 +46,7 @@
             <v-list-item-icon>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>{{item.title}}</v-list-item-title>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-list-group>
@@ -63,19 +74,12 @@
 
     <v-main class="pt-0 pl-0">
       <v-container>
-        <v-row>
-          <v-col>
-            <v-card>
-              <router-view />
-            </v-card>
-          </v-col>
-        </v-row>
+        <router-view />
       </v-container>
     </v-main>
   </v-app>
 </template>
-
-      <script>
+<script>
 import { mapActions, mapGetters } from "vuex";
 export default {
   data: () => ({
