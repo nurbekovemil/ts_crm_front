@@ -57,7 +57,7 @@
                 :key="i"
                 link
                 dense
-                @click="test(item.id)"
+                @click="deleteUser(user.id)"
               >
               <v-list-item-icon>
                 <v-icon v-text="item.icon"></v-icon>
@@ -97,13 +97,17 @@ export default {
     this.get_User_Lists();
   },
   methods: {
-    ...mapActions(["USERLIST"]),
+    ...mapActions(["USERLIST", "DELETEUSER"]),
     get_User_Lists() {
       this.USERLIST();
     },
     addUser() {
       this.dialog = !this.dialog;
     },
+    deleteUser(id){
+      console.log(id)
+      this.DELETEUSER(id)
+    }
   },
 };
 </script>
