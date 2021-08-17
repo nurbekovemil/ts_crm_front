@@ -14,7 +14,7 @@
             </th>
             <th class="text-right">
                <v-btn
-               icon
+                icon
                 @click="addUser"
                >
                 <v-icon>mdi-account-plus</v-icon>
@@ -45,7 +45,7 @@
                 icon
                 v-bind="attrs"
                 v-on="on"
-                @click="editUser"
+                @click=""
               >
                 <v-icon 
                 >mdi-dots-vertical</v-icon>
@@ -54,18 +54,28 @@
 
             <v-list>
               <v-list-item
-                v-for="(item, i) in items"
-                :key="i"
                 link
                 dense
-                @click="delete_User(item.id)"
+                @click="editUser(user)"
 
               >
               <v-list-item-icon>
-                <v-icon v-text="item.icon"></v-icon>
+                <v-icon>mdi-pencil</v-icon>
               </v-list-item-icon>
 
-                <v-list-item-title v-text="item.title"></v-list-item-title>
+                <v-list-item-title>Редактировать</v-list-item-title>
+              </v-list-item>
+              <v-list-item
+                link
+                dense
+                @click="deleteUser(user.id)"
+
+              >
+              <v-list-item-icon>
+                <v-icon>mdi-delete</v-icon>
+              </v-list-item-icon>
+
+                <v-list-item-title>Удалить</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -74,23 +84,19 @@
       </tbody>
     </template>
       <AddUser :dialog="dialog" @closeAddUserDialog="addUser"/>
-      <EditUгтser :editDialog="editDialog" @closeEditUserDialog="editUser" />
+      <EditUser :editDialog="editDialog" :user="update" @closeEditUserDialog="editUser" />
   </v-simple-table>
   </v-card>
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
-import AddUser from "@/components/admin/Users/AddUser.vue";
-import EditUser from "@/components/admin/Users/EditUser";
+import AddUser from "@/components/admin/Users/Add.vue";
+import EditUser from "@/components/admin/Users/Edit.vue";
 export default {
   data: () => ({
     dialog: false,
     editDialog: false,
-    selectedItem: 1,
-    items: [
-      { id: 1, title: "Редактировать", icon: "mdi-pencil" },
-      { id: 2, title: "Удалить", icon: "mdi-delete" },
-    ],
+    update: "",
   }),
   components: {
     AddUser,
@@ -110,10 +116,14 @@ export default {
     addUser() {
       this.dialog = !this.dialog;
     },
-    deleteUser(id){
-      console.log(id)
-      this.DELETEUSER(id)
-    }
+    editUser(user) {
+      this.update = user;
+      this.editDialog = !this.editDialog;
+    },
+    deleteUser(id) {
+      console.log(id);
+      this.DELETEUSER(id);
+    },
   },
 };
 </script>

@@ -82,6 +82,7 @@ export default{
       async DELETEUSER({dispatch}, id){
          try {
             const {data} = await api.deleteUser(id)
+            
             dispatch('USERLIST')
          } catch (error) {
             console.log(error)
