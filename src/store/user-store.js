@@ -1,8 +1,5 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
 import router from '../router'
 import api from './api'
-Vue.use(Vuex)
 
 export default{
    state: {
@@ -55,19 +52,19 @@ export default{
             console.log(error) //временная обработка ошибки
          }
       },
-
       LOGOUT({commit}){
          localStorage.removeItem('token')
          commit('SET_IS_AUTH', false)
          router.push('/')
       },
       
-      async CREATEUSER({dispatch}, user){
+      async CREATEUSER({commit, dispatch}, user){
          try {
             const {data} = await api.createUser(user)
+            commit('SUCCESS_MESSAGE', data)
             dispatch('USERLIST')
          } catch (error) {
-            console.log(error)
+            commit('ERROR_MESSAGE', error.response.data.error)
          }
       },
 
@@ -79,12 +76,13 @@ export default{
          }
       },
 
-      async DELETEUSER({dispatch}, id){
+      async DELETEUSER({commit, dispatch}, id){
          try {
             const {data} = await api.deleteUser(id)
+            commit('SUCCESS_MESSAGE', data)
             dispatch('USERLIST')
          } catch (error) {
-            console.log(error)
+            commit('ERROR_MESSAGE', error.response.data.error)
          }
       }
    },

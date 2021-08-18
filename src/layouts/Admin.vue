@@ -71,16 +71,17 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-
     <v-main class="pt-0 pl-0">
       <v-container>
         <router-view />
       </v-container>
     </v-main>
+    <message/>
   </v-app>
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
+import Message from '../components/admin/Message.vue'
 export default {
   data: () => ({
     drawer: null,
@@ -97,6 +98,9 @@ export default {
       },
     ],
   }),
+  components:{
+    Message
+  },
   computed: {
     ...mapGetters(["GET_USER", "GET_USER_MENU"]),
   },
