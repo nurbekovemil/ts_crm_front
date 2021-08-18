@@ -74,7 +74,7 @@
               <v-btn color="red" text @click="closeEditProfileDialog">
                 Закрыть
               </v-btn>
-              <v-btn color="success" text @click="closeUserProfileDialog"> Сохранить </v-btn>
+              <v-btn color="success" text @click="closeEditProfileDialog"> Сохранить </v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
