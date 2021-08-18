@@ -7,18 +7,15 @@
           <span class="text-h5">Редактировать пользователя</span>
         </v-card-title>
         <v-card-text>
-          <v-container>
-            <v-row>
-              <v-tooltip right>
-                <template v-slot:activator="{ on: tooltip }">
-                  <v-btn color="success" v-on="{ ...tooltip, ...menu }">
-                    <v-icon> mdi-refresh </v-icon>
-                  </v-btn>
-                </template>
-                <span>Сбросить пароль</span>
-              </v-tooltip>
-            </v-row>
-          </v-container>
+          <v-text-field
+            v-if="user"
+            v-model="user.username"
+            label="Логин пользователя"
+            required
+            outlined
+            dense
+            prepend-inner-icon="mdi-account"
+          ></v-text-field>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -34,7 +31,7 @@
 
 <script>
 export default {
-  props: ["editDialog"],
+  props: ["editDialog", "user"],
   data: () => ({
     showPassword: false,
   }),
@@ -47,4 +44,4 @@ export default {
 </script>
 
 <style lang="">
-</style>`
+</style>

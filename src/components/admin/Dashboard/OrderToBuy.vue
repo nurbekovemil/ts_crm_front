@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h4 class="mb-3">Заявки на покупку</h4>
+    <h4 class="mb-3">{{title}}</h4>
     <template>
-      <v-expansion-panels elevation="0">
+      <v-expansion-panels elevation="0" focusable>
         <v-expansion-panel v-for="(order, i) in orderstobuy" :key="i">
           <v-expansion-panel-header v-slot="{ open }">
             <v-row no-gutters>
@@ -34,6 +34,7 @@
 <script>
 export default {
   data: () => ({
+    title: "Заявки на покупку",
     orderstobuy: [
       {
         username: "John",
