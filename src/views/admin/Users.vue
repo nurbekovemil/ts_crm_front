@@ -45,6 +45,7 @@
                 icon
                 v-bind="attrs"
                 v-on="on"
+                @click="editUser"
               >
                 <v-icon 
                 >mdi-dots-vertical</v-icon>
@@ -72,15 +73,18 @@
       </tbody>
     </template>
       <AddUser :dialog="dialog" @closeAddUserDialog="addUser"/>
+      <EditUгтser :editDialog="editDialog" @closeEditUserDialog="editUser" />
   </v-simple-table>
   </v-card>
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
 import AddUser from "@/components/admin/Users/AddUser.vue";
+import EditUser from "@/components/admin/Users/EditUser";
 export default {
   data: () => ({
     dialog: false,
+    editDialog: false,
     selectedItem: 1,
     items: [
       { id: 1, title: "Редактировать", icon: "mdi-pencil" },
@@ -89,6 +93,7 @@ export default {
   }),
   components: {
     AddUser,
+    EditUser,
   },
   computed: {
     ...mapGetters(["GET_USER_LIST"]),
@@ -111,5 +116,6 @@ export default {
   },
 };
 </script>
+
 <style lang="">
 </style>
