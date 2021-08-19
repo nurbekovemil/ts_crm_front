@@ -1,6 +1,14 @@
 <template>
   <div>
-    <h4 class="mb-3 mt-5">{{title}}</h4>
+    <template>
+      <v-row class="my-2 mx-1" align="center">
+        <h4 class="mb-3 mt-5">{{ title }}</h4>
+        <v-spacer />
+        <v-btn small icon @click="addToSellForm">
+          <v-icon> mdi-text-box-plus-outline </v-icon>
+        </v-btn>
+      </v-row>
+    </template>
     <template>
       <v-expansion-panels elevation="0" focusable>
         <v-expansion-panel v-for="(order, i) in orderstosell" :key="i">
@@ -26,15 +34,21 @@
             Price: {{ order.price }}
           </v-expansion-panel-content>
         </v-expansion-panel>
+        <AddToSell
+          :orderToSell="orderToSell"
+          @closeAddToSellDialog="addToSellForm"
+        />
       </v-expansion-panels>
     </template>
   </div>
 </template>
 
 <script>
+import AddToSell from "@/components/admin/Dashboard/AddOrderToSell.vue";
 export default {
   data: () => ({
-    title: 'Заявки на продажу',
+    orderToSell: false,
+    title: "Заявки на продажу",
     orderstosell: [
       {
         username: "John",
@@ -68,6 +82,14 @@ export default {
       },
     ],
   }),
+  components: {
+    AddToSell,
+  },
+  methods: {
+    addToSellForm() {
+      this.orderToSell = !this.orderToSell;
+    },
+  },
 };
 </script>
 

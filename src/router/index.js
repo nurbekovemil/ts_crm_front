@@ -47,7 +47,7 @@ const routes = [
       {
         path: '/',
         name: 'Панель управления',
-        component: Dashboard,
+        component: Dashboard, 
       },
       {
         path: '/dashboard/users',
