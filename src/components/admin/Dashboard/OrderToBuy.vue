@@ -1,6 +1,14 @@
 <template>
   <div>
-    <h4 class="mb-3">{{title}}</h4>
+    <template>
+      <v-row class="my-2 mx-1" align="center">
+        <h4 class="mb-3 mt-5">{{ title }}</h4>
+        <v-spacer />
+        <v-btn small icon @click="addToBuyForm">
+          <v-icon> mdi-text-box-plus-outline </v-icon>
+        </v-btn>
+      </v-row>
+    </template>
     <template>
       <v-expansion-panels elevation="0" focusable>
         <v-expansion-panel v-for="(order, i) in orderstobuy" :key="i">
@@ -26,48 +34,62 @@
             Price: {{ order.price }}
           </v-expansion-panel-content>
         </v-expansion-panel>
+        <AddToBuy
+          :orderToBuy="orderToBuy"
+          @closeAddToBuyDialog="addToBuyForm"
+        />
       </v-expansion-panels>
     </template>
   </div>
 </template>
 
 <script>
+import AddToBuy from "@/components/admin/Dashboard/AddOrderToBuy.vue";
 export default {
   data: () => ({
+    orderToBuy: false,
     title: "Заявки на покупку",
     orderstobuy: [
       {
         username: "John",
         price: 10000,
-        product_name: 'Gucci',
+        product_name: "Gucci",
       },
       {
         username: "Mike",
         price: 12000,
-        product_name: 'Louis Vuitton',
+        product_name: "Louis Vuitton",
       },
       {
         username: "Will",
         price: 2391,
-        product_name: 'Nike',
+        product_name: "Nike",
       },
       {
         username: "Mattew",
         price: 1231,
-        product_name: 'Adidas',
+        product_name: "Adidas",
       },
       {
         username: "Joe",
         price: 1534,
-        product_name: 'Saint Loran',
+        product_name: "Saint Loran",
       },
       {
         username: "Donald",
         price: 1279,
-        product_name: 'Durex',
-      },
+        product_name: "Durex",
+      }, 
     ],
   }),
+  components: {
+    AddToBuy,
+  },
+  methods: {
+    addToBuyForm() {
+      this.orderToBuy = !this.orderToBuy;
+    },
+  },
 };
 </script>
 

@@ -4,7 +4,7 @@
       height="100%"
       src="https://cdn.vuetifyjs.com/images/cards/server-room.jpg"
     >
-      <v-btn icon @click="toggleEditForm">
+      <v-btn color="red" icon @click="toggleEditForm">
         <v-icon> mdi-pencil </v-icon>
       </v-btn>
       <v-row align="end" class="fill-height">
