@@ -31,6 +31,7 @@
         nav
         :value="false"
         prepend-icon="mdi-account"
+        active-class="white--text"
       >
         <template v-slot:activator>
           <v-list-item-title>{{ GET_USER.username }}</v-list-item-title>
