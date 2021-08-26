@@ -30,9 +30,6 @@
 
           <v-expansion-panel-content>
             <order-to-buy-item />
-            <v-row class="justify-end ma-1">
-              <v-btn color="success">Купить</v-btn>
-            </v-row>
           </v-expansion-panel-content>
         </v-expansion-panel>
         <AddToBuy
