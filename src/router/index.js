@@ -17,12 +17,11 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Home',
     component: Content,
     children: [
       {
         path: '/',
-        name: 'Home',
+        name: 'Главная',
         component: Home
       },
       {
@@ -32,7 +31,7 @@ const routes = [
       },
       {
         path: '/login',
-        name: 'Login',
+        name: 'Войти',
         component: Login
       }
     ]

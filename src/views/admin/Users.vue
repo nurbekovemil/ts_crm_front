@@ -1,6 +1,6 @@
 <template lang="">
   <v-row>
-    <v-col cols="8">
+    <v-col :cols="isViewUser ? '8' : '12'">
       <v-card>
         <v-simple-table>
           <template>
@@ -17,7 +17,7 @@
                   <th class="text-right">
                     <v-btn
                       icon
-                      @click="addUser"
+                      @click="toggleAddUserDialog"
                     >
                       <v-icon>mdi-account-plus</v-icon>
                     </v-btn>
@@ -28,12 +28,14 @@
               <tr
                 v-for="user in GET_USER_LIST"
                 :key="user.id"
+                :class="isViewUser && isViewUser.id == user.id && 'grey lighten-3'"
               >
               <td>
                   <v-avatar size="36">
                     <img src="https://cdn.vuetifyjs.com/images/john.jpg" />
                   </v-avatar>
               </td>
+              
                 <td>{{ user.username }}</td>
                 <td>{{ user.role }}</td>
                 <td class="text-right">
@@ -47,7 +49,6 @@
                       icon
                       v-bind="attrs"
                       v-on="on"
-                      @click=""
                     >
                       <v-icon 
                       >mdi-dots-vertical</v-icon>
@@ -58,7 +59,20 @@
                     <v-list-item
                       link
                       dense
-                      @click="editUser(user)"
+                      @click="viewUser(user)"
+                    >
+                    <v-list-item-icon>
+                      <v-icon>mdi-eye</v-icon>
+                    </v-list-item-icon>
+                      <v-list-item-title>
+                        Информация
+                      </v-list-item-title>
+                    </v-list-item>
+
+                    <v-list-item
+                      link
+                      dense
+                      @click="toggleEditUserDialog(user)"
                     >
                     <v-list-item-icon>
                       <v-icon>mdi-pencil</v-icon>
@@ -86,13 +100,23 @@
               </tr>
             </tbody>
           </template>
-          <AddUser :dialog="dialog" @closeAddUserDialog="addUser"/>
-          <EditUser :editDialog="editDialog" :user="update" @closeEditUserDialog="editUser" />
+          <AddUser 
+            :isAddDialog="isAddDialog" 
+            @toggleAddUserDialog="toggleAddUserDialog"
+          />
+          <EditUser 
+            :isEditDialog="isEditDialog" 
+            :updateUser="updateUser" 
+            @toggleEditUserDialog="toggleEditUserDialog" 
+          />
         </v-simple-table>
       </v-card>
     </v-col>
-    <v-col cols="4">
-      <info/>
+    <v-col cols="4" v-if="isViewUser">
+      <v-expand-x-transition>
+<info :user="isViewUser" @viewUser="viewUser"/>
+      </v-expand-x-transition>
+      
     </v-col>
   </v-row>
 </template>
@@ -103,9 +127,10 @@ import EditUser from "@/components/admin/Users/Edit.vue";
 import Info from "@/components/admin/Users/Info.vue";
 export default {
     data: () => ({
-        dialog: false,
-        editDialog: false,
-        update: null,
+        isAddDialog: false,
+        isEditDialog: false,
+        isViewUser: null,
+        updateUser: null,
     }),
     components: {
         AddUser,
@@ -121,17 +146,24 @@ export default {
     methods: {
         ...mapActions(["USERLIST", "DELETEUSER"]),
         get_User_Lists() {
-            this.USERLIST();
+          this.USERLIST();
         },
-        addUser() {
-            this.dialog = !this.dialog;
+        toggleAddUserDialog() {
+          this.isAddDialog = !this.isAddDialog;
         },
-        editUser(user) {
-            this.update = user;
-            this.editDialog = !this.editDialog;
+        toggleEditUserDialog(user){
+          if(user){
+            this.updateUser = JSON.parse(JSON.stringify(user));
+          }
+          this.isEditDialog = !this.isEditDialog;
+        },
+        viewUser(user){
+          if(user){
+            return this.isViewUser = user
+          }
+          this.isViewUser = null
         },
         deleteUser(id) {
-            console.log(id);
             this.DELETEUSER(id);
         },
     },

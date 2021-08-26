@@ -27,5 +27,8 @@ export default {
    },
    deleteUser(id){
       return api.delete('/users/'+id)
+   },
+   updateUser(data){
+      return api.put('/users/', data)
    }
 }
