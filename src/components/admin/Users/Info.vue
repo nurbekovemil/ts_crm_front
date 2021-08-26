@@ -9,16 +9,23 @@
         </v-row>
       </v-col>
     </v-row>
-    <v-card-title class="d-flex justify-center">Антон Антонов</v-card-title>
+    <v-card-title class="d-flex justify-center">{{user.username}}</v-card-title>
 
-    <v-card-actions> </v-card-actions>
+    <v-card-actions class="d-flex justify-center">
+      <v-btn small plain @click="closeViewUser">Закрыть</v-btn>
+    </v-card-actions>
   </v-card>
 </template>
 
 <script>
 export default {
+  props: ['user'],
   data: () => ({
-    show: false,
   }),
+  methods: {
+    closeViewUser(){
+      this.$emit('viewUser')
+    }
+  }
 };
 </script>

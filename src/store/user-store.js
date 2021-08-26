@@ -43,7 +43,6 @@ export default{
             const {data} = await api.userGetMe()
             commit('SET_IS_AUTH', true)
             commit('SET_USER', data)
-            console.log(data)
             router.push('/dashboard')
          } catch (error) {
             localStorage.removeItem('token')
@@ -83,6 +82,16 @@ export default{
             dispatch('USERLIST')
          } catch (error) {
             commit('ERROR_MESSAGE', error.response.data.error)
+         }
+      },
+      async UPDATEUSER({commit, dispatch}, update){
+         try {
+            const {data} = await api.updateUser(update)
+            commit('SUCCESS_MESSAGE', data)
+            dispatch('USERLIST')
+         } catch (error) {
+            commit('ERROR_MESSAGE', error.response.data.error)
+
          }
       }
    },

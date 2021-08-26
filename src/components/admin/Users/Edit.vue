@@ -1,26 +1,38 @@
 <template>
   <v-row justify="center">
-    <v-dialog v-model="editDialog" persistent max-width="600px">
-      <template> </template>
+    <v-dialog v-model="isEditDialog" persistent max-width="600px">
       <v-card>
         <v-card-title>
           <span class="text-h5">Редактировать пользователя</span>
         </v-card-title>
-        <v-card-text>
-          <v-text-field
-            v-if="user"
-            v-model="user.username"
-            label="Логин пользователя"
-            required
-            outlined
-            dense
-            prepend-inner-icon="mdi-account"
-          ></v-text-field>
+        <v-card-text v-if="updateUser">
+          <v-row>
+              <v-col cols="12">
+                <v-text-field
+                  v-model="updateUser.username"
+                  label="Логин пользователя"
+                  required
+                  outlined
+                  dense
+                  prepend-inner-icon="mdi-account"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field
+                  v-model="password"
+                  label="Новый пароль"
+                  required
+                  outlined
+                  dense
+                  prepend-inner-icon="mdi-account"
+                ></v-text-field>
+              </v-col>
+          </v-row>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="red" text @click="closeEditUserDialog"> Закрыть </v-btn>
-          <v-btn color="success" text @click="closeEditUserDialog">
+          <v-btn color="success" text @click="update">
             Сохранить
           </v-btn>
         </v-card-actions>
@@ -30,18 +42,23 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 export default {
-  props: ["editDialog", "user"],
+  props: ["isEditDialog", "updateUser"],
   data: () => ({
-    showPassword: false,
+    password: null,
   }),
   methods: {
+    ...mapActions(['UPDATEUSER']),
     closeEditUserDialog() {
-      this.$emit("closeEditUserDialog");
+      this.$emit("toggleEditUserDialog");
     },
+    update(){
+      if(this.password){
+        return this.UPDATEUSER({...this.updateUser, ...{password: this.password}})
+      }
+      this.UPDATEUSER(this.updateUser)
+    }
   },
 };
 </script>
-
-<style lang="">
-</style>
