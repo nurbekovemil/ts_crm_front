@@ -10,7 +10,131 @@
             </v-card-title>
             <v-card-text>
               <v-container>
-                
+                <v-row class="pa-3">
+                  <v-col cols="12" sm="6">
+                    <v-text-field
+                      dense
+                      label="Группа товаров/услуг"
+                      outlined
+                    ></v-text-field>
+                  </v-col>
+
+                  <v-col cols="12" sm="6">
+                    <v-text-field
+                      dense
+                      label="Код товара/услуги (ТН ВЭД)"
+                      outlined
+                    ></v-text-field>
+                  </v-col>
+
+                  <v-col cols="12" sm="6">
+                    <v-text-field
+                      dense
+                      label="Описание"
+                      outlined
+                    ></v-text-field>
+                  </v-col>
+
+                  <v-col cols="12" sm="6">
+                    <v-text-field
+                      dense
+                      label="Страна-производитель"
+                      outlined
+                    ></v-text-field>
+                  </v-col>
+
+                  <v-col cols="12" sm="6">
+                    <v-text-field
+                      dense
+                      label="Фирма-производитель"
+                      outlined
+                    ></v-text-field>
+                  </v-col>
+
+                  <v-col cols="12" sm="6">
+                    <v-text-field
+                      dense
+                      label="Качественные показатели товара"
+                      outlined
+                    ></v-text-field>
+                  </v-col>
+
+                  <v-col cols="12" sm="6">
+                    <v-text-field
+                      dense
+                      label="Сведения об упаковке товара"
+                      outlined
+                    ></v-text-field>
+                  </v-col>
+
+                  <v-col cols="12" sm="6">
+                    <v-text-field
+                      dense
+                      label="Сведения о маркировке товара"
+                      outlined
+                    ></v-text-field>
+                  </v-col>
+
+                  <v-col cols="12" sm="6">
+                    <v-text-field dense label="Цена" outlined></v-text-field>
+                  </v-col>
+
+                  <v-col cols="12" sm="6">
+                    <v-text-field
+                      dense
+                      label="Ставка НДС"
+                      outlined
+                    ></v-text-field>
+                  </v-col>
+
+                  <v-col cols="12" sm="6">
+                    <v-text-field
+                      dense
+                      label="Колличество"
+                      outlined
+                    ></v-text-field>
+                  </v-col>
+
+                  <v-col cols="12" sm="6">
+                    <v-text-field
+                      dense
+                      label="Стоимость"
+                      outlined
+                    ></v-text-field>
+                  </v-col>
+
+                  <v-col cols="12" sm="6">
+                    <v-text-field
+                      dense
+                      label="Местонахождение"
+                      outlined
+                    ></v-text-field>
+                  </v-col>
+
+                  <v-col cols="12" sm="6">
+                    <v-text-field
+                      dense
+                      label="Условия оплаты"
+                      outlined
+                    ></v-text-field>
+                  </v-col>
+
+                  <v-col cols="12" sm="6">
+                    <v-text-field
+                      dense
+                      label="Сроки поставки"
+                      outlined
+                    ></v-text-field>
+                  </v-col>
+
+                  <v-col cols="12" sm="6">
+                    <v-text-field
+                      dense
+                      label="Условия поставки"
+                      outlined
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
               </v-container>
             </v-card-text>
             <v-card-actions>

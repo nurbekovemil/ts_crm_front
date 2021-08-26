@@ -11,7 +11,7 @@
         Главная 
       </v-btn>
       <v-btn plain small  router to="/handbooks">
-        Справочник 
+        Справочник
       </v-btn>
       <v-btn   elevation="0" plain small  router to="/login">
         <template v-if="!GET_IS_AUTH" icon>
@@ -23,7 +23,7 @@
       </v-btn>
   </v-app-bar>
 
-    <v-main class="grey lighten-5">
+    <v-main :style="this.$router.history.current.path == '/login' && {'background-image': 'url(' + require('../assets/bg13.jpg') + ')'}">
       <v-container style="min-height: 700px;">
          <router-view/>
       </v-container>
