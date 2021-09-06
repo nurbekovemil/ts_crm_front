@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 // admin pages
-import {Dashboard, Users, Orders, Deals, Products, Profile, Settings} from '../views/admin'
+import {Dashboard, Users, Orders, OrderView, Deals, Suggestions, Products, Profile, Settings} from '../views/admin'
 
 // content pages
 import {Handbook, Home, Login} from '../views/content'
@@ -17,12 +17,11 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Home',
     component: Content,
     children: [
       {
         path: '/',
-        name: 'Home',
+        name: 'Главная',
         component: Home
       },
       {
@@ -32,7 +31,7 @@ const routes = [
       },
       {
         path: '/login',
-        name: 'Login',
+        name: 'Войти',
         component: Login
       }
     ]
@@ -47,7 +46,7 @@ const routes = [
       {
         path: '/',
         name: 'Панель управления',
-        component: Dashboard,
+        component: Dashboard, 
       },
       {
         path: '/dashboard/users',
@@ -65,6 +64,11 @@ const routes = [
         component: Deals,
       },
       {
+        path: '/dashboard/suggestions',
+        name: 'Предложения',
+        component: Suggestions,
+      },
+      {
         path: '/dashboard/products',
         name: 'Товары',
         component: Products,
@@ -78,6 +82,11 @@ const routes = [
         path: '/dashboard/settings',
         name: 'Настройки',
         component: Settings
+      },
+      {
+        path: '/dashboard/orderview',
+        name: 'Описание товара',
+        component: OrderView
       }
     ]
   },

@@ -31,6 +31,7 @@
         nav
         :value="false"
         prepend-icon="mdi-account"
+        active-class="white--text"
       >
         <template v-slot:activator>
           <v-list-item-title>{{ GET_USER.username }}</v-list-item-title>
@@ -71,16 +72,19 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-
     <v-main class="pt-0 pl-0">
       <v-container>
-        <router-view />
+        <v-slide-x-transition mode="out-in">
+          <router-view />
+        </v-slide-x-transition>
       </v-container>
     </v-main>
+    <message/>
   </v-app>
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
+import Message from '../components/admin/Message.vue'
 export default {
   data: () => ({
     drawer: null,
@@ -97,6 +101,9 @@ export default {
       },
     ],
   }),
+  components:{
+    Message
+  },
   computed: {
     ...mapGetters(["GET_USER", "GET_USER_MENU"]),
   },

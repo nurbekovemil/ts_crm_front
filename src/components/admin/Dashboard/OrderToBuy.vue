@@ -1,8 +1,16 @@
 <template>
   <div>
-    <h4 class="mb-3">Заявки на покупку</h4>
     <template>
-      <v-expansion-panels elevation="0">
+      <v-row class="my-2 mx-1" align="center">
+        <h4 class="mb-3 mt-5">{{ title }}</h4>
+        <v-spacer />
+        <v-btn small icon @click="addToBuyForm">
+          <v-icon> mdi-text-box-plus-outline </v-icon>
+        </v-btn>
+      </v-row>
+    </template>
+    <template>
+      <v-expansion-panels elevation="0" focusable>
         <v-expansion-panel v-for="(order, i) in orderstobuy" :key="i">
           <v-expansion-panel-header v-slot="{ open }">
             <v-row no-gutters>
@@ -19,54 +27,43 @@
               </v-col>
             </v-row>
           </v-expansion-panel-header>
+
           <v-expansion-panel-content>
-            Username: {{ order.username }}
-          </v-expansion-panel-content>
-          <v-expansion-panel-content>
-            Price: {{ order.price }}
+            <order-to-buy-item />
           </v-expansion-panel-content>
         </v-expansion-panel>
+        <AddToBuy
+          :orderToBuy="isOrderToBuy"
+          @closeAddToBuyDialog="addToBuyForm"
+        />
       </v-expansion-panels>
     </template>
   </div>
 </template>
 
 <script>
+import AddToBuy from "@/components/admin/Dashboard/AddOrderToBuy.vue";
+import OrderToBuyItem from "./OrderToBuyItem.vue";
 export default {
   data: () => ({
+    isOrderToBuy: false,
+    title: "Заявки на покупку",
     orderstobuy: [
       {
-        username: "John",
         price: 10000,
-        product_name: 'Gucci',
-      },
-      {
-        username: "Mike",
-        price: 12000,
-        product_name: 'Louis Vuitton',
-      },
-      {
-        username: "Will",
-        price: 2391,
-        product_name: 'Nike',
-      },
-      {
-        username: "Mattew",
-        price: 1231,
-        product_name: 'Adidas',
-      },
-      {
-        username: "Joe",
-        price: 1534,
-        product_name: 'Saint Loran',
-      },
-      {
-        username: "Donald",
-        price: 1279,
-        product_name: 'Durex',
+        product_name: "Концентрированная томатная паста",
       },
     ],
   }),
+  components: {
+    AddToBuy,
+    OrderToBuyItem,
+  },
+  methods: {
+    addToBuyForm() {
+      this.isOrderToBuy = !this.isOrderToBuy;
+    },
+  },
 };
 </script>
 

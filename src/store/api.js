@@ -8,7 +8,7 @@ const api = axios.create({
    }
 })
 
-api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')||''}`
+api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`
 
 
 
@@ -21,5 +21,14 @@ export default {
    },
    userList(){
       return api.get('/users/')
-    },
+   },
+   createUser(data){
+      return api.post('/users', data)
+   },
+   deleteUser(id){
+      return api.delete('/users/'+id)
+   },
+   updateUser(data){
+      return api.put('/users/', data)
+   }
 }

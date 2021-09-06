@@ -1,8 +1,5 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
 import router from '../router'
 import api from './api'
-Vue.use(Vuex)
 
 export default{
    state: {
@@ -22,7 +19,7 @@ export default{
       },
       SETUSERSLIST(state, usersList) {
          state.usersList = usersList
-       },
+      },
    },
    actions:{
       async LOGIN({commit}, loginData){
@@ -31,7 +28,6 @@ export default{
             localStorage.setItem('token', data.token)
             commit('SET_IS_AUTH', true)
             commit('SET_USER', data)
-
             router.push('/dashboard')
          } catch (error) {
             localStorage.removeItem('token')
@@ -47,7 +43,6 @@ export default{
             const {data} = await api.userGetMe()
             commit('SET_IS_AUTH', true)
             commit('SET_USER', data)
-            console.log(data)
             router.push('/dashboard')
          } catch (error) {
             localStorage.removeItem('token')
@@ -56,13 +51,22 @@ export default{
             console.log(error) //временная обработка ошибки
          }
       },
-
       LOGOUT({commit}){
          localStorage.removeItem('token')
          commit('SET_IS_AUTH', false)
          router.push('/')
       },
       
+      async CREATEUSER({commit, dispatch}, user){
+         try {
+            const {data} = await api.createUser(user)
+            commit('SUCCESS_MESSAGE', data)
+            dispatch('USERLIST')
+         } catch (error) {
+            commit('ERROR_MESSAGE', error.response.data.error)
+         }
+      },
+
       async USERLIST({commit}) {
          try {
            const {data} = await api.userList()
@@ -70,6 +74,26 @@ export default{
          } catch (error) {
          }
       },
+
+      async DELETEUSER({commit, dispatch}, id){
+         try {
+            const {data} = await api.deleteUser(id)
+            commit('SUCCESS_MESSAGE', data)
+            dispatch('USERLIST')
+         } catch (error) {
+            commit('ERROR_MESSAGE', error.response.data.error)
+         }
+      },
+      async UPDATEUSER({commit, dispatch}, update){
+         try {
+            const {data} = await api.updateUser(update)
+            commit('SUCCESS_MESSAGE', data)
+            dispatch('USERLIST')
+         } catch (error) {
+            commit('ERROR_MESSAGE', error.response.data.error)
+
+         }
+      }
    },
    getters:{
       GET_USER(state) {
