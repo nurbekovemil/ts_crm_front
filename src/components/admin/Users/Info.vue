@@ -4,7 +4,7 @@
       <v-col>
         <v-row justify="center" class="py-3">
           <v-avatar size="120">
-            <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
+            <img src="@/assets/john.jpg" alt="John" />
           </v-avatar>
         </v-row>
       </v-col>

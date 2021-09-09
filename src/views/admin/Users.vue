@@ -32,7 +32,7 @@
               >
               <td>
                   <v-avatar size="36">
-                    <img src="https://cdn.vuetifyjs.com/images/john.jpg" />
+                    <img src="@/assets/john.jpg" />
                   </v-avatar>
               </td>
               
@@ -62,7 +62,7 @@
                       @click="viewUser(user)"
                     >
                     <v-list-item-icon>
-                      <v-icon>mdi-eye</v-icon>
+                      <v-icon>mdi-information</v-icon>
                     </v-list-item-icon>
                       <v-list-item-title>
                         Информация
