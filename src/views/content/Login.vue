@@ -5,7 +5,7 @@
     max-width="500"
     max-height="1000"
     flat
-    color="rgba(236, 244, 245, 0.3)"
+    color="rgb(255, 255, 255)"
     
   >
     <!-- <v-card-subtitle 
@@ -21,8 +21,6 @@
       prepend-inner-icon="mdi-account"
       dense
       outlined
-      color="white"
-      dark
       flat
     ></v-text-field>
     <v-text-field
@@ -34,8 +32,6 @@
       prepend-inner-icon="mdi-lock"
       dense
       outlined
-      color="white"
-      dark
       flat
     ></v-text-field>
     <p class="request" slot="text" v-if="loading">

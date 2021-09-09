@@ -57,7 +57,7 @@ export default {
   }),
   components: {
     AddToBuy,
-    OrderToBuyItem,
+    OrderToBuyItem
   },
   methods: {
     addToBuyForm() {

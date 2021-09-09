@@ -1,6 +1,8 @@
 <template>
   <v-card>
-    <v-card-title class="mb-0">{{ title }} &#183; {{order.product_name}}</v-card-title>
+    <v-card-title class="mb-0"
+      >{{ title }} &#183; {{ order.product_name }}</v-card-title
+    >
     <v-row class="mt-4" no-gutters>
       <v-col cols="4">
         <v-list-item three-line>

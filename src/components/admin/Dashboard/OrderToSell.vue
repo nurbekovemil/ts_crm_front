@@ -27,15 +27,13 @@
               </v-col>
             </v-row>
           </v-expansion-panel-header>
+
           <v-expansion-panel-content>
-            Username: {{ order.username }}
-          </v-expansion-panel-content>
-          <v-expansion-panel-content>
-            Price: {{ order.price }}
+            <order-to-sell-item />
           </v-expansion-panel-content>
         </v-expansion-panel>
         <AddToSell
-          :orderToSell="orderToSell"
+          :orderToSell="isOrderToSell"
           @closeAddToSellDialog="addToSellForm"
         />
       </v-expansion-panels>
@@ -45,49 +43,25 @@
 
 <script>
 import AddToSell from "@/components/admin/Dashboard/AddOrderToSell.vue";
+import OrderToSellItem from "./OrderToSellItem.vue";
 export default {
   data: () => ({
-    orderToSell: false,
+    isOrderToSell: false,
     title: "Заявки на продажу",
     orderstosell: [
       {
-        username: "John",
         price: 10000,
-        product_name: "Gucci",
-      },
-      {
-        username: "Mike",
-        price: 12000,
-        product_name: "Louis Vuitton",
-      },
-      {
-        username: "Will",
-        price: 2391,
-        product_name: "Nike",
-      },
-      {
-        username: "Mattew",
-        price: 1231,
-        product_name: "Adidas",
-      },
-      {
-        username: "Joe",
-        price: 1534,
-        product_name: "Saint Loran",
-      },
-      {
-        username: "Donald",
-        price: 1279,
-        product_name: "Durex",
+        product_name: "Концентрированная томатная паста",
       },
     ],
   }),
   components: {
     AddToSell,
+    OrderToSellItem,
   },
   methods: {
     addToSellForm() {
-      this.orderToSell = !this.orderToSell;
+      this.isOrderToSell = !this.isOrderToSell;
     },
   },
 };
@@ -95,3 +69,4 @@ export default {
 
 <style>
 </style>
+ 
