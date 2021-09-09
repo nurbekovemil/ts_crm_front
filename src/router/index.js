@@ -55,12 +55,12 @@ const routes = [
       },
       {
         path: '/dashboard/orders',
-        name: 'Отчеты',
+        name: 'Мои заявки',
         component: Orders,
       },
       {
         path: '/dashboard/deals',
-        name: 'Сделки',
+        name: 'Мои сделки',
         component: Deals,
       },
       {
@@ -84,7 +84,7 @@ const routes = [
         component: Settings
       },
       {
-        path: '/dashboard/orderview',
+        path: '/dashboard/order/:id',
         name: 'Описание товара',
         component: OrderView
       }

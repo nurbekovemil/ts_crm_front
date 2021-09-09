@@ -6,18 +6,17 @@ export default{
       isAuth: false,
       user:{},
       userMenus: [],
-      users: [],
       usersList: [],
    },
    mutations:{
-      SET_USER(state, data){
+      SET_USER: (state, data) => {
          state.user = data.user
          state.userMenus = data.menus
       },
-      SET_IS_AUTH(state, data){
+      SET_IS_AUTH: (state, data) => {
          state.isAuth = data
       },
-      SETUSERSLIST(state, usersList) {
+      SETUSERSLIST: (state, usersList)=> {
          state.usersList = usersList
       },
    },
@@ -96,17 +95,9 @@ export default{
       }
    },
    getters:{
-      GET_USER(state) {
-         return state.user
-      },
-      GET_IS_AUTH(state){
-         return state.isAuth
-      },
-      GET_USER_MENU(state){
-         return state.userMenus
-      },
-      GET_USER_LIST(state) {
-         return state.usersList
-       },
+      GET_USER: (state) => state.user,
+      GET_IS_AUTH: (state) => state.isAuth,
+      GET_USER_MENU: (state) => state.userMenus,
+      GET_USER_LIST: (state) => state.usersList,
    }
 }

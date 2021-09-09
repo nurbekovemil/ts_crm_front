@@ -114,7 +114,7 @@
     </v-col>
     <v-col cols="4" v-if="isViewUser">
       <v-expand-x-transition>
-<info :user="isViewUser" @viewUser="viewUser"/>
+        <info :user="isViewUser" @viewUser="viewUser"/>
       </v-expand-x-transition>
       
     </v-col>
