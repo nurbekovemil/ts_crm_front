@@ -1,31 +1,29 @@
 <template>
   <v-app>
-    <v-app-bar
-    flat
-    color="primary lighten-1"
-    dark
-  >
-  <v-toolbar-title>TS KSE</v-toolbar-title>
-   <v-spacer></v-spacer>
-      <v-btn   elevation="0" plain small  router to="/">
-        Главная 
-      </v-btn>
-      <v-btn plain small  router to="/handbooks">
-        Справочник 
-      </v-btn>
-      <v-btn   elevation="0" plain small  router to="/login">
-        <template v-if="!GET_IS_AUTH" icon>
-          Войти
-        </template>
+    <v-app-bar flat dark elevation="0" color="primary lighten-1">
+      <v-toolbar-title>TS KSE</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn elevation="0" plain small router to="/"> Главная </v-btn>
+      <v-btn plain small router to="/handbooks"> Справочник </v-btn>
+      <v-btn elevation="0" plain small router to="/login">
+        <template v-if="!GET_IS_AUTH" icon> Войти </template>
         <template v-else>
-          {{GET_USER.username}}
-        </template>   
+          {{ GET_USER.username }}
+        </template>
       </v-btn>
-  </v-app-bar>
+    </v-app-bar>
 
-    <v-main class="grey lighten-5">
-      <v-container style="min-height: 700px;">
-         <router-view/>
+    <v-main
+      :style="
+        this.$router.history.current.path == '/login' && {
+          'background-image':
+            'url(' + require('../assets/bruno-abatti.jpg') + ')',
+          'background-size': '100%',
+        }
+      "
+    >
+      <v-container style="min-height: 900px">
+        <router-view />
       </v-container>
     </v-main>
 
@@ -40,19 +38,16 @@
       </div>
     </footer>
   </v-app>
-  
 </template>
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import { mapActions, mapGetters } from "vuex";
 
 export default {
-  computed:{
-    ...mapGetters(['GET_IS_AUTH', 'GET_USER'])
+  computed: {
+    ...mapGetters(["GET_IS_AUTH", "GET_USER"]),
   },
-  components:{
-    
-  },
-}
+  components: {},
+};
 </script>
 
 

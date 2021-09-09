@@ -27,15 +27,13 @@
               </v-col>
             </v-row>
           </v-expansion-panel-header>
+
           <v-expansion-panel-content>
-            Username: {{ order.username }}
-          </v-expansion-panel-content>
-          <v-expansion-panel-content>
-            Price: {{ order.price }}
+            <order-to-buy-item />
           </v-expansion-panel-content>
         </v-expansion-panel>
         <AddToBuy
-          :orderToBuy="orderToBuy"
+          :orderToBuy="isOrderToBuy"
           @closeAddToBuyDialog="addToBuyForm"
         />
       </v-expansion-panels>
@@ -45,49 +43,25 @@
 
 <script>
 import AddToBuy from "@/components/admin/Dashboard/AddOrderToBuy.vue";
+import OrderToBuyItem from "./OrderToBuyItem.vue";
 export default {
   data: () => ({
-    orderToBuy: false,
+    isOrderToBuy: false,
     title: "Заявки на покупку",
     orderstobuy: [
       {
-        username: "John",
         price: 10000,
-        product_name: "Gucci",
+        product_name: "Концентрированная томатная паста",
       },
-      {
-        username: "Mike",
-        price: 12000,
-        product_name: "Louis Vuitton",
-      },
-      {
-        username: "Will",
-        price: 2391,
-        product_name: "Nike",
-      },
-      {
-        username: "Mattew",
-        price: 1231,
-        product_name: "Adidas",
-      },
-      {
-        username: "Joe",
-        price: 1534,
-        product_name: "Saint Loran",
-      },
-      {
-        username: "Donald",
-        price: 1279,
-        product_name: "Durex",
-      }, 
     ],
   }),
   components: {
     AddToBuy,
+    OrderToBuyItem
   },
   methods: {
     addToBuyForm() {
-      this.orderToBuy = !this.orderToBuy;
+      this.isOrderToBuy = !this.isOrderToBuy;
     },
   },
 };
