@@ -2,10 +2,24 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 // admin pages
-import {Dashboard, Users, Orders, OrderView, Deals, Suggestions, Products, Profile, Settings} from '../views/admin'
+import {
+  Dashboard, 
+  Users, 
+  MyOrders, 
+  OrderView, 
+  Deals, 
+  Offers, 
+  AllOrders, 
+  Profile, 
+  Settings
+} from '../views/admin'
 
 // content pages
-import {Handbook, Home, Login} from '../views/content'
+import {
+  Handbook, 
+  Home, 
+  Login
+} from '../views/content'
 
 // layouts
 import Admin from '../layouts/Admin.vue'
@@ -54,24 +68,24 @@ const routes = [
         component: Users,
       },
       {
-        path: '/dashboard/orders',
+        path: '/dashboard/my-orders',
         name: 'Мои заявки',
-        component: Orders,
+        component: MyOrders,
       },
       {
-        path: '/dashboard/deals',
+        path: '/dashboard/my-deals',
         name: 'Мои сделки',
         component: Deals,
       },
       {
-        path: '/dashboard/suggestions',
+        path: '/dashboard/offers',
         name: 'Предложения',
-        component: Suggestions,
+        component: Offers,
       },
       {
-        path: '/dashboard/products',
-        name: 'Товары',
-        component: Products,
+        path: '/dashboard/all-orders',
+        name: 'Все заявки',
+        component: AllOrders,
       },
       {
         path: '/dashboard/profile',

@@ -4,14 +4,14 @@
       <v-row  class="my-2 mx-1" align="center">
         <h4 class="mb-3 mt-5">{{ this.type == 1 ? 'Заявки на продажу' : 'Заявки на покупку' }}</h4>
         <v-spacer />
-        <v-btn v-if="type == 1" small icon @click="openIsAddDialog">
-          <v-icon> mdi-text-box-plus-outline </v-icon>
+        <v-btn v-if="type == 1" icon @click="openIsAddDialog">
+          <v-icon> mdi-file-plus </v-icon>
         </v-btn>
       </v-row>
     </template>
-    <template v-if="GET_ORDERS(type).length != 0">
+    <template v-if="GET_MY_ORDERS(type).length != 0">
       <v-expansion-panels>
-          <v-expansion-panel v-for="(order, i) in GET_ORDERS(type)" :key="i">
+          <v-expansion-panel v-for="(order, i) in GET_MY_ORDERS(type)" :key="i">
             <v-expansion-panel-header>
               <v-row no-gutters>
                 <v-col cols="4">
@@ -32,10 +32,10 @@
                   <v-spacer></v-spacer>
                   <v-btn
                     text
-                    color="primary"
                     small
+                    color="teal accent-4"
                     @click="viewOrder(order.id)"
-                  >
+                    >
                     Подробнее
                   </v-btn>
               </v-card-actions>
@@ -60,14 +60,14 @@ export default {
     
   }),
   mounted(){
-    this.getAllOrderList()
+    this.getMyOrderList()
   },
   methods: {
     ...mapMutations(["SET_IS_ADD_DIALOG"]),
-    ...mapActions(["ORDER_LIST"]),
+    ...mapActions(["MY_ORDER_LIST"]),
     
-    getAllOrderList(){
-      this.ORDER_LIST(this.type)
+    getMyOrderList(){
+      this.MY_ORDER_LIST(this.type)
     },
     openIsAddDialog(){
       this.SET_IS_ADD_DIALOG()
@@ -77,7 +77,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["GET_ORDERS"]),
+    ...mapGetters(["GET_MY_ORDERS"]),
     
   },
 
