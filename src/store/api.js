@@ -42,11 +42,20 @@ export default {
    createOrder(data){
       return api.post('/orders', data)
    },
-   getAllOrderList(type){
+   getMyOrderList(type){
       return api.get('/orders/'+type)
    },
    getOrderById(id){
       return api.get('/orders/by/'+id)
+   },
+   getAllOrderList(){
+      return api.get('/orders/')
+   },
+   sendOfferOrder(data){
+      return api.post('/orders/offers', data)
+   },
+   getOffersList(){
+      return api.get('/orders/offers')
    }
    
 }

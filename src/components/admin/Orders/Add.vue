@@ -38,6 +38,7 @@
                       dense
                       label="Цена"
                       outlined
+                      @change="priceAndAmountHandler"
                     ></v-text-field>
                   </v-col>
 
@@ -47,6 +48,7 @@
                       dense
                       label="Количество"
                       outlined
+                      @change="priceAndAmountHandler"
                     ></v-text-field>
                   </v-col>
 
@@ -56,6 +58,7 @@
                       dense
                       label="Стоимость"
                       outlined
+                      @change="costHandler"
                     ></v-text-field>
                   </v-col>
                 
@@ -107,7 +110,13 @@ export default {
     },
     saveNewOrder(){
       this.CREATE_ORDER(this.newOrder)
-    }
+    },
+    priceAndAmountHandler(){
+      this.newOrder.cost = this.newOrder.price * this.newOrder.amount
+    },
+    costHandler(){
+      this.newOrder.price = Math.round(this.newOrder.cost / this.newOrder.amount)
+    },
   },
 };
 </script>
