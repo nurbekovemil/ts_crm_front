@@ -17,7 +17,7 @@
 import { mapGetters } from "vuex";
 export default {
   data: () => ({
-    timeout: 4000,
+    timeout: 5000,
   }),
   computed: {
     ...mapGetters(["GET_MESSAGE"]),

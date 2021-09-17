@@ -31,6 +31,7 @@ export default {
         ALL_ORDER_LIST: async ({commit}) => {
             try {
                 const {data} = await api.getAllOrderList()
+                console.log(data)
                 commit('SET_ALL_ORDER', data)
             } catch (error) {
                 
@@ -68,8 +69,17 @@ export default {
         GET_OFFERS_LIST: async ({commit}) => {
             try {
                 const {data} = await api.getOffersList()
-                console.log(data)
+                // console.log(data)
                 commit('SET_OFFERS', data)
+            } catch (error) {
+                commit('ERROR_MESSAGE', error.response.data.error)
+            }
+        },
+        UPDATE_ORDER_STATUS: async ({commit, dispatch}, order) => {
+            try {
+                const {data} = await api.updateOrderStatus(order)
+                dispatch('GET_ORDER_BY_ID', order.order_id)
+                commit('SUCCESS_MESSAGE', data)
             } catch (error) {
                 commit('ERROR_MESSAGE', error.response.data.error)
             }

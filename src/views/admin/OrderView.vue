@@ -18,7 +18,15 @@
             <v-list-item three-line>
               <v-list-item-content>
                 <v-list-item-title>Статус</v-list-item-title>
-                <v-list-item-subtitle>{{GET_ORDER_VIEW.status}}</v-list-item-subtitle>
+                <v-list-item-subtitle>
+                  <v-chip
+                    small
+                    :color="GET_ORDER_VIEW.status_color"
+                    text-color="white"
+                  >
+                    {{GET_ORDER_VIEW.status_title}}
+                  </v-chip>
+                </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-col>
@@ -55,44 +63,30 @@
             </v-list-item>
           </v-col>
         </v-row>
-        <v-card-actions>
-          <v-btn plain small color="grey" router :to="prevRoute || '/dashboard/all-orders'">
-            <v-icon class="mr-2">mdi-arrow-left</v-icon>Назад</v-btn>
-          <v-spacer></v-spacer>
-          <v-btn v-if="!GET_ORDER_VIEW.own" small color="success" @click="openIsAddOfferDialog">Предложить</v-btn>
-        </v-card-actions>
+        <tools/>
       </v-card>
       <offer/>
   </div>
 </template>
 
 <script>
-import {mapActions, mapGetters, mapMutations} from 'vuex'
-import Offer from '../../components/admin/Orders/Offer.vue'
+import {mapActions, mapGetters} from 'vuex'
+import Tools from '../../components/admin/Orders/Tools.vue';
+import Offer from "../../components/admin/Orders/Offer.vue";
+
 export default {
-  data: () => ({
-    prevRoute: null
-  }),
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      vm.prevRoute = from
-    })
-  },
   mounted(){
     this.GET_ORDER_BY_ID(this.$route.params.id)
+  },
+  components: {
+    Tools,
+    Offer
   },
   computed: {
     ...mapGetters(['GET_ORDER_VIEW'])
   },
-  components: {
-    Offer
-  },
   methods: {
     ...mapActions(['GET_ORDER_BY_ID']),
-    ...mapMutations(['SET_IS_ADD_OFFER_DIALOG']),
-    openIsAddOfferDialog(){
-      this.SET_IS_ADD_OFFER_DIALOG()
-    }
   }
 
 };

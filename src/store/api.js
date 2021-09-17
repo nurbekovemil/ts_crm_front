@@ -19,43 +19,19 @@ api.interceptors.request.use(
 
 export default {
    // user api
-   userLogin(data){
-      return api.post('/users/login', data)
-   },
-   userGetMe(){
-      return api.get('/users/me')
-   },
-   userList(){
-      return api.get('/users/')
-   },
-   createUser(data){
-      return api.post('/users', data)
-   },
-   deleteUser(id){
-      return api.delete('/users/'+id)
-   },
-   updateUser(data){
-      return api.put('/users/', data)
-   },
+   userLogin: (data) => api.post('/users/login', data),
+   userGetMe: () => api.get('/users/me'),
+   userList: () => api.get('/users/'),
+   createUser: (data) => api.post('/users', data),
+   deleteUser: (id) => api.delete('/users/'+id),
+   updateUser: (data) => api.put('/users/', data),
 
    // order api
-   createOrder(data){
-      return api.post('/orders', data)
-   },
-   getMyOrderList(type){
-      return api.get('/orders/'+type)
-   },
-   getOrderById(id){
-      return api.get('/orders/by/'+id)
-   },
-   getAllOrderList(){
-      return api.get('/orders/')
-   },
-   sendOfferOrder(data){
-      return api.post('/orders/offers', data)
-   },
-   getOffersList(){
-      return api.get('/orders/offers')
-   }
-   
+   createOrder: (data) => api.post('/orders', data),
+   getMyOrderList: (type) => api.get('/orders/'+type),
+   getOrderById: (id) => api.get('/orders/by/'+id),
+   getAllOrderList: () => api.get('/orders/'),
+   sendOfferOrder: (data) => api.post('/orders/offers', data),
+   getOffersList: () => api.get('/orders/offers'),
+   updateOrderStatus: (data) => api.put('/orders/status/', data)
 }

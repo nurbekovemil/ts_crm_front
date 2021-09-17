@@ -49,7 +49,7 @@ export default {
     loading: false,
     showPassword: false,
     loginFields: {
-      username: "admin",
+      username: "emil",
       password: "123456",
     },
   }),

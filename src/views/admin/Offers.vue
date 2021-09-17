@@ -6,12 +6,14 @@
             :key="i"
             :class="offer.own ? 'teal accent-3': 'lime lighten-3'"
         > 
-          <td>{{ offer.own ? 'Вы:' : 'Мне:' }}</td>
+          <td>{{ offer.own ? 'Вы' : 'Мне' }}</td>
           <td>{{ offer.title_order_from }}</td>
           <td>{{ offer.title_order_to }}</td>
           <td>status: {{ offer.status }}</td>
           <td>date: {{ offer.created_at }}</td>
           <td>own: {{ offer.own }}</td>
+
+          
         </tr>
       </tbody>
   </v-simple-table>

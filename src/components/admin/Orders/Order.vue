@@ -4,45 +4,74 @@
       <v-row  class="my-2 mx-1" align="center">
         <h4 class="mb-3 mt-5">{{ this.type == 1 ? 'Заявки на продажу' : 'Заявки на покупку' }}</h4>
         <v-spacer />
-        <v-btn v-if="type == 1" icon @click="openIsAddDialog">
-          <v-icon> mdi-file-plus </v-icon>
-        </v-btn>
+            <v-chip
+              v-if="type == 1"
+              class="ma-2"
+              color="primary"
+              outlined
+              pill
+              @click="openIsAddDialog"
+            >
+              
+              <v-icon left>
+                mdi-plus
+              </v-icon>
+              Добавить
+            </v-chip>
       </v-row>
     </template>
     <template v-if="GET_MY_ORDERS(type).length != 0">
-      <v-expansion-panels>
-          <v-expansion-panel v-for="(order, i) in GET_MY_ORDERS(type)" :key="i">
-            <v-expansion-panel-header>
-              <v-row no-gutters>
-                <v-col cols="4">
-                  {{ order.title }}
-                </v-col>
-                <v-col cols="8" class="text--secondary">
-                  <v-fade-transition leave-absolute>
-                    <v-row  no-gutters style="width: 100%">
-                      <v-col cols="6"> Статус: {{order.status}} </v-col>
-                      <v-col cols="6"> Дата: 12.09.2021 </v-col>
-                    </v-row>
-                  </v-fade-transition>
-                </v-col>
-              </v-row>
-            </v-expansion-panel-header>
-            <v-expansion-panel-content>
-              <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn
+      <v-simple-table>
+        <template v-slot:default>
+          <thead>
+            <tr>
+              <th class="text-left" width="40%">
+                Название
+              </th>
+              <th class="text-left">
+                Статус
+              </th>
+              <th class="text-left">
+                Дата
+              </th>
+              <th>
+                
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="(order, i) in GET_MY_ORDERS(type)"
+              :key="i"
+            >
+              <td>{{ order.title }}</td>
+              <td>
+                <template>
+                  <v-chip
+                    small
+                    :color="order.status_color"
+                    text-color="white"
+                  >
+                    {{order.status}}
+                  </v-chip>
+                </template>
+              </td>
+              <td>{{ order.created_at }}</td>
+              <td class="text-right">
+                <v-btn
                     text
                     small
-                    color="teal accent-4"
+                    color="primary"
                     @click="viewOrder(order.id)"
                     >
                     Подробнее
                   </v-btn>
-              </v-card-actions>
-            </v-expansion-panel-content>
-          </v-expansion-panel>        
-      </v-expansion-panels>
-    </template>
+              </td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+     </template>
     <template v-else>
       <p class="font-weight-light text--disabled text-center">
         {{ this.type == 1 ? 'Заявки на продажу' : 'Заявки на покупку' }} пусто.
