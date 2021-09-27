@@ -6,7 +6,8 @@ import {
   Dashboard, 
   Users, 
   MyOrders, 
-  OrderView, 
+  OrderView,
+  OfferView,
   Deals, 
   Offers, 
   AllOrders, 
@@ -101,6 +102,11 @@ const routes = [
         path: '/dashboard/order/:id',
         name: 'Описание товара',
         component: OrderView
+      },
+      {
+        path: '/dashboard/offer/:id',
+        name: 'Подробная информация',
+        component: OfferView
       }
     ]
   },

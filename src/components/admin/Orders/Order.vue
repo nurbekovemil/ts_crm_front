@@ -20,7 +20,7 @@
             </v-chip>
       </v-row>
     </template>
-    <template v-if="GET_MY_ORDERS(type).length != 0">
+    <template v-if="getMyOrders(type).length != 0">
       <v-simple-table>
         <template v-slot:default>
           <thead>
@@ -41,7 +41,7 @@
           </thead>
           <tbody>
             <tr
-              v-for="(order, i) in GET_MY_ORDERS(type)"
+              v-for="(order, i) in getMyOrders(type)"
               :key="i"
             >
               <td>{{ order.title }}</td>
@@ -59,12 +59,13 @@
               <td>{{ order.created_at }}</td>
               <td class="text-right">
                 <v-btn
-                    text
+                    rounded
+                    plain
                     small
                     color="primary"
                     @click="viewOrder(order.id)"
                     >
-                    Подробнее
+                    Посмотреть
                   </v-btn>
               </td>
             </tr>
@@ -106,7 +107,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["GET_MY_ORDERS"]),
+    ...mapGetters(["getMyOrders"]),
     
   },
 

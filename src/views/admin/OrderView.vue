@@ -2,29 +2,30 @@
   <div>
       <v-card>
         <v-card-title>
-          {{GET_ORDER_VIEW.title}}
+          {{getOrderView.title}}
         </v-card-title>
-        <v-card-subtitle> {{GET_ORDER_VIEW.order_type_title}}</v-card-subtitle>
+        
+        <v-card-subtitle> {{getOrderView.order_type_title}}</v-card-subtitle>
         <v-row no-gutters>
           <v-col cols="4">
             <v-list-item three-line>
               <v-list-item-content>
                 <v-list-item-title>Описания</v-list-item-title>
-                <v-list-item-subtitle>{{GET_ORDER_VIEW.description}}</v-list-item-subtitle>
+                <v-list-item-subtitle>{{getOrderView.description}}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-col>
-                <v-col cols="4">
+          <v-col cols="4">
             <v-list-item three-line>
               <v-list-item-content>
                 <v-list-item-title>Статус</v-list-item-title>
                 <v-list-item-subtitle>
                   <v-chip
                     small
-                    :color="GET_ORDER_VIEW.status_color"
+                    :color="getOrderView.status_color"
                     text-color="white"
                   >
-                    {{GET_ORDER_VIEW.status_title}}
+                    {{getOrderView.status_title}}
                   </v-chip>
                 </v-list-item-subtitle>
               </v-list-item-content>
@@ -34,7 +35,7 @@
             <v-list-item three-line>
               <v-list-item-content>
                 <v-list-item-title>Дата</v-list-item-title>
-                <v-list-item-subtitle>{{GET_ORDER_VIEW.created_at}}</v-list-item-subtitle>
+                <v-list-item-subtitle>{{getOrderView.created_at}}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-col>
@@ -42,7 +43,7 @@
             <v-list-item three-line>
               <v-list-item-content>
                 <v-list-item-title>Цена</v-list-item-title>
-                <v-list-item-subtitle>{{GET_ORDER_VIEW.price}}</v-list-item-subtitle>
+                <v-list-item-subtitle>{{getOrderView.price}}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-col>
@@ -50,7 +51,7 @@
             <v-list-item three-line>
               <v-list-item-content>
                 <v-list-item-title>Количество</v-list-item-title>
-                <v-list-item-subtitle>{{GET_ORDER_VIEW.amount}}</v-list-item-subtitle>
+                <v-list-item-subtitle>{{getOrderView.amount}}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-col>
@@ -58,11 +59,12 @@
             <v-list-item three-line>
               <v-list-item-content>
                 <v-list-item-title>Стоимость</v-list-item-title>
-                <v-list-item-subtitle>{{GET_ORDER_VIEW.cost}}</v-list-item-subtitle>
+                <v-list-item-subtitle>{{getOrderView.cost}}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-col>
         </v-row>
+
         <tools/>
       </v-card>
       <offer/>
@@ -75,6 +77,13 @@ import Tools from '../../components/admin/Orders/Tools.vue';
 import Offer from "../../components/admin/Orders/Offer.vue";
 
 export default {
+  data: () => ({
+    titles: [
+      {proper: 'cost', title: 'Стоимость'},
+      {proper: 'price', title: 'Цена'},
+      {proper: 'amount', title: 'Количество'},
+    ]
+  }),
   mounted(){
     this.GET_ORDER_BY_ID(this.$route.params.id)
   },
@@ -83,10 +92,10 @@ export default {
     Offer
   },
   computed: {
-    ...mapGetters(['GET_ORDER_VIEW'])
+    ...mapGetters(['getOrderView'])
   },
   methods: {
-    ...mapActions(['GET_ORDER_BY_ID']),
+    ...mapActions(['GET_ORDER_BY_ID'])
   }
 
 };

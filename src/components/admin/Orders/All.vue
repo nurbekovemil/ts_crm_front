@@ -1,7 +1,7 @@
 <template lang="">
    <div>
       <v-row >
-         <v-col cols="4" v-for="order of GET_ALL_ORDERS " :key="order.id">
+         <v-col cols="4" v-for="order of getAllOrders " :key="order.id">
             <v-card>
                <v-card-title>
                   {{order.title}}
@@ -51,16 +51,13 @@ import { mapActions, mapGetters } from "vuex";
 export default {
     props: ['status'],
     mounted() {
-        this.getAllOrderList();
+      this.ALL_ORDER_LIST()
     },
     computed: {
-        ...mapGetters(["GET_ALL_ORDERS"]),
+        ...mapGetters(["getAllOrders"]),
     },
     methods: {
         ...mapActions(["ALL_ORDER_LIST"]),
-        getAllOrderList() {
-            this.ALL_ORDER_LIST();
-        },
         viewOrder(id) {
             this.$router.push({ path: `/dashboard/order/${id}` });
         },

@@ -1,6 +1,6 @@
 <template>
     <v-row justify="center">
-        <v-dialog v-model="GET_IS_OFFER_DIALOG" persistent max-width="700px">
+        <v-dialog v-model="getIsDealDialog" persistent max-width="700px">
             <v-card>
                 <v-card-title>
                     Предложить
@@ -10,29 +10,29 @@
                         <v-row>
                             <v-col cols="12" sm="6" md="12">
                                 <span class="text-h5">
-                                    {{GET_ORDER_VIEW.title}}
+                                    {{getOrderView.title}}
                                 </span>
                             </v-col>
                             <v-col cols="12" sm="6" md="4">
                                 <span class="subtitle-1">
-                                    Цена: {{GET_ORDER_VIEW.price}}
+                                    Цена: {{getOrderView.price}}
                                 </span>
                             </v-col>
                             <v-col cols="12" sm="6" md="4">
                                 <span class="subtitle-1">
-                                    Количество: {{GET_ORDER_VIEW.amount}}
+                                    Количество: {{getOrderView.amount}}
                                 </span>
                             </v-col>
                             <v-col cols="12" sm="6" md="4">
                                 <span class="subtitle-1">
-                                    Стоимость: {{GET_ORDER_VIEW.cost}}
+                                    Стоимость: {{getOrderView.cost}}
                                 </span>
                             </v-col>
                         </v-row>
                         <v-row>
                             <v-col cols="12" sm="6" md="12">
                                 <v-select
-                                    :items="GET_MY_ORDERS(handleOrderType)"
+                                    :items="getMyOrders(handleOrderType)"
                                     v-model="myOrderId"
                                     item-text="title"
                                     item-value="id"
@@ -47,10 +47,10 @@
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click="toggleIsAddOfferDialog">
+                    <v-btn color="blue darken-1" text @click="closeIsAddDealDialog">
                         Отмена
                     </v-btn>
-                    <v-btn color="blue darken-1" text @click="sendOfferOrder">
+                    <v-btn color="blue darken-1" text @click="createDeal">
                         Отправить
                     </v-btn>
                 </v-card-actions>
@@ -66,27 +66,27 @@ export default {
         myOrderId: null
     }),
     computed: {
-        ...mapGetters(['GET_IS_OFFER_DIALOG', 'GET_ORDER_VIEW', 'GET_MY_ORDERS']),
+        ...mapGetters(['getIsDealDialog', 'getOrderView', 'getMyOrders']),
         handleOrderType(){
-            return this.GET_ORDER_VIEW.order_type == 1 ? 2 : 1
+            return this.getOrderView.order_type == 1 ? 2 : 1
         }
     },
     methods: {
-        ...mapActions(['MY_ORDER_LIST','SEND_OFFER_ORDER']),
-        ...mapMutations(['SET_IS_ADD_OFFER_DIALOG']),
-        toggleIsAddOfferDialog(){
-            this.SET_IS_ADD_OFFER_DIALOG()
+        ...mapActions(['MY_ORDER_LIST','CREATE_DEAL']),
+        ...mapMutations(['SET_IS_ADD_DEAL_DIALOG']),
+        closeIsAddDealDialog(){
+            this.SET_IS_ADD_DEAL_DIALOG()
         },
         loadMyOrders(){
             this.MY_ORDER_LIST(this.handleOrderType)
         },
-        sendOfferOrder(){
+        createDeal(){
             const offer = {
-                user_to: this.GET_ORDER_VIEW.user_id,
+                user_to: this.getOrderView.user_id,
                 order_from: this.myOrderId,
-                order_to: this.GET_ORDER_VIEW.id
+                order_to: this.getOrderView.id
             }
-            this.SEND_OFFER_ORDER(offer)
+            this.CREATE_DEAL(offer)
         }
     }
 };

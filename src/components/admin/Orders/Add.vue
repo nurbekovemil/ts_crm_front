@@ -2,7 +2,7 @@
   <div>
     <template>
       <v-row justify="center">
-        <v-dialog v-model="GET_IS_ADD_DIALOG" persistent max-width="55%">
+        <v-dialog v-model="getIsAddDialog" persistent max-width="55%">
           <v-card>
             <v-card-title>
               <span class="text-h5">Добавить заявку</span>
@@ -99,7 +99,7 @@ export default {
     }
   }),
   computed: {
-    ...mapGetters(['GET_IS_ADD_DIALOG'])
+    ...mapGetters(['getIsAddDialog'])
   },
   methods: {
     ...mapMutations(['SET_IS_ADD_DIALOG']),
