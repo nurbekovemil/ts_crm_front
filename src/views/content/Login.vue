@@ -49,13 +49,13 @@ export default {
     loading: false,
     showPassword: false,
     loginFields: {
-      username: "admin",
+      username: "bob",
       password: "123456",
     },
   }),
 
   methods: {
-    ...mapActions(["LOGIN"]),
+    ...mapActions('user',['LOGIN']),
     handleSubmit() {
       this.LOGIN(this.loginFields);
     },

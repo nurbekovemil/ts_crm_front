@@ -7,7 +7,7 @@
       <v-btn router to="/" plain icon>
         <v-icon>mdi-home</v-icon>
       </v-btn>
-      <v-btn @click="logout" plain small> Выйти</v-btn>
+      <v-btn @click="logout" plain small>Выйти</v-btn>
     </v-app-bar>
     <v-navigation-drawer
       v-model="drawer"
@@ -34,7 +34,7 @@
         active-class="white--text"
       >
         <template v-slot:activator>
-          <v-list-item-title>{{ GET_USER.username }}</v-list-item-title>
+          <v-list-item-title>{{ user.username }}</v-list-item-title>
         </template>
         <v-list nav dense>
           <v-list-item
@@ -56,7 +56,7 @@
 
       <v-list nav dense>
         <v-list-item
-          v-for="menu in GET_USER_MENU"
+          v-for="menu in userMenus"
           :key="menu.id"
           router
           :to="menu.route"
@@ -74,7 +74,8 @@
     </v-navigation-drawer>
     <v-main class="pt-0 pl-0">
       <v-container>
-        <v-slide-x-transition mode="out-in">
+        <v-slide-x-transition
+          mode="out-in">
           <router-view />
         </v-slide-x-transition>
       </v-container>
@@ -83,7 +84,7 @@
   </v-app>
 </template>
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 import Message from '../components/admin/Message.vue'
 export default {
   data: () => ({
@@ -101,14 +102,15 @@ export default {
       },
     ],
   }),
+  
   components:{
     Message
   },
   computed: {
-    ...mapGetters(["GET_USER", "GET_USER_MENU"]),
+    ...mapState('user',['user','userMenus']),
   },
   methods: {
-    ...mapActions(["LOGOUT", "GET_ME"]),
+    ...mapActions('user',['LOGOUT']),
     logout() {
       this.LOGOUT();
     },

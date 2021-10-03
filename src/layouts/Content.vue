@@ -6,9 +6,9 @@
       <v-btn elevation="0" plain small router to="/"> Главная </v-btn>
       <v-btn plain small router to="/handbooks"> Справочник </v-btn>
       <v-btn elevation="0" plain small router to="/login">
-        <template v-if="!GET_IS_AUTH" icon> Войти </template>
+        <template v-if="!isAuth" icon> Войти </template>
         <template v-else>
-          {{ GET_USER.username }}
+          {{ user.username }}
         </template>
       </v-btn>
     </v-app-bar>
@@ -40,11 +40,11 @@
   </v-app>
 </template>
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapState } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters(["GET_IS_AUTH", "GET_USER"]),
+    ...mapState('user',['user','isAuth'])
   },
   components: {},
 };

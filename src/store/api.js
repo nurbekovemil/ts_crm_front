@@ -3,32 +3,40 @@ import axios from 'axios'
 
 const api = axios.create({
    baseURL: 'http://localhost:3132',
-   headers: {
-      Accept: 'application/json',
-   }
 })
 
-api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`
-
-
+api.interceptors.request.use(
+   async config => {
+     config.headers = { 
+       'Authorization': `Bearer ${localStorage.getItem('token') || ''}`,
+       'Accept': 'application/json',
+     }
+     return config;
+   },
+   error => {
+     Promise.reject(error)
+ });
 
 export default {
-   userLogin(data){
-      return api.post('/users/login', data)
-   },
-   userGetMe(){
-      return api.get('/users/me')
-   },
-   userList(){
-      return api.get('/users/')
-   },
-   createUser(data){
-      return api.post('/users', data)
-   },
-   deleteUser(id){
-      return api.delete('/users/'+id)
-   },
-   updateUser(data){
-      return api.put('/users/', data)
-   }
+   // user api
+   userLogin: (data) => api.post('/users/login', data),
+   userGetMe: () => api.get('/users/me'),
+   userList: () => api.get('/users'),
+   createUser: (data) => api.post('/users', data),
+   deleteUser: (id) => api.delete('/users/'+id),
+   updateUser: (data) => api.put('/users', data),
+
+   // order api
+   createOrder: (data) => api.post('/orders', data),
+   getMyOrderList: (type) => api.get('/orders/'+type),
+   getOrderById: (id) => api.get('/orders/by/'+id),
+   getAllOrderList: () => api.get('/orders'),
+   getAllOrderListHomePage: () => api.get('/orders/orders'),
+   updateOrderStatus: (data) => api.put('/orders/status/', data),
+  
+   // Deal api
+   createDeal: (data) => api.post('/deals', data),
+   getDealById: (id) => api.get('/deals/by/'+id),
+   getDealList: (status) => api.get('/deals/'+status),
+   updateDealStatus: (status) => api.put('/deals/', status)
 }
