@@ -5,11 +5,13 @@
 </template>
 
 <script>
-import Views from '../../components/admin/Orders/Views.vue';
+import Views from '../../components/admin/Orders/Views.vue'
 
 export default {
-  components: {
-    Views
-  },
-};
+	components: { Views },
+}
 </script>
+
+<style>
+
+</style>

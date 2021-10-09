@@ -72,14 +72,12 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-main class="pt-0 pl-0">
       <v-container>
         <v-slide-x-transition
           mode="out-in">
           <router-view />
         </v-slide-x-transition>
       </v-container>
-    </v-main>
     <message/>
   </v-app>
 </template>

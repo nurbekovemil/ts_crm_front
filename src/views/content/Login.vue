@@ -3,16 +3,16 @@
     :loading="loading"
     class="mx-xs-5 mx-auto my-12 py-5 px-10"
     max-width="500"
-    max-height="1000"
+    min-height="400"
     flat
     color="rgb(255, 255, 255)"
     
   >
-    <!-- <v-card-subtitle 
+    <v-card-subtitle 
       class="text-center"
    > 
       Авторизация
-   </v-card-subtitle>  -->
+   </v-card-subtitle> 
 
     <v-text-field
     class="pb-3"

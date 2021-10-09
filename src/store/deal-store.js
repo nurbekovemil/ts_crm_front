@@ -16,10 +16,10 @@ export default {
         CREATE_DEAL: async ({commit}, dealData) => {
             try {
                 const {data} = await api.createDeal(dealData)
-                commit('SUCCESS_MESSAGE', data, {root: true})
+                commit('message/SUCCESS_MESSAGE', data, {root: true})
                 commit('SET_IS_ADD_DEAL_DIALOG')
             } catch (error) {
-                commit('ERROR_MESSAGE', error.response.data.error, {root: true})
+                commit('message/ERROR_MESSAGE', error.response.data.error, {root: true})
             }
         },
         GET_DEAL_LIST: async ({commit}, status) => {
@@ -28,7 +28,7 @@ export default {
                 // console.log(data)
                 commit('SET_DEALS', data)
             } catch (error) {
-                commit('ERROR_MESSAGE', error.response.data.error, {root: true})
+                commit('message/ERROR_MESSAGE', error.response.data.error, {root: true})
             }
         },
         GET_DEAL_BY_ID: async ({commit}, id) => {
@@ -36,16 +36,16 @@ export default {
                 const {data} = await api.getDealById(id)
                 commit('SET_DEAL_VIEW', data)
             } catch (error) {
-                commit('ERROR_MESSAGE', error.response.data.error, {root: true})
+                commit('message/ERROR_MESSAGE', error.response.data.error, {root: true})
             }
         },
         UPDATE_DEAL_STATUS: async ({commit, dispatch}, status) => {
             try {
                 const {data} = await api.updateDealStatus(status)
                 dispatch('GET_DEAL_BY_ID', status.deal_id)
-                commit('SUCCESS_MESSAGE', data, {root: true})
+                commit('message/SUCCESS_MESSAGE', data, {root: true})
             } catch (error) {
-                commit('ERROR_MESSAGE', error.response.data.error, {root: true})
+                commit('message/ERROR_MESSAGE', error.response.data.error, {root: true})
             }
         }
     }

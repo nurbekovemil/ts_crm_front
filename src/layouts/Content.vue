@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar flat dark elevation="0" color="primary lighten-1">
+    <v-app-bar app flat dark elevation="0" color="primary lighten-1">
       <v-toolbar-title>TS KSE</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn elevation="0" plain small router to="/"> Главная </v-btn>
@@ -12,21 +12,16 @@
         </template>
       </v-btn>
     </v-app-bar>
-
-    <v-main
-      :style="
+    <!-- :style="
         this.$router.history.current.path == '/login' && {
           'background-image':
             'url(' + require('../assets/bruno-abatti.jpg') + ')',
           'background-size': '100%',
         }
-      "
-    >
-      <v-container style="min-height: 900px">
+      " -->
+      <v-container>
         <router-view />
       </v-container>
-    </v-main>
-
     <footer class="footer">
       <div class="container">
         <div class="copyright text-center">
@@ -46,7 +41,6 @@ export default {
   computed: {
     ...mapState('user',['user','isAuth'])
   },
-  components: {},
 };
 </script>
 

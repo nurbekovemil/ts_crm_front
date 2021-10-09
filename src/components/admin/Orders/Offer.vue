@@ -32,7 +32,7 @@
                         <v-row>
                             <v-col cols="12" sm="6" md="12">
                                 <v-select
-                                    :items="getMyOrders(handleOrderType)"
+                                    :items="getOrderByType(handleOrderType)"
                                     v-model="myOrderId"
                                     item-text="title"
                                     item-value="id"
@@ -68,14 +68,15 @@ export default {
     computed: {
         ...mapState('order', ['order_view']),
         ...mapState('deal', ['isAddDealDialog']),
-        ...mapGetters('order',['getMyOrders']),
+        ...mapGetters('order',['getOrderByType']),
         handleOrderType(){
             return this.order_view.order_type == 1 ? 2 : 1
         }
     },
     methods: {
-        ...mapActions('order',['MY_ORDER_LIST','CREATE_DEAL']),
-        ...mapMutations(['SET_IS_ADD_DEAL_DIALOG']),
+        ...mapActions('order',['MY_ORDER_LIST']),
+        ...mapActions('deal',['CREATE_DEAL']),
+        ...mapMutations('deal',['SET_IS_ADD_DEAL_DIALOG']),
         closeIsAddDealDialog(){
             this.SET_IS_ADD_DEAL_DIALOG()
         },

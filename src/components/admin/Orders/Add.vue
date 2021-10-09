@@ -2,79 +2,59 @@
   <div>
     <template>
       <v-row justify="center">
-        <v-dialog v-model="isAddDialog" persistent max-width="55%">
+        <v-dialog v-model="isAddDialog" persistent max-width="60%">
+
           <v-card>
             <v-card-title>
-              <span class="text-h5">Добавить заявку</span>
+              <span class="text-h5">{{template.title}}</span>
             </v-card-title>
             <v-card-text>
               <v-container>
-                <v-row class="pa-3">
-
-                  <v-col cols="12" sm="6">
-                    <v-text-field
-                      v-model="newOrder.title"
-                      dense
-                      label="Название продукта"
-                      outlined
-                    ></v-text-field>
+                <v-row class="pa-3" cols="12">
+                  <v-col v-for="(field, i) in template.fields" :key="i" :sm="field.type === 'textarea'?'12':'4'">
+                    <template v-if="field.type === 'input'">
+                      <v-text-field
+                        v-model="field.value"
+                        dense
+                        :label="field.title"
+                        outlined
+                      ></v-text-field>
+                    </template>
+                    <template v-if="field.type === 'textarea'">
+                      <v-textarea
+                        auto-grow
+                        outlined
+                        rows="1"
+                        :label="field.title"
+                        :value="field.value"
+                      ></v-textarea>
+                    </template>
+                    <template v-if="field.type === 'select'">
+                      <v-select
+                        :items="loadItems(field.item)"
+                        v-model="field.value"
+                        item-text="title"
+                        item-value="id"
+                        :label="field.title"
+                        dense
+                        outlined
+                      ></v-select>
+                    </template>
                   </v-col>
-
-                  <v-col cols="12" sm="6">
-                    <v-select
-                      :items="types"
-                      v-model="newOrder.order_type"
-                      item-text="title"
-                      item-value="type"
-                      label="Выберите тип заявки"
-                      dense
-                      outlined
-                    ></v-select>
-                  </v-col>
-
-                  <v-col cols="12" sm="6">
-                    <v-text-field
-                      v-model="newOrder.price"
-                      dense
-                      label="Цена"
-                      outlined
-                      @change="priceAndAmountHandler"
-                    ></v-text-field>
-                  </v-col>
-
-                  <v-col cols="12" sm="6">
-                    <v-text-field
-                      v-model="newOrder.amount"
-                      dense
-                      label="Количество"
-                      outlined
-                      @change="priceAndAmountHandler"
-                    ></v-text-field>
-                  </v-col>
-
-                  <v-col cols="12" sm="6">
-                    <v-text-field
-                      v-model="newOrder.cost"
-                      dense
-                      label="Стоимость"
-                      outlined
-                      @change="costHandler"
-                    ></v-text-field>
-                  </v-col>
-                
                 </v-row>
               </v-container>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="red" text @click="closeIsAddDialog">
-                Закрыть
+                Отменить
               </v-btn>
               <v-btn color="success" @click="saveNewOrder">
-                Сохранить
+                Добавить
               </v-btn>
             </v-card-actions>
           </v-card>
+
         </v-dialog>
       </v-row>
     </template>
@@ -86,30 +66,39 @@ import {mapState, mapActions, mapMutations} from 'vuex'
 
 export default {
   data: () => ({
-    types: [
-      {type: 1, title: 'Заявка на продажу'},
-      {type: 2, title: 'Заявка на покупку'}
-    ],
-    newOrder: {
-      order_type: null,
-      title: '',
-      price: 0,
-      amount: 0,
-      cost: 0
-    }
+    orderAddTemplate:[
+      {field: 'category',title:'Категория', value: null, type: 'select', item:'order_categories'},
+      {field: 'type',title:'Тип заявки', value: null, type: 'select', item: 'order_types'},
+      {field: 'delivery',title:'Условия доставки', value: null, type: 'select', item: 'order_deliveries'},
+      {field: 'payment',title:'Условие оплаты', value: null, type: 'select', item: 'order_payments'},
+      {field: 'weight',title:'Единицы измерения', value: null, type: 'select', item: 'order_weights'},
+      {field: 'title', title:'Название продукта', value: '', type:'input'},
+      {field: 'description', title:'Описание', value: '', type:'textarea'},
+      {field: 'price', title:'Цена', value: 0, type: 'input'},
+      {field: 'amount', title:'Количество', value: 0, type: 'input'},
+      {field: 'cost', title:'Стоимость', value: 0, type: 'input'},
+    ]
   }),
   computed: {
-    ...mapState('order',['isAddDialog'])
+    ...mapState('order',['isAddDialog','types', 'template'])
+  },
+  mounted(){
+    this.GET_TEMPLATE(1)
   },
   methods: {
     ...mapMutations('order',['SET_IS_ADD_DIALOG']),
-    ...mapActions('order',['CREATE_ORDER']),
+    ...mapActions('order',['CREATE_ORDER','GET_TEMPLATE']),
     
     closeIsAddDialog() {
       this.SET_IS_ADD_DIALOG();
     },
     saveNewOrder(){
-      this.CREATE_ORDER(this.newOrder)
+    let order = this.template.fields.reduce((prev, {field, value}) => (prev[field] = value, prev), {})
+    this.CREATE_ORDER(order)
+    // console.log(order)
+
+    // let o = JSON.stringify(this.orderAddTemplate)
+    // console.log(o)
     },
     priceAndAmountHandler(){
       this.newOrder.cost = this.newOrder.price * this.newOrder.amount
@@ -117,6 +106,9 @@ export default {
     costHandler(){
       this.newOrder.price = Math.round(this.newOrder.cost / this.newOrder.amount)
     },
+    loadItems(item){
+      return this.template[item]
+    }
   },
 };
 </script>

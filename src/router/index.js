@@ -19,6 +19,7 @@ import {
 import {
   Handbook, 
   Home, 
+  Order,
   Login
 } from '../views/content'
 
@@ -45,10 +46,16 @@ const routes = [
         component: Handbook
       },
       {
+        path: '/order/:id',
+        name: 'Заявка',
+        component: Order
+      },
+      {
         path: '/login',
         name: 'Войти',
         component: Login
-      }
+      },
+
     ]
   },
   {

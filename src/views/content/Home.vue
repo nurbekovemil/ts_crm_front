@@ -15,7 +15,8 @@
         </v-col>
       </v-row>
     </v-parallax>
-    <order-list/>
+    <order-list type="1"/>
+    <order-list type="2"/>
   </div>
 </template>
 

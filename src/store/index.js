@@ -10,7 +10,6 @@ import deal from './deal-store'
 Vue.use(Vuex, axios)
 
 export default new Vuex.Store({
-  namespaced: true,
   modules: {
     message,
     user,

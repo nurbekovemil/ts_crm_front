@@ -20,7 +20,7 @@
             </v-chip>
       </v-row>
     </template>
-    <template v-if="getMyOrders(type).length != 0">
+    <template v-if="getOrderByType(type).length != 0">
       <v-simple-table>
         <template v-slot:default>
           <thead>
@@ -41,7 +41,7 @@
           </thead>
           <tbody>
             <tr
-              v-for="(order, i) in getMyOrders(type)"
+              v-for="(order, i) in getOrderByType(type)"
               :key="i"
             >
               <td>{{ order.title }}</td>
@@ -100,7 +100,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('order',['getMyOrders']),
+    ...mapGetters('order',['getOrderByType']),
   },
 
 };

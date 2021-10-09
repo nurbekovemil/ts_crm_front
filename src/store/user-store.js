@@ -41,7 +41,7 @@ export default{
                const {data} = await api.userGetMe()
                commit('SET_IS_AUTH', true)
                commit('SET_USER', data)
-               router.push(router.history._startLocation != '/login' && router.history._startLocation)  
+               router.history._startLocation != router.history.current.path && router.push(router.history._startLocation) 
             }
          } catch (error) {
             localStorage.removeItem('token')
@@ -62,7 +62,7 @@ export default{
             commit('SUCCESS_MESSAGE', data, {root: true})
             dispatch('USERLIST')
          } catch (error) {
-            commit('ERROR_MESSAGE', error.response.data.error, {root: true})
+            commit('message/ERROR_MESSAGE', error.response.data.error, {root: true})
          }
       },
 
@@ -77,19 +77,19 @@ export default{
       async DELETEUSER({commit, dispatch}, id){
          try {
             const {data} = await api.deleteUser(id)
-            commit('SUCCESS_MESSAGE', data, {root: true})
+            commit('message/SUCCESS_MESSAGE', data, {root: true})
             dispatch('USERLIST')
          } catch (error) {
-            commit('ERROR_MESSAGE', error.response.data.error, {root: true})
+            commit('message/ERROR_MESSAGE', error.response.data.error, {root: true})
          }
       },
       async UPDATEUSER({commit, dispatch}, update){
          try {
             const {data} = await api.updateUser(update)
-            commit('SUCCESS_MESSAGE', data, {root: true})
+            commit('message/SUCCESS_MESSAGE', data, {root: true})
             dispatch('USERLIST')
          } catch (error) {
-            commit('ERROR_MESSAGE', error.response.data.error, {root: true})
+            commit('message/ERROR_MESSAGE', error.response.data.error, {root: true})
 
          }
       }
