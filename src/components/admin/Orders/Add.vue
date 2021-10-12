@@ -22,11 +22,11 @@
                     </template>
                     <template v-if="field.type === 'textarea'">
                       <v-textarea
+                        v-model="field.value"
                         auto-grow
                         outlined
                         rows="1"
                         :label="field.title"
-                        :value="field.value"
                       ></v-textarea>
                     </template>
                     <template v-if="field.type === 'select'">
@@ -38,6 +38,7 @@
                         :label="field.title"
                         dense
                         outlined
+                        
                       ></v-select>
                     </template>
                   </v-col>

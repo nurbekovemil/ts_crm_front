@@ -1,11 +1,11 @@
 <template lang="">
-   <deal status="2"/>
+   <deal-list status="2"/>
 </template>
 <script>
-import Deal from '@/components/admin/Deals/Deal.vue'
+import DealList from '@/components/admin/Deals/DealList.vue'
 export default {
    components: {
-      Deal
+      DealList
    }
 }
 </script>

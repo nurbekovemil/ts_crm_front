@@ -1,20 +1,20 @@
 <template lang="">
    <div>
       <!-- тип 1 заявка на продажу -->
-      <order type="1"/>
+      <order-list type="1"/>
       <!-- тип 2 заявка на покупку -->
-      <order type="2"/>
+      <order-list type="2"/>
       <add/>
    </div>
 </template>
 <script>
 
 
-import Order from "@/components/admin/Orders/Order.vue";
+import OrderList from "@/components/admin/Orders/OrderList.vue";
 import Add from '@/components/admin/Orders/Add.vue'
 export default {
    components: {
-      Order,
+      OrderList,
       Add
    },
 

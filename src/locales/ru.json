@@ -1,3 +1,24 @@
 {
-  "home": "привет"
+  "admin":{
+    "order":{
+      "order_view":{
+        "title":"Названия",
+        "order_type_title":"Тип заявки",
+        "description":"Описания",
+        "category":"Категория",
+        "created_at":"Дата",
+        "currency":"Валюта",
+        "delivery":"Доставка",
+        "payment":"Оплата",
+        "price":"Цена",
+        "amount":"Количество",
+        "cost":"Стоимость",
+        "weight":"Вес",
+        "status_title":"Статус"
+      }
+    }
+  },
+  "content":{
+
+  }
 }

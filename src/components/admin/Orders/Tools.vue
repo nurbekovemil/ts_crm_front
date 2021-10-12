@@ -1,4 +1,5 @@
 <template>
+    <v-card class="mt-5" elevation="0">
     <v-card-actions>        
         <v-spacer></v-spacer>
         <!-- private template for admin -->
@@ -48,6 +49,7 @@
         <!-- public template -->
 
     </v-card-actions>
+    </v-card>
 </template>
 
 <script>

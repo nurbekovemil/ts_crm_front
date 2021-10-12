@@ -34,7 +34,6 @@ export default {
 		GET_TEMPLATE: async ({ commit }, id) => {
 			try {
 				const { data } = await api.getTemplate(id);
-				console.log(data);
 				commit("SET_TEMPLATE", data);
 			} catch (error) {
 				commit("message/ERROR_MESSAGE", error.response.data.error, {
@@ -78,8 +77,7 @@ export default {
 			try {
 				const { data } = isAuth
 					? await api.getOrderByIdPrivate(id)
-					: await api.getOrderByIdPublic(id);
-					console.log(data)
+					: await api.getOrderByIdPublic(id)
 				commit("SET_ORDER_VIEW", data);
 			} catch (error) {
 				commit("message/ERROR_MESSAGE", error.response.data.error, {
@@ -90,7 +88,7 @@ export default {
 		UPDATE_ORDER_STATUS: async ({ commit, dispatch }, order) => {
 			try {
 				const { data } = await api.updateOrderStatusPrivate(order);
-				dispatch("GET_ORDER_BY_ID", order.order_id);
+				dispatch("GET_ORDER_BY_ID", {id: order.order_id});
 				commit("message/SUCCESS_MESSAGE", data, { root: true });
 			} catch (error) {
 				commit("message/ERROR_MESSAGE", error.response.data.error, {
