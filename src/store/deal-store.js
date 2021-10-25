@@ -5,12 +5,14 @@ export default {
     state: {
         isAddDealDialog: false,
         deals: [],
-        deal_view: []
+        deal_view: [],
+        deal_orders: []
     },
     mutations: {
         SET_IS_ADD_DEAL_DIALOG: (state) => state.isAddDealDialog = !state.isAddDealDialog,
         SET_DEAL_VIEW: (state, data) => state.deal_view = data,
-        SET_DEALS: (state, data) => state.deals = data
+        SET_DEALS: (state, data) => state.deals = data,
+        SET_DEAL_ORDERS: (state, data) => state.deal_orders = data
     },
     actions: {
         CREATE_DEAL: async ({commit}, dealData) => {
@@ -25,10 +27,17 @@ export default {
         GET_DEAL_LIST: async ({commit}, status) => {
             try {
                 const {data} = await api.getDealList(status)
-                // console.log(data)
                 commit('SET_DEALS', data)
             } catch (error) {
                 commit('message/ERROR_MESSAGE', error.response.data.error, {root: true})
+            }
+        },
+        GET_DEAL_ORDERS: async ({commit}, ids) => {
+            try {
+	            const {data} = await api.getDealOrders(ids)
+                commit('SET_DEAL_ORDERS', data)
+            } catch (error) {
+                
             }
         },
         GET_DEAL_BY_ID: async ({commit}, id) => {

@@ -2,18 +2,18 @@
   <v-card
     :loading="loading"
     class="mx-xs-5 mx-auto my-12 py-5 px-10"
-    max-width="500"
+    max-width="400"
     min-height="400"
     flat
     color="rgb(255, 255, 255)"
     
   >
+
     <v-card-subtitle 
       class="text-center"
-   > 
-      Авторизация
+   > Авторизация
+      
    </v-card-subtitle> 
-
     <v-text-field
     class="pb-3"
       v-model="loginFields.username"

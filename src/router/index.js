@@ -5,7 +5,7 @@ import VueRouter from 'vue-router'
 import {
   Dashboard, 
   Users, 
-  MyOrders, 
+  Orders, 
   OrderView,
   DealView,
   Deals, 
@@ -78,7 +78,7 @@ const routes = [
       {
         path: '/dashboard/my-orders',
         name: 'Мои заявки',
-        component: MyOrders,
+        component: Orders,
       },
       {
         path: '/dashboard/my-deals',

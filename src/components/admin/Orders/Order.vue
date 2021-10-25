@@ -19,8 +19,6 @@
 
 <script>
 
-
-
 export default {
 	props: ["order", "cols", "shadow"],
 	computed: {
@@ -32,5 +30,3 @@ export default {
 	},
 };
 </script>
-
-<style></style>

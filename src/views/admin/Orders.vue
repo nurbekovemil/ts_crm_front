@@ -10,7 +10,7 @@
 <script>
 
 
-import OrderList from "@/components/admin/Orders/OrderList.vue";
+import OrderList from "@/components/admin/Orders/List.vue";
 import Add from '@/components/admin/Orders/Add.vue'
 export default {
    components: {

@@ -1,20 +1,20 @@
 <template>
   <div>
-      <views :order="order_view" cols="3" shadow="1"/>
+      <order :order="order_view" cols="3" shadow="1"/>
 			<tools/>
 		  <offer />
   </div>
 </template>
 
 <script>
-import Views from '@/components/admin/Orders/Views.vue';
+import Order from '@/components/admin/Orders/Order.vue';
 import Offer from "@/components/admin/Orders/Offer.vue";
 import Tools from "@/components/admin/Orders/Tools.vue";
 import { mapState, mapActions } from "vuex";
 
 export default {
   components: {
-    Views,
+    Order,
     Offer,
     Tools
   },

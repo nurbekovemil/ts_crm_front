@@ -1,6 +1,6 @@
 <template lang="">
    <div>
-      <v-row >
+      <v-row>
          <v-col cols="4" v-for="order of order_list " :key="order.id">
             <v-card>
                <v-card-title>

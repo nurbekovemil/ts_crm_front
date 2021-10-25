@@ -82,7 +82,7 @@
 <script>
 import { mapState, mapActions } from "vuex";
 export default {
-    props: ['status'],
+  props: ['status'],
   computed: {
     ...mapState('deal',['deals'])
   },

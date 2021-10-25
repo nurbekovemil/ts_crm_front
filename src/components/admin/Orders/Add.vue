@@ -6,12 +6,13 @@
 
           <v-card>
             <v-card-title>
-              <span class="text-h5">{{template.title}}</span>
+              <span class="text-h5">Добавить заявку</span>
             </v-card-title>
             <v-card-text>
               <v-container>
                 <v-row class="pa-3" cols="12">
-                  <v-col v-for="(field, i) in template.fields" :key="i" :sm="field.type === 'textarea'?'12':'4'">
+                  <!-- fields -->
+                  <v-col v-for="(field, i) in templates.orderAdd" :key="i" :sm="field.type === 'textarea'?'12':'4'">
                     <template v-if="field.type === 'input'">
                       <v-text-field
                         v-model="field.value"
@@ -31,15 +32,16 @@
                     </template>
                     <template v-if="field.type === 'select'">
                       <v-select
-                        :items="loadItems(field.item)"
+                        :items="options[field.item]"
                         v-model="field.value"
                         item-text="title"
                         item-value="id"
                         :label="field.title"
                         dense
                         outlined
-                        
-                      ></v-select>
+                        @click="GET_OPTIONS(field.item)"
+                      >
+                      </v-select>
                     </template>
                   </v-col>
                 </v-row>
@@ -66,40 +68,19 @@
 import {mapState, mapActions, mapMutations} from 'vuex'
 
 export default {
-  data: () => ({
-    orderAddTemplate:[
-      {field: 'category',title:'Категория', value: null, type: 'select', item:'order_categories'},
-      {field: 'type',title:'Тип заявки', value: null, type: 'select', item: 'order_types'},
-      {field: 'delivery',title:'Условия доставки', value: null, type: 'select', item: 'order_deliveries'},
-      {field: 'payment',title:'Условие оплаты', value: null, type: 'select', item: 'order_payments'},
-      {field: 'weight',title:'Единицы измерения', value: null, type: 'select', item: 'order_weights'},
-      {field: 'title', title:'Название продукта', value: '', type:'input'},
-      {field: 'description', title:'Описание', value: '', type:'textarea'},
-      {field: 'price', title:'Цена', value: 0, type: 'input'},
-      {field: 'amount', title:'Количество', value: 0, type: 'input'},
-      {field: 'cost', title:'Стоимость', value: 0, type: 'input'},
-    ]
-  }),
   computed: {
-    ...mapState('order',['isAddDialog','types', 'template'])
-  },
-  mounted(){
-    this.GET_TEMPLATE(1)
+    ...mapState('order',['isAddDialog', 'options','templates'])
   },
   methods: {
     ...mapMutations('order',['SET_IS_ADD_DIALOG']),
-    ...mapActions('order',['CREATE_ORDER','GET_TEMPLATE']),
+    ...mapActions('order',['CREATE_ORDER','GET_OPTIONS']),
     
     closeIsAddDialog() {
       this.SET_IS_ADD_DIALOG();
     },
     saveNewOrder(){
-    let order = this.template.fields.reduce((prev, {field, value}) => (prev[field] = value, prev), {})
+    let order = this.orderAddTemplate.reduce((prev, {field, value}) => (prev[field] = value, prev), {})
     this.CREATE_ORDER(order)
-    // console.log(order)
-
-    // let o = JSON.stringify(this.orderAddTemplate)
-    // console.log(o)
     },
     priceAndAmountHandler(){
       this.newOrder.cost = this.newOrder.price * this.newOrder.amount
@@ -107,9 +88,6 @@ export default {
     costHandler(){
       this.newOrder.price = Math.round(this.newOrder.cost / this.newOrder.amount)
     },
-    loadItems(item){
-      return this.template[item]
-    }
   },
 };
 </script>
