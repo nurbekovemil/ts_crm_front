@@ -1,6 +1,6 @@
 <template>
   <div>
-      <order :order="order_view" :shadow="0" cols="3" />
+      <order :order="order_view" :shadow="1" cols="6" />
       <tools/>
       <offer/>
   </div>

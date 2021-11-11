@@ -12,7 +12,8 @@ import {
   Offers, 
   AllOrders, 
   Profile, 
-  Settings
+  Settings,
+  Catalog
 } from '../views/admin'
 
 // content pages
@@ -74,6 +75,11 @@ const routes = [
         path: '/dashboard/users',
         name: 'Пользователи',
         component: Users,
+      },
+      {
+        path: '/dashboard/catalog',
+        name: 'Каталог',
+        component: Catalog,
       },
       {
         path: '/dashboard/my-orders',

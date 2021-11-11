@@ -1,6 +1,5 @@
 <template>
 	<div id="printDeal">
-		{{order}}
 		<h5>Зарегистрировано в ЗАО «Кыргызская Фондовая Биржа»</h5>
 		<table class="tb">
 			<tbody>
@@ -98,7 +97,7 @@ export default {
 	},
 	computed: {
 		orderView() {
-			const noshow = ['id', 'status', 'order_type', 'own', 'updated_at', 'user_id', 'description','created_at'];
+			const noshow = ['id', 'status', 'order_type', 'own', 'updated_at', 'user_id', 'description','created_at','images'];
 			const filtered = Object.keys(this.order).filter(key => !noshow.includes(key)).reduce((obj, key) => (obj[key] = this.order[key], obj),{});
 			return filtered
 		}

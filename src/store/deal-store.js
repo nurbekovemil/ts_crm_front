@@ -15,11 +15,21 @@ export default {
         SET_DEAL_ORDERS: (state, data) => state.deal_orders = data
     },
     actions: {
-        CREATE_DEAL: async ({commit}, dealData) => {
+        CREATE_DEAL: async ({commit}, {offer_type, getFormData, offer}) => {
             try {
-                const {data} = await api.createDeal(dealData)
-                commit('message/SUCCESS_MESSAGE', data, {root: true})
-                commit('SET_IS_ADD_DEAL_DIALOG')
+                let res = null;
+                if(offer_type === 1) {
+                    const order = await api.createOrderPrivate(getFormData)
+                    offer.order_from = order.data.id
+                    const deal = await api.createDeal(offer)
+                    commit('message/SUCCESS_MESSAGE', deal.data, {root: true})
+                    commit('SET_IS_ADD_DEAL_DIALOG')
+                }else {
+                    const deal = await api.createDeal(offer)
+                    commit('message/SUCCESS_MESSAGE', deal.data, {root: true})
+                    commit('SET_IS_ADD_DEAL_DIALOG')
+                }
+                
             } catch (error) {
                 commit('message/ERROR_MESSAGE', error.response.data.error, {root: true})
             }
@@ -40,10 +50,13 @@ export default {
                 
             }
         },
-        GET_DEAL_BY_ID: async ({commit}, id) => {
+        GET_DEAL_BY_ID: async ({commit, dispatch}, id) => {
             try {
                 const {data} = await api.getDealById(id)
                 commit('SET_DEAL_VIEW', data)
+                let {order_from, order_to, status} = data
+                status == 2 ? dispatch('GET_DEAL_ORDERS',{order_from}) : dispatch('GET_DEAL_ORDERS', {order_from, order_to})
+                
             } catch (error) {
                 commit('message/ERROR_MESSAGE', error.response.data.error, {root: true})
             }

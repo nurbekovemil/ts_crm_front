@@ -25,9 +25,13 @@ export default {
 	createUser: (data) => api.post("/users", data),
 	deleteUser: (id) => api.delete("/users/" + id),
 	updateUser: (data) => api.put("/users", data),
-
 	// order api private routes
-	createOrderPrivate: (data) => api.post("/orders/private/", data),
+	createOrderPrivate: (data) => api.post("/orders/private/", data, {
+		headers: {
+		 'Content-Type': 'multipart/form-data'
+		}
+	}
+),
 	getMyOrderListPrivate: (type) => api.get("/orders/private/type/", {params: {type}}),
 	getOrderByIdPrivate: (id) => api.get("/orders/private/" + id),
 	getAllOrderListPrivate: () => api.get("/orders/private/"),

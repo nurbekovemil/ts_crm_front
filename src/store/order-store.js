@@ -15,6 +15,7 @@ export default {
 				{field: 'price', title:'Цена', value: 0, type: 'input'},
 				{field: 'amount', title:'Количество', value: 0, type: 'input'},
 				{field: 'cost', title:'Стоимость', value: 0, type: 'input'},
+				{field: 'images', value: [], type: 'file'},
 			]
 		},
 		options: {
@@ -74,6 +75,7 @@ export default {
 		ALL_ORDER_LIST_HOME_PAGE: async ({ commit }, type) => {
 			try {
 				const { data } = await api.getAllOrderListPublic(type);
+				console.log(data)
 				commit("SET_ORDER", { data, type });
 			} catch (error) {
 				commit("message/ERROR_MESSAGE", error.response.data.error, {
@@ -98,6 +100,7 @@ export default {
 				const { data } = isAuth
 					? await api.getOrderByIdPrivate(id)
 					: await api.getOrderByIdPublic(id)
+					console.log(data)
 				commit("SET_ORDER_VIEW", data);
 			} catch (error) {
 				commit("message/ERROR_MESSAGE", error.response.data.error, {

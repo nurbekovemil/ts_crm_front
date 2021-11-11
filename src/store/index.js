@@ -4,6 +4,7 @@ import axios from 'axios'
 
 import user from './user-store'
 import message from './message-store'
+import catalog from './catalog-store'
 import order from './order-store'
 import deal from './deal-store'
 
@@ -13,6 +14,7 @@ export default new Vuex.Store({
   modules: {
     message,
     user,
+    catalog,
     order,
     deal
   }

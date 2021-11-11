@@ -7,14 +7,16 @@
 			<v-sheet class="mx-auto" elevation="0" max-width="100%">
 				<v-slide-group class="pa-4" show-arrows center-active>
 					<v-slide-item
-						v-for="(order, i) in getOrderByType(type)"
+						v-for="(order) in getOrderByType(type)"
 						:key="order.id"
 					>
 						<v-card class="ma-2" width="300">
 							<v-img
-								:src="`https://picsum.photos/500/300?image=${i * 5 + 10}`"
+								:src="order.images"
 								gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
 								dark
+								height="200"
+								contain
 							>
 								<v-card-title>
 									{{ order.title }}

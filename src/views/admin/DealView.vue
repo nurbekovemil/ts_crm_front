@@ -4,7 +4,7 @@
 		<template v-if="deal_view.status == 1 || deal_view.status == 3">
 			<v-row>
 				<v-col v-for="order in deal_orders" :key="order.id" cols="6">
-					<order :order="order" cols="6" :shadow="1" />
+					<order :order="order" cols="12" :shadow="1" />
 				</v-col>
 			</v-row>
 			
@@ -13,6 +13,7 @@
 		<template v-else-if="deal_view.status == 2">
 			<deal :deal="deal_view" :order="deal_orders[0]" />
 		</template>
+
 		<template>
 			<v-row>
 				<v-col>
@@ -80,14 +81,10 @@ export default {
 		...mapActions("deal", ["GET_DEAL_BY_ID", "GET_DEAL_ORDERS", "UPDATE_DEAL_STATUS"]),
 		updateDealStatus(status){
       this.UPDATE_DEAL_STATUS({status, deal_id: this.$route.params.id})
-    } 
+    },
 	},
 	async mounted() {
-		await this.GET_DEAL_BY_ID(this.$route.params.id);
-		let { order_from, order_to } = this.deal_view;
-		this.deal_view.status != 2
-			? this.GET_DEAL_ORDERS({ order_from, order_to })
-			: this.GET_DEAL_ORDERS({ order_from });
+		await this.GET_DEAL_BY_ID(this.$route.params.id)
 	},
 };
 </script>
