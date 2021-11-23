@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app flat dark elevation="0" color="primary lighten-1">
+    <v-app-bar app dark elevation="0" color="cyan">
       <v-toolbar-title>TS KSE</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn elevation="0" plain small router to="/"> Главная </v-btn>
@@ -12,16 +12,9 @@
         </template>
       </v-btn>
     </v-app-bar>
-    <!-- :style="
-        this.$router.history.current.path == '/login' && {
-          'background-image':
-            'url(' + require('../assets/bruno-abatti.jpg') + ')',
-          'background-size': '100%',
-        }
-      " -->
-      <v-container>
-        <router-view />
-      </v-container>
+    <v-container>
+      <router-view />
+    </v-container>
     <footer class="footer">
       <div class="container">
         <div class="copyright text-center">

@@ -4,6 +4,7 @@
 			<h3 class="py-3">
 				{{ type == 1 ? "Заявки на продажу" : "Заявки на покупку" }}
 			</h3>
+			<v-divider></v-divider>
 			<v-sheet class="mx-auto" elevation="0" max-width="100%">
 				<v-slide-group class="pa-4" show-arrows center-active>
 					<v-slide-item

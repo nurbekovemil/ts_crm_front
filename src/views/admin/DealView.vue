@@ -3,8 +3,8 @@
 		<!-- if deal status is rejected or sent -->
 		<template v-if="deal_view.status == 1 || deal_view.status == 3">
 			<v-row>
-				<v-col v-for="order in deal_orders" :key="order.id" cols="6">
-					<order :order="order" cols="12" :shadow="1" />
+				<v-col v-for="order in deal_orders" :key="order.id" cols="12">
+					<order :order="order" cols="6" :shadow="1" />
 				</v-col>
 			</v-row>
 			

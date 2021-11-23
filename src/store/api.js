@@ -48,6 +48,7 @@ export default {
 	getDealOrders: (ids) => api.get("/deals/order/", {params: ids}),
 	updateDealStatus: (status) => api.put("/deals/", status),
 
-	// get templates
-	getOptions: option => api.get("/orders/private/options/", {params: {option}})
+	// categories api
+	getOptions: option => api.get("/orders/private/options/", {params: {option}}),
+	getTnvedCategories: (page) =>  api.get('/catalog/', {params: {page: page}})
 };
