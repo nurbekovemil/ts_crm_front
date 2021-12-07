@@ -2,8 +2,27 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import {i18n} from './store/i18n'
 import vuetify from './plugins/vuetify'
+import i18n from './i18n'
+import VueHtmlToPaper from 'vue-html-to-paper';
+
+const options = {
+  specs: [
+    'fullscreen=yes',
+    'titlebar=yes',
+    'scrollbars=yes'
+  ],
+  styles: [
+    'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
+  ],
+  timeout: 1000, // default timeout before the print window appears
+  autoClose: true, // if false, the window will not close after printing
+  windowTitle: window.document.title, // override the window title
+}
+
+Vue.use(VueHtmlToPaper, options);
+
+
 
 Vue.config.productionTip = false
 
@@ -14,9 +33,9 @@ Vue.config.productionTip = false
 // } 
 
 new Vue({
+  i18n,
   router,
   store,
-  i18n,
   vuetify,
   render: h => h(App)
 }).$mount('#app')

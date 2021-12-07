@@ -1,26 +1,26 @@
 <template>
   <div class="text-center ma-2">
     <v-snackbar
-      v-model="GET_MESSAGE.isAlert"
+      v-model="message.isAlert"
       :timeout="timeout"
-      :color="GET_MESSAGE.color"
+      :color="message.color"
     >
         <template>
-        <v-icon>{{GET_MESSAGE.icon}}</v-icon>
+        <v-icon>{{message.icon}}</v-icon>
         </template>
-        {{ GET_MESSAGE.text }}
+        {{ message.text }}
     </v-snackbar>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapState } from "vuex";
 export default {
   data: () => ({
-    timeout: 4000,
+    timeout: 5000,
   }),
   computed: {
-    ...mapGetters(["GET_MESSAGE"]),
+    ...mapState('message',['message']),
   },
 };
 </script>

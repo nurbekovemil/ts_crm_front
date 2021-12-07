@@ -8,19 +8,14 @@
 
 <script>
 import {mapActions} from 'vuex'
+
 export default {
   name: 'App',
   mounted() {
-    this.userAuth()
+    this.GET_ME()
   },
-  data: () => ({
-    //
-  }),
   methods: {
-    ...mapActions(['GET_ME']),
-    userAuth(){
-      this.GET_ME()
-    }
+    ...mapActions('user',['GET_ME'])
   }
 };
 </script>

@@ -2,6 +2,7 @@ import router from '../router'
 import api from './api'
 
 export default{
+   namespaced: true,
    state: {
       isAuth: false,
       user:{},
@@ -36,13 +37,12 @@ export default{
       },
       async GET_ME({commit}){
          try {
-            if(!localStorage.getItem('token')) {
-               return
+            if(localStorage.getItem('token')) {
+               const {data} = await api.userGetMe()
+               commit('SET_IS_AUTH', true)
+               commit('SET_USER', data)
+               router.history._startLocation != router.history.current.path && router.push(router.history._startLocation) 
             }
-            const {data} = await api.userGetMe()
-            commit('SET_IS_AUTH', true)
-            commit('SET_USER', data)
-            router.push('/dashboard')
          } catch (error) {
             localStorage.removeItem('token')
             commit('SET_IS_AUTH', false)
@@ -59,10 +59,10 @@ export default{
       async CREATEUSER({commit, dispatch}, user){
          try {
             const {data} = await api.createUser(user)
-            commit('SUCCESS_MESSAGE', data)
+            commit('SUCCESS_MESSAGE', data, {root: true})
             dispatch('USERLIST')
          } catch (error) {
-            commit('ERROR_MESSAGE', error.response.data.error)
+            commit('message/ERROR_MESSAGE', error.response.data.error, {root: true})
          }
       },
 
@@ -77,27 +77,21 @@ export default{
       async DELETEUSER({commit, dispatch}, id){
          try {
             const {data} = await api.deleteUser(id)
-            commit('SUCCESS_MESSAGE', data)
+            commit('message/SUCCESS_MESSAGE', data, {root: true})
             dispatch('USERLIST')
          } catch (error) {
-            commit('ERROR_MESSAGE', error.response.data.error)
+            commit('message/ERROR_MESSAGE', error.response.data.error, {root: true})
          }
       },
       async UPDATEUSER({commit, dispatch}, update){
          try {
             const {data} = await api.updateUser(update)
-            commit('SUCCESS_MESSAGE', data)
+            commit('message/SUCCESS_MESSAGE', data, {root: true})
             dispatch('USERLIST')
          } catch (error) {
-            commit('ERROR_MESSAGE', error.response.data.error)
+            commit('message/ERROR_MESSAGE', error.response.data.error, {root: true})
 
          }
       }
-   },
-   getters:{
-      GET_USER: (state) => state.user,
-      GET_IS_AUTH: (state) => state.isAuth,
-      GET_USER_MENU: (state) => state.userMenus,
-      GET_USER_LIST: (state) => state.usersList,
    }
 }

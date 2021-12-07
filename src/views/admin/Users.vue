@@ -26,7 +26,7 @@
             </thead>
             <tbody>
               <tr
-                v-for="user in GET_USER_LIST"
+                v-for="user in usersList"
                 :key="user.id"
                 :class="isViewUser && isViewUser.id == user.id && 'grey lighten-3'"
               >
@@ -121,7 +121,7 @@
   </v-row>
 </template>
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapState, mapActions } from "vuex";
 import AddUser from "@/components/admin/Users/Add.vue";
 import EditUser from "@/components/admin/Users/Edit.vue";
 import Info from "@/components/admin/Users/Info.vue";
@@ -138,16 +138,13 @@ export default {
         Info,
     },
     computed: {
-        ...mapGetters(["GET_USER_LIST"]),
+      ...mapState('user',['usersList']),
     },
     mounted() {
-        this.get_User_Lists();
+        this.USERLIST();
     },
     methods: {
-        ...mapActions(["USERLIST", "DELETEUSER"]),
-        get_User_Lists() {
-          this.USERLIST();
-        },
+        ...mapActions('user',['USERLIST', 'DELETEUSER']),
         toggleAddUserDialog() {
           this.isAddDialog = !this.isAddDialog;
         },
