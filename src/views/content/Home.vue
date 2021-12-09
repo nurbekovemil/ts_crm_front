@@ -2,8 +2,7 @@
   <div >
     <v-parallax
       height="300"
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFGJtA9d4TUuFqkneimQ8y_iTYLuEm3sDI7Q&usqp=CAU"
-        app  elevation="0" color="cyan"
+      src="https://st.depositphotos.com/1625616/4555/i/950/depositphotos_45554431-stock-photo-light-blue-background.jpg"
     >
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="5">

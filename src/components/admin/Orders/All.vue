@@ -1,49 +1,81 @@
 <template lang="">
    <div>
-      <v-row>
-         <v-col cols="4" v-for="order of order_list " :key="order.id">
-            <v-card>
-               <v-card-title>
-                  {{order.title}}
-                  <v-spacer></v-spacer>
+   
+
+    <v-simple-table>
+        <template v-slot:default>
+          <thead>
+            <tr>
+              <th class="text-left" width="40%">
+                Название
+              </th>
+              <th class="text-left">
+                Статус
+              </th>
+              <th class="text-left">
+                Дата
+              </th>
+               <th class="text-left">
+                Цена
+              </th>
+              <th class="text-left">
+                Количество
+              </th>
+              <th class="text-left">
+                Стоимость
+              </th>
+              <th>
+                
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="order of order_list"
+              :key="i"
+            >
+              <td>{{ order.title }}</td>
+              <td>
+                <template>
                   <v-chip
-                     small
-                     :color="order.status_color"
-                     text-color="white"
+                    small
+                    :color="order.status_color"
+                    text-color="white"
                   >
-                     {{order.status}}
-                  </v-chip> 
-               </v-card-title>
-               <v-card-subtitle>
-                  <span 
-                     class="primary--text"
-                     v-if="order.own">
-                     Ваша • {{order.order_type}}
-                  </span>
-                  <span
-                     v-else>
-                     {{order.order_type}}
-                  </span>
-               </v-card-subtitle>
-               <v-card-text>
-                  Цена:{{order.price}} </br>
-                  Количество:{{order.amount}}</br> 
-                  Стоимость:{{order.cost}}
-               </v-card-text>
-               <v-card-actions>
-               <v-btn
-                  text
-                  color="teal accent-4"
-                  @click="viewOrder(order.id)"
-                  >
-                  Подробнее
-               </v-btn>
-               <v-spacer/>
-               <span class="caption grey--text">{{order.created_at}}</span>
-               </v-card-actions>
-            </v-card>
-         </v-col>
-      </v-row>
+                    {{order.status}}
+                  </v-chip>
+                </template>
+              </td>
+              <td>{{ order.created_at }}</td>
+              <td>{{ order.price }}</td>
+              <td>{{ order.amount }}</td>
+              <td>{{ order.cost }}</td>
+
+
+              <td class="text-right">
+                <v-btn
+                    rounded
+                    plain
+                    small
+                    color="primary"
+                    @click="viewOrder(order.id)"
+                    >
+                    Посмотреть
+                  </v-btn>
+              </td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+
+
+
+
+
+
+
+
+   
    </div>
 </template>
 <script>
