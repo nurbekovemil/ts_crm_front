@@ -1,7 +1,6 @@
 <template>
-  <v-row>
-    <v-col cols="12">
-      <v-card class="mx-auto mt-2" max-width="100%">
+    <v-container class="pa-0 fill-height">
+              <v-card class="mx-auto mt-2" max-width="100%">
         <v-sheet class="pa-4 primary lighten-1">
           <v-text-field
             v-model="search"
@@ -43,8 +42,7 @@
           </v-col>
         </v-row>
       </v-card>
-    </v-col>
-  </v-row>
+    </v-container>
 </template>
 <script>
 import {mapActions, mapState} from 'vuex'

@@ -1,12 +1,12 @@
 <template>
-	<v-row>
+	<v-container class="pa-0 fill-height">
+			<v-row>
 		<v-col>
-			<h3 class="py-3">
+			<div class="text-h4 mx-2 my-4">
 				{{ type == 1 ? "Заявки на продажу" : "Заявки на покупку" }}
-			</h3>
-			<v-divider></v-divider>
+			</div>
 			<v-sheet class="mx-auto" elevation="0" max-width="100%">
-				<v-slide-group class="pa-4" show-arrows center-active>
+				<v-slide-group class="pa-0"  center-active>
 					<v-slide-item
 						v-for="(order) in getOrderByType(type)"
 						:key="order.id"
@@ -52,6 +52,7 @@
 			</v-sheet>
 		</v-col>
 	</v-row>
+	</v-container>
 </template>
 
 <script>

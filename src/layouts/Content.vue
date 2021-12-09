@@ -1,7 +1,8 @@
 <template>
   <v-app>
-    <v-app-bar app dark elevation="0" color="cyan">
-      <v-toolbar-title>TS KSE</v-toolbar-title>
+    <v-app-bar flat dark color="cyan">
+      <v-container class="pa-0 fill-height">
+              <v-toolbar-title>TS KSE</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn elevation="0" plain small router to="/"> Главная </v-btn>
       <v-btn plain small router to="/handbooks"> Справочник </v-btn>
@@ -11,10 +12,11 @@
           {{ user.username }}
         </template>
       </v-btn>
+      </v-container>
     </v-app-bar>
-    <v-container>
-      <router-view />
-    </v-container>
+      <v-container class="pa-0" fluid>
+        <router-view />
+      </v-container>
     <footer class="footer">
       <div class="container">
         <div class="copyright text-center">

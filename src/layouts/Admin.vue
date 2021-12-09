@@ -54,13 +54,14 @@
 
       <v-divider> </v-divider>
 
-      <v-list nav dense>
+      <v-list nav dense >
         <v-list-item
           v-for="menu in userMenus"
           :key="menu.id"
           router
           :to="menu.route"
           exact
+          
         >
           <v-list-item-icon>
             <v-icon>{{ menu.icon }}</v-icon>
