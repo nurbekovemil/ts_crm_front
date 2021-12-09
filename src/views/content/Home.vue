@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div >
     <v-parallax
       height="300"
-      src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
+      src="https://st.depositphotos.com/1625616/4555/i/950/depositphotos_45554431-stock-photo-light-blue-background.jpg"
     >
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="5">

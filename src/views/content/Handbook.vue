@@ -2,7 +2,7 @@
   <v-row>
     <v-col cols="12">
       <v-card class="mx-auto mt-2" max-width="100%">
-        <v-sheet class="pa-4 primary lighten-1">
+        <v-sheet app dark elevation="0" color="cyan" class="pa-4 ">
           <v-text-field
             v-model="search"
             label="Поиск товаров"
@@ -38,6 +38,7 @@
               <v-pagination
                 v-model="page"
                 :length="10"
+                app  elevation="0" color="cyan"
               ></v-pagination>
             </div>
           </v-col>

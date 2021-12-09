@@ -4,10 +4,41 @@
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>{{ this.$router.history.current.name }}</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn router to="/" plain icon>
-        <v-icon>mdi-home</v-icon>
-      </v-btn>
-      <v-btn @click="logout" plain small>Выйти</v-btn>
+      <v-btn style="margin:30px;" router to="/" plain icon>
+          <v-icon>mdi-home</v-icon>
+          </v-btn>
+
+      <div>
+        <v-menu offset-y>
+      <template v-slot:activator="{ on, attrs }">
+        <v-row align="center">
+         <v-avatar class="profile" color="grey" 
+          dark
+          v-bind="attrs"
+          v-on="on">
+            <v-img
+              src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"
+            ></v-img>
+          </v-avatar>
+
+        </v-row>
+
+      </template>
+      <v-list>
+          <v-list-item 
+          >
+          <v-btn @click="$router.push('/dashboard/profile')" plain small>{{user.username}}</v-btn>
+          </v-list-item>
+            <v-list-item 
+          >
+          <v-btn @click="$router.push('/dashboard/settings')" plain small>Настройки</v-btn>
+          </v-list-item>
+          <v-list-item>
+          <v-btn @click="logout" plain small>Выйти</v-btn>
+          </v-list-item>
+      </v-list>
+    </v-menu>
+      </div>
     </v-app-bar>
     <v-navigation-drawer
       v-model="drawer"
@@ -26,7 +57,7 @@
       </v-list-item>
       <v-divider> </v-divider>
 
-      <v-list-group
+      <!-- <v-list-group
         no-action
         nav
         :value="false"
@@ -50,7 +81,7 @@
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item>
         </v-list>
-      </v-list-group>
+      </v-list-group> -->
 
       <v-divider> </v-divider>
 
@@ -87,18 +118,18 @@ import Message from '../components/admin/Message.vue'
 export default {
   data: () => ({
     drawer: null,
-    admins: [
-      {
-        route: "/dashboard/profile",
-        icon: "mdi-account-edit",
-        title: "Мой профиль",
-      },
-      {
-        route: "/dashboard/settings",
-        icon: "mdi-cog-outline",
-        title: "Настройки",
-      },
-    ],
+    // admins: [
+    //   {
+    //     route: "/dashboard/profile",
+    //     icon: "mdi-account-edit",
+    //     title: "Мой профиль",
+    //   },
+    //   {
+    //     route: "/dashboard/settings",
+    //     icon: "mdi-cog-outline",
+    //     title: "Настройки",
+    //   },
+    // ],
   }),
   
   components:{
@@ -113,5 +144,8 @@ export default {
       this.LOGOUT();
     },
   },
+  mounted(){
+    console.log(this.user);
+  }
 };
 </script>
