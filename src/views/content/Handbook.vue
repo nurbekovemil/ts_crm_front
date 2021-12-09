@@ -1,7 +1,14 @@
 <template>
+<<<<<<< HEAD
     <v-container class="pa-0 fill-height">
               <v-card class="mx-auto mt-2" max-width="100%">
         <v-sheet class="pa-4 primary lighten-1">
+=======
+  <v-row>
+    <v-col cols="12">
+      <v-card class="mx-auto mt-2" max-width="100%">
+        <v-sheet app dark elevation="0" color="cyan" class="pa-4 ">
+>>>>>>> 430f80790f771263ac1b4a8b78d8d97e5f892383
           <v-text-field
             v-model="search"
             label="Поиск товаров"
@@ -37,6 +44,7 @@
               <v-pagination
                 v-model="page"
                 :length="10"
+                app  elevation="0" color="cyan"
               ></v-pagination>
             </div>
           </v-col>
