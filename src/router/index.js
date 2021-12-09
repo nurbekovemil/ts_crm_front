@@ -5,19 +5,22 @@ import VueRouter from 'vue-router'
 import {
   Dashboard, 
   Users, 
-  MyOrders, 
-  OrderView, 
+  Orders, 
+  OrderView,
+  DealView,
   Deals, 
   Offers, 
   AllOrders, 
   Profile, 
-  Settings
+  Settings,
+  Catalog
 } from '../views/admin'
 
 // content pages
 import {
   Handbook, 
   Home, 
+  Order,
   Login
 } from '../views/content'
 
@@ -44,10 +47,16 @@ const routes = [
         component: Handbook
       },
       {
+        path: '/order/:id',
+        name: 'Заявка',
+        component: Order
+      },
+      {
         path: '/login',
         name: 'Войти',
         component: Login
-      }
+      },
+
     ]
   },
   {
@@ -68,9 +77,14 @@ const routes = [
         component: Users,
       },
       {
+        path: '/dashboard/catalog',
+        name: 'Каталог',
+        component: Catalog,
+      },
+      {
         path: '/dashboard/my-orders',
         name: 'Мои заявки',
-        component: MyOrders,
+        component: Orders,
       },
       {
         path: '/dashboard/my-deals',
@@ -101,6 +115,11 @@ const routes = [
         path: '/dashboard/order/:id',
         name: 'Описание товара',
         component: OrderView
+      },
+      {
+        path: '/dashboard/deal/:id',
+        name: 'Подробная информация',
+        component: DealView
       }
     ]
   },
@@ -111,28 +130,17 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
-
 router.beforeEach((to, from, next)=>{
-  if(to.matched.some(record => record.meta.isAuth) && (!store.getters.GET_IS_AUTH)){
+  if(to.matched.some(record => record.meta.isAuth) && (!store.state.user.isAuth)){
     next('/login')
     return
   }
-  if(to.path == '/login' && store.getters.GET_IS_AUTH){
+  if(to.path == '/login' && store.state.user.isAuth){
     next('/dashboard')
     return
   }
 
   next()
 })
-router.beforeEach((to, from, next) => {
-  if(to.matched.some(record => record.meta.requiresAuth)) {
-    if (store.getters.isLoggedIn) {
-      next()
-      return
-    }
-    next('/admin') 
-  } else {
-    next() 
-  }
-})
+
 export default router

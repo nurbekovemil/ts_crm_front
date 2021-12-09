@@ -2,16 +2,20 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 
-import users from './user-store'
-import messages from './message-store'
-import orders from './order-store'
+import user from './user-store'
+import message from './message-store'
+import catalog from './catalog-store'
+import order from './order-store'
+import deal from './deal-store'
 
 Vue.use(Vuex, axios)
 
 export default new Vuex.Store({
   modules: {
-    messages,
-    users,
-    orders
+    message,
+    user,
+    catalog,
+    order,
+    deal
   }
 })
