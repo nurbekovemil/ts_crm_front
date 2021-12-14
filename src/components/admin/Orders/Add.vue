@@ -15,7 +15,7 @@
 										v-for="(field, i) in templates.orderAdd"
 										:key="i"
 										:sm="
-											field.type === 'textarea' || field.type === 'file'
+											field.type === 'textarea' || field.type === 'file' 
 												? '12'
 												: '4'
 										"
@@ -59,7 +59,11 @@
 														cols="4"
 													>
 														<v-card>
-															<v-img contain :src="fileurl(file)" height="150"/>
+															<v-img
+																contain
+																:src="fileurl(file)"
+																height="150"
+															/>
 														</v-card>
 													</v-col>
 												</v-row>
@@ -103,8 +107,10 @@
 
 <script>
 import { mapState, mapActions, mapMutations } from "vuex";
+import list from '../Catalog/Tnved/list.vue';
 
 export default {
+	components: { list },
 	computed: {
 		...mapState("order", ["isAddDialog", "options", "templates"]),
 		rules(v) {
@@ -125,15 +131,23 @@ export default {
 		},
 		fileurl: (furl) => URL.createObjectURL(furl),
 		saveNewOrder() {
-      // formData.append('images', 'file')
+			// formData.append('images', 'file')
 			// let order = this.templates.orderAdd.reduce(
 			// 	(prev, { field, value }) => ((prev[field] = value), prev),
 			// 	{}
 			// );
-      const getFormData = this.templates.orderAdd.reduce((formData, { field, value }) => (field == 'images' ? value.map(img => formData.append(field, img)):formData.append(field, value),formData), new FormData());
-      this.CREATE_ORDER(getFormData)
-    }
-	},
+			const getFormData = this.templates.orderAdd.reduce(
+				(formData, { field, value }) => (
+					field == "images"
+						? value.map((img) => formData.append(field, img))
+						: formData.append(field, value),
+					formData
+				),
+				new FormData()
+			);
+			this.CREATE_ORDER(getFormData);
+		},
+	}
 };
 </script>
 <style></style>

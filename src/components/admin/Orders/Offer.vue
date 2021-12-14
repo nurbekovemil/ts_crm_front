@@ -128,10 +128,10 @@
 				</v-card-text>
 				<v-card-actions>
 					<v-spacer></v-spacer>
-					<v-btn color="blue darken-1" text @click="closeIsAddDealDialog">
+					<v-btn color="orange darken-1" text small @click="closeIsAddDealDialog">
 						Отмена
 					</v-btn>
-					<v-btn color="blue darken-1" text @click="createDeal">
+					<v-btn color="green darken-1" elevation="0" small dark @click="createDeal">
 						Отправить
 					</v-btn>
 				</v-card-actions>

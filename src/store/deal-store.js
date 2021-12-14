@@ -17,10 +17,9 @@ export default {
     actions: {
         CREATE_DEAL: async ({commit}, {offer_type, getFormData, offer}) => {
             try {
-                let res = null;
                 if(offer_type === 1) {
                     const order = await api.createOrderPrivate(getFormData)
-                    offer.order_from = order.data.id
+                    offer.order_from = order.data.rows.id
                     const deal = await api.createDeal(offer)
                     commit('message/SUCCESS_MESSAGE', deal.data, {root: true})
                     commit('SET_IS_ADD_DEAL_DIALOG')
@@ -29,7 +28,6 @@ export default {
                     commit('message/SUCCESS_MESSAGE', deal.data, {root: true})
                     commit('SET_IS_ADD_DEAL_DIALOG')
                 }
-                
             } catch (error) {
                 commit('message/ERROR_MESSAGE', error.response.data.error, {root: true})
             }
@@ -42,21 +40,19 @@ export default {
                 commit('message/ERROR_MESSAGE', error.response.data.error, {root: true})
             }
         },
-        GET_DEAL_ORDERS: async ({commit}, ids) => {
+        GET_DEAL_ORDERS: async ({commit, dispatch}, id) => {
             try {
-	            const {data} = await api.getDealOrders(ids)
+	            const {data} = await api.getDealOrders(id)
                 commit('SET_DEAL_ORDERS', data)
+                dispatch('GET_DEAL_BY_ID', id)
             } catch (error) {
                 
             }
         },
-        GET_DEAL_BY_ID: async ({commit, dispatch}, id) => {
+        GET_DEAL_BY_ID: async ({commit}, id) => {
             try {
                 const {data} = await api.getDealById(id)
                 commit('SET_DEAL_VIEW', data)
-                let {order_from, order_to, status} = data
-                status == 2 ? dispatch('GET_DEAL_ORDERS',{order_from}) : dispatch('GET_DEAL_ORDERS', {order_from, order_to})
-                
             } catch (error) {
                 commit('message/ERROR_MESSAGE', error.response.data.error, {root: true})
             }

@@ -2,7 +2,9 @@
   <div>
     <template>
       <v-row  class="my-2 mx-1" align="center">
-        <h4 class="mb-3 mt-5">{{ this.type == 1 ? 'Заявки на продажу' : 'Заявки на покупку' }}</h4>
+        <h4 class="mb-3 mt-5 text-body-2">
+          {{ this.type == 1 ? 'Заявки на продажу' : 'Заявки на покупку' }}
+        </h4>
         <v-spacer />
             <v-chip
               v-if="type == 1"
@@ -44,7 +46,17 @@
               v-for="(order, i) in getOrderByType(type)"
               :key="i"
             >
-              <td>{{ order.title }}</td>
+              <td>
+                <v-btn
+                    rounded
+                    plain
+                    small
+                    color="primary"
+                    @click="viewOrder(order.id)"
+                    >
+                    {{ order.title }}
+                  </v-btn>
+                </td>
               <td>
                 <template>
                   <v-chip
@@ -58,15 +70,27 @@
               </td>
               <td>{{ order.created_at }}</td>
               <td class="text-right">
+                <v-hover v-slot="{ hover }">
                 <v-btn
-                    rounded
-                    plain
-                    small
-                    color="primary"
-                    @click="viewOrder(order.id)"
-                    >
-                    Посмотреть
-                  </v-btn>
+                  small
+                  elevation="0"
+                  depressed
+                  icon
+                  :color="`${hover && 'cyan'}`"
+                >
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+                </v-hover>
+                <v-hover v-slot="{ hover }">
+                <v-btn
+                  elevation="0"
+                  small
+                  icon
+                  :color="`${hover && 'error'}`"
+                >
+                  <v-icon>mdi-delete</v-icon>
+                </v-btn>
+                </v-hover>
               </td>
             </tr>
           </tbody>
@@ -75,7 +99,7 @@
      </template>
     <template v-else>
       <p class="font-weight-light text--disabled text-center">
-        {{ this.type == 1 ? 'Заявки на продажу' : 'Заявки на покупку' }} пусто.
+        Отсутствует!
       </p>
     </template>
   </div>

@@ -63,7 +63,7 @@
                 plain
                 small
                 color="primary"
-                @click="viewDeal(offer.id)"
+                @click="offer.status == 1 ? viewOffer(offer.id) : viewDeal(offer.id)"
               >
                 Посмотреть
               </v-btn>
@@ -90,6 +90,9 @@ export default {
     ...mapActions('deal',['GET_DEAL_LIST']),
     viewOrder(id) {
       this.$router.push("/dashboard/order/" + id);
+    },
+    viewOffer(id){
+      this.$router.push("/dashboard/offer/" + id);
     },
     viewDeal(id) {
       this.$router.push("/dashboard/deal/" + id);

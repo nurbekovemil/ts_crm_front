@@ -1,7 +1,9 @@
 import axios from "axios";
 
 const api = axios.create({
-	baseURL: "https://kse.nsp.kg",
+	// baseURL: "https://kse.nsp.kg",
+	baseURL: "http://localhost:3132",
+
 });
 
 api.interceptors.request.use(
@@ -45,7 +47,7 @@ export default {
 	createDeal: (data) => api.post("/deals", data),
 	getDealById: (id) => api.get("/deals/" + id),
 	getDealList: (status) => api.get("/deals/", {params: {status}}),
-	getDealOrders: (ids) => api.get("/deals/order/", {params: ids}),
+	getDealOrders: (id) => api.get("/deals/order/"+id),
 	updateDealStatus: (status) => api.put("/deals/", status),
 
 	// categories api

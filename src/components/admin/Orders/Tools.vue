@@ -14,7 +14,9 @@
 				<v-btn
 					color="green darken-1"
 					dark
-					small
+			elevation="0"
+			small
+					
 					@click="confirmOrReject(order_view.id, 2)"
 				>
 					Принять
@@ -25,9 +27,10 @@
 		<template v-if="user.role === 'USER'">
 			<template v-if="order_view.status === 4">
 				<v-btn
-					small
-					color="green darken-1"
+					color="orange darken-1"
 					dark
+			elevation="0"
+				small
 					@click="confirmOrReject(order_view.id, 1)"
 				>
 					Повторно отправить
@@ -41,12 +44,11 @@
 			dark
 			class="ma-0"
 			elevation="0"
-			rounded
+			small
 			v-if="user.role != 'ADMIN' && !order_view.own && order_view.status == 2"
-			color="cyan"
+			color="green darken-1"
 			@click="openIsAddOfferDialog"
-			>Предложить</v-btn
-		>
+			>Предложить</v-btn>
 		<!-- public template -->
 	</div>
 </template>

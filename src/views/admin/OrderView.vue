@@ -1,6 +1,6 @@
 <template>
   <div>
-      <order :order="order_view" cols="6" shadow="0"/>
+      <order :order="order_view" cols="6" shadow="1"/>
   </div>
 </template>
 
