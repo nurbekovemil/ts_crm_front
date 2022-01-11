@@ -1,6 +1,6 @@
 <template>
   <div>
-
+    Панель управления находится в разработке!
   </div>
 </template>
 <script>

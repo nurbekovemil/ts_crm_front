@@ -74,7 +74,7 @@
     </template>
     <template v-else>
       <p class="font-weight-light text--disabled text-center">
-        {{ this.status == 2 ? 'Вы еще не совершали сделок!':'Предложений нет!'}}
+        {{ this.status == 2 ? 'Вы еще не совершали сделок.':'Предложений нет.'}}
       </p>
     </template>
   </div>

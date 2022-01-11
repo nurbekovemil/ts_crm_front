@@ -1,18 +1,19 @@
 <template>
-	<div>
-		<template>
-			<v-row justify="center">
-				<v-dialog v-model="isAddDialog" persistent max-width="60%">
-					<v-card>
-						<v-card-title>
-							<span class="text-h5">Добавить заявку</span>
-						</v-card-title>
-						<v-card-text>
-							<v-container>
-								<v-row class="pa-3" cols="12">
-									<!-- fields -->
-									<v-col
-										v-for="(field, i) in templates.orderAdd"
+  <v-row justify="center">
+    <v-dialog
+      v-model="isEditDialog"
+      persistent
+      max-width="60%"
+    >
+      <v-card>
+        <v-card-title>
+          <span class="text-h5">Изменить</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col
+										v-for="(field, i) in orderTemplate"
 										:key="i"
 										:sm="
 											field.type === 'textarea' || field.type === 'file' 
@@ -48,27 +49,28 @@
 												outlined
 												@click="GET_OPTIONS(field.item)"
 											>
+                      <v-option>{{field.value}}</v-option>
 											</v-select>
 										</template>
 										<template v-if="field.type === 'file'">
 											<v-col>
 												<v-row class="mb-3" v-if="field.value">
 													<v-col
-														v-for="(file, i) in field.value"
+														v-for="(img, i) in field.value"
 														:key="i"
 														cols="4"
 													>
 														<v-card>
 															<v-img
 																contain
-																:src="fileurl(file)"
+																:src="img"
 																height="150"
 															/>
 														</v-card>
 													</v-col>
 												</v-row>
 												<v-file-input
-													v-model="field.value"
+													v-model="images"
 													label="Загрузить фотографии"
 													:rules="rules"
 													multiple
@@ -86,34 +88,43 @@
 											</v-col>
 										</template>
 									</v-col>
-								</v-row>
-							</v-container>
-						</v-card-text>
-						<v-card-actions>
-							<v-spacer></v-spacer>
-							<v-btn color="red" text @click="closeIsAddDialog">
-								Отменить
-							</v-btn>
-							<v-btn color="success" @click="saveNewOrder">
-								Добавить
-							</v-btn>
-						</v-card-actions>
-					</v-card>
-				</v-dialog>
-			</v-row>
-		</template>
-	</div>
+                  {{orderTemplate}}
+                  <v-divider/>
+                  {{order_view}}
+            </v-row>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="closeIsEditDialog"
+          >
+            Close
+          </v-btn>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="closeIsEditDialog"
+          >
+            Save
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-row>
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations } from "vuex";
-import list from '../Catalog/Tnved/list.vue';
-
+import {mapActions, mapMutations, mapState} from 'vuex'
 export default {
-	components: { list },
-	computed: {
-		...mapState("order", ["isAddDialog", "options", "templates"]),
-		rules(v) {
+  data: () => ({
+    images: []
+  }),
+  computed: {
+    ...mapState('order', ["isEditDialog","order_view","options","templates"]),
+    rules(v) {
 			const rules = [];
 			if (this.max) {
 				const rule = (v) =>
@@ -122,32 +133,30 @@ export default {
 			}
 			return rules;
 		},
-	},
-	methods: {
-		...mapMutations("order", ["SET_IS_ADD_DIALOG"]),
-		...mapActions("order", ["CREATE_ORDER", "GET_OPTIONS"]),
-		closeIsAddDialog() {
-			this.SET_IS_ADD_DIALOG();
-		},
-		fileurl: (furl) => URL.createObjectURL(furl),
-		saveNewOrder() {
-			// formData.append('images', 'file')
-			// let order = this.templates.orderAdd.reduce(
-			// 	(prev, { field, value }) => ((prev[field] = value), prev),
-			// 	{}
-			// );
-			const getFormData = this.templates.orderAdd.reduce(
-				(formData, { field, value }) => (
-					field == "images"
-						? value.map((img) => formData.append(field, img))
-						: formData.append(field, value),
-					formData
-				),
-				new FormData()
-			);
-			this.CREATE_ORDER(getFormData);
-		},
-	}
-};
+    orderTemplate(){
+      return this.templates.orderAdd.map((t) => {
+        if(t.type === 'select'){
+          return { ...t, value: this.order_view[t.field], id: this.order_view[t.field+'_id']}
+        }else {
+          return { ...t, value: this.order_view[t.field] }
+        }
+      })
+    }
+  },
+  methods: {
+    ...mapActions('order', ["GET_OPTIONS"]),
+    ...mapMutations('order', ["SET_IS_EDIT_DIALOG"]),
+    closeIsEditDialog(){
+      this.SET_IS_EDIT_DIALOG()
+    },
+    fileurl(furl){
+      return URL.createObjectURL(furl)
+    }
+  },
+
+}
 </script>
-<style></style>
+
+<style>
+
+</style>

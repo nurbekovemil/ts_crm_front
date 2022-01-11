@@ -6,20 +6,20 @@
           {{ this.type == 1 ? 'Заявки на продажу' : 'Заявки на покупку' }}
         </h4>
         <v-spacer />
-            <v-chip
-              v-if="type == 1"
-              class="ma-2"
-              color="primary"
-              outlined
-              pill
-              @click="openIsAddDialog"
-            >
-              
-              <v-icon left>
-                mdi-plus
-              </v-icon>
-              Добавить
-            </v-chip>
+        <v-btn
+          v-if="type == 1"
+          
+          text
+          elevation="0"
+          @click="openIsAddDialog"
+          small
+          color="grey"
+        >
+          <v-icon>
+            mdi-plus
+          </v-icon>
+          Добавить
+        </v-btn>
       </v-row>
     </template>
     <template v-if="getOrderByType(type).length != 0">
@@ -70,27 +70,50 @@
               </td>
               <td>{{ order.created_at }}</td>
               <td class="text-right">
-                <v-hover v-slot="{ hover }">
-                <v-btn
-                  small
-                  elevation="0"
-                  depressed
-                  icon
-                  :color="`${hover && 'cyan'}`"
-                >
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-                </v-hover>
-                <v-hover v-slot="{ hover }">
-                <v-btn
-                  elevation="0"
-                  small
-                  icon
-                  :color="`${hover && 'error'}`"
-                >
-                  <v-icon>mdi-delete</v-icon>
-                </v-btn>
-                </v-hover>
+
+                <v-menu offset-y transition="slide-x-transition" bottom left>
+										<template v-slot:activator="{ on, attrs }">
+											<v-btn icon v-bind="attrs" v-on="on">
+												<v-icon>mdi-dots-vertical</v-icon>
+											</v-btn>
+										</template>
+
+										<v-list nav dense>
+
+                      <v-hover v-slot="{ hover }">
+											<v-list-item
+												link
+												dense
+												@click="openIsEditDialog(order.id)"
+											>
+												<v-list-item-icon>
+													<v-icon :color="`${hover && 'cyan'}`">mdi-pencil</v-icon>
+												</v-list-item-icon>
+												<v-list-item-title>
+													Изменить
+												</v-list-item-title>
+                        
+											</v-list-item>
+                      </v-hover>
+                      <v-hover v-slot="{ hover }">
+											<v-list-item 
+                        link 
+                        dense 
+                        
+                      >
+												<v-list-item-icon>
+													<v-icon :color="`${hover && 'red lighten-1'}`">mdi-delete</v-icon>
+												</v-list-item-icon>
+												<v-list-item-title>
+													Удалить
+												</v-list-item-title>
+                        
+											</v-list-item>
+                      </v-hover>
+										</v-list>
+									</v-menu>
+
+              
               </td>
             </tr>
           </tbody>
@@ -99,7 +122,7 @@
      </template>
     <template v-else>
       <p class="font-weight-light text--disabled text-center">
-        Отсутствует!
+        Заявок не добавлено.
       </p>
     </template>
   </div>
@@ -107,25 +130,31 @@
 
 <script>
 
-import {mapGetters, mapActions, mapMutations} from 'vuex'
+import {mapGetters, mapActions, mapMutations, mapState} from 'vuex'
 export default {
   props: ["type"],
+  computed: {
+    ...mapState('user', ['isAuth']),
+    ...mapGetters('order',['getOrderByType']),
+  },
   mounted(){
     this.MY_ORDER_LIST(this.type)
   },
   methods: {
-    ...mapMutations("order",["SET_IS_ADD_DIALOG"]),
-    ...mapActions("order",["MY_ORDER_LIST"]),
+    ...mapMutations("order",["SET_IS_ADD_DIALOG","SET_IS_EDIT_DIALOG"]),
+    ...mapActions("order",["MY_ORDER_LIST","GET_ORDER_BY_ID"]),
     openIsAddDialog(){
       this.SET_IS_ADD_DIALOG()
+    },
+    openIsEditDialog(id){
+      this.SET_IS_EDIT_DIALOG()
+      this.GET_ORDER_BY_ID({id, isAuth: this.isAuth})
     },
     viewOrder(id){
       this.$router.push({path: `/dashboard/order/${id}`})
     }
   },
-  computed: {
-    ...mapGetters('order',['getOrderByType']),
-  },
+
 
 };
 </script>

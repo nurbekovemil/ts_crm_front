@@ -7,40 +7,35 @@
 			<v-btn style="margin:30px;" router to="/" plain icon>
 				<v-icon>mdi-home</v-icon>
 			</v-btn>
-			<div>
-				<v-menu 
-          offset-y
-          transition="slide-x-transition"
-          bottom
-          left
-          >
-					<template v-slot:activator="{ on, attrs }">
-            
-            <v-avatar
-              size="36"
-              v-bind="attrs"
-              v-on="on"
-            >
-            <img
-              src="../assets/john.jpg"
-              alt="avatar"
-            />
-            </v-avatar>
-          </template>
-          <v-list>
-            <v-list-item>
-              <v-list-item-title>{{ user.username }}</v-list-item-title>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-title >
-                <v-btn @click="LOGOUT">
-                 Выйти
-                </v-btn>
-              </v-list-item-title>
-            </v-list-item>
-          </v-list>
-				</v-menu>
-			</div>
+
+			<v-menu offset-y transition="slide-x-transition" bottom left>
+				<template v-slot:activator="{ on, attrs }">
+					<v-avatar size="36" v-bind="attrs" v-on="on">
+						<img src="../assets/john.jpg" alt="avatar" />
+					</v-avatar>
+				</template>
+
+				<v-list nav dense width="150">
+					<v-list-item-group>
+						<v-list-item router to="/dashboard/profile">
+							<v-list-item-content>
+								<v-list-item-title> {{ user.username }}</v-list-item-title>
+							</v-list-item-content>
+							<v-list-item-icon>
+								<v-icon>mdi-account</v-icon>
+							</v-list-item-icon>
+						</v-list-item>
+						<v-list-item @click="LOGOUT">
+							<v-list-item-content>
+								<v-list-item-title> Выйти </v-list-item-title>
+							</v-list-item-content>
+							<v-list-item-icon>
+								<v-icon>mdi-logout</v-icon>
+							</v-list-item-icon>
+						</v-list-item>
+					</v-list-item-group>
+				</v-list>
+			</v-menu>
 		</v-app-bar>
 		<v-navigation-drawer v-model="drawer" app dark color="grey darken-4">
 			<v-list-item>
@@ -75,25 +70,19 @@
 				<router-view />
 			</v-slide-x-transition>
 		</v-container>
-		<message />
 	</v-app>
 </template>
 <script>
 import { mapState, mapActions, mapGetters } from "vuex";
-import Message from "../components/admin/Message.vue";
 export default {
 	data: () => ({
 		drawer: null,
 	}),
-
-	components: {
-		Message,
-	},
 	computed: {
 		...mapState("user", ["user", "userMenus"]),
 	},
 	methods: {
 		...mapActions("user", ["LOGOUT"]),
-	}
+	},
 };
 </script>

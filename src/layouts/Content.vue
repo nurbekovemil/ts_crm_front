@@ -29,8 +29,7 @@
     </footer> -->
     <v-footer
         dark
-        padless
-        class="mt-3"
+        class="mt-3 mb-0"
       >
         <v-card
           flat

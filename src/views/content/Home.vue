@@ -5,15 +5,17 @@
         <v-img
               src="../../assets/banner.jpg"
               height="450"
-              class="grey darken-4 white--text align-center text-center"
+              class="grey darken-4 white--text align-center text-left"
               
               gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
             >
+            <v-container class="pa-0 fill-height">
             <p class="text-h3 font-weight-bold">
               Развивайте свой бизнес с нами!
               Находите новые сделки, новых партнёров!
             </p>
-            </v-img>
+            </v-container>
+        </v-img>
       </v-col>
     </v-row>
     <order-list type="1"/>

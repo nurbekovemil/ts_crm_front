@@ -3,14 +3,14 @@
 		<v-card-title>{{ order.title }}</v-card-title>
 		<template v-if="order.own">
 			<v-card-subtitle class="blue--text"
-				>Ваша • {{ order.order_type_title }}</v-card-subtitle
+				> Ваша • {{ order.order_type_title }}</v-card-subtitle
 			>
 		</template>
 		<template v-else>
 			<v-card-subtitle>{{ order.order_type_title }}</v-card-subtitle>
 		</template>
 		<v-row>
-			<v-col cols="6">
+			<v-col cols="6" class="pl-7">
 				<v-carousel
 					cycle
 					show-arrows-on-hover
