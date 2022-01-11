@@ -1,6 +1,6 @@
 <template>
   <v-container class="pa-0 fill-height">
-      <order :order="order_view" :shadow="1" cols="6" />
+      <order :order="order_view" :shadow="0" cols="6" />
   </v-container>
 </template>
 

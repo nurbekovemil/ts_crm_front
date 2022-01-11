@@ -2,7 +2,7 @@
 	<div>
 		<template>
 			<v-row justify="center">
-				<v-dialog v-model="isAddDialog" persistent max-width="60%">
+				<v-dialog v-model="isAddDialog" persistent  max-width="800px">
 					<v-card>
 						<v-card-title>
 							<span class="text-h5">Добавить заявку</span>
@@ -14,16 +14,20 @@
 									<v-col
 										v-for="(field, i) in templates.orderAdd"
 										:key="i"
-										:sm="
+										cols="12"
+										sm="6"
+										:md="
 											field.type === 'textarea' || field.type === 'file' 
 												? '12'
 												: '4'
 										"
+
 									>
 										<template v-if="field.type === 'input'">
 											<v-text-field
 												v-model="field.value"
 												dense
+												
 												:label="field.title"
 												outlined
 											></v-text-field>
