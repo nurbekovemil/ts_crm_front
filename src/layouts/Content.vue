@@ -1,22 +1,73 @@
 <template>
   <v-app>
     <v-app-bar flat app  color="white">
+              <v-app-bar-nav-icon right @click="drawer = true" 
+                            class="d-flex d-sm-none" 
+                           >
+       </v-app-bar-nav-icon>
+       <v-toolbar-title class="overflow-visible">TS KSE</v-toolbar-title>
       <v-container class="pa-0 fill-height">
-              <v-toolbar-title>TS KSE</v-toolbar-title>
-      <v-spacer></v-spacer>
+
+        <v-spacer></v-spacer>
+
+        <v-btn v-if="this.$route.fullPath != '/login'" plain router to="/login" icon class="d-flex d-sm-none">
+        <template v-if="!isAuth">
+              <v-icon>mdi-account</v-icon>
+        </template>
+  
+        <template v-else>
+          {{ user.username }}  
+        </template>
+      </v-btn>   
+
+     
+      <div class="d-none d-sm-flex">
       <v-btn elevation="0" plain small router to="/"> Главная </v-btn>
       <v-btn plain small router to="/handbooks"> Справочник </v-btn>
-      <v-btn elevation="0" plain small router to="/login">
-        <template v-if="!isAuth" icon> Войти </template>
+      <v-btn plain small router to="/login">
+        <template v-if="!isAuth" icon >
+             Войти
+        </template>
+     
         <template v-else>
-          {{ user.username }}
+          {{ user.username }}  
         </template>
       </v-btn>
+      </div>
       </v-container>
+      <v-spacer></v-spacer>
+      <!-- <v-btn elevation="0" plain small router to="/login">
+       <template v-if="isAuth">
+          {{ user.username }}
+       </template>
+        </v-btn> -->
     </v-app-bar>
       <v-container class="pa-0" fluid>
         <router-view />
       </v-container>
+
+          <v-navigation-drawer
+      v-model="drawer"
+      fixed
+      temporary
+      left
+    >
+      <v-list>
+        <v-list-item-group>
+          <v-list-item>
+            <v-list-item-title>
+               <v-btn elevation="0" plain small router to="/"> Главная </v-btn>
+            </v-list-item-title>
+          </v-list-item>
+           <v-list-item>
+            <v-list-item-title>
+                <v-btn plain small router to="/handbooks"> Справочник </v-btn>
+            </v-list-item-title>
+          </v-list-item>
+
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
     <!-- <footer class="footer">
       <div class="container">
         <div class="copyright text-center">
@@ -67,6 +118,7 @@ import { mapState } from "vuex";
 
 export default {
   data: () => ({
+    drawer: false,
     icons: [
         'mdi-facebook',
         'mdi-twitter',

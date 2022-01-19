@@ -1,13 +1,14 @@
 <template>
 	<v-container class="pa-0 fill-height">
 		<v-row>
-			<v-col>
-				<div class="text-body-1 my-4">
-					{{ type == 1 ? "Заявки на продажу" : "Заявки на покупку" }}
+			<v-col class="px-8">
+				<div class="text-body-1 my-4 d-flex justify-space-between">
+					{{ type == 1 ? "Заявки на продажу" : "Заявки на покупку" }} 
+					<router-link to="/"  class="text-decoration-none grey--text text-body-2">Посмотреть еще</router-link>
 				</div>
-				<v-row>
-					<v-col cols="3" v-for="order in getOrderByType(type)" :key="order.id">
-							<v-card class="ma-2" width="300">
+				<v-row >
+					<v-col cols="6" sm="4" md="3" v-for="order in getOrderByType(type)" :key="order.id">
+							<v-card width="300">
 								<v-img
 									:src="order.images"
 									gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"

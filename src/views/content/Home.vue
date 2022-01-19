@@ -9,12 +9,10 @@
               
               gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
             >
-            <v-container class="pa-0 fill-height">
-            <p class="text-h3 font-weight-bold">
+            <p class="text-h5 font-weight-bold text-sm-h4 text-md-h3">
               Развивайте свой бизнес с нами!
               Находите новые сделки, новых партнёров!
             </p>
-            </v-container>
         </v-img>
       </v-col>
     </v-row>

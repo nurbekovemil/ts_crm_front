@@ -40,15 +40,29 @@
 		</template>
 
 		<!-- private template -->
-		<v-btn
-			dark
-			class="ma-0"
-			elevation="0"
-			small
-			v-if="user.role != 'ADMIN' && !order_view.own && order_view.status == 2"
-			color="green darken-1"
-			@click="openIsAddOfferDialog"
-			>Предложить</v-btn>
+		<v-row>
+				<v-btn 	
+							dark
+							class="ma-2 pa-5"
+							color="green darken-1"		
+							v-if="user.role != 'ADMIN' && !order_view.own && order_view.status == 2"	
+							@click="openIsAddOfferDialog">
+							Предложить
+				</v-btn>
+	
+				<v-btn
+							dark
+							class="ma-2 pa-5"						
+							v-if="user.role != 'ADMIN' && !order_view.own && order_view.status == 2"
+							color="blue darken-1"
+							@click="openIsAddOfferDialog">
+							Позвонить
+				</v-btn>
+	
+		</v-row>
+	
+
+		
 		<!-- public template -->
 	</div>
 </template>
