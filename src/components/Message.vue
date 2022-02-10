@@ -17,7 +17,7 @@
 import { mapState } from "vuex";
 export default {
   data: () => ({
-    timeout: 5000,
+    timeout: 4000,
   }),
   computed: {
     ...mapState('message',['message']),

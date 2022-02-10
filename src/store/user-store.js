@@ -32,7 +32,9 @@ export default{
          } catch (error) {
             localStorage.removeItem('token')
             commit('SET_IS_AUTH', false)
-            console.log(error) //временная обработка ошибки
+            commit("message/ERROR_MESSAGE", error.response.data.error, {
+					root: true,
+				});
          }
       },
       async GET_ME({commit}){

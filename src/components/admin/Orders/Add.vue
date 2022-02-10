@@ -8,6 +8,8 @@
 							<span class="text-h5">Добавить заявку</span>
 						</v-card-title>
 						<v-card-text>
+							{{templates.orderAdd}}
+							{{options}}
 							<v-container>
 								<v-row class="pa-3" cols="12">
 									<!-- fields -->
@@ -92,6 +94,7 @@
 									</v-col>
 								</v-row>
 							</v-container>
+							{{templates.orderAdd}}
 						</v-card-text>
 						<v-card-actions>
 							<v-spacer></v-spacer>
@@ -129,7 +132,7 @@ export default {
 	},
 	methods: {
 		...mapMutations("order", ["SET_IS_ADD_DIALOG"]),
-		...mapActions("order", ["CREATE_ORDER", "GET_OPTIONS", "file"]),
+		...mapActions("order", ["CREATE_ORDER", "GET_OPTIONS"]),
 		closeIsAddDialog() {
 			this.SET_IS_ADD_DIALOG();
 		},

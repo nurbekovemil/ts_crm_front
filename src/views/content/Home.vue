@@ -6,8 +6,13 @@
         <v-img
               src="../../assets/banner.jpg"
               height="450"
+<<<<<<< HEAD
               cover
               class="grey darken-4 white--text align-center text-center"
+=======
+              class="grey darken-4 white--text align-center text-left"
+              
+>>>>>>> 476414b81a856c1bc34030cd4004f4bf1f0f77ba
               gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
             >
             <v-container>
@@ -19,9 +24,13 @@
               Находите новые сделки, новых партнёров!
               </span>
             </p>
+<<<<<<< HEAD
              </v-container>
             </v-img>
        
+=======
+        </v-img>
+>>>>>>> 476414b81a856c1bc34030cd4004f4bf1f0f77ba
       </v-col>
     </v-row>
     <category/>

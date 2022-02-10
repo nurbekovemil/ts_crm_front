@@ -26,6 +26,7 @@ export default {
 			order_weights: [],
 		},
 		isAddDialog: false,
+		isEditDialog: false,
 		order_list: [],
 		order_types: [],
 		order_to_buy: [],
@@ -37,6 +38,7 @@ export default {
 		SET_ORDER: (state, { data, type }) =>
 			type == 1 ? (state.order_to_sell = data) : (state.order_to_buy = data),
 		SET_IS_ADD_DIALOG: (state) => (state.isAddDialog = !state.isAddDialog),
+		SET_IS_EDIT_DIALOG: (state) => (state.isEditDialog = !state.isEditDialog),
 		SET_ORDER_VIEW: (state, data) => (state.order_view = data),
 		SET_OPTIONS: (state, {option, data}) => (state.options[option] = data),
 	},
