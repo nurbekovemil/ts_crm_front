@@ -5,13 +5,17 @@
 		<v-row>
 			<v-col md="6">
 				<v-card> 
+
 				<v-carousel 
 					cycle
+					data-fancybox
 					show-arrows-on-hover
 					hide-delimiters
 					max-height="100px"
 					style="max-height:100vh"
 				>
+				
+
 					<v-carousel-item
 					
 						v-for="(item, idx) in order.images"
@@ -120,7 +124,7 @@
 <script>
 import Offer from "./Offer.vue";
 import Tools from "./Tools.vue";
-
+ idx: null
 export default {
 	components: { Tools, Offer },
 	props: ["order", "cols", "shadow"],

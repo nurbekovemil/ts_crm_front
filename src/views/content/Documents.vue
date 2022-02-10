@@ -1,15 +1,15 @@
 <template>
-<div>
- <h1>gfd</h1>
+  <div>
+    Документы
   </div>
 </template>
+
 <script>
 export default {
 
-};
-</script>
-<style>
-v-card {
-  color:#1D1E2E;
 }
+</script>
+
+<style>
+
 </style>
