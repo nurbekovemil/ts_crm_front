@@ -19,7 +19,11 @@ import {
 
 // content pages
 import {
-  Handbook, 
+  Handbook,
+  AllOrdersList,
+  About, 
+  Contacts,
+  Documents,
   Home, 
   Order,
   Login
@@ -41,6 +45,26 @@ const routes = [
         path: '/',
         name: 'Главная',
         component: Home
+      },
+      {
+        path: '/about',
+        name: 'О бирже',
+        component: About
+      },
+      {
+        path: '/contacts',
+        name: 'Контакты',
+        component: Contacts
+      },
+      {
+        path: '/documents',
+        name: 'Документы',
+        component: Documents
+      },
+      {
+        path: '/orders/:type',
+        name: 'Все заявки',
+        component: AllOrdersList
       },
       {
         path: '/handbooks',

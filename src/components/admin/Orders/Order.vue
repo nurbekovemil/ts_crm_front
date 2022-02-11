@@ -3,13 +3,17 @@
 		<v-row>
 			<v-col md="6">
 				<v-card> 
+
 				<v-carousel 
 					cycle
+					data-fancybox
 					show-arrows-on-hover
 					hide-delimiters
 					max-height="100px"
 					style="max-height:100vh"
 				>
+				
+
 					<v-carousel-item
 					
 						v-for="(img, i) in order_view.images"
