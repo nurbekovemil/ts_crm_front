@@ -10,11 +10,11 @@
 					<v-col cols="6" sm="4" md="3" v-for="order in getOrderByType(type)" :key="order.id">
 							<v-card width="300">
 								<v-img
-									:src="order.images"
-									gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
+									:src="url_api+order.images[0].path"
+									gradient="to bottom, rgba(100,115,201,.33), rgba(25,32,72,.7)"
 									dark
 									height="200"
-									contain
+									
 								>
 									<v-card-title>
 										{{ order.title }}
@@ -96,6 +96,7 @@ export default {
 	props: ["type"],
 	data: () => ({
 		model: null,
+		url_api: process.env.VUE_APP_BACK_API
 	}),
 	computed: {
 		...mapState("user", ["isAuth"]),

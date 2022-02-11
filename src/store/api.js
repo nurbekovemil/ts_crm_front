@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-	// baseURL: "https://kse.nsp.kg",
-	baseURL: "http://localhost:3132",
+	baseURL: process.env.VUE_APP_BACK_API,
 
 });
 

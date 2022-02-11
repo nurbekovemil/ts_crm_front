@@ -1,6 +1,6 @@
 <template>
   <div>
-      <order :order="order_view" cols="6" shadow="0"/>
+      <order/>
   </div>
 </template>
 
@@ -13,7 +13,6 @@ export default {
     Order
   },
   computed: {
-    ...mapState("order", ["order_view"]),
 		...mapState("user", ["isAuth"]),
   },
   methods: {

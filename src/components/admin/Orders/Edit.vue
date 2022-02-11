@@ -36,11 +36,9 @@
 								</template>
 								
 								<template v-if="field.type === 'select'">
-									<!-- {{field.value}}
-									{{order_view[field.field]}}
-									{{options[field.item].length}} -->
+									
 									<v-select
-										v-model="field.default"
+										v-model="field.value"
 										:items="options[field.item]"
 										item-text="title"
 										item-value="id"
@@ -52,41 +50,60 @@
 									</v-select>
 								</template>
 								<template v-if="field.type === 'file'">
+									{{images}} {{field.value}}
 									<v-col>
 										<v-row class="mb-3" v-if="field.value">
-											<v-col v-for="(img, i) in field.value" :key="i" cols="4">
-												<v-card>
-													<v-img contain :src="img" height="150" />
-												</v-card>
+											<v-col v-for="(img, i) in field.value" :key="i" cols="4" class="py-0">
+												<v-hover v-slot="{ hover }">
+													<v-card>
+														<v-img :src="img" height="150">
+															<v-overlay
+																absolute="absolute"
+																:value="hover"
+															>
+																<v-btn
+																	icon
+																>
+																	<v-icon
+																	>
+																	mdi-delete
+																	</v-icon>
+																</v-btn>
+															</v-overlay>
+														</v-img>
+													</v-card>
+												</v-hover>
+											</v-col>
+											<v-col cols="4" class="d-flex justify-center align-center">
+												
+												<div>
+													<v-file-input
+														v-model="field.value"
+														:rules="rules"
+														multiple
+														prepend-icon="mdi-image-plus"
+														hide-input
+													>
+													</v-file-input>
+												</div >
+												
 											</v-col>
 										</v-row>
-										<v-file-input
-											v-model="images"
-											label="Загрузить фотографии"
-											:rules="rules"
-											multiple
-											counter="3"
-											prepend-icon="mdi-image-plus"
-											outlined
-											dense
-										>
-											<template v-slot:selection="{ text }">
-												<v-chip small label color="primary">
-													{{ text }}
-												</v-chip>
-											</template>
-										</v-file-input>
 									</v-col>
 								</template>
 							</v-col>
+							<p>template</p>
 							{{ orderTemplate }}
 							<v-divider />
 							<v-divider />
+							<p>order</p>
 							{{ order_view }}
-							<v-divider />
-							<v-divider />
 
+							<v-divider />
+							<v-divider />
+							<p>options</p>
 							{{options}}
+
 						</v-row>
 					</v-container>
 				</v-card-text>
@@ -95,7 +112,7 @@
 					<v-btn color="blue darken-1" text @click="closeIsEditDialog">
 						Close
 					</v-btn>
-					<v-btn color="blue darken-1" text @click="closeIsEditDialog">
+					<v-btn color="blue darken-1" text @click="test">
 						Save
 					</v-btn>
 				</v-card-actions>
@@ -108,7 +125,7 @@
 import { mapActions, mapMutations, mapState } from "vuex";
 export default {
 	data: () => ({
-		images: [],
+		images: []
 	}),
 	computed: {
 		...mapState("order", [
@@ -138,8 +155,7 @@ export default {
 					})
 					return {
 						...t,
-						default: data
-						
+						value: t.field === 'type' ? this.order_view.order_type:this.order_view[t.field + "_id"]
 					};
 				}
 				else {
@@ -147,12 +163,18 @@ export default {
 				}
 			});
 		},
+		// upload (){
+		// 	return [...this.images, this.orderTemplate.map(t => t.field == 'images')]
+		// },
 	},
 	methods: {
 		...mapActions("order", ["GET_OPTIONS"]),
 		...mapMutations("order", ["SET_IS_EDIT_DIALOG","SET_OPTIONS"]),
 		closeIsEditDialog() {
 			this.SET_IS_EDIT_DIALOG();
+		},
+		test(){
+			console.log(this.orderTemplate)
 		},
 		fileurl(furl) {
 			return URL.createObjectURL(furl);
