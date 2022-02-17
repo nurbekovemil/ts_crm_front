@@ -1,7 +1,7 @@
 <template>
 	<v-row>
 		<v-col v-for="order in deal_orders" :key="order.id" cols="12">
-			<order :order="order" cols="6" :shadow="1" />
+			<order :order="order"/>
 		</v-col>
 		<v-col>
 			<tools :deal="deal_view"/>
@@ -16,7 +16,7 @@ import Order from "../../components/admin/Orders/Order.vue";
 export default {
 	components: {
 		Order,
-Tools,
+		Tools,
 	},
   computed: {
 		...mapState("deal", ["deal_orders","deal_view"]),

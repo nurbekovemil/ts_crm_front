@@ -3,13 +3,14 @@
     <v-snackbar
       v-model="message.isAlert"
       :timeout="timeout"
-      :color="message.color"
+      :color="message && message.color"
     >
         <template>
         <v-icon>{{message.icon}}</v-icon>
         </template>
         {{ message.text }}
     </v-snackbar>
+    {{test}}
   </div>
 </template>
 
@@ -21,6 +22,9 @@ export default {
   }),
   computed: {
     ...mapState('message',['message']),
+    test(){
+      console.log(this.message)
+    }
   },
 };
 </script>

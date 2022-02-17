@@ -92,17 +92,7 @@
 									</v-col>
 								</template>
 							</v-col>
-							<p>template</p>
-							{{ orderTemplate }}
-							<v-divider />
-							<v-divider />
-							<p>order</p>
-							{{ order_view }}
-
-							<v-divider />
-							<v-divider />
-							<p>options</p>
-							{{options}}
+							
 
 						</v-row>
 					</v-container>
@@ -112,7 +102,7 @@
 					<v-btn color="blue darken-1" text @click="closeIsEditDialog">
 						Close
 					</v-btn>
-					<v-btn color="blue darken-1" text @click="test">
+					<v-btn color="blue darken-1" text>
 						Save
 					</v-btn>
 				</v-card-actions>
@@ -172,9 +162,6 @@ export default {
 		...mapMutations("order", ["SET_IS_EDIT_DIALOG","SET_OPTIONS"]),
 		closeIsEditDialog() {
 			this.SET_IS_EDIT_DIALOG();
-		},
-		test(){
-			console.log(this.orderTemplate)
 		},
 		fileurl(furl) {
 			return URL.createObjectURL(furl);

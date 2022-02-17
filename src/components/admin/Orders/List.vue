@@ -84,6 +84,7 @@
 											<v-list-item
 												link
 												dense
+                        disabled
 												@click="openIsEditDialog(order.id)"
 											>
 												<v-list-item-icon>
@@ -99,7 +100,7 @@
 											<v-list-item 
                         link 
                         dense 
-                        
+                        disabled
                       >
 												<v-list-item-icon>
 													<v-icon :color="`${hover && 'red lighten-1'}`">mdi-delete</v-icon>

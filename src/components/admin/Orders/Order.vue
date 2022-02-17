@@ -16,7 +16,7 @@
 
 					<v-carousel-item
 					
-						v-for="(img, i) in order_view.images"
+						v-for="(img, i) in order.images"
 						:key="i"
 						:src="url_api+img.path"
 						style="max-width:100%;box-sizing:border-box;"
@@ -28,16 +28,16 @@
 			</v-col>
 			<v-col>
 				<!-- Название товара -->
-			<v-card-title>{{ order_view.title }}</v-card-title>
+			<v-card-title>{{ order.title }}</v-card-title>
 			<!-- Название страницы -->
-				<template v-if="order_view.own">
+				<template v-if="order.own">
 					<v-card-subtitle class="blue--text">
-						Ваша • {{ order_view.order_type_title }}
+						Ваша • {{ order.order_type_title }}
 					</v-card-subtitle>
 				</template>
 
 				<template v-else>
-					<v-card-subtitle>{{ order_view.order_type_title }}</v-card-subtitle>
+					<v-card-subtitle>{{ order.order_type_title }}</v-card-subtitle>
 				</template>
 			<!-- Детали товара -->
 			<v-simple-table>
@@ -46,24 +46,24 @@
 				<tr class="text-caption">
 					<td class="text-h6">Цена</td>
 					<td class="text-h6 font-weight-bold">
-						{{ order_view.price }} Сом {{ order_view.currency }}
+						{{ order.price }} Сом {{ order.currency }}
 					</td>
 				</tr>
 				<tr class="text-caption">
 					 <td class="grey--text">{{ $t(`admin.order.order_view.amount`) }}:</td>
-					 <td>{{ order_view.amount }} / {{ order_view.weight }}</td>	
+					 <td>{{ order.amount }} / {{ order.weight }}</td>	
 				</tr>
 				<tr class="text-caption">
 					  <td class="grey--text">{{ $t(`admin.order.order_view.cost`) }}: </td>
-					  <td>{{ order_view.cost }}</td>
+					  <td>{{ order.cost }}</td>
 				</tr>
 				<tr class="text-caption">
 					  <td class="grey--text">{{ $t(`admin.order.order_view.delivery`) }}: </td>
-					  <td>{{ order_view.delivery }}</td>
+					  <td>{{ order.delivery }}</td>
 				</tr>
 				<tr class="text-caption">
 					  <td class="grey--text">{{ $t(`admin.order.order_view.payment`) }}:</td>
-					  <td>{{ order_view.payment }}</td>
+					  <td>{{ order.payment }}</td>
 				</tr>
 				<v-col>
 					<tools />
@@ -115,23 +115,18 @@
       </tbody>
     </template>
   </v-simple-table>
-
-
 	</v-card>
 </template>
 
 <script>
 import Offer from "./Offer.vue";
 import Tools from "./Tools.vue";
-import {mapState} from 'vuex'
 export default {
 	data: () => ({
 		url_api: process.env.VUE_APP_BACK_API
 	}),
-	components: { Tools, Offer },
-	computed: {
-		...mapState("order", ["order_view"]),
-	}
+	props: ['order'],
+	components: { Tools, Offer }
 };
 </script>
 

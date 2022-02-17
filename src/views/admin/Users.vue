@@ -13,6 +13,9 @@
 								<th class="text-left">
 									Роль
 								</th>
+								<th class="text-left">
+									Количество заявок
+								</th>
 								<th class="text-right">
 									<v-btn icon @click="toggleAddUserDialog">
 										<v-icon>mdi-account-plus</v-icon>
@@ -24,9 +27,7 @@
 							<tr
 								v-for="user in usersList"
 								:key="user.id"
-								:class="
-									isViewUser && isViewUser.id == user.id && 'grey lighten-3'
-								"
+								:class="isViewUser && isViewUser.id == user.id && 'grey lighten-3'"
 							>
 								<td>
 									<v-avatar size="36">
@@ -34,8 +35,11 @@
 									</v-avatar>
 								</td>
 
-								<td>{{ user.username }}</td>
+								<td>
+									<span :class="user.own && 'green--text text--green-2'">{{ user.username }}</span>
+								</td>
 								<td>{{ user.role }}</td>
+								<td>{{ user.orders }}</td>
 								<td class="text-right">
 									<v-menu bottom left>
 										<template v-slot:activator="{ on, attrs }">
@@ -67,7 +71,7 @@
 												</v-list-item-title>
 											</v-list-item>
 
-											<v-list-item link dense @click="deleteUser(user.id)">
+											<v-list-item link dense :disabled="user.own || user.orders != 0" @click="deleteUser(user.id)">
 												<v-list-item-icon>
 													<v-icon>mdi-delete</v-icon>
 												</v-list-item-icon>
@@ -86,7 +90,6 @@
 						@toggleAddUserDialog="toggleAddUserDialog"
 					/>
 					<EditUser
-						:isEditDialog="isEditDialog"
 						:updateUser="updateUser"
 						@toggleEditUserDialog="toggleEditUserDialog"
 					/>
@@ -101,16 +104,14 @@
 	</v-row>
 </template>
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 import AddUser from "@/components/admin/Users/Add.vue";
 import EditUser from "@/components/admin/Users/Edit.vue";
 import Info from "@/components/admin/Users/Info.vue";
 export default {
 	data: () => ({
-		isAddDialog: false,
-		isEditDialog: false,
 		isViewUser: null,
-		updateUser: null,
+		updateUser: null
 	}),
 	components: {
 		AddUser,
@@ -118,21 +119,22 @@ export default {
 		Info,
 	},
 	computed: {
-		...mapState("user", ["usersList"]),
+		...mapState("user", ["usersList", "isAddDialog", "isEditDialog"]),
 	},
 	mounted() {
 		this.USERLIST();
 	},
 	methods: {
 		...mapActions("user", ["USERLIST", "DELETEUSER"]),
+		...mapMutations("user", ["TOGGLE_ADD_DIALOG","TOGGLE_EDIT_DIALOG"]),
 		toggleAddUserDialog() {
-			this.isAddDialog = !this.isAddDialog;
+			this.TOGGLE_ADD_DIALOG()
 		},
 		toggleEditUserDialog(user) {
 			if (user) {
 				this.updateUser = JSON.parse(JSON.stringify(user));
 			}
-			this.isEditDialog = !this.isEditDialog;
+			this.TOGGLE_EDIT_DIALOG()
 		},
 		viewUser(user) {
 			if (user) {

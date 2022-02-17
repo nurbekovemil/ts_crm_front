@@ -44,9 +44,8 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState, mapMutations } from "vuex";
 export default {
-  props: ["isAddDialog"],
   data: () => ({
     newUser: {
       username: "",
@@ -54,10 +53,14 @@ export default {
     },
     showPassword: false,
   }),
+  computed: {
+    ...mapState("user", ["isAddDialog"])
+  },
   methods: {
-    ...mapActions(["CREATEUSER"]),
+    ...mapActions("user",["CREATEUSER"]),
+    ...mapMutations("user", ["TOGGLE_ADD_DIALOG"]),
     closeAddUserDialog() {
-      this.$emit("toggleAddUserDialog");
+      this.TOGGLE_ADD_DIALOG()
     },
     create() {
       this.CREATEUSER(this.newUser);

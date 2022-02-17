@@ -88,7 +88,6 @@ export default {
 		CREATE_ORDER: async ({ commit, dispatch }, order) => {
 			try {
 				const { data } = await api.createOrderPrivate(order);
-				console.log(data)
 				commit("SET_IS_ADD_DIALOG");
 				commit("message/SUCCESS_MESSAGE", data, { root: true });
 				dispatch("MY_ORDER_LIST", data.rows.order_type);
@@ -103,7 +102,6 @@ export default {
 				const { data } = isAuth
 					? await api.getOrderByIdPrivate(id)
 					: await api.getOrderByIdPublic(id)
-					console.log(data)
 				commit("SET_ORDER_VIEW", data);
 			} catch (error) {
 				commit("message/ERROR_MESSAGE", error.response.data.error, {

@@ -42,16 +42,20 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import {mapActions, mapState, mapMutations} from 'vuex'
 export default {
-  props: ["isEditDialog", "updateUser"],
+  props: ["updateUser"],
   data: () => ({
     password: null,
   }),
+  computed: {
+    ...mapState("user", ["isEditDialog"])
+  },
   methods: {
-    ...mapActions(['UPDATEUSER']),
+    ...mapActions("user",["UPDATEUSER"]),
+    ...mapMutations("user", ["TOGGLE_EDIT_DIALOG"]),
     closeEditUserDialog() {
-      this.$emit("toggleEditUserDialog");
+      this.TOGGLE_EDIT_DIALOG()
     },
     update(){
       if(this.password){

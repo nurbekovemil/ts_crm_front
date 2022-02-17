@@ -62,7 +62,7 @@
               elevation-3
             >
               <v-img
-                :src="order.images"
+                :src="order && url_api+order.images[0].path"
                 class="aaa white--text align-end fill-height bottom-gradient"
                 gradient="to bottom, rgba(0,0,0,0) , rgba(0,0,0,0) , rgba(0,0,0,0),rgba(0,0,0,0.75)"
                 height="280px"
@@ -125,7 +125,6 @@ import { mapActions, mapGetters, mapState } from "vuex";
 export default {
 	props: ["type"],
 	data: () => ({
-		model: null,
 		url_api: process.env.VUE_APP_BACK_API
 	}),
 	computed: {

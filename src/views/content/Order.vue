@@ -1,6 +1,6 @@
 <template>
   <v-container class="pa-0 fill-height">
-      <order/>
+      <order :order="order_view"/>
   </v-container>
 </template>
 
@@ -14,6 +14,7 @@ export default {
   }, 
  computed: {
 		...mapState("user", ["isAuth"]),
+    ...mapState("order", ["order_view"])
   },
   methods: {
 		...mapActions("order", ["GET_ORDER_BY_ID"]),

@@ -8,8 +8,7 @@
 							<span class="text-h5">Добавить заявку</span>
 						</v-card-title>
 						<v-card-text>
-							{{templates.orderAdd}}
-							{{options}}
+							
 							<v-container>
 								<v-row class="pa-3" cols="12">
 									<!-- fields -->
@@ -94,7 +93,7 @@
 														</v-card> -->
 													</v-col>
 													<v-col cols="4" class="d-flex justify-center align-center">
-														{{field.value}}
+														
 														<div>
 															<v-file-input
 																v-model="field.value"
@@ -129,7 +128,6 @@
 									</v-col>
 								</v-row>
 							</v-container>
-							{{templates.orderAdd}}
 						</v-card-text>
 						<v-card-actions>
 							<v-spacer></v-spacer>
@@ -172,7 +170,6 @@ export default {
 			this.SET_IS_ADD_DIALOG();
 		},
 		fileurl: (furl) => {
-			console.log(furl)
 			return URL.createObjectURL(furl)
 			},
 		saveNewOrder() {
