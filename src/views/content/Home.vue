@@ -18,9 +18,9 @@
               Находите новые сделки, новых партнёров!
               </span>
             </p>
-
              </v-container>
             </v-img>
+       
       </v-col>
     </v-row>
     <category/>
@@ -37,7 +37,6 @@ export default {
   components: {
     OrderList,
     Category
-  
-  },
+  }
 };
 </script>

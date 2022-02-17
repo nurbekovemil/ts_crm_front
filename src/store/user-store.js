@@ -4,6 +4,8 @@ import api from './api'
 export default{
    namespaced: true,
    state: {
+      isAddDialog: false,
+		isEditDialog: false,
       isAuth: false,
       user:{},
       userMenus: [],
@@ -20,6 +22,13 @@ export default{
       SETUSERSLIST: (state, usersList)=> {
          state.usersList = usersList
       },
+      TOGGLE_ADD_DIALOG: (state) => {
+         state.isAddDialog = !state.isAddDialog
+      },
+      TOGGLE_EDIT_DIALOG: (state) => {
+         state.isEditDialog = !state.isEditDialog
+      }
+
    },
    actions:{
       async LOGIN({commit}, loginData){
@@ -61,8 +70,9 @@ export default{
       async CREATEUSER({commit, dispatch}, user){
          try {
             const {data} = await api.createUser(user)
-            commit('SUCCESS_MESSAGE', data, {root: true})
+            commit("message/SUCCESS_MESSAGE", data, { root: true });
             dispatch('USERLIST')
+            commit("TOGGLE_ADD_DIALOG")
          } catch (error) {
             commit('message/ERROR_MESSAGE', error.response.data.error, {root: true})
          }
@@ -90,6 +100,7 @@ export default{
             const {data} = await api.updateUser(update)
             commit('message/SUCCESS_MESSAGE', data, {root: true})
             dispatch('USERLIST')
+            commit('TOGGLE_EDIT_DIALOG')
          } catch (error) {
             commit('message/ERROR_MESSAGE', error.response.data.error, {root: true})
 

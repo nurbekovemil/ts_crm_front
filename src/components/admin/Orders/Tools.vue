@@ -40,7 +40,7 @@
 		</template>
 
 		<!-- private template -->
-		<v-row>
+		<v-row class="my-0">
 				<v-btn 	
 							dark
 							class="ma-2 pa-5"
@@ -88,4 +88,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+
+</style>

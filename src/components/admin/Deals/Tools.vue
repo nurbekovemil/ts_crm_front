@@ -35,7 +35,7 @@
 					Повторно отправить
 				</v-btn>
 			</template>
-			<v-btn v-if="deal.status == 2" color="success" small>
+			<v-btn v-if="deal.status == 2" color="success" small disabled>
 				Печать
 			</v-btn>
 		</v-card-actions>
@@ -47,7 +47,7 @@ import { mapActions } from "vuex";
 export default {
 	props: ["deal"],
 	methods: {
-		...mapActions("deal", ["GET_DEAL_BY_ID"]),
+		...mapActions("deal", ["GET_DEAL_BY_ID","UPDATE_DEAL_STATUS"]),
 		updateDealStatus(status) {
 			this.UPDATE_DEAL_STATUS({ status, deal_id: this.deal.id });
 		},

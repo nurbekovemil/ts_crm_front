@@ -1,18 +1,19 @@
 <template>
-<div>
+  <div>
     <v-app>
-    <v-main>
-      <router-view/>
-    </v-main>
-  </v-app>
-  <message/>
-</div>
-
+      <v-main>
+        <router-view/>
+      </v-main>
+    </v-app>
+    <message/>
+  </div>
 </template>
 
 <script>
+
 import {mapActions} from 'vuex'
 import Message from "./components/Message.vue";
+
 export default {
   name: 'App',
   components: {
@@ -26,4 +27,3 @@ export default {
   }
 };
 </script>
-

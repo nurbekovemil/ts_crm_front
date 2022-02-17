@@ -8,8 +8,7 @@
 							<span class="text-h5">Добавить заявку</span>
 						</v-card-title>
 						<v-card-text>
-							{{templates.orderAdd}}
-							{{options}}
+							
 							<v-container>
 								<v-row class="pa-3" cols="12">
 									<!-- fields -->
@@ -63,17 +62,52 @@
 														v-for="(file, i) in field.value"
 														:key="i"
 														cols="4"
+														class="py-0"
 													>
-														<v-card>
+													<v-hover v-slot="{ hover }">
+													<v-card>
+														<v-img :src="fileurl(file)" height="150">
+															<v-overlay
+																absolute="absolute"
+																:value="hover"
+															>
+																<v-btn
+																	
+																	icon
+																>
+																	<v-icon
+																	>
+																	mdi-delete
+																	</v-icon>
+																</v-btn>
+															</v-overlay>
+														</v-img>
+													</v-card>
+												</v-hover>
+														<!-- <v-card>
 															<v-img
-																contain
+																
 																:src="fileurl(file)"
 																height="150"
 															/>
-														</v-card>
+														</v-card> -->
+													</v-col>
+													<v-col cols="4" class="d-flex justify-center align-center">
+														
+														<div>
+															<v-file-input
+																v-model="field.value"
+																:rules="rules"
+																multiple
+																prepend-icon="mdi-image-plus"
+																hide-input
+															>
+															</v-file-input>
+														</div >
+														
 													</v-col>
 												</v-row>
-												<v-file-input
+												<!-- <v-file-input
 													v-model="field.value"
 													label="Загрузить фотографии"
 													:rules="rules"
@@ -88,13 +122,12 @@
 															{{ text }}
 														</v-chip>
 													</template>
-												</v-file-input>
+												</v-file-input> -->
 											</v-col>
 										</template>
 									</v-col>
 								</v-row>
 							</v-container>
-							{{templates.orderAdd}}
 						</v-card-text>
 						<v-card-actions>
 							<v-spacer></v-spacer>
@@ -136,7 +169,9 @@ export default {
 		closeIsAddDialog() {
 			this.SET_IS_ADD_DIALOG();
 		},
-		fileurl: (furl) => URL.createObjectURL(furl),
+		fileurl: (furl) => {
+			return URL.createObjectURL(furl)
+			},
 		saveNewOrder() {
 			// formData.append('images', 'file')
 			// let order = this.templates.orderAdd.reduce(

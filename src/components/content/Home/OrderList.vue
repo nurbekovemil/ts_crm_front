@@ -22,11 +22,11 @@
           >
             <!-- <v-card width="300">
 								<v-img
-									:src="order.images"
-									gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
+									:src="url_api+order.images[0].path"
+									gradient="to bottom, rgba(100,115,201,.33), rgba(25,32,72,.7)"
 									dark
 									height="200"
-									contain
+									
 								>
 									<v-card-title>
 										{{ order.title }}
@@ -62,8 +62,8 @@
               elevation-3
             >
               <v-img
-                :src="order.images"
-                class="white--text align-end fill-height bottom-gradient"
+                :src="order && url_api+order.images[0].path"
+                class="aaa white--text align-end fill-height bottom-gradient"
                 gradient="to bottom, rgba(0,0,0,0) , rgba(0,0,0,0) , rgba(0,0,0,0),rgba(0,0,0,0.75)"
                 height="280px"
               >
@@ -123,26 +123,23 @@
 <script>
 import { mapActions, mapGetters, mapState } from "vuex";
 export default {
-  props: ["type"],
-  data: () => ({
-    model: null,
-  }),
-  computed: {
-    ...mapState("user", ["isAuth"]),
-    ...mapGetters("order", ["getOrderByType"]),
-  },
-  methods: {
-    ...mapActions("order", ["ALL_ORDER_LIST_HOME_PAGE"]),
-    viewOrder(id) {
-      this.$router.push("/order/" + id);
-    },
-    knowType() {
-      console.log(this.type);
-    },
-  },
-  mounted() {
-    this.ALL_ORDER_LIST_HOME_PAGE(this.type);
-  },
+	props: ["type"],
+	data: () => ({
+		url_api: process.env.VUE_APP_BACK_API
+	}),
+	computed: {
+		...mapState("user", ["isAuth"]),
+		...mapGetters("order", ["getOrderByType"]),
+	},
+	methods: {
+		...mapActions("order", ["ALL_ORDER_LIST_HOME_PAGE"]),
+		viewOrder(id) {
+			this.$router.push("/order/" + id);
+		},
+	},
+	mounted() {
+		this.ALL_ORDER_LIST_HOME_PAGE(this.type);
+	},
 };
 </script>
 

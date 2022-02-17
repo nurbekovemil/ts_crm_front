@@ -1,8 +1,6 @@
 <template>
-	<v-card class="mt-2 px-2" width="100%" :elevation="shadow" >
-		
-	
-		<v-row>
+	<v-card class="mt-2 px-2" width="100%" elevation="0" >
+		<v-row class="ma-2">
 			<v-col md="6">
 				<v-card> 
 
@@ -18,12 +16,13 @@
 
 					<v-carousel-item
 					
-						v-for="(item, idx) in order.images"
-						:key="idx"
-						:src="item"
+						v-for="(img, i) in order.images"
+						:key="i"
+						:src="url_api+img.path"
 						style="max-width:100%;box-sizing:border-box;"
 
 					/>
+					
 				</v-carousel>
 				</v-card>
 			</v-col>
@@ -42,7 +41,7 @@
 				</template>
 			<!-- Детали товара -->
 			<v-simple-table>
-				<template>
+				<template class="hhh">
 					<tbody>
 				<tr class="text-caption">
 					<td class="text-h6">Цена</td>
@@ -116,19 +115,21 @@
       </tbody>
     </template>
   </v-simple-table>
-
-
 	</v-card>
 </template>
 
 <script>
 import Offer from "./Offer.vue";
 import Tools from "./Tools.vue";
- idx: null
 export default {
-	components: { Tools, Offer },
-	props: ["order", "cols", "shadow"],
+	data: () => ({
+		url_api: process.env.VUE_APP_BACK_API
+	}),
+	props: ['order'],
+	components: { Tools, Offer }
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>
