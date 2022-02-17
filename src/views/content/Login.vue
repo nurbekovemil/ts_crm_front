@@ -5,6 +5,7 @@
 		min-height="400"
 		flat
 		color="rgb(255, 255, 255)"
+		@keyup.13="handleSubmit"
 	>
 		<div style="display:flex;justify-content:center;">
 			<img
@@ -38,6 +39,7 @@
           prepend-inner-icon="mdi-lock"
           dense
           outlined
+		  
           :rules="[rules.empty]"
           flat
         ></v-text-field>
@@ -50,6 +52,7 @@
 			elevation="0"
 			color="grey darken-4"
 			@click="handleSubmit"
+			
 			block
 		>
 			Войти
