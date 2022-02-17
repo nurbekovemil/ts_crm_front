@@ -1,7 +1,7 @@
 <template>
-  <v-container class="pa-0 fill-height">
+  <v-container class="fill-height">
     <v-row>
-      <v-col class="px-8 my-5">
+      <v-col class="my-5">
         <div
           class="text-body-1 text-lg-h5 my-4 d-flex justify-space-between"
           @click="knowType()"
@@ -63,7 +63,7 @@
             >
               <v-img
                 :src="order.images"
-                class="aaa white--text align-end fill-height bottom-gradient"
+                class="white--text align-end fill-height bottom-gradient"
                 gradient="to bottom, rgba(0,0,0,0) , rgba(0,0,0,0) , rgba(0,0,0,0),rgba(0,0,0,0.75)"
                 height="280px"
               >
@@ -151,8 +151,5 @@ export default {
   color: #be304a;
   text-decoration: none;
   font-size: 17px;
-}
-.aaa {
-  box-shadow: inset 10px 10px 10px;
 }
 </style>

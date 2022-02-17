@@ -1,9 +1,9 @@
 <template>
 <v-row>
     <v-col class="background-category mb-10">
-	  <v-container class="pa-0 fill-height">
+	  <v-container class="fill-height">
         <v-row>
-		  <v-col class="px-8 my-5">
+		  <v-col class="my-5">
 
 				<div class="text-body-1 text-lg-h5 my-0 d-flex justify-space-between">
 					Категория

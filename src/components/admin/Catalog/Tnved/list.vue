@@ -1,6 +1,6 @@
 <template>
       <v-card class="mx-0 my-2" max-width="100%">
-        <v-sheet class="pa-4 grey darken-4">
+        <v-sheet class="search-box pa-4">
           <v-text-field
             v-model="search"
             label="Поиск товаров"
@@ -11,6 +11,7 @@
             hide-details
             clearable
             clear-icon="mdi-close-circle-outline"
+            class="grey"
           ></v-text-field>
         </v-sheet>
         <v-row>
@@ -73,3 +74,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.search-box {
+  background: #DDEFFD;
+}
+</style>

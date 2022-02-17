@@ -2,17 +2,14 @@
   <v-app>
     <v-app-bar flat app  color="white">
         <v-app-bar-nav-icon right @click="drawer = true" 
-                            class="d-flex d-sm-none">
+                            class="d-flex d-md-none">
        </v-app-bar-nav-icon>
 
-    <!-- <v-toolbar-title class="overflow-visible">TS KSE</v-toolbar-title> -->
-
-      <v-container class="pa-0 fill-height">
-        <v-toolbar-title class="overflow-visible">TS KSE</v-toolbar-title>
-            
+      <v-container class="py-0 fill-height">
+        <v-toolbar-title class="overflow-visible">Товарно-сырьевой сектор</v-toolbar-title>   
         <v-spacer></v-spacer>
 
-        <v-btn v-if="this.$route.fullPath != '/login'" plain router to="/login" icon class="d-flex d-sm-none">
+        <v-btn v-if="this.$route.fullPath != '/login'" plain router to="/login" icon class="d-flex d-md-none">
         <template v-if="!isAuth">
               <v-icon>mdi-account</v-icon>
         </template>
@@ -23,12 +20,13 @@
       </v-btn>   
 
      
-      <div class="d-none d-sm-flex justify-around">
+      <div class="d-none d-md-flex justify-around">
     
       <v-btn elevation="0" plain small router to="/"> Главная </v-btn>
       <v-btn plain small router to="/handbooks"> Справочник </v-btn>
       <v-btn plain small router to="/about"> О Бирже </v-btn>
       <v-btn plain small router to="/documents"> Документы </v-btn>
+      
       <v-btn plain small router to="/contacts"> Контакты </v-btn>
       
       <v-btn plain small router to="/login">
@@ -122,7 +120,7 @@
           <v-container>
               
               <v-card-text class="black--text pt-0">
-                   <v-btn plain router to="/handbooks"> Главная </v-btn>
+                   <v-btn plain router to="/"> Главная </v-btn>
                    <v-btn plain router to="/about"> Как начать торговать </v-btn>
                    <v-btn plain router to="/documents"> Документы </v-btn> 
                    <v-btn plain router to="/handbooks"> Справочник </v-btn>
@@ -133,10 +131,10 @@
             
             
             <v-col cols="12" md="4">
-               <v-card-title class="pt-0">Кыргызская Фондовая Биржа
+               <v-card-title class="pl-md-0">Кыргызская Фондовая Биржа
 
                </v-card-title>
-             <v-card-text class="footer-about d-flex align-start black--text pt-0">
+             <v-card-text class="footer-about d-flex align-start black--text pl-md-0">
           
               Кыргызская Фондовая Биржа была основана в 1994 году, в форме негосударственной,
               некоммерческой организации, имеющей цель обеспечить эффективные условия функционирования
@@ -151,8 +149,8 @@
          
             <v-col cols=12 md="4">
 
-              <v-card-title class="float-center pt-0">Наши Контакты</v-card-title>
-              <v-card-text class="contact-content pt-0">
+              <v-card-title class="float-center">Наши Контакты</v-card-title>
+              <v-card-text class="contact-content">
                 ЗАО "Кыргызская Фондовая Биржа"
                 <br>
                 720010 Кыргызская Республика,<br>
