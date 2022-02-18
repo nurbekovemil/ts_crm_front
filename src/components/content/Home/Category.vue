@@ -69,7 +69,7 @@ export default {
         background: #DDEFFD;
     }
 	.view-all {
-		color:#BE304A;
+		color:grey;
 		text-decoration: none;
 		font-size: 17px;
 	}

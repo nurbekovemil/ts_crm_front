@@ -1,21 +1,21 @@
 <template>
-      <v-card class="mx-0 my-2" max-width="100%">
-        <v-sheet class="search-box pa-4">
+      <v-card class="mx-0 my-2" min-width="100%">
+        <v-sheet class="search-box pa-4"> 
           <v-text-field
             v-model="search"
             label="Поиск товаров"
-            dark
+            placeholder="Поиск товаров"
+            solo
             flat
             dense
-            solo-inverted
             hide-details
             clearable
             clear-icon="mdi-close-circle-outline"
-            class="grey"
+            class="white"
           ></v-text-field>
         </v-sheet>
         <v-row>
-          <v-col cols="12" class="m">
+          <v-col cols="12">
             <v-card-text>
               <v-treeview
                 :items="tnved_categories"
@@ -36,7 +36,9 @@
               <v-pagination
                 v-model="page"
                 :length="10"
-                app  elevation="0" color="grey darken-4"
+                app 
+                elevation="0" 
+                color="#DDEFFD"
               ></v-pagination>
             </div>
           </v-col>

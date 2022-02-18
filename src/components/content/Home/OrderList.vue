@@ -145,7 +145,7 @@ export default {
 
 <style scoped>
 .view-all {
-  color: #be304a;
+  color: grey;
   text-decoration: none;
   font-size: 17px;
 }

@@ -48,11 +48,10 @@
 
 		<v-btn
 			app
-			dark
-			elevation="0"
-			color="grey darken-4"
+			light
+			elevation="2"
+			color="#DDEFFD"
 			@click="handleSubmit"
-			
 			block
 		>
 			Войти

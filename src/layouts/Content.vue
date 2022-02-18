@@ -6,7 +6,9 @@
        </v-app-bar-nav-icon>
 
       <v-container class="py-0 fill-height">
-        <v-toolbar-title class="overflow-visible">Товарно-сырьевой сектор</v-toolbar-title>   
+          <router-link class="text-decoration-none text--primary" to="/">
+            <v-toolbar-title class="overflow-visible" router to="/">Товарно-сырьевой сектор</v-toolbar-title> 
+          </router-link>  
         <v-spacer></v-spacer>
 
         <v-btn v-if="this.$route.fullPath != '/login'" plain router to="/login" icon class="d-flex d-md-none">
