@@ -15,6 +15,7 @@ export default{
         text: data.message,
         color: 'success',
         icon: 'mdi-check-circle'
+        
       }
     },
     WARNING_MESSAGE(state, data){

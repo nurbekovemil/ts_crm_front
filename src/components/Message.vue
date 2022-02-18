@@ -10,7 +10,6 @@
         </template>
         {{ message.text }}
     </v-snackbar>
-    {{test}}
   </div>
 </template>
 
@@ -22,9 +21,6 @@ export default {
   }),
   computed: {
     ...mapState('message',['message']),
-    test(){
-      console.log(this.message)
-    }
   },
 };
 </script>
