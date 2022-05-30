@@ -1,37 +1,36 @@
 <template>
   <v-row justify="center">
     <v-dialog v-model="isAddDialog" persistent max-width="600px">
-      
       <v-card>
         <v-card-title>
           <span class="text-h5">Добавить пользователя</span>
         </v-card-title>
         <v-card-text>
-            <v-row>
-              <v-col cols="12">
-                <v-text-field
-                  v-model="newUser.username"
-                  label="Логин пользователя"
-                  required
-                  outlined
-                  dense
-                  prepend-inner-icon="mdi-account"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12">
-                <v-text-field
-                  v-model="newUser.password"
-                  label="Пароль пользователя"
-                  :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                  :type="showPassword ? 'text' : 'password'"
-                  @click:append="showPassword = !showPassword"
-                  required
-                  outlined
-                  dense
-                  prepend-inner-icon="mdi-lock"
-                ></v-text-field>
-              </v-col>
-            </v-row>
+          <v-row>
+            <v-col cols="12">
+              <v-text-field
+                v-model="newUser.username"
+                label="Логин пользователя"
+                required
+                outlined
+                dense
+                prepend-inner-icon="mdi-account"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12">
+              <v-text-field
+                v-model="newUser.password"
+                label="Пароль пользователя"
+                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="showPassword ? 'text' : 'password'"
+                @click:append="showPassword = !showPassword"
+                required
+                outlined
+                dense
+                prepend-inner-icon="mdi-lock"
+              ></v-text-field>
+            </v-col>
+          </v-row>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -50,17 +49,19 @@ export default {
     newUser: {
       username: "",
       password: "",
+      user_type: null,
+      info: null,
     },
     showPassword: false,
   }),
   computed: {
-    ...mapState("user", ["isAddDialog"])
+    ...mapState("user", ["isAddDialog"]),
   },
   methods: {
-    ...mapActions("user",["CREATEUSER"]),
+    ...mapActions("user", ["CREATEUSER"]),
     ...mapMutations("user", ["TOGGLE_ADD_DIALOG"]),
     closeAddUserDialog() {
-      this.TOGGLE_ADD_DIALOG()
+      this.TOGGLE_ADD_DIALOG();
     },
     create() {
       this.CREATEUSER(this.newUser);

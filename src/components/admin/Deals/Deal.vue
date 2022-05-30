@@ -1,141 +1,164 @@
 <template>
-	<v-card class="pa-3 mb-3">
-		<div id="printDeal">
-			<h5>Зарегистрировано в ЗАО «Кыргызская Фондовая Биржа»</h5>
-			<table class="tb">
-				<tbody>
-					<tr>
-						<td>Регистрационный номер №</td>
-						<td>{{deal.id}}</td>
-					</tr>
-					<tr>
-						<td>Дата</td>
-						<td>{{deal.created_at}}</td>
-					</tr>
-					<tr>
-						<td >Ф.И.О. уполномоченного лица</td>
-						<td ></td>
-					</tr>
-					<tr>
-						<td >Должность</td>
-						<td ></td>
-					</tr>
-					<tr>
-						<td >Подпись</td>
-						<td ></td>
-					</tr>
-				</tbody>
-			</table>
-			<span>м.п.</span>
-			<div>
-				<div style="text-align: center">
-					<h5>БИРЖЕВОЙ ДОГОВОР № </h5> 	 
-				</div>
-				<div style="display: flex;justify-content: space-between;">
-					<span>г. Бишкек</span>
-					<span>«    »	  ,	   г.</span>
-				</div>
-			</div>
-			<div>
-				<template>
-					<table class="tb">
-						<tbody>
-							<tr>
-								<td>Наименование Посетителя торгов - {{sortType(deal.order_type_from)}}</td>
-								<td>{{deal.user_from_name}}</td>
-							</tr>
-							<tr>
-								<td>Регистрационный номер Посетителя торгов - {{sortType(deal.order_type_from)}}</td>
-								<td>{{deal.user_from}}</td>
-							</tr>
-						</tbody>
-					</table>
-					<p>именуемый в дальнейшем «Продавец», в лице Трейдера Посетителя торгов -  <b></b>, действующего по доверенности (прилагается) ,с одной стороны, и</p>
-				</template>
-				<template>
-					<table class="tb">
-					<tbody>
-						<tr>
-							<td>Наименование Посетителя торгов - {{sortType(deal.order_type_to)}}</td>
-							<td>{{deal.user_to_name}}</td>
-						</tr>
-						<tr>
-							<td>Регистрационный номер Посетителя торгов - {{sortType(deal.order_type_to)}}</td>
-							<td>{{deal.user_to}}</td>
-						</tr>
-					</tbody>
-				</table>
-				<p>,именуемый в дальнейшем «Покупатель», в лице Трейдера Посетителя торгов - Покупателя <b></b>, действующего по доверенности (прилагается), с другой стороны, совместно именуемые в дальнейшем 
-				«Стороны», заключили настоящий договор о нижеследующем:</p>
-				</template>
-			</div>
-				<div style="text-align: center">
-					<h5>1.ПРЕДМЕТ ДОГОВОРА</h5> 	 
-				</div>
-			
-			<p>Настоящий Договор заключен на основании биржевой сделки, совершенной в ходе бессрочных биржевых торгов в ЗАО «Кыргызская Фондовая Биржа» «__» _________ , 2021 г. ( далее- Биржевая сделка) на следующих условиях: </p>
-			<table class="tb">
-				<tbody>
-					<tr>
-						<td>Регистрационный номер сделки</td>
-						<td>{{deal.id}}</td>
-					</tr>
-					<tr>
-						<td>Наименование товара / Категория</td>
-						<td>{{deal.title}} / {{deal.category}}</td>
-					</tr>
-					<tr>
-						<td>Цена / Валюта</td>
-						<td>{{deal.price}}</td>
-					</tr>
-					<tr>
-						<td>Количество товара / Единица измерения</td>
-						<td>{{deal.amount}} / {{deal.weight}}</td>
-					</tr>
-					<tr>
-						<td>Сумма сделки / Валюта</td>
-						<td>{{deal.cost}}</td>
-					</tr>
-					<tr>
-						<td>Условия оплаты</td>
-						<td>{{deal.payment}}</td>
-					</tr>
-					<tr>
-						<td>Условия поставки</td>
-						<td>{{deal.delivery}}</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</v-card>
+  <v-card class="pa-3 mb-3">
+    <div id="printDeal">
+      <h5>Зарегистрировано в ЗАО «Кыргызская Фондовая Биржа»</h5>
+      <table class="tb">
+        <tbody>
+          <tr>
+            <td>Регистрационный номер №</td>
+            <td>{{ deal.id }}</td>
+          </tr>
+          <tr>
+            <td>Дата</td>
+            <td>{{ deal.created_at }}</td>
+          </tr>
+          <tr>
+            <td>Ф.И.О. уполномоченного лица</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Должность</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Подпись</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      <span>м.п.</span>
+      <div>
+        <div style="text-align: center">
+          <h5>БИРЖЕВОЙ ДОГОВОР №</h5>
+        </div>
+        <div style="display: flex; justify-content: space-between">
+          <span>г. Бишкек</span>
+          <span>« » , г.</span>
+        </div>
+      </div>
+      <div>
+        <template>
+          <table class="tb">
+            <tbody>
+              <tr>
+                <td>
+                  Наименование Посетителя торгов -
+                  {{ sortType(deal.order_type_from) }}
+                </td>
+                <td>{{ deal.user_from_name }}</td>
+              </tr>
+              <tr>
+                <td>
+                  Регистрационный номер Посетителя торгов -
+                  {{ sortType(deal.order_type_from) }}
+                </td>
+                <td>{{ deal.user_from }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            именуемый в дальнейшем «Продавец», в лице Трейдера Посетителя торгов
+            - <b></b>, действующего по доверенности (прилагается) ,с одной
+            стороны, и
+          </p>
+        </template>
+        <template>
+          <table class="tb">
+            <tbody>
+              <tr>
+                <td>
+                  Наименование Посетителя торгов -
+                  {{ sortType(deal.order_type_to) }}
+                </td>
+                <td>{{ deal.user_to_name }}</td>
+              </tr>
+              <tr>
+                <td>
+                  Регистрационный номер Посетителя торгов -
+                  {{ sortType(deal.order_type_to) }}
+                </td>
+                <td>{{ deal.user_to }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            ,именуемый в дальнейшем «Покупатель», в лице Трейдера Посетителя
+            торгов - Покупателя <b></b>, действующего по доверенности
+            (прилагается), с другой стороны, совместно именуемые в дальнейшем
+            «Стороны», заключили настоящий договор о нижеследующем:
+          </p>
+        </template>
+      </div>
+      <div style="text-align: center">
+        <h5>1.ПРЕДМЕТ ДОГОВОРА</h5>
+      </div>
+
+      <p>
+        Настоящий Договор заключен на основании биржевой сделки, совершенной в
+        ходе бессрочных биржевых торгов в ЗАО «Кыргызская Фондовая Биржа» «__»
+        _________ , 2021 г. ( далее- Биржевая сделка) на следующих условиях:
+      </p>
+      <table class="tb">
+        <tbody>
+          <tr>
+            <td>Регистрационный номер сделки</td>
+            <td>{{ deal.id }}</td>
+          </tr>
+          <tr>
+            <td>Наименование товара / Категория</td>
+            <td>{{ deal.title }} / {{ deal.category }}</td>
+          </tr>
+          <tr>
+            <td>Цена / Валюта</td>
+            <td>{{ deal.price }}</td>
+          </tr>
+          <tr>
+            <td>Количество товара / Единица измерения</td>
+            <td>{{ deal.amount }} / {{ deal.weight }}</td>
+          </tr>
+          <tr>
+            <td>Сумма сделки / Валюта</td>
+            <td>{{ deal.cost }}</td>
+          </tr>
+          <tr>
+            <td>Условия оплаты</td>
+            <td>{{ deal.payment }}</td>
+          </tr>
+          <tr>
+            <td>Условия поставки</td>
+            <td>{{ deal.delivery }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </v-card>
 </template>
 
 <script>
 export default {
-	props: ['deal'],
-	methods: {
-		sortType: type => type == 1 ? 'Продавца':'Покупателя',
-	}
+  props: ["deal"],
+  methods: {
+    sortType: (type) => (type == 1 ? "Продавца" : "Покупателя"),
+  },
 };
 </script>
 
 <style scoped>
 .tb {
-  width:100%;
-	border-collapse: collapse;
-	border-spacing: 0;
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 .tb td {
-	border: solid 1px black;
-	font-family: Arial, sans-serif;
-	font-size: 14px;
+  border: solid 1px black;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
   padding: 5px;
 }
-.tb td:first-child{
-  width: 40%
+.tb td:first-child {
+  width: 40%;
 }
-p{
+p {
   font-size: 14px;
 }
-
 </style>

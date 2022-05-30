@@ -5,25 +5,22 @@
   </div>
 </template>
 
-
 <script>
+import { mapActions } from "vuex";
 import UserEdit from "../../components/admin/Users/Edit.vue";
 import UserView from "../../components/admin/Users/View.vue";
-import { mapActions } from "vuex";
 export default {
-  data: () => ({}),
   components: {
     UserView,
     UserEdit,
   },
   methods: {
-    ...mapActions("user", ["PROFILE"]),
+    ...mapActions("user", ["GET_USER_BY_ID"]),
   },
   mounted() {
-    this.PROFILE();
+    this.GET_USER_BY_ID(this.$route.params.id);
   },
 };
 </script>
-
 <style>
 </style>

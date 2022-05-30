@@ -1,23 +1,17 @@
 <template>
   <v-container class="fill-height">
     <v-row>
+      <div class="body-1">{{ title }}</div>
+    </v-row>
+    <v-row>
       <v-col class="my-5">
-        <div
-          class="text-body-1 text-lg-h5 my-4 d-flex justify-space-between"
-          @click="knowType()"
-        >
-          {{ type == 1 ? "Заявки на продажу" : "Заявки на покупку" }}
-          <router-link :to="`/orders/${type}`" class="view-all"
-            >Посмотреть еще</router-link
-          >
-        </div>
         <v-row>
           <v-col
             class="my-3"
             cols="6"
             sm="4"
             md="3"
-            v-for="order in getOrderByType(type)"
+            v-for="order in category_orders"
             :key="order.id"
           >
             <v-card
@@ -48,18 +42,17 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 export default {
-  props: ["type"],
+  props: ["title"],
   data: () => ({
     url_api: process.env.VUE_APP_BACK_API,
   }),
   computed: {
-    ...mapState("user", ["isAuth"]),
-    ...mapGetters("order", ["getOrderByType"]),
+    ...mapState("catalog", ["category_orders"]),
   },
   methods: {
-    ...mapActions("order", ["ALL_ORDER_LIST_HOME_PAGE"]),
+    ...mapActions("catalog", ["GET_CATEGORY_ORDERS"]),
     viewOrder(id) {
       let latestorders =
         JSON.parse(localStorage.getItem("latest_orders")) || [];
@@ -79,7 +72,7 @@ export default {
     },
   },
   mounted() {
-    this.ALL_ORDER_LIST_HOME_PAGE(this.type);
+    this.GET_CATEGORY_ORDERS(this.$route.params.id);
   },
 };
 </script>

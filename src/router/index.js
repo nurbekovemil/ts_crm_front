@@ -1,176 +1,222 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from "vue";
+import VueRouter from "vue-router";
 
 // admin pages
 import {
-  Dashboard, 
-  Users, 
-  Orders, 
+  Dashboard,
+  Users,
+  UserView,
+  Orders,
   OrderView,
   DealView,
-  Deals, 
+  Deals,
   Offers,
   OfferView,
-  AllOrders, 
-  Profile, 
+  AllOrders,
+  Profile,
   Settings,
-  Catalog
-} from '../views/admin'
+  Catalog,
+} from "../views/admin";
 
 // content pages
 import {
   Handbook,
   AllOrdersList,
-  About, 
+  About,
   Contacts,
   Documents,
-  Home, 
+  Home,
   Order,
-  Login
-} from '../views/content'
+  Login,
+  Registration,
+  Categories,
+  CategoryOrders,
+} from "../views/content";
 
 // layouts
-import Admin from '../layouts/Admin.vue'
-import Content from '../layouts/Content.vue'
+import Admin from "../layouts/Admin.vue";
+import Content from "../layouts/Content.vue";
 
-import store from '../store'
-Vue.use(VueRouter)
+import store from "../store";
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
+    path: "/",
     component: Content,
     children: [
       {
-        path: '/',
-        name: 'Главная',
-        component: Home
+        path: "/",
+        name: "Главная",
+        component: Home,
       },
       {
-        path: '/about',
-        name: 'О бирже',
-        component: About
+        path: "/about",
+        name: "О бирже",
+        component: About,
       },
       {
-        path: '/contacts',
-        name: 'Контакты',
-        component: Contacts
+        path: "/contacts",
+        name: "Контакты",
+        component: Contacts,
       },
       {
-        path: '/documents',
-        name: 'Документы',
-        component: Documents
+        path: "/categories",
+        name: "Категории",
+        component: Categories,
       },
       {
-        path: '/orders/:type',
-        name: 'Все заявки',
-        component: AllOrdersList
+        path: "/categories/:id",
+        name: "category_orders",
+        component: CategoryOrders,
+        props: true,
       },
       {
-        path: '/handbooks',
-        name: 'Справочник',
-        component: Handbook
+        path: "/documents",
+        name: "Документы",
+        component: Documents,
       },
       {
-        path: '/order/:id',
-        name: 'Заявка',
-        component: Order
+        path: "/orders/:type",
+        name: "Все заявки",
+        component: AllOrdersList,
       },
       {
-        path: '/login',
-        name: 'Войти',
-        component: Login
+        path: "/handbooks",
+        name: "Справочник",
+        component: Handbook,
       },
-
-    ]
+      {
+        path: "/order/:id",
+        name: "Заявка",
+        component: Order,
+      },
+      {
+        path: "/login",
+        name: "Войти",
+        component: Login,
+        meta: {
+          isAuth: false,
+        },
+      },
+      {
+        path: "/registration",
+        name: "Регистрация",
+        component: Registration,
+        meta: {
+          isAuth: false,
+        },
+      },
+    ],
   },
   {
-    path: '/dashboard',
+    path: "/dashboard",
     component: Admin,
     meta: {
-      isAuth: true
+      isAuth: true,
     },
     children: [
       {
-        path: '/',
-        name: 'Панель управления',
-        component: Dashboard, 
+        path: "/",
+        name: "Панель управления",
+        component: Dashboard,
       },
       {
-        path: '/dashboard/users',
-        name: 'Пользователи',
+        path: "/dashboard/users",
+        name: "Пользователи",
         component: Users,
       },
       {
-        path: '/dashboard/catalog',
-        name: 'Каталог',
+        path: "/dashboard/user/:id",
+        name: "Пользователь",
+        component: UserView,
+      },
+      {
+        path: "/dashboard/catalog",
+        name: "Каталог",
         component: Catalog,
       },
       {
-        path: '/dashboard/my-orders',
-        name: 'Мои заявки',
+        path: "/dashboard/my-orders",
+        name: "Мои заявки",
         component: Orders,
       },
       {
-        path: '/dashboard/my-deals',
-        name: 'Мои сделки',
+        path: "/dashboard/my-deals",
+        name: "Мои сделки",
         component: Deals,
       },
       {
-        path: '/dashboard/offers',
-        name: 'Предложения',
+        path: "/dashboard/offers",
+        name: "Предложения",
         component: Offers,
       },
       {
-        path: '/dashboard/all-orders',
-        name: 'Все заявки',
+        path: "/dashboard/all-orders",
+        name: "Все заявки",
         component: AllOrders,
       },
       {
-        path: '/dashboard/profile',
-        name: 'Профиль',
-        component: Profile
+        path: "/dashboard/profile",
+        name: "Профиль",
+        component: Profile,
       },
       {
-        path: '/dashboard/settings',
-        name: 'Настройки',
-        component: Settings
+        path: "/dashboard/settings",
+        name: "Настройки",
+        component: Settings,
       },
       {
-        path: '/dashboard/order/:id',
-        name: 'Описание товара',
-        component: OrderView
+        path: "/dashboard/order/:id",
+        name: "Описание товара",
+        component: OrderView,
       },
       {
-        path: '/dashboard/deal/:id',
-        name: 'Подробная информация',
-        component: DealView
+        path: "/dashboard/deal/:id",
+        name: "Подробная информация",
+        component: DealView,
       },
       {
-        path: '/dashboard/offer/:id',
-        name: 'Подробная информация',
-        component: OfferView
-      }
-    ]
+        path: "/dashboard/offer/:id",
+        name: "Подробная информация",
+        component: OfferView,
+        meta: {
+          hideOrderTools: true,
+        },
+      },
+    ],
   },
-]
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
-})
-router.beforeEach((to, from, next)=>{
-  if(to.matched.some(record => record.meta.isAuth) && (!store.state.user.isAuth)){
-    next('/login')
-    return
+  routes,
+  scrollBehavior() {
+    return { x: 0, y: 0 };
+  },
+});
+router.beforeEach((to, from, next) => {
+  if (
+    to.matched.some((record) => record.meta.isAuth) &&
+    !store.state.user.isAuth
+  ) {
+    next("/login");
+    return;
   }
-  if(to.path == '/login' && store.state.user.isAuth){
-    next('/dashboard')
-    return
+  //   if (
+  //   to.matched.some((record) => record.meta.isAuth) &&
+  //   store.state.user.isAuth
+  // ) {
+  //   next("/login");
+  //   return;
+  // }
+  if (to.path == "/login" && store.state.user.isAuth) {
+    next("/dashboard");
+    return;
   }
 
-  next()
-})
+  next();
+});
 
-export default router
+export default router;

@@ -1,40 +1,64 @@
 <template>
   <v-row justify="center">
-    <v-dialog v-model="isEditDialog" persistent max-width="600px">
+    <v-dialog v-model="isEditDialog" persistent max-width="1000px">
       <v-card>
         <v-card-title>
           <span class="text-h5">Редактировать пользователя</span>
         </v-card-title>
-        <v-card-text v-if="updateUser">
+        <v-card-text>
           <v-row>
-              <v-col cols="12">
+            <v-col> </v-col>
+          </v-row>
+          <v-row
+            v-for="field in userEditHandler.info"
+            :key="field.field"
+            no-gutters
+          >
+            <v-col cols="12" md="12" class="pb-5 pl-2">
+              <div class="body-1">{{ field.title }}</div>
+            </v-col>
+            <v-col
+              cols="12"
+              md="4"
+              v-for="item in field.items"
+              :key="item.field"
+              class="px-2"
+            >
+              <template v-if="item.type == 'input'">
                 <v-text-field
-                  v-model="updateUser.username"
-                  label="Логин пользователя"
-                  required
+                  v-model="item.value"
+                  :label="item.title"
                   outlined
                   dense
-                  prepend-inner-icon="mdi-account"
                 ></v-text-field>
-              </v-col>
-              <v-col cols="12">
+              </template>
+              <template v-if="item.type == 'date'">
                 <v-text-field
-                  v-model="password"
-                  label="Новый пароль"
-                  required
+                  v-model="item.value"
+                  :label="item.title"
+                  type="date"
                   outlined
                   dense
-                  prepend-inner-icon="mdi-account"
                 ></v-text-field>
-              </v-col>
+              </template>
+              <template v-if="item.type == 'select'">
+                <v-select
+                  v-model="item.value"
+                  :items="item.options"
+                  :label="item.title"
+                  dense
+                  outlined
+                ></v-select>
+              </template>
+            </v-col>
           </v-row>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="red" text @click="closeEditUserDialog"> Закрыть </v-btn>
-          <v-btn color="success" text @click="update">
-            Сохранить
+          <v-btn color="red" small text @click="closeEditUserDialog">
+            Закрыть
           </v-btn>
+          <v-btn color="success" small> Сохранить </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -42,27 +66,34 @@
 </template>
 
 <script>
-import {mapActions, mapState, mapMutations} from 'vuex'
+import { mapActions, mapState, mapMutations } from "vuex";
 export default {
-  props: ["updateUser"],
-  data: () => ({
-    password: null,
-  }),
+  data: () => ({}),
   computed: {
-    ...mapState("user", ["isEditDialog"])
+    ...mapState("user", ["isEditDialog", "user_view", "template"]),
+    userEditHandler() {
+      if (this.user_view.info == null) {
+        this.GET_USER_REGISTER_TEMPLATE(1);
+        this.user_view.info = this.template;
+      }
+      return this.user_view;
+    },
   },
   methods: {
-    ...mapActions("user",["UPDATEUSER"]),
+    ...mapActions("user", ["UPDATEUSER", "GET_USER_REGISTER_TEMPLATE"]),
     ...mapMutations("user", ["TOGGLE_EDIT_DIALOG"]),
     closeEditUserDialog() {
-      this.TOGGLE_EDIT_DIALOG()
+      this.TOGGLE_EDIT_DIALOG();
     },
-    update(){
-      if(this.password){
-        return this.UPDATEUSER({...this.updateUser, ...{password: this.password}})
-      }
-      this.UPDATEUSER(this.updateUser)
-    }
+    // update() {
+    //   if (this.password) {
+    //     return this.UPDATEUSER({
+    //       ...this.updateUser,
+    //       ...{ password: this.password },
+    //     });
+    //   }
+    //   this.UPDATEUSER(this.updateUser);
+    // },
   },
 };
 </script>

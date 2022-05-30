@@ -1,50 +1,48 @@
-
-export default{
+export default {
   namespaced: true,
-  state:{
-    message:{
+  state: {
+    alertMessage: {
       isAlert: false,
-      text:'',
-      color:''
-    }
+      text: "",
+      color: "",
+    },
   },
-  mutations:{
-    SUCCESS_MESSAGE(state, data){
-      state.message = {
+  mutations: {
+    SUCCESS_MESSAGE(state, data) {
+      state.alertMessage = {
         isAlert: true,
         text: data.message,
-        color: 'success',
-        icon: 'mdi-check-circle'
-        
-      }
+        color: "success",
+        icon: "mdi-check-circle",
+      };
     },
-    WARNING_MESSAGE(state, data){
-      state.message = {
+    WARNING_MESSAGE(state, data) {
+      state.alertMessage = {
         isAlert: true,
         text: data.message,
-        color: 'warning',
-        icon:'mdi-alert'
-      }
+        color: "warning",
+        icon: "mdi-alert",
+      };
     },
-    ERROR_MESSAGE(state, data){
-      state.message = {
+    ERROR_MESSAGE(state, data) {
+      state.alertMessage = {
         isAlert: true,
         text: data.message,
-        color: 'error',
-        icon:'mdi-alert-octagon'
-      }
+        color: "error",
+        icon: "mdi-alert-octagon",
+      };
     },
-    RESET_MESSAGE(state){
-      state.message = {
+    RESET_MESSAGE(state) {
+      state.alertMessage = {
         isAlert: false,
-        text: '',
-        color: ''
-      }
-    }
+        text: "",
+        color: "",
+      };
+    },
   },
   getters: {
-    GET_MESSAGE(state){
-      return state.message
-    }
-  }
-}
+    GET_MESSAGE(state) {
+      return state.alertMessage;
+    },
+  },
+};

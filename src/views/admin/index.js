@@ -1,5 +1,6 @@
 export {default as Dashboard} from './Dashboard.vue'
 export {default as Users} from './Users.vue'
+export {default as UserView} from './UserView.vue'
 export {default as Orders} from './Orders.vue'
 export {default as Deals} from './Deals.vue'
 export {default as Offers} from './Offers.vue'
@@ -10,3 +11,4 @@ export {default as Settings} from './Settings.vue'
 export {default as OrderView} from './OrderView.vue'
 export {default as DealView} from './DealView.vue'
 export {default as Catalog} from './Catalog.vue'
+
