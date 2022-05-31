@@ -47,7 +47,10 @@ export default {
     },
     async print() {
       // Pass the element id here
-      await this.$htmlToPaper("printDeal");
+      const cssOptions = {
+        styles: ["../../Print.css"],
+      };
+      await this.$htmlToPaper("printDeal", cssOptions);
     },
   },
 };

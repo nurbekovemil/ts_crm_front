@@ -60,19 +60,19 @@
 <script>
 import { mapState, mapActions } from "vuex";
 export default {
-	props: ["status"],
-	mounted() {
-		this.ALL_ORDER_LIST();
-	},
-	computed: {
-		...mapState("order", ["order_list"]),
-	},
-	methods: {
-		...mapActions("order", ["ALL_ORDER_LIST"]),
-		viewOrder(id) {
-			this.$router.push({ path: `/dashboard/order/${id}` });
-		},
-	},
+  props: ["status"],
+  mounted() {
+    this.ALL_ORDER_LIST();
+  },
+  computed: {
+    ...mapState("order", ["order_list"]),
+  },
+  methods: {
+    ...mapActions("order", ["ALL_ORDER_LIST"]),
+    viewOrder(id) {
+      this.$router.push({ path: `/dashboard/order/${id}` });
+    },
+  },
 };
 </script>
 <style lang=""></style>

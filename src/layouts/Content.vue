@@ -6,8 +6,11 @@
 
       <v-container class="py-0 fill-height">
         <router-link class="text-decoration-none text--primary" to="/">
-          <v-toolbar-title class="overflow-visible" router to="/"
-            >Товарно-сырьевой сектор</v-toolbar-title
+          <v-toolbar-title class="overflow-visible" router to="/">
+            <v-avatar class="mr-1" size="32" tile>
+              <img alt="logo" src="../assets/logo.png" />
+            </v-avatar>
+            Товарно-сырьевой сектор</v-toolbar-title
           >
         </router-link>
         <v-spacer></v-spacer>
@@ -101,9 +104,9 @@
     <v-footer padless class="mt-3">
       <v-row>
         <v-col class="pb-0">
-          <v-card flat tile class="footer-color black--text text-center">
+          <v-card flat tile color="#78C3CC" class="white--text text-center">
             <v-container>
-              <v-card-text class="black--text pt-0">
+              <v-card-text class="white--text pt-0">
                 <v-btn plain router to="/"> Главная </v-btn>
                 <v-btn plain router to="/about"> Как начать торговать </v-btn>
                 <v-btn plain router to="/documents"> Документы </v-btn>
@@ -117,7 +120,7 @@
                     >Кыргызская Фондовая Биржа
                   </v-card-title>
                   <v-card-text
-                    class="footer-about d-flex align-start black--text pl-md-0"
+                    class="footer-about d-flex align-start white--text pl-md-0"
                   >
                     Кыргызская Фондовая Биржа была основана в 1994 году, в форме
                     негосударственной, некоммерческой организации, имеющей цель
@@ -140,11 +143,11 @@
                     Электронная почта: office@kse.kg
                   </v-card-text>
 
-                  <v-card-text class="d-flex align-start pl-0 black--text pt-0">
+                  <v-card-text class="d-flex align-start pl-0 white--text pt-0">
                     <v-btn
                       v-for="icon in icons"
                       :key="icon"
-                      class="mx-4 black--text"
+                      class="mx-4 white--text"
                       icon
                     >
                       <v-icon size="24px">
@@ -157,7 +160,7 @@
 
               <v-divider></v-divider>
 
-              <v-card-text class="black--text">
+              <v-card-text class="white--text">
                 {{ new Date().getFullYear() }} —
                 <strong>Kyrgyz Stock Exchange</strong>
               </v-card-text>

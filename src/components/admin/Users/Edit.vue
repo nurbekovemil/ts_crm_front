@@ -58,7 +58,9 @@
           <v-btn color="red" small text @click="closeEditUserDialog">
             Закрыть
           </v-btn>
-          <v-btn color="success" small> Сохранить </v-btn>
+          <v-btn color="success" small @click="updateUserData">
+            Сохранить
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -73,6 +75,7 @@ export default {
     ...mapState("user", ["isEditDialog", "user_view", "template"]),
     userEditHandler() {
       if (this.user_view.info == null) {
+        // this.GET_USER_REGISTER_TEMPLATE(this.user_view.type);
         this.GET_USER_REGISTER_TEMPLATE(1);
         this.user_view.info = this.template;
       }
@@ -80,20 +83,48 @@ export default {
     },
   },
   methods: {
-    ...mapActions("user", ["UPDATEUSER", "GET_USER_REGISTER_TEMPLATE"]),
+    ...mapActions("user", [
+      "UPDATEUSER",
+      "GET_USER_REGISTER_TEMPLATE",
+      "UPDATE_USER_DATA",
+    ]),
     ...mapMutations("user", ["TOGGLE_EDIT_DIALOG"]),
     closeEditUserDialog() {
       this.TOGGLE_EDIT_DIALOG();
     },
-    // update() {
-    //   if (this.password) {
-    //     return this.UPDATEUSER({
-    //       ...this.updateUser,
-    //       ...{ password: this.password },
-    //     });
-    //   }
-    //   this.UPDATEUSER(this.updateUser);
-    // },
+    updateUserData() {
+      let updateData = {
+        id: this.userEditHandler.id,
+        login: "",
+        password: "",
+        info: null,
+      };
+      updateData.info = JSON.stringify(
+        this.userEditHandler.info.reduce((prev, { title, items }) => {
+          return [
+            ...prev,
+            {
+              title,
+              items: [
+                ...items.map(({ field, title, value, type, options }) => {
+                  if (field == "login" || field == "password") {
+                    updateData[field] = value;
+                  }
+                  return {
+                    field,
+                    title,
+                    value,
+                    type,
+                    options,
+                  };
+                }),
+              ],
+            },
+          ];
+        }, [])
+      );
+      this.UPDATE_USER_DATA(updateData);
+    },
   },
 };
 </script>

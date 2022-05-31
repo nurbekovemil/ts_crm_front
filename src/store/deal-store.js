@@ -8,6 +8,7 @@ export default {
     deals: [],
     deal_view: [],
     deal_orders: [],
+    offer_history: [],
   },
   mutations: {
     SET_IS_ADD_DEAL_DIALOG: (state) =>
@@ -15,6 +16,7 @@ export default {
     SET_DEAL_VIEW: (state, data) => (state.deal_view = data),
     SET_DEALS: (state, data) => (state.deals = data),
     SET_DEAL_ORDERS: (state, data) => (state.deal_orders = data),
+    SET_OFFER_HISTORY: (state, data) => (state.offer_history = data),
   },
   actions: {
     CREATE_DEAL: async ({ commit }, { offer_type, getFormData, offer }) => {
@@ -69,6 +71,16 @@ export default {
         router.push(`/dashboard/deal/${status.deal_id}`);
         dispatch("GET_DEAL_BY_ID", status.deal_id);
         commit("message/SUCCESS_MESSAGE", data, { root: true });
+      } catch (error) {
+        commit("message/ERROR_MESSAGE", error.response.data.error, {
+          root: true,
+        });
+      }
+    },
+    GET_OFFER_HISTORY: async ({ commit }, id) => {
+      try {
+        const { data } = await api.getOfferHistory(id);
+        commit("SET_OFFER_HISTORY", data);
       } catch (error) {
         commit("message/ERROR_MESSAGE", error.response.data.error, {
           root: true,

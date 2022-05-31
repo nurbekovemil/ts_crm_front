@@ -14,13 +14,15 @@
 								<th class="text-left">
 									Роль
 								</th>
-								<th class="text-left">
+								<th>
 									Количество заявок
 								</th>
 								<th class="text-right">
-									<v-btn icon @click="toggleAddUserDialog">
-										<v-icon>mdi-account-plus</v-icon>
-										
+									<v-btn text
+          elevation="0" small
+          color="grey" @click="toggleAddUserDialog">
+										<v-icon left>mdi-account-plus</v-icon>
+										Добавить
 									</v-btn>
 								</th>
 							</tr>

@@ -5,6 +5,7 @@ export default {
 
   state: {
     templates: {
+      // template for add order
       orderAdd: [
         {
           field: "category",

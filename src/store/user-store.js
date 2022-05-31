@@ -18,6 +18,28 @@ export default {
       { title: "Физическое лицо", type: 1 },
       { title: "Юридическое лицо", type: 2 },
     ],
+    roles: [
+      { type: 2, title: "Пользователь" },
+      { type: 1, title: "Администратор" },
+    ],
+    userAddTemplate: [
+      { field: "username", title: "Логин", type: "input", value: "" },
+      { field: "password", title: "Пароль", type: "input", value: "" },
+      {
+        field: "type",
+        title: "Тип пользователя",
+        type: "select",
+        option: "user_type",
+        value: "",
+      },
+      {
+        field: "role",
+        title: "Роль",
+        type: "select",
+        option: "roles",
+        value: "",
+      },
+    ],
     template: [],
     user_view: [],
   },
@@ -171,7 +193,6 @@ export default {
     async PROFILE({ commit }) {
       try {
         const { data } = await api.getProfile();
-        console.log(data);
         commit("SET_USER_VIEW", data);
       } catch (error) {
         commit("message/ERROR_MESSAGE", error.response.data.error, {
@@ -179,5 +200,21 @@ export default {
         });
       }
     },
+
+    async UPDATE_USER_DATA({ commit, dispatch }, user) {
+      try {
+        const { data } = await api.updateUserData(user);
+        dispatch("GET_USER_BY_ID", user.id);
+        commit("TOGGLE_EDIT_DIALOG");
+        commit("message/SUCCESS_MESSAGE", data, { root: true });
+      } catch (error) {
+        commit("message/ERROR_MESSAGE", error.response.data.error, {
+          root: true,
+        });
+      }
+    },
+  },
+  getters: {
+    getUserOptions: (state) => (opt) => state[opt],
   },
 };

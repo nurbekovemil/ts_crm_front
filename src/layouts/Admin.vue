@@ -37,10 +37,16 @@
         </v-list>
       </v-menu>
     </v-app-bar>
-    <v-navigation-drawer v-model="drawer" app dark color="grey darken-4">
+    <v-navigation-drawer
+      v-model="drawer"
+      app
+      dark
+      permanent
+      color="grey darken-4"
+    >
       <v-list-item>
         <v-list-item-avatar tile>
-          <v-img max-width="50" src="../assets/avatar.png" />
+          <v-img max-width="40" src="../assets/logo.png" />
         </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title class="text-h6"> TS KSE </v-list-item-title>
@@ -64,6 +70,11 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+      <template v-slot:append>
+        <div class="pa-2 text-center white--text">
+          <strong>Kyrgyz Stock Exchange</strong>
+        </div>
+      </template>
     </v-navigation-drawer>
     <v-container>
       <v-slide-x-transition mode="out-in">

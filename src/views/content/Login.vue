@@ -8,7 +8,11 @@
     @keyup.13="handleSubmit"
   >
     <div class="d-flex justify-center">
-      <v-img src="../../assets/auth_account.png" max-width="150" />
+      <v-avatar size="100" tile>
+        <v-icon size="100" color="#78C3CC">mdi-account-lock</v-icon>
+        <!-- <img alt="logo" src="../../assets/logo.png" /> -->
+      </v-avatar>
+      <!-- <v-img src="../../assets/auth_account.png" max-width="150" /> -->
     </div>
     <v-card-subtitle class="text-center"> Авторизация </v-card-subtitle>
     <v-form ref="form" v-model="valid" lazy-validation>
@@ -37,7 +41,7 @@
       ></v-text-field>
     </v-form>
 
-    <v-btn app light elevation="2" color="#DDEFFD" @click="handleSubmit" block>
+    <v-btn app dark elevation="2" color="#78C3CC" @click="handleSubmit" block>
       Войти
     </v-btn>
     <v-btn color="primary" small text class="mt-5" router to="/registration"

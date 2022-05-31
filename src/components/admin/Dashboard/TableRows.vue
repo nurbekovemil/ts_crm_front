@@ -3,7 +3,7 @@
     <v-col cols="12" md="4" v-for="(table, i) in table_rows" :key="i">
       <v-card class="pa-3 d-flex justify-space-between">
         <v-sheet
-          color="info"
+          color="#78C3CC"
           class="d-flex justify-center align-center"
           elevation="5"
           height="90"

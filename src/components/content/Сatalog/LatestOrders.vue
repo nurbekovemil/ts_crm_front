@@ -11,7 +11,11 @@
             class="rounded-lg ma-2"
           >
             <v-img
-              :src="order && `${url_api}/${order.images[0].path}`"
+              :src="
+                order.images[0] != null
+                  ? `${url_api}/${order.images[0].path}`
+                  : `${url_api}/static/images/default.png`
+              "
               class="aaa white--text align-end fill-height bottom-gradient"
               gradient="to bottom, rgba(0,0,0,0) , rgba(0,0,0,0) , rgba(0,0,0,0),rgba(0,0,0,0.75)"
               height="280px"

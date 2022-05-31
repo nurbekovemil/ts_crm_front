@@ -37,7 +37,11 @@
                   v-model="item.value"
                   :label="item.title"
                   outlined
-                  :rules="item.required && [rules.isEmpty]"
+                  :rules="
+                    item.required && item.field != 'login'
+                      ? [rules.isEmpty]
+                      : [rules.login, rules.isEmpty]
+                  "
                   dense
                 ></v-text-field>
               </template>
@@ -84,6 +88,9 @@ export default {
     rules: {
       isEmpty: (v) => !!v.trim() || "Поле не может быть пустым.",
       isSelecet: (v) => !!v || "Выберите значение",
+      login: (v) =>
+        !/[а-яА-ЯЁё^\s]/.test(v) ||
+        "Введите только латинские символы и нижнее подчеркивание.",
     },
   }),
   computed: {
@@ -131,7 +138,6 @@ export default {
           ];
         }, [])
       );
-      console.log(user);
       this.valid && this.USER_REGISTER(user);
     },
   },

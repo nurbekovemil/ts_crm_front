@@ -7,9 +7,9 @@
           @click="knowType()"
         >
           {{ type == 1 ? "Заявки на продажу" : "Заявки на покупку" }}
-          <router-link :to="`/orders/${type}`" class="view-all"
+          <!-- <router-link :to="`/orders/${type}`" class="view-all"
             >Посмотреть еще</router-link
-          >
+          > -->
         </div>
         <v-row>
           <v-col
@@ -28,7 +28,9 @@
             >
               <v-img
                 :src="
-                  order && order.images && `${url_api}/${order.images[0].path}`
+                  order.images[0] != null
+                    ? `${url_api}/${order.images[0].path}`
+                    : `${url_api}/static/images/default.png`
                 "
                 class="aaa white--text align-end fill-height bottom-gradient"
                 gradient="to bottom, rgba(0,0,0,0) , rgba(0,0,0,0) , rgba(0,0,0,0),rgba(0,0,0,0.75)"

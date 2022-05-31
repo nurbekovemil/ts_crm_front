@@ -1,43 +1,50 @@
 <template>
   <v-container class="fill-height">
-    <v-row>
-      <div class="body-1">{{ title }}</div>
-    </v-row>
-    <v-row>
-      <v-col class="my-5">
-        <v-row>
-          <v-col
-            class="my-3"
-            cols="6"
-            sm="4"
-            md="3"
-            v-for="order in category_orders"
-            :key="order.id"
-          >
-            <v-card
-              @click="viewOrder(order.id)"
-              width="300"
-              class="rounded-lg"
-              elevation-3
+    <template v-if="category_orders.length > 0">
+      <v-row>
+        <div class="body-1">{{ title }}</div>
+      </v-row>
+      <v-row>
+        <v-col class="my-5">
+          <v-row>
+            <v-col
+              class="my-3"
+              cols="6"
+              sm="4"
+              md="3"
+              v-for="order in category_orders"
+              :key="order.id"
             >
-              <v-img
-                :src="
-                  order && order.images && `${url_api}/${order.images[0].path}`
-                "
-                class="aaa white--text align-end fill-height bottom-gradient"
-                gradient="to bottom, rgba(0,0,0,0) , rgba(0,0,0,0) , rgba(0,0,0,0),rgba(0,0,0,0.75)"
-                height="280px"
+              <v-card
+                @click="viewOrder(order.id)"
+                width="300"
+                class="rounded-lg"
+                elevation-3
               >
-                <v-card-title> {{ order.title }} </v-card-title>
-                <v-card-subtitle class="white--text">
-                  {{ order.price }} сом
-                </v-card-subtitle>
-              </v-img>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-col>
-    </v-row>
+                <v-img
+                  :src="
+                    order.images[0] != null
+                      ? `${url_api}/${order.images[0].path}`
+                      : `${url_api}/static/images/default.png`
+                  "
+                  class="aaa white--text align-end fill-height bottom-gradient"
+                  gradient="to bottom, rgba(0,0,0,0) , rgba(0,0,0,0) , rgba(0,0,0,0),rgba(0,0,0,0.75)"
+                  height="280px"
+                >
+                  <v-card-title> {{ order.title }} </v-card-title>
+                  <v-card-subtitle class="white--text">
+                    {{ order.price }} сом
+                  </v-card-subtitle>
+                </v-img>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
+    </template>
+    <template v-else>
+      <div class="body-2">Заявки в данной категории отсутствуют!</div>
+    </template>
   </v-container>
 </template>
 

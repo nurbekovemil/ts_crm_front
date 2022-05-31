@@ -32,6 +32,7 @@ export default {
   updateUserStatus: ({ status, user_id }) =>
     api.put("/users/status", {}, { params: { status, user_id } }),
   getProfile: () => api.get("/users/profile"),
+  updateUserData: (data) => api.put("/users/user", data),
   // order api private routes
   createOrderPrivate: (data) =>
     api.post("/orders/private/", data, {
@@ -65,7 +66,7 @@ export default {
   getDealList: (status) => api.get("/deals/", { params: { status } }),
   getDealOrders: (id) => api.get("/deals/order/" + id),
   updateDealStatus: (status) => api.put("/deals/", status),
-
+  getOfferHistory: (id) => api.get("/deals/history/", { params: { id } }),
   // categories api
   getOptions: (option) =>
     api.get("/orders/private/options/", { params: { option } }),
