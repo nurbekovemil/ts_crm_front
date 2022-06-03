@@ -9,3 +9,4 @@ export { default as Handbook } from "./Handbook.vue";
 export { default as Login } from "./Login.vue";
 export { default as Registration } from "./Registration.vue";
 export { default as Order } from "./Order.vue";
+export { default as Trades } from "./TradeList.vue";

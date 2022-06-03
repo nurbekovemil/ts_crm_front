@@ -73,7 +73,7 @@
     <v-card elevation="0">
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn dark dense color="success" @click="send">Отправить</v-btn>
+        <v-btn dark dense color="#78C3CC" @click="send">Отправить</v-btn>
       </v-card-actions>
     </v-card>
   </v-container>

@@ -9,6 +9,7 @@ export default {
     deal_view: [],
     deal_orders: [],
     offer_history: [],
+    trade_list: [],
   },
   mutations: {
     SET_IS_ADD_DEAL_DIALOG: (state) =>
@@ -17,11 +18,13 @@ export default {
     SET_DEALS: (state, data) => (state.deals = data),
     SET_DEAL_ORDERS: (state, data) => (state.deal_orders = data),
     SET_OFFER_HISTORY: (state, data) => (state.offer_history = data),
+    SET_TRADE_LIST: (state, data) => (state.trade_list = data),
   },
   actions: {
     CREATE_DEAL: async ({ commit }, { offer_type, getFormData, offer }) => {
       try {
-        if (offer_type === 1) {
+        // при покупке предложить уже существующих заявок поставить 1 пока 0
+        if (offer_type === 0) {
           const order = await api.createOrderPrivate(getFormData);
           offer.order_from = order.data.rows.id;
           const deal = await api.createDeal(offer);
@@ -81,6 +84,27 @@ export default {
       try {
         const { data } = await api.getOfferHistory(id);
         commit("SET_OFFER_HISTORY", data);
+      } catch (error) {
+        commit("message/ERROR_MESSAGE", error.response.data.error, {
+          root: true,
+        });
+      }
+    },
+    DELETE_OFFER_BY_ID: async ({ commit, dispatch }, id) => {
+      try {
+        const { data } = await api.deleteOfferById(id);
+        dispatch("GET_DEAL_LIST", 3);
+        commit("message/SUCCESS_MESSAGE", data, { root: true });
+      } catch (error) {
+        commit("message/ERROR_MESSAGE", error.response.data.error, {
+          root: true,
+        });
+      }
+    },
+    GET_TRADE_LIST: async ({ commit }) => {
+      try {
+        const { data } = await api.getTradeList();
+        commit("SET_TRADE_LIST", data);
       } catch (error) {
         commit("message/ERROR_MESSAGE", error.response.data.error, {
           root: true,

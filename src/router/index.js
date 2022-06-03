@@ -16,6 +16,7 @@ import {
   Profile,
   Settings,
   Catalog,
+  TradeList,
 } from "../views/admin";
 
 // content pages
@@ -31,6 +32,7 @@ import {
   Registration,
   Categories,
   CategoryOrders,
+  Trades,
 } from "../views/content";
 
 // layouts
@@ -85,6 +87,11 @@ const routes = [
         path: "/handbooks",
         name: "Справочник",
         component: Handbook,
+      },
+      {
+        path: "/trades",
+        name: "Итоги торгоа",
+        component: Trades,
       },
       {
         path: "/order/:id",
@@ -145,6 +152,11 @@ const routes = [
         path: "/dashboard/my-deals",
         name: "Мои сделки",
         component: Deals,
+      },
+      {
+        path: "/dashboard/deals",
+        name: "Все сделки",
+        component: TradeList,
       },
       {
         path: "/dashboard/offers",

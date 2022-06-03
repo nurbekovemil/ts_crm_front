@@ -80,10 +80,10 @@ export default {
         {
           field: "nds",
           title: "НДС",
-          value: "",
+          value: "0",
           type: "input",
           valid: {
-            required: true,
+            required: false,
             type: "number",
           },
         },

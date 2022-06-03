@@ -110,7 +110,7 @@
           </tr>
           <tr>
             <td>Цена / Валюта</td>
-            <td>{{ deal.price }}</td>
+            <td>{{ deal.price }} / {{ deal.currency_title }}</td>
           </tr>
           <tr>
             <td>Количество товара / Единица измерения</td>
@@ -118,7 +118,7 @@
           </tr>
           <tr>
             <td>Сумма сделки / Валюта</td>
-            <td>{{ deal.cost }}</td>
+            <td>{{ deal.cost }} / {{ deal.currency_title }}</td>
           </tr>
           <tr>
             <td>Условия оплаты</td>
@@ -130,11 +130,11 @@
           </tr>
           <tr>
             <td>Срок поставки</td>
-            <td>{{}}</td>
+            <td></td>
           </tr>
           <tr>
             <td>Дополнительные условия</td>
-            <td>{{}}</td>
+            <td>{{ deal.special_conditions }}</td>
           </tr>
         </tbody>
       </table>

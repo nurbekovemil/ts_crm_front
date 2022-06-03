@@ -3,16 +3,16 @@
     <v-row>
       <v-col>
         <!-- Название товара -->
-        <v-card-title>{{ order_view.title }}</v-card-title>
+        <v-card-title>{{ order.title }}</v-card-title>
         <!-- Название страницы -->
-        <template v-if="order_view.own">
+        <template v-if="order.own">
           <v-card-subtitle class="blue--text">
-            Ваша • {{ order_view.order_type_title }}
+            Ваша • {{ order.order_type_title }}
           </v-card-subtitle>
         </template>
 
         <template v-else>
-          <v-card-subtitle>{{ order_view.order_type_title }}</v-card-subtitle>
+          <v-card-subtitle>{{ order.order_type_title }}</v-card-subtitle>
         </template>
       </v-col>
     </v-row>
@@ -27,7 +27,7 @@
             style="height: 300px"
           >
             <v-carousel-item
-              v-for="(img, i) in order_view.images"
+              v-for="(img, i) in order.images"
               :key="i"
               :src="
                 img != null
@@ -47,32 +47,32 @@
               <tr class="text-caption">
                 <td class="text-h6">Цена</td>
                 <td class="text-h6 font-weight-bold">
-                  {{ order_view.price }} {{ order_view.currency_symbol }}
+                  {{ order.price }} {{ order.currency_symbol }}
                 </td>
               </tr>
               <tr class="text-caption">
                 <td class="grey--text">
                   {{ $t(`admin.order.order_view.amount`) }}:
                 </td>
-                <td>{{ order_view.amount }} / {{ order_view.weight }}</td>
+                <td>{{ order.amount }} / {{ order.weight }}</td>
               </tr>
               <tr class="text-caption">
                 <td class="grey--text">
                   {{ $t(`admin.order.order_view.cost`) }}:
                 </td>
-                <td>{{ order_view.cost }} {{ order_view.currency_symbol }}</td>
+                <td>{{ order.cost }} {{ order.currency_symbol }}</td>
               </tr>
               <tr class="text-caption">
                 <td class="grey--text">
                   {{ $t(`admin.order.order_view.delivery`) }}:
                 </td>
-                <td>{{ order_view.delivery }}</td>
+                <td>{{ order.delivery }}</td>
               </tr>
               <tr class="text-caption">
                 <td class="grey--text">
                   {{ $t(`admin.order.order_view.payment`) }}:
                 </td>
-                <td>{{ order_view.payment }}</td>
+                <td>{{ order.payment }}</td>
               </tr>
               <v-col v-if="!$route.meta.hideOrderTools">
                 <tools />
@@ -100,7 +100,7 @@
             <v-row>
               <v-col>
                 <p>
-                  {{ order_view.description }}
+                  {{ order.description }}
                 </p>
               </v-col>
             </v-row>
@@ -112,42 +112,42 @@
                   <tbody>
                     <tr>
                       <td>Категория</td>
-                      <td>{{ order_view.category }}</td>
+                      <td>{{ order.category }}</td>
                     </tr>
                     <tr>
                       <td>НДС</td>
-                      <td>{{ order_view.nds }}</td>
+                      <td>{{ order.nds }}</td>
                     </tr>
                     <tr>
                       <td>ГОСТ</td>
-                      <td>{{ order_view.gost }}</td>
+                      <td>{{ order.gost }}</td>
                     </tr>
                     <tr>
                       <td>Залоги и гарантия</td>
-                      <td>{{ order_view.warranty }}</td>
+                      <td>{{ order.warranty }}</td>
                     </tr>
 
                     <tr>
                       <td>Особые условия</td>
-                      <td>{{ order_view.special_conditions }}</td>
+                      <td>{{ order.special_conditions }}</td>
                     </tr>
 
                     <tr>
                       <td>Страна</td>
-                      <td>{{ order_view.country }}</td>
+                      <td>{{ order.country }}</td>
                     </tr>
 
                     <tr>
                       <td>Местонахождение товара</td>
-                      <td>{{ order_view.product_lacation }}</td>
+                      <td>{{ order.product_lacation }}</td>
                     </tr>
                     <tr>
                       <td>КОД ТН ВЭД</td>
-                      <td>{{ order_view.code_tnved }}</td>
+                      <td>{{ order.code_tnved }}</td>
                     </tr>
                     <tr>
                       <td>ЛОТ</td>
-                      <td>{{ order_view.lot }}</td>
+                      <td>{{ order.lot }}</td>
                     </tr>
                   </tbody>
                 </v-simple-table>
@@ -164,10 +164,10 @@
 
 <script>
 import OfferHistory from "../Deals/OfferHistory.vue";
-import { mapState } from "vuex";
 import Offer from "./Offer.vue";
 import Tools from "./Tools.vue";
 export default {
+  props: ["order"],
   data: () => ({
     url_api: process.env.VUE_APP_BACK_API,
     tab: null,
@@ -177,9 +177,6 @@ export default {
       "Подробная информация о товаре",
     ],
   }),
-  computed: {
-    ...mapState("order", ["order_view"]),
-  },
   components: { Tools, Offer, OfferHistory },
 };
 </script>

@@ -67,6 +67,9 @@ export default {
   getDealOrders: (id) => api.get("/deals/order/" + id),
   updateDealStatus: (status) => api.put("/deals/", status),
   getOfferHistory: (id) => api.get("/deals/history/", { params: { id } }),
+  deleteOfferById: (id) => api.delete("/deals/" + id),
+  getTradeList: () => api.get("/deals/trade-list"),
+
   // categories api
   getOptions: (option) =>
     api.get("/orders/private/options/", { params: { option } }),

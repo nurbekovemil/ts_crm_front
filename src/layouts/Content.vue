@@ -37,6 +37,7 @@
           <v-btn plain small router to="/categories"> Категории </v-btn>
           <v-btn plain small router to="/handbooks"> Справочник </v-btn>
           <v-btn plain small router to="/about"> О Бирже </v-btn>
+          <v-btn plain small router to="/trades"> Итоги торгов </v-btn>
           <v-btn plain small router to="/documents"> Документы </v-btn>
 
           <v-btn plain small router to="/contacts"> Контакты </v-btn>
@@ -85,6 +86,11 @@
           <v-list-item>
             <v-list-item-title>
               <v-btn plain small router to="/about"> О Бирже </v-btn>
+            </v-list-item-title>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-title>
+              <v-btn plain small router to="/trades"> Итоги торгов </v-btn>
             </v-list-item-title>
           </v-list-item>
           <v-list-item>

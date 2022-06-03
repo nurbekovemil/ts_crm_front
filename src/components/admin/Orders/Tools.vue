@@ -12,7 +12,7 @@
           Отклонить
         </v-btn>
         <v-btn
-          color="green darken-1"
+          color="#78C3CC"
           dark
           elevation="0"
           small
@@ -42,9 +42,9 @@
     <v-row
       v-if="user.role != 'ADMIN' && !order_view.own && order_view.status == 2"
     >
-      <v-btn text small dark color="blue darken-1"> Позвонить </v-btn>
-      <v-btn small dark color="green darken-1" @click="openIsAddOfferDialog">
-        Предложить
+      <!-- <v-btn text small dark color="blue darken-1"> Позвонить </v-btn> -->
+      <v-btn small dark color="#78C3CC" @click="openIsAddOfferDialog">
+        Купить
       </v-btn>
     </v-row>
 

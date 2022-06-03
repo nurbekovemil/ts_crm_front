@@ -11,6 +11,7 @@
             <th width="10%">Статус</th>
             <th width="6%">Дата</th>
             <th width="8%"></th>
+            <th width="8%"></th>
           </tr>
         </thead>
         <tbody>
@@ -74,6 +75,33 @@
                 Посмотреть
               </v-btn>
             </td>
+            <td>
+              <v-menu offset-y transition="slide-x-transition" bottom left>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn icon v-bind="attrs" v-on="on">
+                    <v-icon>mdi-dots-vertical</v-icon>
+                  </v-btn>
+                </template>
+
+                <v-list nav dense>
+                  <v-hover v-slot="{ hover }">
+                    <v-list-item
+                      :disabled="offer.status == 2 || !offer.own"
+                      link
+                      dense
+                      @click="deleteOffer(offer.id)"
+                    >
+                      <v-list-item-icon>
+                        <v-icon :color="`${hover && 'red lighten-1'}`"
+                          >mdi-delete</v-icon
+                        >
+                      </v-list-item-icon>
+                      <v-list-item-title> Удалить </v-list-item-title>
+                    </v-list-item>
+                  </v-hover>
+                </v-list>
+              </v-menu>
+            </td>
           </tr>
         </tbody>
       </v-simple-table>
@@ -95,7 +123,7 @@ export default {
     ...mapState("deal", ["deals"]),
   },
   methods: {
-    ...mapActions("deal", ["GET_DEAL_LIST"]),
+    ...mapActions("deal", ["GET_DEAL_LIST", "DELETE_OFFER_BY_ID"]),
     viewOrder(id) {
       this.$router.push("/dashboard/order/" + id);
     },
@@ -104,6 +132,9 @@ export default {
     },
     viewDeal(id) {
       this.$router.push("/dashboard/deal/" + id);
+    },
+    deleteOffer(id) {
+      this.DELETE_OFFER_BY_ID(id);
     },
   },
   mounted() {

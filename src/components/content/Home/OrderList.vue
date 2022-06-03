@@ -38,7 +38,7 @@
               >
                 <v-card-title> {{ order.title }} </v-card-title>
                 <v-card-subtitle class="white--text">
-                  {{ order.price }} сом
+                  {{ order.price }} {{ order.currency_symbol }}
                 </v-card-subtitle>
               </v-img>
             </v-card>

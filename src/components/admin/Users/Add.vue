@@ -65,8 +65,12 @@
         </v-form>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="red" text @click="closeAddUserDialog"> Закрыть </v-btn>
-          <v-btn color="success" text @click="userCreate"> Добавить </v-btn>
+          <v-btn color="red" small text @click="closeAddUserDialog">
+            Закрыть
+          </v-btn>
+          <v-btn color="#78C3CC" dark small @click="userCreate">
+            Добавить
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

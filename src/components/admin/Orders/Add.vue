@@ -35,11 +35,7 @@
                               ? [rules.isEmpty]
                               : field.valid.type == 'number' && [rules.isNumber]
                           "
-                          @change="
-                            (field.field == 'cost' && calcCost(field)) ||
-                              (field.field == 'price' && calcPrice(field)) ||
-                              (field.field == 'amount' && calcAmount(field))
-                          "
+                          @change="calcField(field)"
                         ></v-text-field>
                       </template>
                       <template v-if="field.type === 'textarea'">
@@ -86,13 +82,6 @@
                                   </v-img>
                                 </v-card>
                               </v-hover>
-                              <!-- <v-card>
-															<v-img
-																
-																:src="fileurl(file)"
-																height="150"
-															/>
-														</v-card> -->
                             </v-col>
                             <v-col>
                               <div>
@@ -107,22 +96,6 @@
                               </div>
                             </v-col>
                           </v-row>
-                          <!-- <v-file-input
-													v-model="field.value"
-													label="Загрузить фотографии"
-													:rules="rules"
-													multiple
-													counter="3"
-													prepend-icon="mdi-image-plus"
-													outlined
-													dense
-												>
-													<template v-slot:selection="{ text }">
-														<v-chip small label color="primary">
-															{{ text }}
-														</v-chip>
-													</template>
-												</v-file-input> -->
                         </v-col>
                       </template>
                     </v-col>
@@ -166,26 +139,53 @@ export default {
   methods: {
     ...mapMutations("order", ["SET_IS_ADD_DIALOG"]),
     ...mapActions("order", ["CREATE_ORDER", "GET_OPTIONS"]),
-    calcPrice(v) {
+
+    calcField(field) {
       let calcfields = this.templates.orderAdd.filter(
-        (f) => f.field == "cost" || f.field == "amount"
+        (f) =>
+          f.field == "nds" ||
+          f.field == "price" ||
+          f.field == "amount" ||
+          f.field == "cost"
       );
-      calcfields[1].value = Math.floor(v.value * calcfields[0].value);
-    },
-    calcAmount(v) {
-      let calcfields = this.templates.orderAdd.filter(
-        (f) => f.field == "cost" || f.field == "price"
-      );
-      if (calcfields[0].value > 0 || calcfields[0].value != "") {
-        calcfields[1].value = Math.floor(v.value * calcfields[0].value);
+
+      if (
+        field.field == "nds" &&
+        calcfields[1].value > 0 &&
+        calcfields[2].value > 0
+      ) {
+        let nds =
+          field.value > 0
+            ? (calcfields[1].value * calcfields[2].value * field.value) / 100
+            : 0;
+        calcfields[3].value = calcfields[1].value * calcfields[2].value + nds;
       }
-    },
-    calcCost(v) {
-      let calcfields = this.templates.orderAdd.filter(
-        (f) => f.field == "price" || f.field == "amount"
-      );
-      if (calcfields[1].value != "" || calcfields[1].value > 0) {
-        calcfields[0].value = Math.floor(v.value / calcfields[1].value);
+      if (field.field == "price" && calcfields[2].value > 0) {
+        let nds =
+          calcfields[0].value > 0
+            ? (calcfields[2].value * field.value * calcfields[0].value) / 100
+            : 0;
+        calcfields[3].value = field.value * calcfields[2].value + nds;
+        console.log(nds);
+      }
+      if (field.field == "amount") {
+        let nds =
+          calcfields[0].value > 0
+            ? (calcfields[1].value * field.value * calcfields[0].value) / 100
+            : 0;
+        calcfields[3].value = field.value * calcfields[1].value + nds;
+      }
+      if (field.field == "cost") {
+        let nds =
+          calcfields[0].value > 0
+            ? (calcfields[1].value *
+                calcfields[2].value *
+                calcfields[0].value) /
+              100
+            : 0;
+        calcfields[1].value = Math.floor(
+          (field.value - nds) / calcfields[2].value
+        );
       }
     },
     closeIsAddDialog() {
@@ -195,11 +195,6 @@ export default {
       return URL.createObjectURL(furl);
     },
     saveNewOrder() {
-      // formData.append('images', 'file')
-      // let order = this.templates.orderAdd.reduce(
-      // 	(prev, { field, value }) => ((prev[field] = value), prev),
-      // 	{}
-      // );
       let formData = new FormData();
       this.templates.orderAdd.map(({ field, value, valid }) => {
         if (
@@ -214,15 +209,7 @@ export default {
           formData.append(field, value);
         }
       });
-      // const getFormData = this.templates.orderAdd.reduce(
-      //   (formData, { field, value }) => (
-      //     field == "images"
-      //       ? value.map((img) => formData.append(field, img))
-      //       : formData.append(field, value),
-      //     formData
-      //   ),
-      //   new FormData()
-      // );
+      console.log(this.valid);
       this.valid && this.CREATE_ORDER(formData);
     },
   },
