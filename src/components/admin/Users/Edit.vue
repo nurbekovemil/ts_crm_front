@@ -7,13 +7,9 @@
         </v-card-title>
         <v-card-text>
           <v-row>
-            <v-col> </v-col>
+            <v-col></v-col>
           </v-row>
-          <v-row
-            v-for="field in userEditHandler.info"
-            :key="field.field"
-            no-gutters
-          >
+          <v-row v-for="field in user_view.info" :key="field.field" no-gutters>
             <v-col cols="12" md="12" class="pb-5 pl-2">
               <div class="body-1">{{ field.title }}</div>
             </v-col>
@@ -28,6 +24,7 @@
                 <v-text-field
                   v-model="item.value"
                   :label="item.title"
+                  value="uguguyx"
                   outlined
                   dense
                 ></v-text-field>
@@ -58,7 +55,7 @@
           <v-btn color="red" small text @click="closeEditUserDialog">
             Закрыть
           </v-btn>
-          <v-btn color="success" small @click="updateUserData">
+          <v-btn color="#78C3CC" dark small @click="updateUserData">
             Сохранить
           </v-btn>
         </v-card-actions>
@@ -72,15 +69,18 @@ import { mapActions, mapState, mapMutations } from "vuex";
 export default {
   data: () => ({}),
   computed: {
-    ...mapState("user", ["isEditDialog", "user_view", "template"]),
-    userEditHandler() {
-      if (this.user_view.info == null) {
-        // this.GET_USER_REGISTER_TEMPLATE(this.user_view.type);
-        this.GET_USER_REGISTER_TEMPLATE(1);
-        this.user_view.info = this.template;
-      }
-      return this.user_view;
-    },
+    ...mapState("user", ["isEditDialog", "user", "user_view", "template"]),
+    // userEditHandler() {
+    //   let type = this.user_view.type;
+    //   if (this.user_view.info == null) {
+    //     console.log(type);
+    //     this.GET_USER_REGISTER_TEMPLATE(type);
+    //     if (type && this.template.length > 0) {
+    //       this.user_view.info = this.template;
+    //     }
+    //   }
+    //   return this.user_view;
+    // },
   },
   methods: {
     ...mapActions("user", [

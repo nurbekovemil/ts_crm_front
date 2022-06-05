@@ -10,21 +10,25 @@
             width="250"
             class="rounded-lg ma-2"
           >
+            <v-card-subtitle> {{ order.title }} </v-card-subtitle>
+
             <v-img
               :src="
                 order.images[0] != null
                   ? `${url_api}/${order.images[0].path}`
                   : `${url_api}/static/images/default.png`
               "
-              class="aaa white--text align-end fill-height bottom-gradient"
-              gradient="to bottom, rgba(0,0,0,0) , rgba(0,0,0,0) , rgba(0,0,0,0),rgba(0,0,0,0.75)"
               height="280px"
             >
-              <v-card-title> {{ order.title }} </v-card-title>
-              <v-card-subtitle class="white--text">
-                {{ order.price }} сом
-              </v-card-subtitle>
             </v-img>
+            <v-card-actions>
+              <div class="ml-2">
+                {{ order.price }} {{ order.currency_symbol }}
+              </div>
+              <v-spacer></v-spacer>
+
+              <v-btn color="#78C3CC" small text> Посмотреть </v-btn>
+            </v-card-actions>
           </v-card>
         </v-slide-item>
       </v-slide-group>
