@@ -25,6 +25,33 @@
                     outlined
                   ></v-text-field>
                 </template>
+                <template v-if="field.type === 'autocomplate'">
+                  <v-autocomplete
+                    v-model="field.value"
+                    :items="options.order_tnveds"
+                    :loading="isLoadingTnveds"
+                    :search-input.sync="search"
+                    item-text="id"
+                    outlined
+                    hide-selected
+                    dense
+                    item-value="id"
+                    :label="field.title"
+                    :rules="[rules.isSelecet]"
+                    placeholder="Поиск код тнвед"
+                  >
+                    <template v-slot:item="data">
+                      <v-list-item-content>
+                        <v-list-item-title
+                          v-html="data.item.id"
+                        ></v-list-item-title>
+                        <v-list-item-subtitle
+                          v-html="data.item.title"
+                        ></v-list-item-subtitle>
+                      </v-list-item-content>
+                    </template>
+                  </v-autocomplete>
+                </template>
                 <template v-if="field.type === 'textarea'">
                   <v-textarea
                     v-model="field.value"
@@ -84,7 +111,7 @@
                         <div>
                           <v-file-input
                             v-model="image"
-                            :rules="rules"
+                            :rules="[rules.isMaxFile]"
                             prepend-icon="mdi-image-plus"
                             hide-input
                             @change="uploadImage"
@@ -119,6 +146,13 @@ export default {
   data: () => ({
     image: [],
     url_api: process.env.VUE_APP_BACK_API,
+    search: "",
+    tnved: null,
+    debounce: null,
+    rules: {
+      isSelecet: (v) => !!v || "Выберите значение",
+      isMaxFile: (v) => v.length <= 3 || `Выберите максимум 3 файла`,
+    },
   }),
   computed: {
     ...mapState("user", ["isAuth"]),
@@ -128,16 +162,8 @@ export default {
       "order_view",
       "options",
       "templates",
+      "isLoadingTnveds",
     ]),
-    rules(v) {
-      const rules = [];
-      if (this.max) {
-        const rule = (v) =>
-          (v || "").length <= this.max || `Выберите максимум ${this.max} файла`;
-        rules.push(rule);
-      }
-      return rules;
-    },
     orderTemplate() {
       return this.templates.orderAdd.map((t) => {
         let data =
@@ -168,12 +194,18 @@ export default {
       });
     },
   },
+  watch: {
+    search: function (val) {
+      val && this.querySelections(val);
+    },
+  },
   methods: {
     ...mapActions("order", [
       "GET_OPTIONS",
       "DELETE_IMAGE",
       "UPLOAD_IMAGE",
       "UPDATE_ORDER_DATA",
+      "GET_ORDER_TNVED",
     ]),
     ...mapMutations("order", ["SET_IS_EDIT_DIALOG", "SET_OPTIONS"]),
     closeIsEditDialog() {
@@ -209,6 +241,14 @@ export default {
     },
     imageFilter(images) {
       return images.filter((el) => el != null);
+    },
+    querySelections(v) {
+      this.tnved = null;
+      clearTimeout(this.debounce);
+      this.debounce = setTimeout(() => {
+        this.tnved = v;
+        this.GET_ORDER_TNVED(this.tnved);
+      }, 1000);
     },
   },
 };

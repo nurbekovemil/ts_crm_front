@@ -40,10 +40,11 @@ export default {
         "Content-Type": "multipart/form-data",
       },
     }),
-  getMyOrderListPrivate: (type) =>
-    api.get("/orders/private/type/", { params: { type } }),
+  getMyOrderListPrivate: ({ type, page, limit }) =>
+    api.get("/orders/private/type/", { params: { type, page, limit } }),
   getOrderByIdPrivate: (id) => api.get("/orders/private/" + id),
-  getAllOrderListPrivate: () => api.get("/orders/private/"),
+  getAllOrderListPrivate: ({ page, limit }) =>
+    api.get("/orders/private/", { params: { page, limit } }),
   updateOrderStatusPrivate: (data) =>
     api.put("/orders/private/", {}, { params: data }),
   deleteOrder: (id) => api.delete("/orders/private/" + id),
@@ -56,8 +57,8 @@ export default {
   updateOrderData: (data) => api.post("/orders/private/update", data),
   deleteImage: (id) => api.delete("/orders/private/image/" + id),
   // order api public routes
-  getAllOrderListPublic: (type) =>
-    api.get("/orders/public/type/", { params: { type } }),
+  getAllOrderListPublic: ({ type, limit }) =>
+    api.get("/orders/public/type/", { params: { type, limit } }),
   getOrderByIdPublic: (id) => api.get("/orders/public/" + id),
 
   // Deal api
@@ -68,7 +69,7 @@ export default {
   updateDealStatus: (status) => api.put("/deals/", status),
   getOfferHistory: (id) => api.get("/deals/history/", { params: { id } }),
   deleteOfferById: (id) => api.delete("/deals/" + id),
-  getTradeList: () => api.get("/deals/trade-list"),
+  getTradeList: (date) => api.get("/deals/trade-list/" + date),
 
   // categories api
   getOptions: (option) =>
@@ -78,7 +79,13 @@ export default {
   getCategories: () => api.get("/catalog/categories"),
   getCategoryOrders: (id) => api.get("/catalog/categories/" + id),
   getLatestOrders: (order_ids) => api.post("/catalog/latestorders", order_ids),
+  getOrderTnved: (search) =>
+    api.get("/catalog/order_tnved", { params: { search } }),
+  getCatalogByTable: (table) =>
+    api.get("/catalog/table", { params: { table } }),
+  updateCatalogItem: (data) => api.put("/catalog/table", data),
+  createCatalogItem: (data) => api.post("/catalog/table", data),
+  deleteCatalogItem: (data) => api.delete("/catalog/table", { data: data }),
   // dashboard api
-
   getTableRows: (table) => api.get("/dashboard/rows/" + table),
 };

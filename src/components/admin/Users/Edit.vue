@@ -71,10 +71,10 @@ export default {
   computed: {
     ...mapState("user", ["isEditDialog", "user", "user_view", "template"]),
     // userEditHandler() {
+    //   this.GET_USER_REGISTER_TEMPLATE(1);
+
     //   let type = this.user_view.type;
     //   if (this.user_view.info == null) {
-    //     console.log(type);
-    //     this.GET_USER_REGISTER_TEMPLATE(type);
     //     if (type && this.template.length > 0) {
     //       this.user_view.info = this.template;
     //     }
@@ -94,13 +94,13 @@ export default {
     },
     updateUserData() {
       let updateData = {
-        id: this.userEditHandler.id,
+        id: this.user_view.id,
         login: "",
         password: "",
         info: null,
       };
       updateData.info = JSON.stringify(
-        this.userEditHandler.info.reduce((prev, { title, items }) => {
+        this.user_view.info.reduce((prev, { title, items }) => {
           return [
             ...prev,
             {
@@ -123,6 +123,7 @@ export default {
           ];
         }, [])
       );
+      console.log(updateData);
       this.UPDATE_USER_DATA(updateData);
     },
   },

@@ -3,7 +3,6 @@
     <v-row>
       <order :order="order_view" />
     </v-row>
-    <v-row> </v-row>
     <v-row>
       <latest-orders />
     </v-row>

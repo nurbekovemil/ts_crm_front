@@ -33,10 +33,40 @@
                           :rules="
                             field.valid.required && !field.valid.type
                               ? [rules.isEmpty]
-                              : field.valid.type == 'number' && [rules.isNumber]
+                              : field.valid.type == 'number' && [
+                                  rules.isNumber,
+                                  rules.isEmpty,
+                                ]
                           "
                           @change="calcField(field)"
                         ></v-text-field>
+                      </template>
+                      <template v-if="field.type === 'autocomplate'">
+                        <v-autocomplete
+                          v-model="field.value"
+                          :items="options.order_tnveds"
+                          :loading="isLoadingTnveds"
+                          :search-input.sync="search"
+                          item-text="title"
+                          outlined
+                          hide-selected
+                          dense
+                          item-value="id"
+                          :label="field.title"
+                          :rules="[rules.isSelecet]"
+                          placeholder="Введите названия тнвед"
+                        >
+                          <template v-slot:item="data">
+                            <v-list-item-content>
+                              <v-list-item-title
+                                v-html="data.item.id"
+                              ></v-list-item-title>
+                              <v-list-item-subtitle
+                                v-html="data.item.title"
+                              ></v-list-item-subtitle>
+                            </v-list-item-content>
+                          </template>
+                        </v-autocomplete>
                       </template>
                       <template v-if="field.type === 'textarea'">
                         <v-textarea
@@ -125,20 +155,39 @@ export default {
   components: { list },
   data: () => ({
     valid: true,
+    search: "",
+    tnved: "",
+    debounce: null,
     rules: {
       isNumber: (v) =>
         (!isNaN(parseFloat(v)) && isFinite(v)) || "Введите число",
-      isEmpty: (v) => !!v || "Поле не может быть пустым.",
+      isEmpty: (v) => {
+        if (v == null || v == "undefined" || v == 0 || v == "") {
+          return "Поле не может быть пустым.";
+        } else {
+          return true;
+        }
+      },
       isSelecet: (v) => !!v || "Выберите значение",
       isMaxFile: (v) => v.length <= 3 || `Выберите максимум 3 файла`,
     },
   }),
   computed: {
-    ...mapState("order", ["isAddDialog", "options", "templates"]),
+    ...mapState("order", [
+      "isAddDialog",
+      "options",
+      "templates",
+      "isLoadingTnveds",
+    ]),
+  },
+  watch: {
+    search: function (val) {
+      val != "" && this.querySelections(val);
+    },
   },
   methods: {
     ...mapMutations("order", ["SET_IS_ADD_DIALOG"]),
-    ...mapActions("order", ["CREATE_ORDER", "GET_OPTIONS"]),
+    ...mapActions("order", ["CREATE_ORDER", "GET_OPTIONS", "GET_ORDER_TNVED"]),
 
     calcField(field) {
       let calcfields = this.templates.orderAdd.filter(
@@ -166,7 +215,6 @@ export default {
             ? (calcfields[2].value * field.value * calcfields[0].value) / 100
             : 0;
         calcfields[3].value = field.value * calcfields[2].value + nds;
-        console.log(nds);
       }
       if (field.field == "amount") {
         let nds =
@@ -209,8 +257,15 @@ export default {
           formData.append(field, value);
         }
       });
-      console.log(this.valid);
       this.valid && this.CREATE_ORDER(formData);
+    },
+    querySelections(v) {
+      this.tnved = "";
+      clearTimeout(this.debounce);
+      this.debounce = setTimeout(() => {
+        this.tnved = v;
+        this.GET_ORDER_TNVED(this.tnved);
+      }, 1000);
     },
   },
 };

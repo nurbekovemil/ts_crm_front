@@ -87,15 +87,16 @@ export default {
             type: "number",
           },
         },
-        {
-          field: "gost",
-          title: "ГОСТ",
-          value: "",
-          type: "input",
-          valid: {
-            required: true,
-          },
-        },
+        // {
+        //   field: "gost",
+        //   title: "ГОСТ",
+        //   value: "",
+        //   type: "input",
+        //   valid: {
+        //     required: true,
+        //     type: "number",
+        //   },
+        // },
         {
           field: "warranty",
           title: "Залоги и гарантии (в %)",
@@ -136,7 +137,7 @@ export default {
           field: "code_tnved",
           title: "Код ТН ВЭД",
           value: "",
-          type: "input",
+          type: "autocomplate",
           valid: {
             required: true,
           },
@@ -216,31 +217,54 @@ export default {
       order_types: [],
       order_weights: [],
       order_currencies: [],
+      order_tnveds: [],
     },
     isAddDialog: false,
     isEditDialog: false,
-    order_list: [],
+    isLoadingTnveds: false,
+    order_list: {
+      rows: [],
+      count: 0,
+    },
     order_types: [],
-    order_to_buy: [],
-    order_to_sell: [],
+    order_to_buy: {
+      rows: [],
+      count: 0,
+    },
+    order_to_sell: {
+      rows: [],
+      count: 0,
+    },
     order_view: [],
   },
   mutations: {
-    SET_ALL_ORDER: (state, data) => (state.order_list = data),
-    SET_ORDER: (state, { data, type }) =>
-      type == 1 ? (state.order_to_sell = data) : (state.order_to_buy = data),
+    SET_ALL_ORDER: (state, data) => {
+      state.order_list.rows = data.rows;
+      state.order_list.count = data.count;
+    },
+    SET_ORDER: (state, { data, type }) => {
+      if (type == 1) {
+        state.order_to_sell.rows = data.rows;
+        state.order_to_sell.count = data.count || 0;
+      } else {
+        state.order_to_buy.rows = data.rows;
+        state.order_to_buy.count = data.count || 0;
+      }
+    },
     SET_IS_ADD_DIALOG: (state) => (state.isAddDialog = !state.isAddDialog),
     SET_IS_EDIT_DIALOG: (state) => (state.isEditDialog = !state.isEditDialog),
     SET_ORDER_VIEW: (state, data) => (state.order_view = data),
     SET_OPTIONS(state, { option, data }) {
       return (state.options[option] = data);
     },
+    SET_ORDER_TNVED: (state, data) => (state.options.order_tnveds = data),
+    SET_IS_LOADING_TNVEDS: (state, data) => (state.isLoadingTnveds = data),
   },
   actions: {
-    MY_ORDER_LIST: async ({ commit }, type) => {
+    MY_ORDER_LIST: async ({ commit }, order) => {
       try {
-        const { data } = await api.getMyOrderListPrivate(type);
-        commit("SET_ORDER", { data, type });
+        const { data } = await api.getMyOrderListPrivate(order);
+        commit("SET_ORDER", { data, type: order.type });
       } catch (error) {
         commit("message/ERROR_MESSAGE", error.response.data.error, {
           root: true,
@@ -258,9 +282,9 @@ export default {
         });
       }
     },
-    ALL_ORDER_LIST: async ({ commit }) => {
+    ALL_ORDER_LIST: async ({ commit }, list) => {
       try {
-        const { data } = await api.getAllOrderListPrivate();
+        const { data } = await api.getAllOrderListPrivate(list);
         commit("SET_ALL_ORDER", data);
       } catch (error) {
         commit("message/ERROR_MESSAGE", error.response.data.error, {
@@ -268,10 +292,10 @@ export default {
         });
       }
     },
-    ALL_ORDER_LIST_HOME_PAGE: async ({ commit }, type) => {
+    ALL_ORDER_LIST_HOME_PAGE: async ({ commit }, order) => {
       try {
-        const { data } = await api.getAllOrderListPublic(type);
-        commit("SET_ORDER", { data, type });
+        const { data } = await api.getAllOrderListPublic(order);
+        commit("SET_ORDER", { data, type: order.type });
       } catch (error) {
         commit("message/ERROR_MESSAGE", error.response.data.error, {
           root: true,
@@ -283,7 +307,7 @@ export default {
         const { data } = await api.createOrderPrivate(order);
         commit("SET_IS_ADD_DIALOG");
         commit("message/SUCCESS_MESSAGE", data, { root: true });
-        dispatch("MY_ORDER_LIST", data.rows.order_type);
+        dispatch("MY_ORDER_LIST", { type: data.rows.order_type });
       } catch (error) {
         commit("message/ERROR_MESSAGE", error.response.data.error, {
           root: true,
@@ -319,7 +343,7 @@ export default {
     DELETE_ORDER: async ({ commit, dispatch }, order) => {
       try {
         const { data } = await api.deleteOrder(order.id);
-        dispatch("MY_ORDER_LIST", order.type);
+        dispatch("MY_ORDER_LIST", { type: order.type });
         commit("message/SUCCESS_MESSAGE", data, { root: true });
       } catch (error) {
         commit("message/ERROR_MESSAGE", error.response.data.error, {
@@ -359,9 +383,21 @@ export default {
           id: order.order_id,
           isAuth: order.isAuth,
         });
-        dispatch("MY_ORDER_LIST", order.order.type);
+        dispatch("MY_ORDER_LIST", { type: order.order.type });
         commit("SET_IS_EDIT_DIALOG");
         commit("message/SUCCESS_MESSAGE", data, { root: true });
+      } catch (error) {
+        commit("message/ERROR_MESSAGE", error.response.data.error, {
+          root: true,
+        });
+      }
+    },
+    GET_ORDER_TNVED: async ({ commit }, search) => {
+      try {
+        commit("SET_IS_LOADING_TNVEDS", true);
+        const { data } = await api.getOrderTnved(search);
+        commit("SET_ORDER_TNVED", data);
+        commit("SET_IS_LOADING_TNVEDS", false);
       } catch (error) {
         commit("message/ERROR_MESSAGE", error.response.data.error, {
           root: true,
@@ -371,6 +407,8 @@ export default {
   },
   getters: {
     getOrderByType: (state) => (type) =>
-      type == 1 ? state.order_to_sell : state.order_to_buy,
+      type == 1 ? state.order_to_sell.rows : state.order_to_buy.rows,
+    getOrderCountByType: (state) => (type) =>
+      type == 1 ? state.order_to_sell.count : state.order_to_buy.count,
   },
 };

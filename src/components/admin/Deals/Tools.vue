@@ -2,7 +2,17 @@
   <v-card>
     <v-card-actions>
       <v-spacer />
-
+      <template v-if="deal.own && deal.status == 1">
+        <v-btn
+          v-if="deal.status == 1"
+          text
+          color="orange"
+          small
+          @click="updateDealStatus(3)"
+        >
+          Отклонить
+        </v-btn>
+      </template>
       <template v-if="!deal.own">
         <v-btn
           v-if="deal.status == 1"

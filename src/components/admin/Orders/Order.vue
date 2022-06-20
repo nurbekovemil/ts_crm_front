@@ -6,18 +6,24 @@
         <v-card-title>{{ order.title }}</v-card-title>
         <!-- Название страницы -->
         <template v-if="order.own">
-          <v-card-subtitle class="blue--text">
+          <v-card-subtitle class="blue--text pb-0">
             Ваша • {{ order.order_type_title }}
           </v-card-subtitle>
         </template>
 
         <template v-else>
-          <v-card-subtitle>{{ order.order_type_title }}</v-card-subtitle>
+          <v-card-subtitle class="pb-0">{{
+            order.order_type_title
+          }}</v-card-subtitle>
         </template>
+        <v-card-subtitle class="text-caption py-0">
+          Создано
+          {{ order.created_at }}
+        </v-card-subtitle>
       </v-col>
     </v-row>
     <v-row class="ma-2 d-flex" style="align-items: center">
-      <v-col md="4">
+      <v-col md="4" v-if="order.status != 8">
         <v-card>
           <v-carousel
             cycle
@@ -116,12 +122,12 @@
                     </tr>
                     <tr>
                       <td>НДС</td>
-                      <td>{{ order.nds }}</td>
+                      <td>{{ order.nds }} %</td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                       <td>ГОСТ</td>
                       <td>{{ order.gost }}</td>
-                    </tr>
+                    </tr> -->
                     <tr>
                       <td>Залоги и гарантия</td>
                       <td>{{ order.warranty }}</td>

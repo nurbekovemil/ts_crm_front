@@ -63,6 +63,38 @@
                   </template>
 
                   <v-list nav dense>
+                    <template v-if="order.status_id == 2">
+                      <v-hover v-slot="{ hover }">
+                        <v-list-item
+                          link
+                          dense
+                          @click="updateMyOrderStatus(order.id, 7)"
+                        >
+                          <v-list-item-icon>
+                            <v-icon :color="`${hover && 'cyan'}`"
+                              >mdi-clock-outline</v-icon
+                            >
+                          </v-list-item-icon>
+                          <v-list-item-title> Приостановить </v-list-item-title>
+                        </v-list-item>
+                      </v-hover>
+                    </template>
+                    <template v-if="order.status_id == 7">
+                      <v-hover v-slot="{ hover }">
+                        <v-list-item
+                          link
+                          dense
+                          @click="updateMyOrderStatus(order.id, 2)"
+                        >
+                          <v-list-item-icon>
+                            <v-icon :color="`${hover && 'cyan'}`"
+                              >mdi-access-point</v-icon
+                            >
+                          </v-list-item-icon>
+                          <v-list-item-title> Открыть </v-list-item-title>
+                        </v-list-item>
+                      </v-hover>
+                    </template>
                     <v-hover v-slot="{ hover }">
                       <v-list-item
                         link
@@ -100,6 +132,13 @@
           </tbody>
         </template>
       </v-simple-table>
+      <v-pagination
+        v-if="getOrderCountByType(this.type) > limit"
+        v-model="page"
+        :length="order_count"
+        color="#78C3CC"
+        app
+      ></v-pagination>
     </template>
     <template v-else>
       <p class="font-weight-light text--disabled text-center">
@@ -113,12 +152,19 @@
 import { mapGetters, mapActions, mapMutations, mapState } from "vuex";
 export default {
   props: ["type"],
+  data: () => ({
+    page: 1,
+    limit: 10,
+  }),
   computed: {
     ...mapState("user", ["isAuth"]),
-    ...mapGetters("order", ["getOrderByType"]),
+    ...mapGetters("order", ["getOrderByType", "getOrderCountByType"]),
+    order_count() {
+      return Math.ceil(this.getOrderCountByType(this.type) / this.limit);
+    },
   },
   mounted() {
-    this.MY_ORDER_LIST(this.type);
+    this.getMyOrderList(this.page);
   },
   methods: {
     ...mapMutations("order", ["SET_IS_ADD_DIALOG", "SET_IS_EDIT_DIALOG"]),
@@ -126,6 +172,7 @@ export default {
       "MY_ORDER_LIST",
       "GET_ORDER_BY_ID",
       "DELETE_ORDER",
+      "UPDATE_ORDER_STATUS",
     ]),
     deleteOrder(id) {
       this.DELETE_ORDER({ id, type: this.type });
@@ -136,6 +183,18 @@ export default {
     openIsEditDialog(id) {
       this.SET_IS_EDIT_DIALOG();
       this.GET_ORDER_BY_ID({ id, isAuth: this.isAuth });
+    },
+    async updateMyOrderStatus(order_id, status) {
+      await this.UPDATE_ORDER_STATUS({ order_id, status, isAuth: this.isAuth });
+      await this.getMyOrderList(this.page);
+    },
+    getMyOrderList(page) {
+      this.MY_ORDER_LIST({ type: this.type, page, limit: this.limit });
+    },
+  },
+  watch: {
+    page(v) {
+      this.getMyOrderList(v);
     },
   },
 };

@@ -1,7 +1,7 @@
 <template>
   <v-app id="inspire">
     <v-app-bar app flat class="white">
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click="drawerHandler"></v-app-bar-nav-icon>
       <v-toolbar-title>{{ this.$router.history.current.name }}</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn style="margin: 30px" router to="/" plain icon>
@@ -37,13 +37,7 @@
         </v-list>
       </v-menu>
     </v-app-bar>
-    <v-navigation-drawer
-      v-model="drawer"
-      app
-      dark
-      permanent
-      color="grey darken-4"
-    >
+    <v-navigation-drawer v-model="drawer" app dark color="grey darken-4">
       <v-list-item>
         <v-list-item-avatar tile>
           <v-img max-width="40" src="../assets/logo.png" />
@@ -87,13 +81,16 @@
 import { mapState, mapActions, mapGetters } from "vuex";
 export default {
   data: () => ({
-    drawer: null,
+    drawer: true,
   }),
   computed: {
     ...mapState("user", ["user", "userMenus"]),
   },
   methods: {
     ...mapActions("user", ["LOGOUT"]),
+    drawerHandler() {
+      this.drawer = !this.drawer;
+    },
   },
 };
 </script>

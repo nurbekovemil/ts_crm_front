@@ -3,7 +3,6 @@
     <v-dialog v-model="isAddDealDialog" persistent max-width="800px">
       <v-card>
         <v-card-title> Купить </v-card-title>
-
         <v-card-text>
           <v-container>
             <v-row>
@@ -78,6 +77,16 @@
                             outlined
                             dense
                             @change="calcField(field)"
+                          >
+                          </v-text-field>
+                        </template>
+                        <template v-if="field.type === 'autocomplate'">
+                          <v-text-field
+                            v-model="field.value"
+                            :label="field.title"
+                            disabled
+                            outlined
+                            dense
                           >
                           </v-text-field>
                         </template>
@@ -174,6 +183,7 @@ export default {
       }
       return rules;
     },
+    // Шаблон для рендера
     orderTemplate() {
       return this.templates.orderAdd.map((t) => {
         let data =
@@ -225,7 +235,6 @@ export default {
           f.field == "amount" ||
           f.field == "cost"
       );
-      console.log(calcfields);
       if (
         field.field == "nds" &&
         calcfields[1].value > 0 &&
@@ -243,7 +252,6 @@ export default {
             ? (calcfields[2].value * field.value * calcfields[0].value) / 100
             : 0;
         calcfields[3].value = field.value * calcfields[2].value + nds;
-        console.log(nds);
       }
       if (field.field == "amount") {
         let nds =
@@ -300,8 +308,6 @@ export default {
         order_from: this.order_from,
         order_to: this.order_view.id,
       };
-      // console.log({offer_type: this.selected_offer, offer_order,offer})
-      console.log(this.selected_offer);
       this.CREATE_DEAL({ offer_type: this.selected_offer, getFormData, offer });
     },
   },

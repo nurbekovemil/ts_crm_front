@@ -27,9 +27,10 @@
               outlined
             >
               <v-card-subtitle> {{ order.title }} </v-card-subtitle>
+
               <v-img
                 :src="
-                  order.images[0] != null
+                  order.images[0] !== null
                     ? `${url_api}/${order.images[0].path}`
                     : `${url_api}/static/images/default.png`
                 "
@@ -86,7 +87,7 @@ export default {
     },
   },
   mounted() {
-    this.ALL_ORDER_LIST_HOME_PAGE(this.type);
+    this.ALL_ORDER_LIST_HOME_PAGE({ type: this.type, limit: 7 });
   },
 };
 </script>

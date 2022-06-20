@@ -71,9 +71,9 @@ export default {
     UPDATE_DEAL_STATUS: async ({ commit, dispatch }, status) => {
       try {
         const { data } = await api.updateDealStatus(status);
-        router.push(`/dashboard/deal/${status.deal_id}`);
         dispatch("GET_DEAL_BY_ID", status.deal_id);
         commit("message/SUCCESS_MESSAGE", data, { root: true });
+        status.status == 2 && router.push(`/dashboard/deal/${status.deal_id}`);
       } catch (error) {
         commit("message/ERROR_MESSAGE", error.response.data.error, {
           root: true,
@@ -101,9 +101,9 @@ export default {
         });
       }
     },
-    GET_TRADE_LIST: async ({ commit }) => {
+    GET_TRADE_LIST: async ({ commit }, date) => {
       try {
-        const { data } = await api.getTradeList();
+        const { data } = await api.getTradeList(date);
         commit("SET_TRADE_LIST", data);
       } catch (error) {
         commit("message/ERROR_MESSAGE", error.response.data.error, {

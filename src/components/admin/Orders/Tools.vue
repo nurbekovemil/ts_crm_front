@@ -7,8 +7,11 @@
           text
           small
           color="orange darken-1"
+          class="mr-2"
           @click="confirmOrReject(order_view.id, 4)"
         >
+          <v-icon left>mdi-close</v-icon>
+
           Отклонить
         </v-btn>
         <v-btn
@@ -18,6 +21,7 @@
           small
           @click="confirmOrReject(order_view.id, 2)"
         >
+          <v-icon left>mdi-check</v-icon>
           Принять
         </v-btn>
       </template>

@@ -51,6 +51,9 @@ export default {
     SET_IS_AUTH: (state, data) => {
       state.isAuth = data;
     },
+    LOG_OUT: (state) => {
+      state.user = {};
+    },
     SETUSERSLIST: (state, data) => {
       state.usersList.users = data.users;
       state.usersList.user_count = data.user_count;
@@ -123,6 +126,7 @@ export default {
     LOGOUT({ commit }) {
       localStorage.removeItem("token");
       commit("SET_IS_AUTH", false);
+      commit("LOG_OUT");
       router.push("/");
     },
 

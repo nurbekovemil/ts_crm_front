@@ -108,7 +108,6 @@
     <v-pagination
       v-model="page"
       :length="user_count"
-
     ></v-pagination>
   </div>
 		</v-col>

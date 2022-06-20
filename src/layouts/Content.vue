@@ -1,9 +1,6 @@
 <template>
   <v-app>
     <v-app-bar flat app color="white">
-      <v-app-bar-nav-icon right @click="drawer = true" class="d-flex d-md-none">
-      </v-app-bar-nav-icon>
-
       <v-container class="py-0 fill-height">
         <router-link class="text-decoration-none text--primary" to="/">
           <v-toolbar-title class="overflow-visible" router to="/">
@@ -14,23 +11,6 @@
           >
         </router-link>
         <v-spacer></v-spacer>
-
-        <v-btn
-          v-if="this.$route.fullPath != '/login'"
-          plain
-          router
-          to="/login"
-          icon
-          class="d-flex d-md-none"
-        >
-          <template v-if="!isAuth">
-            <v-icon>mdi-account</v-icon>
-          </template>
-
-          <template v-else>
-            {{ user.username }}
-          </template>
-        </v-btn>
 
         <div class="d-none d-md-flex justify-around">
           <v-btn elevation="0" plain small router to="/"> Главная </v-btn>
@@ -43,7 +23,7 @@
           <v-btn plain small router to="/contacts"> Контакты </v-btn>
 
           <v-btn plain small router to="/login">
-            <template v-if="!isAuth" icon> Войти </template>
+            <template v-if="!isAuth" icon> Войти</template>
 
             <template v-else>
               {{ user.username }}
@@ -51,12 +31,11 @@
           </v-btn>
         </div>
       </v-container>
-
-      <!-- <v-btn elevation="0" plain small router to="/login">
-       <template v-if="isAuth">
-          {{ user.username }}
-       </template>
-        </v-btn> -->
+      <v-app-bar-nav-icon
+        left
+        @click="drawer = true"
+        class="d-flex d-md-none"
+      />
     </v-app-bar>
 
     <v-container class="pa-0" fluid>
@@ -101,6 +80,17 @@
           <v-list-item>
             <v-list-item-title>
               <v-btn plain small router to="/contacts"> Контакты </v-btn>
+            </v-list-item-title>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-title>
+              <v-btn plain small router to="/login">
+                <template v-if="!isAuth" icon> Войти </template>
+
+                <template v-else>
+                  {{ user.username }}
+                </template>
+              </v-btn>
             </v-list-item-title>
           </v-list-item>
         </v-list-item-group>
