@@ -14,6 +14,9 @@
 								<th class="text-left">
 									Роль
 								</th>
+								<th class="text-left">
+									Тип пользователя
+								</th>
 								<th>
 									Количество заявок
 								</th>
@@ -58,7 +61,8 @@
                     {{ user.status_title }}
                   </v-chip>
 								</td>
-								<td>{{ user.role }}</td>
+								<td>{{ user.role_title }}</td>
+								<td>{{ user.user_type }}</td>
 								<td>{{ user.orders }}</td>
 								<td class="text-right">
 									<v-menu bottom left>

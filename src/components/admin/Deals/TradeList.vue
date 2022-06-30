@@ -18,6 +18,7 @@
         <thead>
           <tr>
             <th>Дата</th>
+            <th>Код ТНВЭД</th>
             <th>Заявка</th>
             <th>Цена</th>
             <th>Количество</th>
@@ -28,6 +29,7 @@
           <template v-if="trade_list.length">
             <tr v-for="(trade, i) in trade_list" :key="i">
               <td>{{ trade.created_at }}</td>
+              <td>{{ trade.code_tnved }}</td>
               <td>{{ trade.title }}</td>
               <td>{{ trade.price }} {{ trade.currency_symbol }}</td>
               <td>{{ trade.amount }} / {{ trade.weight }}</td>

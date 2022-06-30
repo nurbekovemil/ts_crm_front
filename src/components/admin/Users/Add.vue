@@ -106,7 +106,6 @@ export default {
     userCreate() {
       let user = this.userAddTemplate.reduce((prev, { field, type, value }) => {
         if ((type == "input" && value.trim() == "") || value == "") {
-          console.log("validate");
           return this.$refs.usercreate.validate();
         }
         return {

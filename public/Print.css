@@ -1,35 +1,41 @@
-.tg {
-	border-collapse: collapse;
-	border-spacing: 0;
-  width:100%;
+table {
+  border-collapse: collapse;
 }
-.tg td {
-	border-color: black;
-	border-style: solid;
-	border-width: 1px;
-	font-family: Arial, sans-serif;
-	font-size: 14px;
-	overflow: hidden;
-	padding: 4px 10px;
-	word-break: normal;
-}
-.tg td:first-child{
-  width:30%;
-	background-color: red;
-}
-.tg td:last-child{
-  width:70%;
+#deal {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  box-sizing: border-box;
 }
 
-.tg .tg-gyu3 {
-	border-color: inherit;
-	font-family: Arial, Helvetica, sans-serif !important;
-	font-size: 14px;
-	text-align: left;
-	vertical-align: top;
+.brdr {
+  border: 1px solid black;
+  box-sizing: content-box;
+  margin-left: -1px;
+  margin-top: -1px;
+  padding: 5px;
 }
-.tg .tg-0pky {
-	border-color: inherit;
-	text-align: left;
-	vertical-align: top;
+.brdr p {
+  margin-bottom: 0;
+}
+
+.tb {
+  width: 100%;
+  border-spacing: 0;
+}
+.tb td {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  padding: 5px;
+}
+.tb td:first-child {
+  width: 50%;
+}
+.tb1 td:first-child {
+  width: 50%;
+}
+p {
+  font-size: 14px;
 }

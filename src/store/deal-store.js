@@ -73,7 +73,9 @@ export default {
         const { data } = await api.updateDealStatus(status);
         dispatch("GET_DEAL_BY_ID", status.deal_id);
         commit("message/SUCCESS_MESSAGE", data, { root: true });
-        status.status == 2 && router.push(`/dashboard/deal/${status.deal_id}`);
+        if (status.status == 2 || status.status == 5) {
+          router.push(`/dashboard/deal/${status.deal_id}`);
+        }
       } catch (error) {
         commit("message/ERROR_MESSAGE", error.response.data.error, {
           root: true,
@@ -105,6 +107,16 @@ export default {
       try {
         const { data } = await api.getTradeList(date);
         commit("SET_TRADE_LIST", data);
+      } catch (error) {
+        commit("message/ERROR_MESSAGE", error.response.data.error, {
+          root: true,
+        });
+      }
+    },
+    GET_DEPO_DEALS: async ({ commit }) => {
+      try {
+        const { data } = await api.getDepoDeals();
+        commit("SET_DEALS", data);
       } catch (error) {
         commit("message/ERROR_MESSAGE", error.response.data.error, {
           root: true,

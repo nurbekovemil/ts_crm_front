@@ -12,7 +12,9 @@
                 v-for="(field, i) in orderTemplate"
                 :key="i"
                 :sm="
-                  field.type === 'textarea' || field.type === 'file'
+                  field.type === 'textarea' ||
+                  field.type === 'file' ||
+                  field.type === 'checkbox'
                     ? '12'
                     : '4'
                 "
@@ -121,6 +123,12 @@
                       </v-col>
                     </v-row>
                   </v-col>
+                </template>
+                <template v-if="field.type === 'checkbox'">
+                  <v-checkbox
+                    v-model="field.value"
+                    :label="field.title"
+                  ></v-checkbox>
                 </template>
               </v-col>
             </v-row>

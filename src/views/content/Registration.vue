@@ -15,7 +15,7 @@
       </div>
       <div class="text-caption">
         Посетитель торгов нерезидент Кыргызской Республики. Просим заключить
-        договор на биржевое обслуживание. {{ valid }}
+        договор на биржевое обслуживание.
       </div>
     </div>
     <v-form ref="registration" v-model="valid" lazy-validation>
@@ -109,11 +109,12 @@ export default {
         data: null,
       };
       user.data = JSON.stringify(
-        this.template.reduce((prev, { title, items }) => {
+        this.template.reduce((prev, { title, id, items }) => {
           return [
             ...prev,
             {
               title,
+              id,
               items: [
                 ...items.map(
                   ({ field, title, value, required, type, options }) => {

@@ -12,3 +12,4 @@ export { default as OrderView } from "./OrderView.vue";
 export { default as DealView } from "./DealView.vue";
 export { default as Catalog } from "./Catalog.vue";
 export { default as TradeList } from "./TradeList.vue";
+export { default as DepoDeals } from "./DepoDeals.vue";

@@ -1,6 +1,6 @@
 <template>
   <v-card class="pa-3 mb-3">
-    <div id="printDeal" style="">
+    <div id="printDeal">
       <h5>Зарегистрировано в ЗАО «Кыргызская Фондовая Биржа»</h5>
       <table class="tb tb1" border="1">
         <tbody>
@@ -33,7 +33,7 @@
         </div>
         <div style="display: flex; justify-content: space-between">
           <span>г. Бишкек</span>
-          <span>«___»________,_____ г.</span>
+          <span>{{ deal.created_at }}</span>
         </div>
       </div>
       <div>
@@ -45,7 +45,7 @@
                   Наименование Посетителя торгов -
                   {{ sortType(deal.order_type_from) }}
                 </td>
-                <td>{{ deal.user_from_name }}</td>
+                <td>{{ deal.user_from_info[0].items[0].value || "Нет" }}</td>
               </tr>
               <tr>
                 <td>
@@ -70,7 +70,7 @@
                   Наименование Посетителя торгов -
                   {{ sortType(deal.order_type_to) }}
                 </td>
-                <td>{{ deal.user_to_name }}</td>
+                <td>{{ deal.user_to_info[0].items[0].value || "Нет" }}</td>
               </tr>
               <tr>
                 <td>
@@ -94,9 +94,10 @@
       </div>
 
       <p>
-        Настоящий Договор заключен на основании биржевой сделки, совершенной в
-        ходе бессрочных биржевых торгов в ЗАО «Кыргызская Фондовая Биржа» «__»
-        _____ , 2021 г. ( далее- Биржевая сделка) на следующих условиях:
+        1.1. Настоящий Договор заключен на основании биржевой сделки,
+        совершенной в ходе бессрочных биржевых торгов в товарно-сырьевом секторе
+        ЗАО «Кыргызская Фондовая Биржа» «_» ___, 202 г. (далее- Биржевая сделка)
+        на следующих условиях:
       </p>
       <table class="tb" border="1">
         <tbody>
@@ -341,52 +342,140 @@
       <div style="text-align: center">
         <h5>11. ЮРИДИЧЕСКИЕ АДРЕСА И БАНКОВСКИЕ РЕКВИЗИТЫ СТОРОН:</h5>
       </div>
-      <table class="tb" border="1">
-        <tbody>
+      <div id="deal">
+        <div class="brdr">
+          <strong>{{ sortType(deal.order_type_from) }}</strong>
+        </div>
+        <div class="brdr">
+          <strong>{{ sortType(deal.order_type_to) }}</strong>
+        </div>
+        <div
+          class="brdr"
+          v-for="(item, k) in [deal.user_from_info, deal.user_to_info]"
+          :key="k"
+        >
+          <div v-for="(rows, i) in item" :key="i">
+            <div v-for="{ field, title, value } in rows.items" :key="field">
+              <template
+                v-if="
+                  field == 'fullname' ||
+                  field == 'legal_address' ||
+                  field == 'account_number_with_currency' ||
+                  field == 'bank_name' ||
+                  field == 'bank_code' ||
+                  field == 'bank_address' ||
+                  field == 'trade_fullname' ||
+                  field == 'contact_information'
+                "
+              >
+                <strong
+                  >{{
+                    field == "account_number_with_currency"
+                      ? "Банковские реквизиты расчетной организации"
+                      : field == "trade_fullname"
+                      ? "Трейдер"
+                      : field == "contact_information"
+                      ? "Контакты"
+                      : title
+                  }}:</strong
+                >
+                <p>{{ value }}</p>
+              </template>
+            </div>
+          </div>
+        </div>
+        <div class="brdr">
+          <strong>Подпись:</strong>
+        </div>
+        <div class="brdr">
+          <strong>Подпись:</strong>
+        </div>
+        <!-- <div>
+          <div class="brdr" v-for="(item, k) in deal.user_to_info" :key="k">
+            <div v-for="({ field, title, value }, i) in item.items" :key="i">
+              <template
+                v-if="
+                  field == 'fullname' ||
+                  field == 'legal_address' ||
+                  field == 'account_number_with_currency' ||
+                  field == 'bank_name' ||
+                  field == 'bank_code' ||
+                  field == 'bank_address' ||
+                  field == 'trade_fullname'
+                "
+              >
+                <strong>{{ title }}:</strong>
+                <p>{{ value }}</p>
+              </template>
+            </div>
+          </div>
+        </div> -->
+      </div>
+      <!-- <tbody>
           <tr>
-            <th>ПРОДАВЕЦ:</th>
-            <th>ПОКУПАТЕЛЬ:</th>
+            <th>{{ sortType(deal.order_type_from) }}</th>
+            <th>{{ sortType(deal.order_type_to) }}</th>
           </tr>
           <tr>
-            <td>ОАО "Кыргызнефтегаз"</td>
-            <td></td>
+            <td>{{ deal.user_from_name }}</td>
+            <td>{{ deal.user_to_name }}</td>
           </tr>
+
           <tr>
-            <td>Юридический адрес:</td>
-            <td></td>
-          </tr>
-          <tr class="bank">
-            <!-- <td>
-              <strong>Банковские реквизиты расчетной организации <br></strong> 
-               <p>0000000000000000000000</p> 
-               <p>Бишкекский филиал ЗАО "КИКБ" - "Манас"</p> 
-               <p>128009</p> 
-               <p>г.Бишкек, проспект Манаса 11/1 </p> 
-               <p>Получатель: ЗАО «Центральный депозитарий»</p> 
-              </td> -->
             <td>
-              <strong>Банковские реквизиты расчетной организации <br /></strong>
-              <div>0000000000000000000000</div>
-              <div>Бишкекский филиал ЗАО "КИКБ" - "Манас"</div>
-              <div>128009</div>
+              Юридический адрес:
+              {{ deal.user_from_info[1].items[0].value }}
+            </td>
+
+            <td>
+              Юридический адрес:
+              {{ deal.user_to_info[1].items[0].value }}
+            </td>
+          </tr>
+          <tr>
+            <td>
               <div>
-                г.Бишкек, проспект Манаса 11/1 <br />
-                Получатель: ЗАО «Центральный депозитарий»
+                <strong>Банковские реквизиты расчетной организации: </strong>
+                {{ deal.user_from_info[2].items[0].value || "Нет" }}
+              </div>
+              <div>
+                <strong>Наименование банка: </strong>
+                {{ deal.user_from_info[2].items[1].value || "Нет" }}
+              </div>
+              <div>
+                <strong>Код банка (БИК): </strong>
+                {{ deal.user_from_info[2].items[2].value || "Нет" }}
+              </div>
+              <div>
+                <strong>Адрес банка: </strong>
+                {{ deal.user_from_info[2].items[3].value || "Нет" }}
               </div>
             </td>
+
             <td>
-              <strong>Банковские реквизиты расчетной организации <br /></strong>
-              <div>0000000000000000000000</div>
-              <div>Бишкекский филиал ЗАО "КИКБ" - "Манас"</div>
-              <div>128009</div>
               <div>
-                г.Бишкек, проспект Манаса 11/1 <br />
-                Получатель: ЗАО «Центральный депозитарий»
+                <strong>Банковские реквизиты расчетной организации: </strong>
+                {{ deal.user_to_info[2].items[0].value || "Нет" }}
+              </div>
+              <div>
+                <strong>Наименование банка: </strong>
+                {{ deal.user_to_info[2].items[1].value || "Нет" }}
+              </div>
+              <div>
+                <strong>Код банка (БИК): </strong>
+                {{ deal.user_to_info[2].items[2].value || "Нет" }}
+              </div>
+              <div>
+                <strong>Адрес банка: </strong>
+                {{ deal.user_to_info[2].items[3].value || "Нет" }}
               </div>
             </td>
           </tr>
           <tr>
-            <td><strong>Контакты:</strong></td>
+            <td>
+              <strong>Контакты:</strong>
+              {{ deal.user_from_info[0].items[10].value || "Нет" }}
+            </td>
             <td><strong>Контакты:</strong></td>
           </tr>
           <tr>
@@ -407,8 +496,7 @@
             <td><strong>Подпись:</strong></td>
             <td><strong>Подпись:</strong></td>
           </tr>
-        </tbody>
-      </table>
+        </tbody> -->
     </div>
   </v-card>
 </template>
@@ -416,20 +504,39 @@
 <script>
 export default {
   props: ["deal"],
+
   methods: {
-    sortType: (type) => (type == 1 ? "Продавца" : "Покупателя"),
+    sortType: (type) => (type == 1 ? "Продавец" : "Покупатель"),
   },
 };
 </script>
 
 <style lang="scss" scoped>
+#deal {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  box-sizing: border-box;
+}
+
+.brdr {
+  border: 1px solid black;
+  box-sizing: content-box;
+  margin-left: -1px;
+  margin-top: -1px;
+  padding: 5px;
+}
+.brdr p {
+  margin-bottom: 0;
+}
+
 .tb {
   width: 100%;
-  border-collapse: collapse;
   border-spacing: 0;
 }
 .tb td {
-  border: solid 1px black;
   font-family: Arial, sans-serif;
   font-size: 14px;
   padding: 5px;
@@ -438,12 +545,9 @@ export default {
   width: 50%;
 }
 .tb1 td:first-child {
-  width: 40%;
+  width: 50%;
 }
 p {
   font-size: 14px;
-}
-.bank > td > div {
-  border-top: 0.5px solid grey;
 }
 </style>

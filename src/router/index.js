@@ -17,6 +17,7 @@ import {
   Settings,
   Catalog,
   TradeList,
+  DepoDeals,
 } from "../views/admin";
 
 // content pages
@@ -33,6 +34,7 @@ import {
   Categories,
   CategoryOrders,
   Trades,
+  Tariffs,
 } from "../views/content";
 
 // layouts
@@ -61,6 +63,11 @@ const routes = [
         path: "/contacts",
         name: "Контакты",
         component: Contacts,
+      },
+      {
+        path: "/tariffs",
+        name: "Тарифы",
+        component: Tariffs,
       },
       {
         path: "/categories",
@@ -157,6 +164,11 @@ const routes = [
         path: "/dashboard/deals",
         name: "Все сделки",
         component: TradeList,
+      },
+      {
+        path: "/dashboard/depos",
+        name: "Сделки",
+        component: DepoDeals,
       },
       {
         path: "/dashboard/offers",

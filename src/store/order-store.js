@@ -208,6 +208,15 @@ export default {
             required: false,
           },
         },
+        {
+          field: "cd",
+          title: "Расчеты через клиринговый центр",
+          value: false,
+          type: "checkbox",
+          valid: {
+            required: false,
+          },
+        },
       ],
     },
     options: {

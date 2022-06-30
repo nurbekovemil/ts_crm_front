@@ -19,7 +19,9 @@
                       class="px-2"
                       sm="6"
                       :md="
-                        field.type === 'textarea' || field.type === 'file'
+                        field.type === 'textarea' ||
+                        field.type === 'file' ||
+                        field.type === 'checkbox'
                           ? '12'
                           : '4'
                       "
@@ -91,7 +93,6 @@
                         >
                         </v-select>
                       </template>
-
                       <template v-if="field.type === 'file'">
                         <v-col>
                           <v-row class="mb-3" v-if="field.value">
@@ -127,6 +128,12 @@
                             </v-col>
                           </v-row>
                         </v-col>
+                      </template>
+                      <template v-if="field.type === 'checkbox'">
+                        <v-checkbox
+                          v-model="field.value"
+                          :label="field.title"
+                        ></v-checkbox>
                       </template>
                     </v-col>
                   </v-row>

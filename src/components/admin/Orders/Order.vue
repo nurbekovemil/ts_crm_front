@@ -80,6 +80,12 @@
                 </td>
                 <td>{{ order.payment }}</td>
               </tr>
+              <tr class="text-caption">
+                <td class="grey--text">
+                  {{ $t(`admin.order.order_view.cd`) }}:
+                </td>
+                <td>{{ order.cd ? "Да" : "Нет" }}</td>
+              </tr>
               <v-col v-if="!$route.meta.hideOrderTools">
                 <tools />
               </v-col>

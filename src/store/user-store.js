@@ -21,6 +21,7 @@ export default {
     roles: [
       { type: 2, title: "Пользователь" },
       { type: 1, title: "Администратор" },
+      { type: 3, title: "Депозитарий" },
     ],
     userAddTemplate: [
       { field: "username", title: "Логин", type: "input", value: "" },

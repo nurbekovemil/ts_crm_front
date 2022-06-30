@@ -44,7 +44,9 @@
                       <v-col
                         v-for="(field, i) in orderTemplate"
                         :cols="
-                          field.type == 'file' || field.type == 'textarea'
+                          field.type === 'file' ||
+                          field.type === 'textarea' ||
+                          field.type === 'checkbox'
                             ? '12'
                             : '4'
                         "
@@ -89,6 +91,14 @@
                             dense
                           >
                           </v-text-field>
+                        </template>
+                        <template v-if="field.type === 'checkbox'">
+                          {{ field.value }}
+                          <v-checkbox
+                            v-model="field.value"
+                            :label="field.title"
+                            disabled="true"
+                          ></v-checkbox>
                         </template>
                         <!-- <template v-if="field.type === 'file'">
                           <v-col>

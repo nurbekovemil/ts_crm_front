@@ -12,7 +12,7 @@ const options = {
     "../public/Print.css",
     "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
   ],
-  timeout: 1000, // default timeout before the print window appears
+  timeout: 500, // default timeout before the print window appears
   autoClose: true, // if false, the window will not close after printing
   windowTitle: window.document.title, // override the window title
 };

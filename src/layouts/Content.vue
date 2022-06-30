@@ -11,14 +11,32 @@
           >
         </router-link>
         <v-spacer></v-spacer>
-
+        <!-- computers -->
         <div class="d-none d-md-flex justify-around">
           <v-btn elevation="0" plain small router to="/"> Главная </v-btn>
+          <!-- <v-btn plain small router to="/about"> О Бирже </v-btn> -->
+          <v-menu offset-y>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn plain small v-bind="attrs" v-on="on">
+                О бирже <v-icon right> mdi-chevron-down</v-icon>
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item router to="/about">
+                <v-list-item-title>Общая информация</v-list-item-title>
+              </v-list-item>
+              <v-list-item router to="/documents">
+                <v-list-item-title> Документы</v-list-item-title>
+              </v-list-item>
+              <v-list-item router to="/tariffs">
+                <v-list-item-title>Тарифы</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
           <v-btn plain small router to="/categories"> Категории </v-btn>
-          <v-btn plain small router to="/handbooks"> Справочник </v-btn>
-          <v-btn plain small router to="/about"> О Бирже </v-btn>
+          <v-btn plain small router to="/handbooks"> Справочник</v-btn>
           <v-btn plain small router to="/trades"> Итоги торгов </v-btn>
-          <v-btn plain small router to="/documents"> Документы </v-btn>
+          <!-- <v-btn plain small router to="/documents"> Документы </v-btn> -->
 
           <v-btn plain small router to="/contacts"> Контакты </v-btn>
 
@@ -43,6 +61,7 @@
     </v-container>
 
     <v-navigation-drawer v-model="drawer" fixed temporary left>
+      <!-- for mobiles -->
       <v-list>
         <v-list-item-group>
           <v-list-item>
@@ -50,6 +69,34 @@
               <v-btn elevation="0" plain small router to="/"> Главная </v-btn>
             </v-list-item-title>
           </v-list-item>
+          <!-- <v-list-item>
+            <v-list-item-title>
+              <v-btn plain small router to="/about"> О Бирже </v-btn>
+            </v-list-item-title>
+          </v-list-item> -->
+          <v-list-group no-action>
+            <template v-slot:activator>
+              <v-list-item-title>
+                <v-btn plain small>О бирже </v-btn>
+              </v-list-item-title>
+            </template>
+            <v-list-item router to="/about" dense>
+              <v-list-item-title color="grey">
+                Общая информация
+              </v-list-item-title>
+              <!-- <v-btn plain small router to="/about"> Общая информация </v-btn> -->
+            </v-list-item>
+            <v-list-item plain router to="/documents" dense>
+              <v-list-item-title> Документы </v-list-item-title>
+
+              <!-- <v-btn plain small router to="/documents"> Документы</v-btn> -->
+            </v-list-item>
+            <v-list-item router to="/tariffs" dense>
+              <v-list-item-title> Тарифы </v-list-item-title>
+
+              <!-- <v-btn plain small router to="/tariffs"> Тарифы </v-btn> -->
+            </v-list-item>
+          </v-list-group>
           <v-list-item>
             <v-list-item-title>
               <v-btn elevation="0" plain small router to="/categories">
@@ -64,19 +111,14 @@
           </v-list-item>
           <v-list-item>
             <v-list-item-title>
-              <v-btn plain small router to="/about"> О Бирже </v-btn>
-            </v-list-item-title>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-title>
               <v-btn plain small router to="/trades"> Итоги торгов </v-btn>
             </v-list-item-title>
           </v-list-item>
-          <v-list-item>
+          <!-- <v-list-item>
             <v-list-item-title>
               <v-btn plain small router to="/documents"> Документы </v-btn>
             </v-list-item-title>
-          </v-list-item>
+          </v-list-item> -->
           <v-list-item>
             <v-list-item-title>
               <v-btn plain small router to="/contacts"> Контакты </v-btn>
@@ -165,25 +207,6 @@
         </v-col>
       </v-row>
     </v-footer>
-
-    <!-- <v-footer>
-      <v-row>
-        <v-col>
-            <v-container>
-              <v-row>
-                <v-col>
-                <v-img src="../../public/img/kse-icon-mini.png"
-                      height="100px"
-                      width="100px"
-                ></v-img>
-                </v-col>
-                <v-col>About</v-col>
-                <v-col>Contact</v-col>
-              </v-row>
-            </v-container>
-        </v-col>
-      </v-row>
-    </v-footer> -->
   </v-app>
 </template>
 <script>

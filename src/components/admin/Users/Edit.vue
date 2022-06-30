@@ -123,7 +123,6 @@ export default {
           ];
         }, [])
       );
-      console.log(updateData);
       this.UPDATE_USER_DATA(updateData);
     },
   },
