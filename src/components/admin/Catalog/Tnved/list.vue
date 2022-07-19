@@ -3,8 +3,8 @@
     <v-sheet class="search-box pa-4">
       <v-text-field
         v-model="search"
-        label="Поиск товаров"
-        placeholder="Поиск товаров"
+        label="Поиск по наименованию"
+        placeholder="Поиск по наименованию"
         solo
         flat
         dense

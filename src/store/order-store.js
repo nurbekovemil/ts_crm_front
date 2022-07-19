@@ -209,8 +209,17 @@ export default {
           },
         },
         {
+          field: "certificate",
+          title: "Сертификат",
+          value: [],
+          type: "file",
+          valid: {
+            required: false,
+          },
+        },
+        {
           field: "cd",
-          title: "Расчеты через клиринговый центр",
+          title: "Расчеты через клиринговый счет биржы",
           value: false,
           type: "checkbox",
           valid: {

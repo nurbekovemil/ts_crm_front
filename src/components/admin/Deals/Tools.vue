@@ -1,5 +1,21 @@
 <template>
   <v-card>
+    <v-card-text v-if="isComment">
+      <v-textarea
+        v-model="comment"
+        outlined
+        label="Введите комментарии"
+        rows="3"
+        hide-details
+        class="mb-3"
+      ></v-textarea>
+      <v-file-input
+        v-model="dealFiles"
+        label="Прикрепить файл"
+        outlined
+        dense
+      ></v-file-input>
+    </v-card-text>
     <v-card-actions>
       <div class="body-2">
         Статус сделки:
@@ -9,6 +25,13 @@
       </div>
 
       <v-spacer />
+      <v-checkbox
+        v-if="deal.status == 1 || deal.status == 5"
+        v-model="isComment"
+        hide-details
+        label="Комментарии"
+        class="ma-0 pa-0"
+      ></v-checkbox>
       <template v-if="deal.own && deal.status == 1">
         <v-btn text color="orange" small @click="updateDealStatus(3)">
           <v-icon left>mdi-cancel</v-icon>
@@ -65,10 +88,31 @@
 import { mapActions } from "vuex";
 export default {
   props: ["deal"],
+  data: () => ({
+    isComment: false,
+    comment: "",
+    dealFiles: [],
+  }),
   methods: {
-    ...mapActions("deal", ["GET_DEAL_BY_ID", "UPDATE_DEAL_STATUS"]),
+    ...mapActions("deal", [
+      "GET_DEAL_BY_ID",
+      "UPDATE_DEAL_STATUS",
+      "UPDATE_DEAL_STATUS_WITH_COMMENT",
+    ]),
     updateDealStatus(status) {
-      this.UPDATE_DEAL_STATUS({ status, deal_id: this.deal.id });
+      if (this.isComment) {
+        let formData = new FormData();
+        formData.append("dealFiles", this.dealFiles);
+        formData.append("status", status);
+        formData.append("deal_id", this.deal.id);
+        formData.append("comment", this.comment);
+        this.UPDATE_DEAL_STATUS_WITH_COMMENT({
+          formData,
+          deal_id: this.deal.id,
+        });
+      } else {
+        this.UPDATE_DEAL_STATUS({ status, deal_id: this.deal.id });
+      }
     },
     async print() {
       // Pass the element id here

@@ -118,10 +118,16 @@
                               <div>
                                 <v-file-input
                                   v-model="field.value"
-                                  label="Загрузить изображении"
+                                  :label="field.title"
                                   :rules="field && [rules.isMaxFile]"
                                   multiple
-                                  prepend-icon="mdi-image-plus"
+                                  outlined
+                                  dense
+                                  :prepend-icon="
+                                    field.field == 'certificate'
+                                      ? 'mdi-certificate'
+                                      : 'mdi-image-plus'
+                                  "
                                 >
                                 </v-file-input>
                               </div>
@@ -258,7 +264,7 @@ export default {
         ) {
           this.valid = false;
           return this.$refs.order.validate();
-        } else if (field == "images") {
+        } else if (field == "images" || field == "certificate") {
           value.map((img) => formData.append(field, img));
         } else {
           formData.append(field, value);

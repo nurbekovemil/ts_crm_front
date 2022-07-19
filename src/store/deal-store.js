@@ -7,6 +7,7 @@ export default {
     isAddDealDialog: false,
     deals: [],
     deal_view: [],
+    deal_comments: [],
     deal_orders: [],
     offer_history: [],
     trade_list: [],
@@ -14,11 +15,15 @@ export default {
   mutations: {
     SET_IS_ADD_DEAL_DIALOG: (state) =>
       (state.isAddDealDialog = !state.isAddDealDialog),
-    SET_DEAL_VIEW: (state, data) => (state.deal_view = data),
+    SET_DEAL_VIEW: (state, data) => {
+      state.deal_view = data.deal;
+      state.deal_comments = data.comments;
+    },
     SET_DEALS: (state, data) => (state.deals = data),
     SET_DEAL_ORDERS: (state, data) => (state.deal_orders = data),
     SET_OFFER_HISTORY: (state, data) => (state.offer_history = data),
     SET_TRADE_LIST: (state, data) => (state.trade_list = data),
+    SET_INIT_DATA: (state, data) => (state[data.data] = []),
   },
   actions: {
     CREATE_DEAL: async ({ commit }, { offer_type, getFormData, offer }) => {
@@ -76,6 +81,20 @@ export default {
         if (status.status == 2 || status.status == 5) {
           router.push(`/dashboard/deal/${status.deal_id}`);
         }
+      } catch (error) {
+        commit("message/ERROR_MESSAGE", error.response.data.error, {
+          root: true,
+        });
+      }
+    },
+    UPDATE_DEAL_STATUS_WITH_COMMENT: async ({ commit, dispatch }, formData) => {
+      try {
+        const { data } = await api.updateDealStatusWithComment(
+          formData.formData
+        );
+        dispatch("GET_DEAL_BY_ID", formData.deal_id);
+        commit("SET_INIT_DATA", { data: "deal_comments" });
+        commit("message/SUCCESS_MESSAGE", data, { root: true });
       } catch (error) {
         commit("message/ERROR_MESSAGE", error.response.data.error, {
           root: true,

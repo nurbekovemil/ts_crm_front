@@ -93,7 +93,6 @@
                           </v-text-field>
                         </template>
                         <template v-if="field.type === 'checkbox'">
-                          {{ field.value }}
                           <v-checkbox
                             v-model="field.value"
                             :label="field.title"

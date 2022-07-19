@@ -4,35 +4,36 @@
 			<template v-slot:default>
 				<thead>
 					<tr>
+						<th>#</th>
 						<th class="text-left" width="40%">
 							Название
 						</th>
-						<template v-if="user.role == 'ADMIN'">
-							<th>
+							<th  v-if="user.role == 'ADMIN'">
 							Пользователь
-
 							</th>
-						</template>
 						<th class="text-left">
 							Статус
 						</th>
 						<th class="text-left">
 							Дата
 						</th>
-						<th class="text-left">
+						<th class="text-left" width="10%">
 							Цена
 						</th>
 						<th class="text-left">
 							Количество
 						</th>
-						<th class="text-left">
+						<th class="text-left" width="15%">
 							Стоимость
+						</th>
+						<th>
+
 						</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr v-for="(order, i) of order_list.rows" :key="i">
-
+						<td>{{i+1}}</td>
 						<td>
 							<v-btn
 								rounded
@@ -44,20 +45,18 @@
 								{{ order.title }}
 							</v-btn>
 						</td>
-							<template v-if="user.role == 'ADMIN'">
-  <td>
-    <v-btn
-      rounded
-      plain
-      small
-      color="primary"
-      router
-      :to="`/dashboard/user/${order.user_id}`"
-    >
-      {{ order.username }}
-    </v-btn>
-  </td>
-</template>
+								<td v-if="user.role == 'ADMIN'">
+									<v-btn
+										rounded
+										plain
+										small
+										color="primary"
+										router
+										:to="`/dashboard/user/${order.user_id}`"
+									>
+										{{ order.username }}
+									</v-btn>
+								</td>
 
 						<td>
 							<v-chip small :color="order.status_color" text-color="white">
@@ -68,6 +67,67 @@
 						<td>{{ order.price }} {{order.symbol}}</td>
 						<td>{{ order.amount }} / {{order.weight_title}}</td>
 						<td>{{ order.cost }} {{order.symbol}}</td>
+						<td v-if="user.role === 'ADMIN'">
+							<v-menu offset-y transition="slide-x-transition" bottom left>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn icon v-bind="attrs" v-on="on">
+                      <v-icon>mdi-dots-vertical</v-icon>
+                    </v-btn>
+                  </template>
+
+                  <v-list nav dense>
+                    <template v-if="order.status_code == 2">
+                      <v-hover v-slot="{ hover }">
+                        <v-list-item
+                          link
+                          dense
+                          @click="updateMyOrderStatus(order.id, 7)"
+                        >
+                          <v-list-item-icon>
+                            <v-icon :color="`${hover && 'cyan'}`"
+                              >mdi-clock-outline</v-icon
+                            >
+                          </v-list-item-icon>
+                          <v-list-item-title> Приостановить </v-list-item-title>
+                        </v-list-item>
+                      </v-hover>
+                    </template>
+                    <template v-if="order.status_code == 7">
+                      <v-hover v-slot="{ hover }">
+                        <v-list-item
+                          link
+                          dense
+                          @click="updateMyOrderStatus(order.id, 2)"
+                        >
+                          <v-list-item-icon>
+                            <v-icon :color="`${hover && 'cyan'}`"
+                              >mdi-access-point</v-icon
+                            >
+                          </v-list-item-icon>
+                          <v-list-item-title> Открыть </v-list-item-title>
+                        </v-list-item>
+                      </v-hover>
+                    </template>
+										<template>
+											<v-hover v-slot="{ hover }" >
+												<v-list-item
+													:disabled="order.status_code == 3"
+													link
+													dense
+													@click="deleteOrder(order.id)"
+												>
+													<v-list-item-icon>
+														<v-icon :color="`${hover && 'red lighten-1'}`"
+															>mdi-delete</v-icon
+														>
+													</v-list-item-icon>
+													<v-list-item-title> Удалить </v-list-item-title>
+												</v-list-item>
+											</v-hover>
+										</template>
+                  </v-list>
+                </v-menu>
+						</td>
 					</tr>
 				</tbody>
 			</template>
@@ -90,19 +150,34 @@ export default {
     limit: 10,
   }),
   mounted() {
-    this.ALL_ORDER_LIST({ page: this.page, limit: this.limit });
+    this.getAllOrderList();
   },
   computed: {
     ...mapState("order", ["order_list"]),
-    ...mapState("user", ["user"]),
+    ...mapState("user", ["user", "isAuth"]),
     order_count() {
       return Math.ceil(this.order_list.count / this.limit);
     },
   },
   methods: {
-    ...mapActions("order", ["ALL_ORDER_LIST"]),
+    ...mapActions("order", [
+      "ALL_ORDER_LIST",
+      "DELETE_ORDER",
+      "UPDATE_ORDER_STATUS",
+    ]),
+    getAllOrderList() {
+      this.ALL_ORDER_LIST({ page: this.page, limit: this.limit });
+    },
     viewOrder(id) {
       this.$router.push({ path: `/dashboard/order/${id}` });
+    },
+    async updateMyOrderStatus(order_id, status) {
+      await this.UPDATE_ORDER_STATUS({ order_id, status, isAuth: this.isAuth });
+      await this.getAllOrderList();
+    },
+    async deleteOrder(id) {
+      await this.DELETE_ORDER({ id, type: this.type });
+      await this.getAllOrderList();
     },
   },
   watch: {

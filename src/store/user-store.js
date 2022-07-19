@@ -15,8 +15,8 @@ export default {
       user_count: 0,
     },
     user_type: [
-      { title: "Физическое лицо", type: 1 },
-      { title: "Юридическое лицо", type: 2 },
+      { title: "Биржевой дилер", type: 1 },
+      { title: "Биржевой брокер", type: 2 },
     ],
     roles: [
       { type: 2, title: "Пользователь" },

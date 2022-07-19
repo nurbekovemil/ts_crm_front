@@ -5,6 +5,7 @@ import store from "./store";
 import vuetify from "./plugins/vuetify";
 import i18n from "./i18n";
 import VueHtmlToPaper from "vue-html-to-paper";
+import VueMoment from "vue-moment";
 
 const options = {
   specs: ["fullscreen=yes", "titlebar=yes", "scrollbars=yes"],
@@ -17,7 +18,7 @@ const options = {
   windowTitle: window.document.title, // override the window title
 };
 
-Vue.use(VueHtmlToPaper, options);
+Vue.use(VueHtmlToPaper, options, VueMoment);
 
 Vue.config.productionTip = false;
 

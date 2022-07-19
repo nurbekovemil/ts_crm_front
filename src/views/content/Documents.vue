@@ -21,6 +21,15 @@
             Правила БТ в секции ТCР ЗАО КФБ
           </a>
         </li>
+        <li>
+          <a
+            href="/documents/RulesfortradingpreciousmetalsontheKASE.pdf"
+            target="_blank"
+            class="text-decoration-none"
+          >
+            Правила торговли драг.мет на КФБ
+          </a>
+        </li>
 
         <!-- <li>
           <a href="/documents/kfb.pdf" target="_blank" class="text-decoration-none">

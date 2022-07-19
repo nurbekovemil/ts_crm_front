@@ -106,11 +106,23 @@
             <td>{{ deal.id }}</td>
           </tr>
           <tr>
-            <td>Наименование товара / Категория</td>
-            <td>{{ deal.title }} / {{ deal.category }}</td>
+            <td>Наименование товара, код ТН ВЭД</td>
+            <td>{{ deal.title }}</td>
           </tr>
           <tr>
-            <td>Цена / Валюта</td>
+            <td>Качественные показатели товара</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Сведения об упаковке товара</td>
+            <td>{{ deal.title }}</td>
+          </tr>
+          <tr>
+            <td>Сведения о маркировке товара</td>
+            <td>{{ deal.title }}</td>
+          </tr>
+          <tr>
+            <td>Цена за единицу товара (с/без НДС) / Валюта платежа</td>
             <td>{{ deal.price }} / {{ deal.currency_title }}</td>
           </tr>
           <tr>
@@ -118,8 +130,16 @@
             <td>{{ deal.amount }} / {{ deal.weight }}</td>
           </tr>
           <tr>
-            <td>Сумма сделки / Валюта</td>
+            <td>Сумма сделки (с/без НДС)/ Валюта платежа</td>
             <td>{{ deal.cost }} / {{ deal.currency_title }}</td>
+          </tr>
+          <tr>
+            <td>Сроки оплаты</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Местонахождение товара</td>
+            <td></td>
           </tr>
           <tr>
             <td>Условия оплаты</td>
@@ -225,8 +245,9 @@
       <p>
         5.1. Сроки и условия поставки Товара устанавливаются согласно условиям
         Биржевой сделки. <br />
-        5.2. Товар по настоящему Договору поставляется (вид транспорта)
-        транспортом, на условиях поставки, определенных Биржевой сделкой.<br />
+        5.2. Товар по настоящему Договору поставляется__________________(вид
+        транспорта) транспортом, на условиях поставки, определенных Биржевой
+        сделкой.<br />
         5.3. Товар по настоящему Договору считается поставленным Продавцом и
         принятым Покупателем (кроме случаев наличия у Покупателя претензий по
         количеству и качеству Товара):<br />
@@ -246,9 +267,9 @@
         6.2. В случае если Продавец поставил Покупателю Товар, не
         соответствующий качественным показателям, установленным условиями
         Биржевой сделки, Продавец обязуется оплатить <br />
-        6.1. Покупателю штраф в размере <br />
-        % от стоимости не соответствующего Товара, а также <br />
-        заменить на Товар надлежащего качества в обоснованной претензии
+        6.1. Покупателю штраф в размере ______ % от стоимости не
+        соответствующего Товара, а также <br />
+        заменить на Товар надлежащего качества в ______ обоснованной претензии
         Покупателя. <br />
         дневный срок с момента получения <br />
         6.3. При просрочке сроков оплаты Товара, установленных Биржевой сделкой,
@@ -355,7 +376,11 @@
           :key="k"
         >
           <div v-for="(rows, i) in item" :key="i">
-            <div v-for="{ field, title, value } in rows.items" :key="field">
+            <div
+              class="bb"
+              v-for="{ field, title, value } in rows.items"
+              :key="field"
+            >
               <template
                 v-if="
                   field == 'fullname' ||
@@ -390,121 +415,54 @@
         <div class="brdr">
           <strong>Подпись:</strong>
         </div>
-        <!-- <div>
-          <div class="brdr" v-for="(item, k) in deal.user_to_info" :key="k">
-            <div v-for="({ field, title, value }, i) in item.items" :key="i">
-              <template
-                v-if="
-                  field == 'fullname' ||
-                  field == 'legal_address' ||
-                  field == 'account_number_with_currency' ||
-                  field == 'bank_name' ||
-                  field == 'bank_code' ||
-                  field == 'bank_address' ||
-                  field == 'trade_fullname'
-                "
-              >
-                <strong>{{ title }}:</strong>
-                <p>{{ value }}</p>
-              </template>
-            </div>
-          </div>
-        </div> -->
       </div>
-      <!-- <tbody>
-          <tr>
-            <th>{{ sortType(deal.order_type_from) }}</th>
-            <th>{{ sortType(deal.order_type_to) }}</th>
-          </tr>
-          <tr>
-            <td>{{ deal.user_from_name }}</td>
-            <td>{{ deal.user_to_name }}</td>
-          </tr>
+    </div>
+    <div v-if="comments.length > 0">
+      <div class="subtitle-1 mt-3">Комментарии</div>
+      <v-list>
+        <v-list-item v-for="(comment, i) in comments" :key="i">
+          <v-list-item-avatar>
+            <v-img src="../../../assets/john.jpg"></v-img>
+          </v-list-item-avatar>
 
-          <tr>
-            <td>
-              Юридический адрес:
-              {{ deal.user_from_info[1].items[0].value }}
-            </td>
+          <v-list-item-content>
+            <v-list-item-title>
+              {{ comment.username }}
+              <span class="font-weight-thin body-2">
+                {{ comment.created_at }}
+              </span></v-list-item-title
+            >
 
-            <td>
-              Юридический адрес:
-              {{ deal.user_to_info[1].items[0].value }}
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div>
-                <strong>Банковские реквизиты расчетной организации: </strong>
-                {{ deal.user_from_info[2].items[0].value || "Нет" }}
-              </div>
-              <div>
-                <strong>Наименование банка: </strong>
-                {{ deal.user_from_info[2].items[1].value || "Нет" }}
-              </div>
-              <div>
-                <strong>Код банка (БИК): </strong>
-                {{ deal.user_from_info[2].items[2].value || "Нет" }}
-              </div>
-              <div>
-                <strong>Адрес банка: </strong>
-                {{ deal.user_from_info[2].items[3].value || "Нет" }}
-              </div>
-            </td>
-
-            <td>
-              <div>
-                <strong>Банковские реквизиты расчетной организации: </strong>
-                {{ deal.user_to_info[2].items[0].value || "Нет" }}
-              </div>
-              <div>
-                <strong>Наименование банка: </strong>
-                {{ deal.user_to_info[2].items[1].value || "Нет" }}
-              </div>
-              <div>
-                <strong>Код банка (БИК): </strong>
-                {{ deal.user_to_info[2].items[2].value || "Нет" }}
-              </div>
-              <div>
-                <strong>Адрес банка: </strong>
-                {{ deal.user_to_info[2].items[3].value || "Нет" }}
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <strong>Контакты:</strong>
-              {{ deal.user_from_info[0].items[10].value || "Нет" }}
-            </td>
-            <td><strong>Контакты:</strong></td>
-          </tr>
-          <tr>
-            <td>
-              <strong>Трейдер:<br /></strong>
-              ФИО
-            </td>
-            <td>
-              <strong>Трейдер:<br /></strong>
-              ФИО
-            </td>
-          </tr>
-          <tr>
-            <td><strong>Контакты трейдера:</strong></td>
-            <td><strong>Контакты трейдера:</strong></td>
-          </tr>
-          <tr>
-            <td><strong>Подпись:</strong></td>
-            <td><strong>Подпись:</strong></td>
-          </tr>
-        </tbody> -->
+            <v-list-item-subtitle>{{ comment.comment }}</v-list-item-subtitle>
+          </v-list-item-content>
+          <v-list-item-action>
+            <v-list-item-action-text
+              >Прикрепленный файл</v-list-item-action-text
+            >
+            <template v-if="comment.file_path">
+              <a
+                :href="`${url_api}/${comment.file_path}`"
+                target="_blank"
+                class="text-decoration-none body-2"
+                >Посмотреть</a
+              >
+            </template>
+            <template v-else>
+              <p class="font-weight-thin">Файлы отсутствует</p>
+            </template>
+          </v-list-item-action>
+        </v-list-item>
+      </v-list>
     </div>
   </v-card>
 </template>
 
 <script>
 export default {
-  props: ["deal"],
-
+  props: ["deal", "comments"],
+  data: () => ({
+    url_api: process.env.VUE_APP_BACK_API,
+  }),
   methods: {
     sortType: (type) => (type == 1 ? "Продавец" : "Покупатель"),
   },
@@ -549,5 +507,9 @@ export default {
 }
 p {
   font-size: 14px;
+}
+
+.bb {
+  border-bottom: 1px;
 }
 </style>

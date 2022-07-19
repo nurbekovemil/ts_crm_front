@@ -67,6 +67,12 @@ export default {
   getDealList: (status) => api.get("/deals/", { params: { status } }),
   getDealOrders: (id) => api.get("/deals/order/" + id),
   updateDealStatus: (status) => api.put("/deals/", status),
+  updateDealStatusWithComment: (data) =>
+    api.put("/deals/comment", data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }),
   getOfferHistory: (id) => api.get("/deals/history/", { params: { id } }),
   deleteOfferById: (id) => api.delete("/deals/" + id),
   getTradeList: (date) => api.get("/deals/trade-list/" + date),

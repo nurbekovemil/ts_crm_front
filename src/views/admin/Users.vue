@@ -15,7 +15,7 @@
 									Роль
 								</th>
 								<th class="text-left">
-									Тип пользователя
+									Последний визит 
 								</th>
 								<th>
 									Количество заявок
@@ -62,7 +62,9 @@
                   </v-chip>
 								</td>
 								<td>{{ user.role_title }}</td>
-								<td>{{ user.user_type }}</td>
+								<td>{{user.last_visit}}</td>
+								<!-- <td>{{user.last_visit && moment([user.last_visit])}} --- {{user.last_visit}}</td> -->
+
 								<td>{{ user.orders }}</td>
 								<td class="text-right">
 									<v-menu bottom left>
@@ -121,6 +123,8 @@
 import { mapState, mapActions, mapMutations } from "vuex";
 import AddUser from "@/components/admin/Users/Add.vue";
 import EditUser from "@/components/admin/Users/Edit.vue";
+import moment from "moment";
+
 export default {
   data: () => ({
     isViewUser: null,
@@ -138,14 +142,25 @@ export default {
       return Math.ceil(this.usersList.user_count / this.limit);
     },
   },
+
   mounted() {
     this.USERLIST({ limit: this.limit, page: this.page });
   },
+  // filters: {
+  //   moment: function () {
+  //     moment.locale("ru");
+  //     return moment();
+  //   },
+  // },
   methods: {
     ...mapActions("user", ["USERLIST", "DELETEUSER", "GET_USER_BY_ID"]),
     ...mapMutations("user", ["TOGGLE_ADD_DIALOG", "TOGGLE_EDIT_DIALOG"]),
     toggleAddUserDialog() {
       this.TOGGLE_ADD_DIALOG();
+    },
+    moment() {
+      moment.locale("ru");
+      return moment();
     },
     toggleEditUserDialog(id) {
       this.GET_USER_BY_ID(id);

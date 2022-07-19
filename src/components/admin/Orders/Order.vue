@@ -161,6 +161,18 @@
                       <td>ЛОТ</td>
                       <td>{{ order.lot }}</td>
                     </tr>
+                    <tr v-if="checkIsNull(order.cert)">
+                      <td>Сертификат</td>
+                      <td>
+                        <a
+                          v-for="(cert, i) in order.cert"
+                          :href="`${url_api}/${cert.path}`"
+                          :key="i"
+                          target="_blank"
+                          >Посмотреть</a
+                        >
+                      </td>
+                    </tr>
                   </tbody>
                 </v-simple-table>
               </v-col>
@@ -189,6 +201,18 @@ export default {
       "Подробная информация о товаре",
     ],
   }),
+
+  methods: {
+    checkIsNull(arr) {
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === null) {
+          return false;
+        } else {
+          return true;
+        }
+      }
+    },
+  },
   components: { Tools, Offer, OfferHistory },
 };
 </script>
