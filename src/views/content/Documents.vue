@@ -14,6 +14,16 @@
 
         <li>
           <a
+            href="/documents/Rules_BT_TCC_KSE_04.07.2022.docx"
+            target="_blank"
+            class="text-decoration-none"
+          >
+            Правила БТ ТСС КФБ
+          </a>
+        </li>
+
+        <!-- <li>
+          <a
             href="/documents/regulationsBT.pdf"
             target="_blank"
             class="text-decoration-none"
@@ -23,13 +33,13 @@
         </li>
         <li>
           <a
-            href="/documents/RulesfortradingpreciousmetalsontheKASE.pdf"
+            href="/documents/RulesfortradingpreciousmetalsonKSE.pdf"
             target="_blank"
             class="text-decoration-none"
           >
             Правила торговли драг.мет на КФБ
           </a>
-        </li>
+        </li> -->
 
         <!-- <li>
           <a href="/documents/kfb.pdf" target="_blank" class="text-decoration-none">

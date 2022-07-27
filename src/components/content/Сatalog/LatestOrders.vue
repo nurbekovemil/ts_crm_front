@@ -5,8 +5,7 @@
       <v-slide-group>
         <v-slide-item v-for="order in latest_orders" :key="order.id">
           <v-card
-            router
-            :to="`/order/${order.id}`"
+            @click="viewOrder(order.id)"
             width="250"
             class="rounded-lg ma-2"
           >
@@ -53,6 +52,23 @@ export default {
       if (latestorders.length > 0) {
         this.GET_LATESTORDERS({ order_ids: latestorders });
       }
+    },
+    viewOrder(id) {
+      let latestorders =
+        JSON.parse(localStorage.getItem("latest_orders")) || [];
+      if (latestorders.length && latestorders.length > 10) {
+        latestorders.pop();
+      }
+      if (latestorders.length) {
+        let isViewed = latestorders.filter((el) => el == id);
+        if (isViewed.length == 0) {
+          latestorders.unshift(id);
+        }
+      } else {
+        latestorders.unshift(id);
+      }
+      localStorage.setItem("latest_orders", JSON.stringify(latestorders));
+      this.$router.push("/order/" + id);
     },
   },
   mounted() {

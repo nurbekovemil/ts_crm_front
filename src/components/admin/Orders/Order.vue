@@ -6,15 +6,15 @@
         <v-card-title>{{ order.title }}</v-card-title>
         <!-- Название страницы -->
         <template v-if="order.own">
-          <v-card-subtitle class="blue--text pb-0">
+          <v-card-subtitle class="pb-0">
             Ваша • {{ order.order_type_title }}
           </v-card-subtitle>
         </template>
 
         <template v-else>
-          <v-card-subtitle class="pb-0">{{
-            order.order_type_title
-          }}</v-card-subtitle>
+          <v-card-subtitle class="pb-0">
+            {{ order.order_type_title }}
+          </v-card-subtitle>
         </template>
         <v-card-subtitle class="text-caption py-0">
           Создано
@@ -86,6 +86,18 @@
                 </td>
                 <td>{{ order.cd ? "Да" : "Нет" }}</td>
               </tr>
+              <tr class="text-caption">
+                <td class="grey--text">Дата начала и конца аукциона</td>
+                <td :class="order.auction ? 'green--text' : 'warning--text'">
+                  {{ order.auction_date_start }} / {{ order.auction_date_end }}
+                </td>
+              </tr>
+              <tr class="text-caption">
+                <td class="grey--text">Время начала и конца аукциона</td>
+                <td :class="order.auction ? 'green--text' : 'warning--text'">
+                  {{ order.auction_time_start }} / {{ order.auction_time_end }}
+                </td>
+              </tr>
               <v-col v-if="!$route.meta.hideOrderTools">
                 <tools />
               </v-col>
@@ -151,7 +163,7 @@
 
                     <tr>
                       <td>Местонахождение товара</td>
-                      <td>{{ order.product_lacation }}</td>
+                      <td>{{ order.product_location }}</td>
                     </tr>
                     <tr>
                       <td>КОД ТН ВЭД</td>
@@ -161,16 +173,34 @@
                       <td>ЛОТ</td>
                       <td>{{ order.lot }}</td>
                     </tr>
-                    <tr v-if="checkIsNull(order.cert)">
+                    <tr>
+                      <td>Маркировка товара</td>
+                      <td>{{ order.marking }}</td>
+                    </tr>
+                    <tr>
+                      <td>Срок оплаты</td>
+                      <td>{{ order.payment_date }}</td>
+                    </tr>
+                    <tr>
+                      <td>Срок поставки</td>
+                      <td>{{ order.delivery_date }}</td>
+                    </tr>
+                    <tr>
+                      <td>Качественные показатели товара</td>
+                      <td>{{ order.quality }}</td>
+                    </tr>
+                    <tr v-if="order.cert">
                       <td>Сертификат</td>
                       <td>
-                        <a
-                          v-for="(cert, i) in order.cert"
-                          :href="`${url_api}/${cert.path}`"
-                          :key="i"
-                          target="_blank"
-                          >Посмотреть</a
-                        >
+                        <template v-for="(cert, i) in order.cert">
+                          <a
+                            v-if="cert != null"
+                            :href="`${url_api}/${cert.path}`"
+                            :key="i"
+                            target="_blank"
+                            >Посмотреть</a
+                          >
+                        </template>
                       </td>
                     </tr>
                   </tbody>
@@ -202,17 +232,6 @@ export default {
     ],
   }),
 
-  methods: {
-    checkIsNull(arr) {
-      for (let i = 0; i < arr.length; i++) {
-        if (arr[i] === null) {
-          return false;
-        } else {
-          return true;
-        }
-      }
-    },
-  },
   components: { Tools, Offer, OfferHistory },
 };
 </script>

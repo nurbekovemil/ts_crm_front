@@ -2,7 +2,7 @@
   <div>
     <template>
       <v-row justify="center">
-        <v-dialog v-model="isAddDialog" persistent max-width="800px">
+        <v-dialog v-model="isAddDialog" persistent max-width="60%">
           <v-card>
             <v-form ref="order" v-model="valid" lazy-validation>
               <v-card-title>
@@ -23,6 +23,9 @@
                         field.type === 'file' ||
                         field.type === 'checkbox'
                           ? '12'
+                          : field.type === 'auction_date' ||
+                            field.type === 'auction_time'
+                          ? '6'
                           : '4'
                       "
                     >
@@ -35,10 +38,9 @@
                           :rules="
                             field.valid.required && !field.valid.type
                               ? [rules.isEmpty]
-                              : field.valid.type == 'number' && [
-                                  rules.isNumber,
-                                  rules.isEmpty,
-                                ]
+                              : field.valid.type == 'number'
+                              ? [rules.isNumber, rules.isEmpty]
+                              : []
                           "
                           @change="calcField(field)"
                         ></v-text-field>
@@ -141,6 +143,36 @@
                           :label="field.title"
                         ></v-checkbox>
                       </template>
+                      <template v-if="field.type === 'date'">
+                        <v-text-field
+                          v-model="field.value"
+                          :label="field.title"
+                          type="date"
+                          outlined
+                          dense
+                          :rules="[rules.isEmpty]"
+                        ></v-text-field>
+                      </template>
+                      <template v-if="field.type === 'auction_time'">
+                        <v-text-field
+                          :label="field.title"
+                          v-model="field.value"
+                          type="time"
+                          outlined
+                          dense
+                          :rules="[rules.isSelecet]"
+                        ></v-text-field>
+                      </template>
+                      <template v-if="field.type === 'auction_date'">
+                        <v-text-field
+                          v-model="field.value"
+                          :label="field.title"
+                          type="date"
+                          outlined
+                          dense
+                          :rules="[rules.isEmpty]"
+                        ></v-text-field>
+                      </template>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -175,7 +207,7 @@ export default {
       isNumber: (v) =>
         (!isNaN(parseFloat(v)) && isFinite(v)) || "Введите число",
       isEmpty: (v) => {
-        if (v == null || v == "undefined" || v == 0 || v == "") {
+        if (v == null || v == undefined || v == 0 || v == "") {
           return "Поле не может быть пустым.";
         } else {
           return true;
@@ -262,6 +294,8 @@ export default {
           (valid.required && value == "") ||
           (valid.required && value == null)
         ) {
+          console.log("field", field);
+          console.log("value", value);
           this.valid = false;
           return this.$refs.order.validate();
         } else if (field == "images" || field == "certificate") {

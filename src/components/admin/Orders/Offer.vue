@@ -44,10 +44,13 @@
                       <v-col
                         v-for="(field, i) in orderTemplate"
                         :cols="
-                          field.type === 'file' ||
                           field.type === 'textarea' ||
+                          field.type === 'file' ||
                           field.type === 'checkbox'
                             ? '12'
+                            : field.type === 'auction_date' ||
+                              field.type === 'auction_time'
+                            ? '6'
                             : '4'
                         "
                         :key="i"
@@ -134,6 +137,36 @@
                             </v-file-input>
                           </v-col>
                         </template> -->
+                        <template v-if="field.type === 'date'">
+                          <v-text-field
+                            v-model="field.value"
+                            :label="field.title"
+                            type="date"
+                            outlined
+                            dense
+                            :rules="[rules.isEmpty]"
+                          ></v-text-field>
+                        </template>
+                        <template v-if="field.type === 'auction_time'">
+                          <v-text-field
+                            :label="field.title"
+                            v-model="field.value"
+                            type="time"
+                            outlined
+                            dense
+                            :rules="[rules.isSelecet]"
+                          ></v-text-field>
+                        </template>
+                        <template v-if="field.type === 'auction_date'">
+                          <v-text-field
+                            v-model="field.value"
+                            :label="field.title"
+                            type="date"
+                            outlined
+                            dense
+                            :rules="[rules.isEmpty]"
+                          ></v-text-field>
+                        </template>
                       </v-col>
                     </v-row>
                   </v-tab-item>
@@ -236,7 +269,6 @@ export default {
       this.MY_ORDER_LIST(this.handleOrderType);
     },
     calcField(field) {
-      console.log(field);
       let calcfields = this.orderTemplate.filter(
         (f) =>
           f.field == "nds" ||
@@ -292,6 +324,13 @@ export default {
             formData.append(field, this.handleOrderType);
           } else if (field === "category") {
             formData.append(field, this.order_view.category_id);
+          } else if (
+            field === "auction_date_start" ||
+            field === "auction_date_end" ||
+            field === "payment_date" ||
+            field === "delivery_date"
+          ) {
+            formData.append(field, value.split(".").reverse().join("-"));
           } else {
             formData.append(field, value);
           }

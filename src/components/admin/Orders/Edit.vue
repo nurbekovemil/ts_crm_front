@@ -7,15 +7,19 @@
         </v-card-title>
         <v-card-text>
           <v-container>
-            <v-row>
+            <v-row cols="12" no-gutters>
               <v-col
                 v-for="(field, i) in orderTemplate"
                 :key="i"
+                class="px-2"
                 :sm="
                   field.type === 'textarea' ||
                   field.type === 'file' ||
                   field.type === 'checkbox'
                     ? '12'
+                    : field.type === 'auction_date' ||
+                      field.type === 'auction_time'
+                    ? '6'
                     : '4'
                 "
               >
@@ -129,6 +133,36 @@
                     v-model="field.value"
                     :label="field.title"
                   ></v-checkbox>
+                </template>
+                <template v-if="field.type === 'date'">
+                  <v-text-field
+                    v-model="field.value"
+                    :label="field.title"
+                    type="date"
+                    outlined
+                    dense
+                    :rules="[rules.isEmpty]"
+                  ></v-text-field>
+                </template>
+                <template v-if="field.type === 'auction_time'">
+                  <v-text-field
+                    :label="field.title"
+                    v-model="field.value"
+                    type="time"
+                    outlined
+                    dense
+                    :rules="[rules.isSelecet]"
+                  ></v-text-field>
+                </template>
+                <template v-if="field.type === 'auction_date'">
+                  <v-text-field
+                    v-model="field.value"
+                    :label="field.title"
+                    type="date"
+                    outlined
+                    dense
+                    :rules="[rules.isEmpty]"
+                  ></v-text-field>
                 </template>
               </v-col>
             </v-row>

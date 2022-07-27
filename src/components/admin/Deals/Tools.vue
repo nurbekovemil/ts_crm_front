@@ -53,7 +53,7 @@
           Принять
         </v-btn>
       </template>
-      <template v-if="!deal.own && deal.status == 5">
+      <template v-if="deal.status == 5">
         <v-btn
           color="orange"
           small

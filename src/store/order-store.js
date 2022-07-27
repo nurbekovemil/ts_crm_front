@@ -116,6 +116,42 @@ export default {
           },
         },
         {
+          field: "marking",
+          title: "Маркировка товара",
+          value: "",
+          type: "input",
+          valid: {
+            required: true,
+          },
+        },
+        {
+          field: "payment_date",
+          title: "Срок оплаты",
+          value: "",
+          type: "date",
+          valid: {
+            required: true,
+          },
+        },
+        {
+          field: "delivery_date",
+          title: "Срок поставки",
+          value: "",
+          type: "date",
+          valid: {
+            required: true,
+          },
+        },
+        {
+          field: "quality",
+          title: "Качественные показатели товара",
+          value: "",
+          type: "input",
+          valid: {
+            required: false,
+          },
+        },
+        {
           field: "country",
           title: "Страна производителя",
           value: "",
@@ -152,7 +188,7 @@ export default {
           },
         },
         {
-          field: "product_lacation",
+          field: "product_location",
           title: "Местонахождение товара",
           value: "",
           type: "input",
@@ -200,6 +236,42 @@ export default {
           },
         },
         {
+          field: "auction_date_start",
+          title: "Дата начало",
+          value: "",
+          type: "auction_date",
+          valid: {
+            required: true,
+          },
+        },
+        {
+          field: "auction_date_end",
+          title: "Дата конца",
+          value: "",
+          type: "auction_date",
+          valid: {
+            required: true,
+          },
+        },
+        {
+          field: "auction_time_start",
+          title: "Время начало",
+          value: "",
+          type: "auction_time",
+          valid: {
+            required: true,
+          },
+        },
+        {
+          field: "auction_time_end",
+          title: "Время конца",
+          value: "",
+          type: "auction_time",
+          valid: {
+            required: true,
+          },
+        },
+        {
           field: "images",
           title: "Изображение",
           value: [],
@@ -210,7 +282,7 @@ export default {
         },
         {
           field: "certificate",
-          title: "Сертификат",
+          title: "Сертификат или декларация соответствия",
           value: [],
           type: "file",
           valid: {
@@ -219,7 +291,7 @@ export default {
         },
         {
           field: "cd",
-          title: "Расчеты через клиринговый счет биржы",
+          title: "Расчеты через клиринговый счёт Биржи",
           value: false,
           type: "checkbox",
           valid: {
