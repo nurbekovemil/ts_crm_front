@@ -53,7 +53,7 @@
 										router
 										:to="`/dashboard/user/${user.id}`"
 									>
-										{{ user.username }}
+										{{ user.username ? user.username : '[новый]' }}
 									</v-btn>
 								</td>
 								<td>

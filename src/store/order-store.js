@@ -227,7 +227,7 @@ export default {
         },
         {
           field: "cost",
-          title: "Стоимость",
+          title: "Стоимость (с учетом НДС)",
           value: "",
           type: "input",
           valid: {
@@ -236,39 +236,48 @@ export default {
           },
         },
         {
+          field: "is_auction",
+          title: "Аукцион",
+          value: false,
+          type: "checkbox",
+          valid: {
+            required: false,
+          },
+        },
+        {
           field: "auction_date_start",
-          title: "Дата начало",
+          title: "Дата начало аукциона",
           value: "",
           type: "auction_date",
           valid: {
-            required: true,
+            required: false,
           },
         },
         {
           field: "auction_date_end",
-          title: "Дата конца",
+          title: "Дата завершение аукциона",
           value: "",
           type: "auction_date",
           valid: {
-            required: true,
+            required: false,
           },
         },
         {
           field: "auction_time_start",
-          title: "Время начало",
+          title: "Время начало аукциона",
           value: "",
           type: "auction_time",
           valid: {
-            required: true,
+            required: false,
           },
         },
         {
           field: "auction_time_end",
-          title: "Время конца",
+          title: "Время завершение аукциона",
           value: "",
           type: "auction_time",
           valid: {
-            required: true,
+            required: false,
           },
         },
         {

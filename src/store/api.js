@@ -29,8 +29,7 @@ export default {
     api.get("/users/template", { params: { type } }),
   userRegister: (data) => api.post("/users/publuc/registration/", data),
   getUserById: (id) => api.get("/users/" + id),
-  updateUserStatus: ({ status, user_id }) =>
-    api.put("/users/status", {}, { params: { status, user_id } }),
+  updateUserStatus: (data) => api.put("/users/status", {}, { params: data }),
   getProfile: () => api.get("/users/profile"),
   updateUserData: (data) => api.put("/users/user", data),
   // order api private routes

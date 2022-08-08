@@ -95,8 +95,6 @@ export default {
     updateUserData() {
       let updateData = {
         id: this.user_view.id,
-        login: "",
-        password: "",
         info: null,
       };
       updateData.info = JSON.stringify(
@@ -107,9 +105,6 @@ export default {
               title,
               items: [
                 ...items.map(({ field, title, value, type, options }) => {
-                  if (field == "login" || field == "password") {
-                    updateData[field] = value;
-                  }
                   return {
                     field,
                     title,

@@ -32,6 +32,7 @@ export default {
         if (offer_type === 0) {
           const order = await api.createOrderPrivate(getFormData);
           offer.order_from = order.data.rows.id;
+
           const deal = await api.createDeal(offer);
           commit("message/SUCCESS_MESSAGE", deal.data, { root: true });
           commit("SET_IS_ADD_DEAL_DIALOG");

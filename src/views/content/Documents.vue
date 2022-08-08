@@ -14,7 +14,7 @@
 
         <li>
           <a
-            href="/documents/Rules_BT_TCC_KSE_04.07.2022.docx"
+            href="/documents/Rulesfortradingcommoditysector.pdf"
             target="_blank"
             class="text-decoration-none"
           >

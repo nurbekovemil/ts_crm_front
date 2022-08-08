@@ -64,7 +64,7 @@
           <v-icon left>mdi-cancel</v-icon>
           Отменить
         </v-btn>
-        <v-btn color="success" small elevation="0" @click="updateDealStatus(2)">
+        <v-btn color="success" small elevation="0" @click="updateDealStatus(6)">
           <v-icon left>mdi-check</v-icon>
           Исполнить
         </v-btn>
@@ -80,12 +80,18 @@
         <v-icon left>mdi-printer</v-icon>
         Печать
       </v-btn>
+      <template v-if="user.role == 'CD' && deal.status == 6">
+        <v-btn color="success" small elevation="0" @click="updateDealStatus(2)">
+          <v-icon left>mdi-check</v-icon>
+          Завершить
+        </v-btn>
+      </template>
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 export default {
   props: ["deal"],
   data: () => ({
@@ -93,6 +99,9 @@ export default {
     comment: "",
     dealFiles: [],
   }),
+  computed: {
+    ...mapState("user", ["user"]),
+  },
   methods: {
     ...mapActions("deal", [
       "GET_DEAL_BY_ID",

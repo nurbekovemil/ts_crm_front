@@ -225,23 +225,36 @@
         </v-card-text>
       </v-card>
     </v-row>
+    <confirm />
   </v-container>
 </template>
 
 <script>
 import { mapActions, mapState, mapMutations } from "vuex";
+import Confirm from "./Confirm.vue";
 export default {
   data: () => ({
     panel: [0],
   }),
+  components: {
+    Confirm,
+  },
   computed: {
-    ...mapState("user", ["user_view", "user"]),
+    ...mapState("user", ["user_view", "user", "isUserStatus"]),
   },
   methods: {
     ...mapActions("user", ["UPDATE_USER_STATUS", ""]),
-    ...mapMutations("user", ["TOGGLE_EDIT_DIALOG"]),
+    ...mapMutations("user", [
+      "TOGGLE_EDIT_DIALOG",
+      "TOGGLE_IS_USER_STATUS_DIALOG",
+    ]),
     updateUserStatus(status) {
-      this.UPDATE_USER_STATUS({ status, user_id: this.$route.params.id });
+      if (this.user_view.status == 1 && status == 2) {
+        console.log(this.user_view);
+        this.TOGGLE_IS_USER_STATUS_DIALOG();
+      } else {
+        this.UPDATE_USER_STATUS({ status, user_id: this.$route.params.id });
+      }
     },
     toggleEditUserDialog() {
       this.TOGGLE_EDIT_DIALOG();

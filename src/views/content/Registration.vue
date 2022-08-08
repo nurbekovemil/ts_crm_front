@@ -37,11 +37,7 @@
                   v-model="item.value"
                   :label="item.title"
                   outlined
-                  :rules="
-                    item.required && item.field != 'login'
-                      ? [rules.isEmpty]
-                      : [rules.login, rules.isEmpty]
-                  "
+                  :rules="item.required && [rules.isEmpty]"
                   dense
                 ></v-text-field>
               </template>
@@ -88,9 +84,6 @@ export default {
     rules: {
       isEmpty: (v) => !!v.trim() || "Поле не может быть пустым.",
       isSelecet: (v) => !!v || "Выберите значение",
-      login: (v) =>
-        !/[а-яА-ЯЁё^\s]/.test(v) ||
-        "Введите только латинские символы и нижнее подчеркивание.",
     },
   }),
   computed: {
@@ -104,8 +97,6 @@ export default {
     send() {
       let user = {
         user_type: this.type,
-        login: "",
-        password: "",
         data: null,
       };
       user.data = JSON.stringify(
@@ -121,9 +112,6 @@ export default {
                     if (required && value.trim() == "") {
                       this.valid = false;
                       return this.$refs.registration.validate();
-                    }
-                    if (field == "login" || field == "password") {
-                      user[field] = value;
                     }
                     return {
                       field,

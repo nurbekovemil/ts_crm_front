@@ -7,6 +7,7 @@ export default {
     isAddDialog: false,
     isEditDialog: false,
     isUserIdit: false,
+    isUserStatus: false,
     isAuth: false,
     user: {},
     userMenus: [],
@@ -65,6 +66,9 @@ export default {
     TOGGLE_EDIT_DIALOG: (state) => {
       state.isEditDialog = !state.isEditDialog;
     },
+    TOGGLE_IS_USER_STATUS_DIALOG: (state) => {
+      state.isUserStatus = !state.isUserStatus;
+    },
     SET_USER_REGISTER_TEMPLATE: (state, data) => {
       state.template = data.template;
     },
@@ -120,9 +124,16 @@ export default {
     async UPDATE_USER_STATUS({ commit, dispatch }, status) {
       try {
         const { data } = await api.updateUserStatus(status);
+        if (status.login && status.status == 2) {
+          commit("TOGGLE_IS_USER_STATUS_DIALOG");
+        }
         dispatch("GET_USER_BY_ID", status.user_id);
         commit("message/SUCCESS_MESSAGE", data, { root: true });
-      } catch (error) {}
+      } catch (error) {
+        commit("message/ERROR_MESSAGE", error.response.data.error, {
+          root: true,
+        });
+      }
     },
     LOGOUT({ commit }) {
       localStorage.removeItem("token");

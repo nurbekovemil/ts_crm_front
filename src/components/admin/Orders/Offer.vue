@@ -95,13 +95,12 @@
                           >
                           </v-text-field>
                         </template>
-                        <template v-if="field.type === 'checkbox'">
+                        <!-- <template v-if="field.type === 'checkbox'">
                           <v-checkbox
                             v-model="field.value"
                             :label="field.title"
-                            disabled="true"
                           ></v-checkbox>
-                        </template>
+                        </template> -->
                         <!-- <template v-if="field.type === 'file'">
                           <v-col>
                             <v-row class="mb-3" v-if="field.value">
@@ -147,7 +146,7 @@
                             :rules="[rules.isEmpty]"
                           ></v-text-field>
                         </template>
-                        <template v-if="field.type === 'auction_time'">
+                        <!-- <template v-if="field.type === 'auction_time'">
                           <v-text-field
                             :label="field.title"
                             v-model="field.value"
@@ -156,8 +155,8 @@
                             dense
                             :rules="[rules.isSelecet]"
                           ></v-text-field>
-                        </template>
-                        <template v-if="field.type === 'auction_date'">
+                        </template> -->
+                        <!-- <template v-if="field.type === 'auction_date'">
                           <v-text-field
                             v-model="field.value"
                             :label="field.title"
@@ -166,7 +165,7 @@
                             dense
                             :rules="[rules.isEmpty]"
                           ></v-text-field>
-                        </template>
+                        </template> -->
                       </v-col>
                     </v-row>
                   </v-tab-item>
@@ -229,7 +228,7 @@ export default {
     orderTemplate() {
       return this.templates.orderAdd.map((t) => {
         let data =
-          t.field === "type"
+          t.field == "type"
             ? {
                 title: this.order_view.order_type_title,
                 id: this.order_view.order_type,

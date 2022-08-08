@@ -132,6 +132,7 @@
                   <v-checkbox
                     v-model="field.value"
                     :label="field.title"
+                    @change="methodThatForcesUpdate"
                   ></v-checkbox>
                 </template>
                 <template v-if="field.type === 'date'">
@@ -144,25 +145,27 @@
                     :rules="[rules.isEmpty]"
                   ></v-text-field>
                 </template>
-                <template v-if="field.type === 'auction_time'">
-                  <v-text-field
-                    :label="field.title"
-                    v-model="field.value"
-                    type="time"
-                    outlined
-                    dense
-                    :rules="[rules.isSelecet]"
-                  ></v-text-field>
-                </template>
-                <template v-if="field.type === 'auction_date'">
-                  <v-text-field
-                    v-model="field.value"
-                    :label="field.title"
-                    type="date"
-                    outlined
-                    dense
-                    :rules="[rules.isEmpty]"
-                  ></v-text-field>
+                <template v-if="orderTemplate[indexIsAuction].value">
+                  <template v-if="field.type === 'auction_time'">
+                    <v-text-field
+                      :label="field.title"
+                      v-model="field.value"
+                      type="time"
+                      outlined
+                      dense
+                      :rules="[rules.isSelecet]"
+                    ></v-text-field>
+                  </template>
+                  <template v-if="field.type === 'auction_date'">
+                    <v-text-field
+                      v-model="field.value"
+                      :label="field.title"
+                      type="date"
+                      outlined
+                      dense
+                      :rules="[rules.isEmpty]"
+                    ></v-text-field>
+                  </template>
                 </template>
               </v-col>
             </v-row>
@@ -184,6 +187,7 @@
 
 <script>
 import { mapActions, mapMutations, mapState } from "vuex";
+import Vue from "vue";
 export default {
   data: () => ({
     image: [],
@@ -191,6 +195,7 @@ export default {
     search: "",
     tnved: null,
     debounce: null,
+    is_auction: null,
     rules: {
       isSelecet: (v) => !!v || "Выберите значение",
       isMaxFile: (v) => v.length <= 3 || `Выберите максимум 3 файла`,
@@ -198,7 +203,6 @@ export default {
   }),
   computed: {
     ...mapState("user", ["isAuth"]),
-
     ...mapState("order", [
       "isEditDialog",
       "order_view",
@@ -218,7 +222,7 @@ export default {
                 title: this.order_view[t.field],
                 id: this.order_view[t.field + "_id"],
               };
-        if (t.type === "select" && this.isEditDialog) {
+        if (t.type == "select" && this.isEditDialog) {
           this.SET_OPTIONS({
             option: t.item,
             data: [data],
@@ -233,6 +237,11 @@ export default {
         } else {
           return { ...t, value: this.order_view[t.field] };
         }
+      });
+    },
+    indexIsAuction() {
+      return this.orderTemplate.findIndex((object) => {
+        return object.field == "is_auction";
       });
     },
   },
@@ -252,6 +261,11 @@ export default {
     ...mapMutations("order", ["SET_IS_EDIT_DIALOG", "SET_OPTIONS"]),
     closeIsEditDialog() {
       this.SET_IS_EDIT_DIALOG();
+    },
+    methodThatForcesUpdate() {
+      // ...
+      this.$forceUpdate();
+      // ...
     },
     deleteImage(id) {
       this.DELETE_IMAGE({

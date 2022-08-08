@@ -38,7 +38,8 @@
                           :rules="
                             field.valid.required && !field.valid.type
                               ? [rules.isEmpty]
-                              : field.valid.type == 'number'
+                              : field.valid.required &&
+                                field.valid.type == 'number'
                               ? [rules.isNumber, rules.isEmpty]
                               : []
                           "
@@ -153,25 +154,27 @@
                           :rules="[rules.isEmpty]"
                         ></v-text-field>
                       </template>
-                      <template v-if="field.type === 'auction_time'">
-                        <v-text-field
-                          :label="field.title"
-                          v-model="field.value"
-                          type="time"
-                          outlined
-                          dense
-                          :rules="[rules.isSelecet]"
-                        ></v-text-field>
-                      </template>
-                      <template v-if="field.type === 'auction_date'">
-                        <v-text-field
-                          v-model="field.value"
-                          :label="field.title"
-                          type="date"
-                          outlined
-                          dense
-                          :rules="[rules.isEmpty]"
-                        ></v-text-field>
+                      <template v-if="isAuction">
+                        <template v-if="field.type === 'auction_time'">
+                          <v-text-field
+                            :label="field.title"
+                            v-model="field.value"
+                            type="time"
+                            outlined
+                            dense
+                            :rules="[rules.isSelecet]"
+                          ></v-text-field>
+                        </template>
+                        <template v-if="field.type === 'auction_date'">
+                          <v-text-field
+                            v-model="field.value"
+                            :label="field.title"
+                            type="date"
+                            outlined
+                            dense
+                            :rules="[rules.isEmpty]"
+                          ></v-text-field>
+                        </template>
                       </template>
                     </v-col>
                   </v-row>
@@ -207,7 +210,7 @@ export default {
       isNumber: (v) =>
         (!isNaN(parseFloat(v)) && isFinite(v)) || "Введите число",
       isEmpty: (v) => {
-        if (v == null || v == undefined || v == 0 || v == "") {
+        if (v == null || v == undefined || v == "") {
           return "Поле не может быть пустым.";
         } else {
           return true;
@@ -224,6 +227,10 @@ export default {
       "templates",
       "isLoadingTnveds",
     ]),
+    isAuction() {
+      let v = this.templates.orderAdd.filter((f) => f.field == "is_auction");
+      return v[0].value;
+    },
   },
   watch: {
     search: function (val) {
@@ -294,12 +301,18 @@ export default {
           (valid.required && value == "") ||
           (valid.required && value == null)
         ) {
-          console.log("field", field);
-          console.log("value", value);
           this.valid = false;
           return this.$refs.order.validate();
         } else if (field == "images" || field == "certificate") {
           value.map((img) => formData.append(field, img));
+        } else if (
+          (this.isAuction && field == "auction_date_end" && value == "") ||
+          (this.isAuction && field == "auction_date_start" && value == "") ||
+          (this.isAuction && field == "auction_time_start" && value == "") ||
+          (this.isAuction && field == "auction_time_end" && value == "")
+        ) {
+          this.valid = false;
+          return this.$refs.order.validate();
         } else {
           formData.append(field, value);
         }
