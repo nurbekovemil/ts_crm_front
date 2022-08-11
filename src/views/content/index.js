@@ -1,6 +1,6 @@
 export { default as Home } from "./Home.vue";
 export { default as About } from "./About.vue";
-export { default as Contacts } from "./Contacts.vue";
+export { default as CatalogOrders } from "./CatalogOrders.vue";
 export { default as Documents } from "./Documents.vue";
 export { default as AllOrdersList } from "./Orders.vue";
 export { default as CategoryOrders } from "./CategoryOrders.vue";

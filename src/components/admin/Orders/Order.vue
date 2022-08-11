@@ -215,7 +215,6 @@
         </v-tabs-items>
       </v-col>
     </v-row>
-
     <offer style="margin-top: 30px" />
   </v-card>
 </template>

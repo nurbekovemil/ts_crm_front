@@ -2,13 +2,13 @@
   <v-row justify="center">
     <v-dialog v-model="isAddDealDialog" persistent max-width="800px">
       <v-card>
-        <v-card-title> Купить </v-card-title>
+        <v-card-title class="d-flex justify-center" width="100%"> Встречная заявка </v-card-title>
         <v-card-text>
           <v-container>
             <v-row>
-              <v-col cols="12" sm="6" md="12">
+              <v-col cols="12" sm="6" md="12" class="text-center">
                 <span class="text-h5">
-                  {{ order_view.title }}
+                  {{ order_view.title }} 
                 </span>
                 <span class="subtitle-1">
                   • {{ order_view.order_type_title }}
@@ -41,8 +41,10 @@
                   <!-- offer order -->
                   <v-tab-item class="pt-5">
                     <v-row>
+                      <template  v-for="(field, i) in orderTemplate">
                       <v-col
-                        v-for="(field, i) in orderTemplate"
+                      v-if="field.field === 'price' || field.field === 'amount' || field.field === 'cost' || field.field === 'delivery' || field.field === 'payment' || field.field === 'cd'"
+                       :key="i"
                         :cols="
                           field.type === 'textarea' ||
                           field.type === 'file' ||
@@ -51,10 +53,9 @@
                             : field.type === 'auction_date' ||
                               field.type === 'auction_time'
                             ? '6'
-                            : '4'
+                            : '6'
                         "
-                        :key="i"
-                      >
+                      >     
                         <template v-if="field.type === 'select'">
                           <v-select
                             :disabled="
@@ -167,6 +168,7 @@
                           ></v-text-field>
                         </template> -->
                       </v-col>
+                      </template>
                     </v-row>
                   </v-tab-item>
                 </v-tabs-items>
@@ -174,7 +176,7 @@
             </v-row>
           </v-container>
         </v-card-text>
-        <v-card-actions>
+            <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
             color="orange darken-1"
@@ -185,7 +187,7 @@
             Отмена
           </v-btn>
           <v-btn
-            color="green darken-1"
+            color="#78C3CC"
             elevation="0"
             small
             dark
@@ -193,6 +195,7 @@
           >
             Отправить
           </v-btn>
+                 <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
     </v-dialog>
