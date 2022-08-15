@@ -6,14 +6,19 @@
         <v-card-title>{{ order.title }}</v-card-title>
         <!-- Название страницы -->
         <template v-if="order.own">
-          <v-card-subtitle class="pb-0">
-            Ваша • {{ order.order_type_title }}
+          <v-card-subtitle class="pb-0 primary--text">
+            Ваша •
+            {{
+              order.status == 8 ? order.status_title : order.order_type_title
+            }}
           </v-card-subtitle>
         </template>
 
         <template v-else>
           <v-card-subtitle class="pb-0">
-            {{ order.order_type_title }}
+            {{
+              order.status == 8 ? order.status_title : order.order_type_title
+            }}
           </v-card-subtitle>
         </template>
         <v-card-subtitle class="text-caption py-0">

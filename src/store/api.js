@@ -75,7 +75,7 @@ export default {
   getOfferHistory: (id) => api.get("/deals/history/", { params: { id } }),
   deleteOfferById: (id) => api.delete("/deals/" + id),
   getTradeList: (date) => api.get("/deals/trade-list/" + date),
-  getDepoDeals: () => api.get("/deals/depo-deals"),
+  getDepoDeals: (date) => api.get("/deals/depo-deals/" + date),
 
   // categories api
   getOptions: (option) =>

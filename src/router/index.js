@@ -101,6 +101,11 @@ const routes = [
         component: Trades,
       },
       {
+        path: "/trade/:id",
+        name: "Подробная информация",
+        component: DealView,
+      },
+      {
         path: "/order/:id",
         name: "Заявка",
         component: Order,
