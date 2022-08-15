@@ -25,7 +25,7 @@ import {
   Handbook,
   AllOrdersList,
   About,
-  Contacts,
+  CatalogOrders,
   Documents,
   Home,
   Order,
@@ -60,9 +60,9 @@ const routes = [
         component: About,
       },
       {
-        path: "/contacts",
-        name: "Контакты",
-        component: Contacts,
+        path: "/catalog",
+        name: "Каталог Товаров",
+        component: CatalogOrders,
       },
       {
         path: "/tariffs",

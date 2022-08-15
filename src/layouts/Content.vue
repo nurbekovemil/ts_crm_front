@@ -1,6 +1,8 @@
 <template>
   <v-app>
+      
     <v-app-bar flat app color="white">
+     
       <v-container class="py-0 fill-height">
         <router-link class="text-decoration-none text--primary" to="/">
           <v-toolbar-title class="overflow-visible" router to="/">
@@ -33,13 +35,11 @@
               </v-list-item>
             </v-list>
           </v-menu>
+          <v-btn plain small router to="/catalog"> Каталог товаров </v-btn>
           <v-btn plain small router to="/categories"> Категории </v-btn>
           <v-btn plain small router to="/handbooks"> Справочник</v-btn>
           <v-btn plain small router to="/trades"> Итоги торгов </v-btn>
           <!-- <v-btn plain small router to="/documents"> Документы </v-btn> -->
-
-          <v-btn plain small router to="/contacts"> Контакты </v-btn>
-
           <v-btn plain small router to="/login">
             <template v-if="!isAuth" icon> Войти</template>
 
@@ -54,9 +54,15 @@
         @click="drawer = true"
         class="d-flex d-md-none"
       />
+      
     </v-app-bar>
-
-    <v-container class="pa-0" fluid>
+        <div class="py-1" style="background:rgb(120,195,204);max-height:50px;min-width:100%">
+              <v-container class="py-0 d-flex justify-end">
+              <kse-date class="white--text "/>
+              </v-container> 
+         </div>
+     
+    <v-container class="pa-0 main-content" fluid>
       <router-view />
     </v-container>
 
@@ -121,7 +127,7 @@
           </v-list-item> -->
           <v-list-item>
             <v-list-item-title>
-              <v-btn plain small router to="/contacts"> Контакты </v-btn>
+              <v-btn plain small router to="/catalog"> Каталог товаров </v-btn>
             </v-list-item-title>
           </v-list-item>
           <v-list-item>
@@ -139,64 +145,53 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-footer padless class="mt-3">
+    <v-footer padless class="mt-3 wrap-footer">
       <v-row>
         <v-col class="pb-0">
-          <v-card flat tile color="#78C3CC" class="white--text text-center">
+          <v-card elevation="0" flat tile color="#78C3CC" class="white-text text-center">
             <v-container>
-              <v-card-text class="white--text pt-0">
-                <v-btn plain router to="/"> Главная </v-btn>
-                <v-btn plain router to="/about"> Как начать торговать </v-btn>
-                <v-btn plain router to="/documents"> Документы </v-btn>
-                <v-btn plain router to="/handbooks"> Справочник </v-btn>
-                <v-btn plain router to="/dashboard">Личный кабинет</v-btn>
-              </v-card-text>
-
               <v-row>
                 <v-col cols="12" md="4">
-                  <v-card-title class="pl-md-0"
-                    >Кыргызская Фондовая Биржа
+                  <v-card-title class="white--text">
+                    Партнерские сайты
                   </v-card-title>
                   <v-card-text
-                    class="footer-about d-flex align-start white--text pl-md-0"
-                  >
-                    Кыргызская Фондовая Биржа была основана в 1994 году, в форме
-                    негосударственной, некоммерческой организации, имеющей цель
-                    обеспечить эффективные условия функционирования рынка ценных
-                    бумаг.
+                    class="footer-about  align-start white--text ">
+              
+                    <p>
+                          <a href="https://www.kse.kg/" class="white--text subtitle-1">Кыргызская фондовая биржа</a>
+                    </p>
+                     <p >
+                         <a href="http://test.cds.kg/ru" class="white--text subtitle-1">Центр раскрытия информация</a>
+                     </p>
+        
                   </v-card-text>
                 </v-col>
 
-                <v-col md="4"> </v-col>
-
-                <v-col cols="12" md="4">
-                  <v-card-title class="float-center"
-                    >Наши Контакты</v-card-title
-                  >
-                  <v-card-text class="contact-content">
-                    ЗАО "Кыргызская Фондовая Биржа"
-                    <br />
-                    720010 Кыргызская Республика,<br />
-                    г. Бишкек, ул. Московская, 172, +996 312 31 14 84<br />
-                    Электронная почта: office@kse.kg
+                   <v-col cols="12" md="4">
+                  <v-card-title class="pl-md-0 white--text"
+                    >Адрес
+                  </v-card-title>
+                  <v-card-text
+                    class="footer-about  align-start pl-md-0 white--text" color="red">
+                   <p>Республика Кыргызстан</p>
+                   <p>г. Бишкек, ул. Московская, 172</p>
                   </v-card-text>
+                </v-col>
 
-                  <v-card-text class="d-flex align-start pl-0 white--text pt-0">
-                    <v-btn
-                      v-for="icon in icons"
-                      :key="icon"
-                      class="mx-4 white--text"
-                      icon
-                    >
-                      <v-icon size="24px">
-                        {{ icon }}
-                      </v-icon>
-                    </v-btn>
+                    <v-col cols="12" md="4">
+                  <v-card-title class="pl-md-0 white--text"
+                    >Контакт центр
+                  </v-card-title>
+                  <v-card-text
+                    class="footer-about  align-start white--text pl-md-0">
+                    <p>+996 312 31 14 84 +996 551 31 14 84</p>
+                    <p>office@kse.kg</p>
                   </v-card-text>
                 </v-col>
               </v-row>
 
-              <v-divider></v-divider>
+              <v-divider color="white"></v-divider>
 
               <v-card-text class="white--text">
                 {{ new Date().getFullYear() }} —
@@ -211,7 +206,7 @@
 </template>
 <script>
 import { mapState } from "vuex";
-
+import KseDate from "../components/admin/Deals/KseDate.vue";
 export default {
   data: () => ({
     drawer: false,
@@ -220,10 +215,16 @@ export default {
   computed: {
     ...mapState("user", ["user", "isAuth"]),
   },
+  components: {
+    KseDate
+  }
 };
 </script>
 
 <style scoped>
+.main-content {
+  min-height: calc(100vh - 303px);
+}
 .footer-color {
   background: #ddeffd;
 }
@@ -232,6 +233,9 @@ export default {
 }
 .contact-content {
   text-align: start;
+}
+.wrap-footer  a{
+  text-decoration: none;
 }
 </style>
 
