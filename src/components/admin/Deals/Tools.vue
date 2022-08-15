@@ -50,7 +50,7 @@
           @click="updateDealStatus(deal.cd ? 5 : 2)"
         >
           <v-icon left>mdi-check</v-icon>
-          Принять
+          {{ deal.cd ? "Принять на исполнение" : "Принять" }}
         </v-btn>
       </template>
       <template v-if="deal.status == 5">
