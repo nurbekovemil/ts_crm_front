@@ -55,12 +55,12 @@
           :disabled="!order_view.auction"
           @click="openIsAddOfferDialog"
         >
-          Купить
+          Предложить
         </v-btn>
       </template>
       <template v-if="!order_view.is_auction">
         <v-btn small dark color="#78C3CC" @click="openIsAddOfferDialog">
-          Купить
+          Предложить
         </v-btn>
       </template>
     </v-row>

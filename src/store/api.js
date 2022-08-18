@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: process.env.VUE_APP_BACK_API_dev,
+  baseURL: process.env.VUE_APP_BACK_API,
 });
 
 api.interceptors.request.use(
