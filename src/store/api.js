@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: process.env.VUE_APP_BACK_API,
+  baseURL: process.env.VUE_APP_BACK_API_dev,
 });
 
 api.interceptors.request.use(
@@ -75,7 +75,7 @@ export default {
   getOfferHistory: (id) => api.get("/deals/history/", { params: { id } }),
   deleteOfferById: (id) => api.delete("/deals/" + id),
   getTradeList: (date) => api.get("/deals/trade-list/" + date),
-  getDepoDeals: () => api.get("/deals/depo-deals"),
+  getDepoDeals: (date) => api.get("/deals/depo-deals/" + date),
 
   // categories api
   getOptions: (option) =>

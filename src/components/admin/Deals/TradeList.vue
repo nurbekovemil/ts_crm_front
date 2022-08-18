@@ -34,6 +34,17 @@
               <td>{{ trade.price }} {{ trade.currency_symbol }}</td>
               <td>{{ trade.amount }} / {{ trade.weight }}</td>
               <td>{{ trade.cost }} {{ trade.currency_symbol }}</td>
+              <td>
+                <v-btn
+                  rounded
+                  plain
+                  small
+                  color="primary"
+                  @click="viewDeal(trade.id)"
+                >
+                  Посмотреть
+                </v-btn>
+              </td>
             </tr>
           </template>
           <template v-else>
@@ -64,6 +75,9 @@ export default {
     ...mapActions("deal", ["GET_TRADE_LIST"]),
     getTradeList(v) {
       this.GET_TRADE_LIST(v);
+    },
+    viewDeal(id) {
+      this.$router.push("/trade/" + id);
     },
   },
   mounted() {

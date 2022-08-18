@@ -1,6 +1,19 @@
 <template>
-  <div>
-    <template v-if="deals.length > 0">
+  <v-row>
+    <v-col cols="12" md="3">
+      <v-select
+        v-model="selected"
+        :items="periods"
+        menu-props="auto"
+        item-text="title"
+        item-value="date"
+        label="Период"
+        dense
+        outlined
+        hide-details
+      ></v-select>
+    </v-col>
+    <v-col v-if="deals.length > 0" cols="12" md="12">
       <v-simple-table>
         <thead>
           <tr>
@@ -68,17 +81,26 @@
           </tr>
         </tbody>
       </v-simple-table>
-    </template>
-    <template v-else>
+    </v-col>
+    <v-col v-else cols="12" md="12">
       <p class="font-weight-light text--disabled text-center">
         Сделок не найдено!
       </p>
-    </template>
-  </div>
+    </v-col>
+  </v-row>
 </template>
 <script>
 import { mapState, mapActions } from "vuex";
 export default {
+  data: () => ({
+    selected: 1,
+    periods: [
+      { title: "Последние", date: 1 },
+      { title: "За неделю", date: 7 },
+      { title: "За месяц", date: 31 },
+      { title: "За год", date: 366 },
+    ],
+  }),
   computed: {
     ...mapState("deal", ["deals"]),
   },
@@ -95,7 +117,12 @@ export default {
     },
   },
   mounted() {
-    this.GET_DEPO_DEALS();
+    this.GET_DEPO_DEALS(this.selected);
+  },
+  watch: {
+    selected(v) {
+      this.GET_DEPO_DEALS(v);
+    },
   },
 };
 </script>

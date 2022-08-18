@@ -138,6 +138,7 @@
                           </v-col>
                         </template> -->
                         <template v-if="field.type === 'date'">
+                          {{ field.value }}
                           <v-text-field
                             v-model="field.value"
                             :label="field.title"
@@ -326,14 +327,16 @@ export default {
             formData.append(field, this.handleOrderType);
           } else if (field === "category") {
             formData.append(field, this.order_view.category_id);
-          } else if (
-            field === "auction_date_start" ||
-            field === "auction_date_end" ||
-            field === "payment_date" ||
-            field === "delivery_date"
-          ) {
-            formData.append(field, value.split(".").reverse().join("-"));
-          } else {
+          }
+          // else if (
+          //   field === "auction_date_start" ||
+          //   field === "auction_date_end" ||
+          //   field === "payment_date" ||
+          //   field === "delivery_date"
+          // ) {
+          //   formData.append(field, "7777-06-06");
+          // }
+          else {
             formData.append(field, value);
           }
           return formData;

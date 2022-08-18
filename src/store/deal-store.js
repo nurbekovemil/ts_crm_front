@@ -133,9 +133,9 @@ export default {
         });
       }
     },
-    GET_DEPO_DEALS: async ({ commit }) => {
+    GET_DEPO_DEALS: async ({ commit }, date) => {
       try {
-        const { data } = await api.getDepoDeals();
+        const { data } = await api.getDepoDeals(date);
         commit("SET_DEALS", data);
       } catch (error) {
         commit("message/ERROR_MESSAGE", error.response.data.error, {

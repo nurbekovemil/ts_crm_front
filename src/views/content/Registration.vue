@@ -13,10 +13,6 @@
           </v-radio>
         </v-radio-group>
       </div>
-      <div class="text-caption">
-        Посетитель торгов нерезидент Кыргызской Республики. Просим заключить
-        договор на биржевое обслуживание.
-      </div>
     </div>
     <v-form ref="registration" v-model="valid" lazy-validation>
       <v-card v-for="group in template" :key="group.id" class="my-3">
