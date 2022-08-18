@@ -25,11 +25,14 @@
       <v-container>
       <v-row style="height:100px;"  class="wrapper-tskse-info">
         <v-col class="wrap-tskse-info" cols="12">
-          <v-card class="text-center tskse-info rounded-lg py-3" style="vertical-align: text-top;">
-                <div v-for="item in tsKseInfo" :key="item.key" class="info-box">
-                  <h2 style="color:#78C3CC;font-weight:bold;">{{item.count}}</h2>
-                  <p class="mb-0" >{{item.text}}</p>
+          <v-card class="text-center  rounded-lg py-3" style="vertical-align: text-top;">
+              <div class="tskse-info">
+                <div v-for="item in exchangeRates.currency" :key="item.key" class="info-box">
+                  <h3 style="color:#78C3CC;font-weight:bold;">{{item.name}}</h3>
+                  <p class="mb-0" >{{item.money}}</p>
                 </div>
+              </div>
+              <h3 style="color:gray" class="subtitle-2">Официальные курсы валют Национального банка КР на {{exchangeRates.date}} года</h3>
           </v-card>
         </v-col>
       </v-row>
@@ -62,15 +65,13 @@
 import OrderList from "../../components/content/Home/OrderList.vue";
 export default {
   data:() => ({
-    tsKseInfo:[
-      {count:'23',text:'Страны участницы'},
-      {count:'2846',text:'Зарегистрированных участников'},
-      {count:'245',text:'Видов товаров'},
-      {count:'365',text:'Дней в год проходят торги'}
-    ],
+    exchangeRates:{
+      date:'',
+      currency:[]
+    },
     howStart:[
       {text:'Вход с помощью <br> Логин и Пароль',icon:'mdi-usb-flash-drive',link:'login'},
-      {text:'Ознакомиться <br> с Правилами <br> торгов',icon:'mdi-file-document-multiple',link:'documents'},
+      {text:'Ознакомиться <br> с Правилами <br> торгов',icon:'mdi-file-document-multiple',link:'ksedocuments'},
       {text:'Начать торговать <br> на Бирже',icon:'mdi-account-box',link:'catalog'},
       {text:'Подать заявку на <br> участие торгах',icon:'mdi-currency-usd',link:'registration'}
     ]
@@ -78,7 +79,28 @@ export default {
   components: {
     OrderList,
   },
-  mounted() {
+methods: {
+async getCurrentExchange() {
+  fetch("https://www.nbkr.kg/XML/daily.xml")
+  .then(response => response.text())
+  .then(data => {
+    const parser = new DOMParser();
+    const xml = parser.parseFromString(data, "application/xml");
+    let exDate = xml.querySelector('CurrencyRates')
+    let exMoney = xml.querySelectorAll('Value')
+    let exName = xml.querySelectorAll('Currency')
+    this.exchangeRates.date = exDate.getAttribute('Date')
+    for(let i = 0;i < exMoney.length;i++) {
+        this.exchangeRates.currency.push(
+          {money:exMoney[i].textContent,name:exName[i].getAttribute('ISOCode')}
+    )
+    }
+  })
+  .catch(console.error);
+}
+},
+  async mounted() {
+    await this.getCurrentExchange()
     for(let i =0;i< this.howStart.length;i++) {
       document.querySelectorAll('.mytext')[i].innerHTML = this.howStart[i].text
     }

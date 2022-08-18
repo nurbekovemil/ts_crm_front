@@ -81,7 +81,7 @@ const routes = [
         props: true,
       },
       {
-        path: "/documents",
+        path: "/ksedocuments",
         name: "Документы",
         component: Documents,
       },

@@ -1,7 +1,7 @@
 <template>
-  <v-card class="mt-2 px-2" width="100%" elevation="0">
+  <v-card class="mt-5 px-2" width="100%" elevation="0">
     <v-row>
-      <v-col>
+      <v-col class="pt-0">
         <!-- Название товара -->
         <v-card-title>{{ order.title }}</v-card-title>
         <!-- Название страницы -->
@@ -93,14 +93,14 @@
               </tr>
               <template v-if="order.is_auction">
                 <tr class="text-caption">
-                  <td class="grey--text">Дата начала и конца аукциона</td>
+                  <td class="grey--text">Дата начала и завершения аукциона</td>
                   <td :class="order.auction ? 'green--text' : 'warning--text'">
                     {{ order.auction_date_start }} /
                     {{ order.auction_date_end }}
                   </td>
                 </tr>
                 <tr class="text-caption">
-                  <td class="grey--text">Время начала и конца аукциона</td>
+                  <td class="grey--text">Время начала и завершения аукциона</td>
                   <td :class="order.auction ? 'green--text' : 'warning--text'">
                     {{ order.auction_time_start }} /
                     {{ order.auction_time_end }}

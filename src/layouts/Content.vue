@@ -5,11 +5,15 @@
      
       <v-container class="py-0 fill-height">
         <router-link class="text-decoration-none text--primary" to="/">
-          <v-toolbar-title class="overflow-visible" router to="/">
-            <v-avatar class="mr-1" size="32" tile>
+          <v-toolbar-title class="overflow-visible d-flex align-center" router to="/">
+            <v-avatar class="mr-1" size="48" tile>
               <img alt="logo" src="../assets/logo.png" />
             </v-avatar>
-            Товарно-сырьевой сектор</v-toolbar-title
+            <span class="body-1">
+            Товарно-сырьевой сектор <br>
+            Кыргызской фондовой биржи
+            </span>
+            </v-toolbar-title
           >
         </router-link>
         <v-spacer></v-spacer>
@@ -27,7 +31,7 @@
               <v-list-item router to="/about">
                 <v-list-item-title>Общая информация</v-list-item-title>
               </v-list-item>
-              <v-list-item router to="/documents">
+              <v-list-item router to="/ksedocuments">
                 <v-list-item-title> Документы</v-list-item-title>
               </v-list-item>
               <v-list-item router to="/tariffs">
@@ -42,7 +46,6 @@
           <!-- <v-btn plain small router to="/documents"> Документы </v-btn> -->
           <v-btn plain small router to="/login">
             <template v-if="!isAuth" icon> Войти</template>
-
             <template v-else>
               {{ user.username }}
             </template>
@@ -92,13 +95,12 @@
               </v-list-item-title>
               <!-- <v-btn plain small router to="/about"> Общая информация </v-btn> -->
             </v-list-item>
-            <v-list-item plain router to="/documents" dense>
-              <v-list-item-title> Документы </v-list-item-title>
-
+            <v-list-item plain router to="/ksedocuments" dense>
+              <v-list-item-title>Документы</v-list-item-title>
               <!-- <v-btn plain small router to="/documents"> Документы</v-btn> -->
             </v-list-item>
             <v-list-item router to="/tariffs" dense>
-              <v-list-item-title> Тарифы </v-list-item-title>
+              <v-list-item-title>Тарифы</v-list-item-title>
 
               <!-- <v-btn plain small router to="/tariffs"> Тарифы </v-btn> -->
             </v-list-item>
@@ -156,13 +158,12 @@
                     Партнерские сайты
                   </v-card-title>
                   <v-card-text
-                    class="footer-about  align-start white--text ">
-              
+                    class="footer-about align-start white--text">
                     <p>
-                          <a href="https://www.kse.kg/" class="white--text subtitle-1">Кыргызская фондовая биржа</a>
+                        <a href="https://www.kse.kg/" class="white--text subtitle-1">Кыргызская Фондовая Биржа</a>
                     </p>
-                     <p >
-                         <a href="http://test.cds.kg/ru" class="white--text subtitle-1">Центр раскрытия информация</a>
+                     <p>
+                         <a href="https://mab-sng.org/" class="white--text subtitle-1">Международная Ассоциация Бирж</a>
                      </p>
         
                   </v-card-text>
@@ -174,19 +175,24 @@
                   </v-card-title>
                   <v-card-text
                     class="footer-about  align-start pl-md-0 white--text" color="red">
-                   <p>Республика Кыргызстан</p>
-                   <p>г. Бишкек, ул. Московская, 172</p>
+                   <p class="subtitle-1">Кыргызская Республика</p>
+                   <p class="subtitle-1">г. Бишкек, ул. Московская, 172</p>
                   </v-card-text>
                 </v-col>
 
-                    <v-col cols="12" md="4">
-                  <v-card-title class="pl-md-0 white--text"
-                    >Контакт центр
+                <v-col cols="12" md="4">
+                  <v-card-title class="pl-md-0 white--text">
+                    Контакты
                   </v-card-title>
                   <v-card-text
                     class="footer-about  align-start white--text pl-md-0">
-                    <p>+996 312 31 14 84 +996 551 31 14 84</p>
-                    <p>office@kse.kg</p>
+                    <p class="subtitle-1">+996 312 31 14 84 </p>
+                    <p class="subtitle-1 d-flex align-center" style="display:flex;align-items:center"> 
+                    <span class="white--text mr-2" height="28px" style="">+996 551 31 14 84</span>
+                     <a href="https://wa.me/+996551311484" style="height:28px;"><img height="28px" src="../../public/img/whatsapp-icon.png" alt=""></a>
+                     <a href="https://telegram.me/+996551311484" style="height:28px;"><img height="28px" src="../../public/img/telegram-icon.png" alt=""></a>
+                    </p> 
+                    <p class="subtitle-1">office@kse.kg</p>
                   </v-card-text>
                 </v-col>
               </v-row>
