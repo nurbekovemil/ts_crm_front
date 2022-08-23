@@ -23,6 +23,7 @@
             <th>Цена</th>
             <th>Количество</th>
             <th>Сумма</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>

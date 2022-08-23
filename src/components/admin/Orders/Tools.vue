@@ -47,20 +47,14 @@
       v-if="user.role != 'ADMIN' && !order_view.own && order_view.status == 2"
     >
       <!-- <v-btn text small dark color="blue darken-1"> Позвонить </v-btn> -->
-      <template v-if="order_view.is_auction">
-        <v-btn
-          small
-          :dark="order_view.auction"
-          :color="order_view.auction ? '#78C3CC' : ''"
-          :disabled="!order_view.auction"
-          @click="openIsAddOfferDialog"
-        >
+      <template v-if="order_view.auction && order_view.is_auction">
+        <v-btn small dark color="#78C3CC" @click="openIsAddOfferDialog">
           Предложить
         </v-btn>
       </template>
-      <template v-if="!order_view.is_auction">
+      <template v-if="order_view.auction && !order_view.is_auction">
         <v-btn small dark color="#78C3CC" @click="openIsAddOfferDialog">
-          Предложить
+          Купить
         </v-btn>
       </template>
     </v-row>

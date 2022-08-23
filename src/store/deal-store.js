@@ -133,6 +133,16 @@ export default {
         });
       }
     },
+    GET_TRADE_BY_ID: async ({ commit }, id) => {
+      try {
+        const { data } = await api.getTradeById(id);
+        commit("SET_DEAL_VIEW", data);
+      } catch (error) {
+        commit("message/ERROR_MESSAGE", error.response.data.error, {
+          root: true,
+        });
+      }
+    },
     GET_DEPO_DEALS: async ({ commit }, date) => {
       try {
         const { data } = await api.getDepoDeals(date);

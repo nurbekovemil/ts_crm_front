@@ -2,13 +2,15 @@
   <v-row justify="center">
     <v-dialog v-model="isAddDealDialog" persistent max-width="800px">
       <v-card>
-        <v-card-title class="d-flex justify-center" width="100%"> Встречная заявка </v-card-title>
+        <v-card-title class="d-flex justify-center" width="100%">
+          Встречная заявка
+        </v-card-title>
         <v-card-text>
           <v-container>
             <v-row>
               <v-col cols="12" sm="6" md="12" class="text-center">
                 <span class="text-h5">
-                  {{ order_view.title }} 
+                  {{ order_view.title }}
                 </span>
                 <span class="subtitle-1">
                   • {{ order_view.order_type_title }}
@@ -41,68 +43,79 @@
                   <!-- offer order -->
                   <v-tab-item class="pt-5">
                     <v-row>
-                      <template  v-for="(field, i) in orderTemplate">
-                      <v-col
-                      v-if="field.field === 'price' || field.field === 'amount' || field.field === 'cost' || field.field === 'delivery' || field.field === 'payment' || field.field === 'cd'"
-                       :key="i"
-                        :cols="
-                          field.type === 'textarea' ||
-                          field.type === 'file' ||
-                          field.type === 'checkbox'
-                            ? '12'
-                            : field.type === 'auction_date' ||
-                              field.type === 'auction_time'
-                            ? '6'
-                            : '6'
-                        "
-                      >     
-                        <template v-if="field.type === 'select'">
-                          <v-select
-                            :disabled="
-                              field.field == 'type' || field.field == 'category'
-                            "
-                            :items="options[field.item]"
-                            v-model="field.value"
-                            item-text="title"
-                            item-value="id"
-                            :label="field.title"
-                            dense
-                            outlined
-                            @click="GET_OPTIONS(field.item)"
-                          />
-                        </template>
-
-                        <template
+                      <template v-for="(field, i) in orderTemplate">
+                        <v-col
                           v-if="
-                            field.type === 'input' || field.type === 'textarea'
+                            field.field === 'price' ||
+                            field.field === 'amount' ||
+                            field.field === 'cost' ||
+                            field.field === 'delivery' ||
+                            field.field === 'payment' ||
+                            field.field === 'cd'
+                          "
+                          :key="i"
+                          :cols="
+                            field.type === 'textarea' ||
+                            field.type === 'file' ||
+                            field.type === 'checkbox'
+                              ? '12'
+                              : field.type === 'auction_date' ||
+                                field.type === 'auction_time'
+                              ? '6'
+                              : '6'
                           "
                         >
-                          <v-text-field
-                            v-model="field.value"
-                            :label="field.title"
-                            outlined
-                            dense
-                            @change="calcField(field)"
+                          <template v-if="field.type === 'select'">
+                            <v-select
+                              :disabled="
+                                field.field == 'type' ||
+                                field.field == 'category' ||
+                                !isAuction
+                              "
+                              :items="options[field.item]"
+                              v-model="field.value"
+                              item-text="title"
+                              item-value="id"
+                              :label="field.title"
+                              dense
+                              outlined
+                              @click="GET_OPTIONS(field.item)"
+                            />
+                          </template>
+
+                          <template
+                            v-if="
+                              field.type === 'input' ||
+                              field.type === 'textarea'
+                            "
                           >
-                          </v-text-field>
-                        </template>
-                        <template v-if="field.type === 'autocomplate'">
-                          <v-text-field
-                            v-model="field.value"
-                            :label="field.title"
-                            disabled
-                            outlined
-                            dense
-                          >
-                          </v-text-field>
-                        </template>
-                        <!-- <template v-if="field.type === 'checkbox'">
+                            <v-text-field
+                              v-model="field.value"
+                              :label="field.title"
+                              outlined
+                              dense
+                              :disabled="!isAuction"
+                              @change="calcField(field)"
+                            >
+                            </v-text-field>
+                          </template>
+                          <template v-if="field.type === 'autocomplate'">
+                            <v-text-field
+                              v-model="field.value"
+                              :label="field.title"
+                              disabled
+                              outlined
+                              dense
+                            >
+                            </v-text-field>
+                          </template>
+                          <!-- <template v-if="field.type === 'checkbox'">
                           <v-checkbox
                             v-model="field.value"
                             :label="field.title"
                           ></v-checkbox>
                         </template> -->
-                        <!-- <template v-if="field.type === 'file'">
+                          <!-- <template v-if="field.type === 'file'">
                           <v-col>
                             <v-row class="mb-3" v-if="field.value">
                               <v-col
@@ -137,18 +150,17 @@
                             </v-file-input>
                           </v-col>
                         </template> -->
-                        <template v-if="field.type === 'date'">
-                          {{ field.value }}
-                          <v-text-field
-                            v-model="field.value"
-                            :label="field.title"
-                            type="date"
-                            outlined
-                            dense
-                            :rules="[rules.isEmpty]"
-                          ></v-text-field>
-                        </template>
-                        <!-- <template v-if="field.type === 'auction_time'">
+                          <template v-if="field.type === 'date'">
+                            <v-text-field
+                              v-model="field.value"
+                              :label="field.title"
+                              type="date"
+                              outlined
+                              dense
+                              :rules="[rules.isEmpty]"
+                            ></v-text-field>
+                          </template>
+                          <!-- <template v-if="field.type === 'auction_time'">
                           <v-text-field
                             :label="field.title"
                             v-model="field.value"
@@ -158,7 +170,7 @@
                             :rules="[rules.isSelecet]"
                           ></v-text-field>
                         </template> -->
-                        <!-- <template v-if="field.type === 'auction_date'">
+                          <!-- <template v-if="field.type === 'auction_date'">
                           <v-text-field
                             v-model="field.value"
                             :label="field.title"
@@ -168,7 +180,7 @@
                             :rules="[rules.isEmpty]"
                           ></v-text-field>
                         </template> -->
-                      </v-col>
+                        </v-col>
                       </template>
                     </v-row>
                   </v-tab-item>
@@ -177,7 +189,7 @@
             </v-row>
           </v-container>
         </v-card-text>
-            <v-card-actions>
+        <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
             color="orange darken-1"
@@ -187,16 +199,10 @@
           >
             Отмена
           </v-btn>
-          <v-btn
-            color="#78C3CC"
-            elevation="0"
-            small
-            dark
-            @click="createDeal"
-          >
+          <v-btn color="#78C3CC" elevation="0" small dark @click="createDeal">
             Отправить
           </v-btn>
-                 <v-spacer></v-spacer>
+          <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -257,6 +263,12 @@ export default {
           return { ...t, value: this.order_view[t.field] };
         }
       });
+    },
+    isAuction() {
+      let obj = this.orderTemplate.filter((f) => {
+        return f.field == "is_auction";
+      });
+      return obj[0].value;
     },
   },
   methods: {

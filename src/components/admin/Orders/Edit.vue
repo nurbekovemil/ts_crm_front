@@ -145,27 +145,25 @@
                     :rules="[rules.isEmpty]"
                   ></v-text-field>
                 </template>
-                <template v-if="orderTemplate[indexIsAuction].value">
-                  <template v-if="field.type === 'auction_time'">
-                    <v-text-field
-                      :label="field.title"
-                      v-model="field.value"
-                      type="time"
-                      outlined
-                      dense
-                      :rules="[rules.isSelecet]"
-                    ></v-text-field>
-                  </template>
-                  <template v-if="field.type === 'auction_date'">
-                    <v-text-field
-                      v-model="field.value"
-                      :label="field.title"
-                      type="date"
-                      outlined
-                      dense
-                      :rules="[rules.isEmpty]"
-                    ></v-text-field>
-                  </template>
+                <template v-if="field.type === 'auction_time'">
+                  <v-text-field
+                    :label="field.title"
+                    v-model="field.value"
+                    type="time"
+                    outlined
+                    dense
+                    :rules="[rules.isSelecet]"
+                  ></v-text-field>
+                </template>
+                <template v-if="field.type === 'auction_date'">
+                  <v-text-field
+                    v-model="field.value"
+                    :label="field.title"
+                    type="date"
+                    outlined
+                    dense
+                    :rules="[rules.isEmpty]"
+                  ></v-text-field>
                 </template>
               </v-col>
             </v-row>
@@ -195,7 +193,7 @@ export default {
     search: "",
     tnved: null,
     debounce: null,
-    is_auction: null,
+    // is_auction: null,
     rules: {
       isSelecet: (v) => !!v || "Выберите значение",
       isMaxFile: (v) => v.length <= 3 || `Выберите максимум 3 файла`,
@@ -239,11 +237,11 @@ export default {
         }
       });
     },
-    indexIsAuction() {
-      return this.orderTemplate.findIndex((object) => {
-        return object.field == "is_auction";
-      });
-    },
+    // indexIsAuction() {
+    //   return this.orderTemplate.findIndex((object) => {
+    //     return object.field == "is_auction";
+    //   });
+    // },
   },
   watch: {
     search: function (val) {

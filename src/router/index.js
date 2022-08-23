@@ -34,6 +34,7 @@ import {
   Categories,
   CategoryOrders,
   Trades,
+  TradeView,
   Tariffs,
 } from "../views/content";
 
@@ -103,7 +104,7 @@ const routes = [
       {
         path: "/trade/:id",
         name: "Подробная информация",
-        component: DealView,
+        component: TradeView,
       },
       {
         path: "/order/:id",

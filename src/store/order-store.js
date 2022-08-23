@@ -246,38 +246,38 @@ export default {
         },
         {
           field: "auction_date_start",
-          title: "Дата начало аукциона",
+          title: "Дата начало",
           value: "",
           type: "auction_date",
           valid: {
-            required: false,
+            required: true,
           },
         },
         {
           field: "auction_date_end",
-          title: "Дата завершение аукциона",
+          title: "Дата завершение",
           value: "",
           type: "auction_date",
           valid: {
-            required: false,
+            required: true,
           },
         },
         {
           field: "auction_time_start",
-          title: "Время начало аукциона",
+          title: "Время начало",
           value: "",
           type: "auction_time",
           valid: {
-            required: false,
+            required: true,
           },
         },
         {
           field: "auction_time_end",
-          title: "Время завершение аукциона",
+          title: "Время завершение",
           value: "",
           type: "auction_time",
           valid: {
-            required: false,
+            required: true,
           },
         },
         {
