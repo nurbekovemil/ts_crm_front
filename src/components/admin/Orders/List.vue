@@ -15,7 +15,7 @@
           color="grey"
         >
           <v-icon> mdi-plus </v-icon>
-          Добавить
+          Создать заявку
         </v-btn>
       </v-row>
     </template>
@@ -107,7 +107,17 @@
                             >mdi-pencil</v-icon
                           >
                         </v-list-item-icon>
-                        <v-list-item-title> Изменить </v-list-item-title>
+                        <v-list-item-title> Редактировать </v-list-item-title>
+                      </v-list-item>
+                    </v-hover>
+                    <v-hover v-slot="{ hover }">
+                      <v-list-item link dense @click="copyOrder(order.id)">
+                        <v-list-item-icon>
+                          <v-icon :color="`${hover && 'amber darken-1'}`"
+                            >mdi-content-copy</v-icon
+                          >
+                        </v-list-item-icon>
+                        <v-list-item-title> Дублировать </v-list-item-title>
                       </v-list-item>
                     </v-hover>
                     <v-hover v-slot="{ hover }">
@@ -172,6 +182,7 @@ export default {
       "MY_ORDER_LIST",
       "GET_ORDER_BY_ID",
       "DELETE_ORDER",
+      "COPY_ORDER",
       "UPDATE_ORDER_STATUS",
     ]),
     deleteOrder(id) {
@@ -179,6 +190,15 @@ export default {
     },
     openIsAddDialog() {
       this.SET_IS_ADD_DIALOG();
+    },
+    copyOrder(id) {
+      console.log(id);
+      this.COPY_ORDER({
+        type: this.type,
+        page: this.page,
+        limit: this.limit,
+        id,
+      });
     },
     openIsEditDialog(id) {
       this.SET_IS_EDIT_DIALOG();

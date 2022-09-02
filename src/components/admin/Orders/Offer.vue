@@ -236,7 +236,7 @@ export default {
     },
     // Шаблон для рендера
     orderTemplate() {
-      return this.templates.orderAdd.map((t) => {
+      return this.templates.orderEdit.map((t) => {
         let data =
           t.field == "type"
             ? {

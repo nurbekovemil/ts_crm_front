@@ -106,8 +106,9 @@ export default {
       this.$router.push("/order/" + id);
     },
     offerTo(id) {
-      this.GET_ORDER_BY_ID({ id, isAuth: this.isAuth });
-      this.isAuth ? this.SET_IS_ADD_DEAL_DIALOG() : this.$router.push("/login");
+      this.$router.push("/order/" + id);
+      // this.GET_ORDER_BY_ID({ id, isAuth: this.isAuth });
+      // this.isAuth ? this.SET_IS_ADD_DEAL_DIALOG() : this.$router.push("/login");
     },
   },
   mounted() {

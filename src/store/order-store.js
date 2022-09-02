@@ -5,8 +5,366 @@ export default {
 
   state: {
     templates: {
-      // template for add order
+      // template order add
       orderAdd: [
+        {
+          step: 1,
+          title: "Выберите тип заявки",
+          fields: [
+            {
+              field: "type",
+              title: "Выберите тип заявки",
+              value: null,
+              type: "radio",
+              item: "order_types",
+              types: [
+                {
+                  type: 1,
+                  title: "Заявка на продажу",
+                },
+                {
+                  type: 2,
+                  title: "Заявка на покупку",
+                },
+              ],
+              valid: {
+                required: true,
+              },
+              col: "12",
+            },
+          ],
+        },
+        {
+          step: 2,
+          title: "Общие сведения",
+          fields: [
+            {
+              field: "title",
+              title: "Название заявки",
+              value: "",
+              type: "input",
+              valid: {
+                required: true,
+              },
+              col: "12",
+              icon: "",
+            },
+            {
+              field: "packing_form",
+              title: "Форма упакови",
+              value: "",
+              type: "input",
+              valid: {
+                required: true,
+              },
+              col: "4",
+            },
+            {
+              field: "marking",
+              title: "Маркировка товара",
+              value: "",
+              type: "input",
+              valid: {
+                required: true,
+              },
+              col: "4",
+            },
+            {
+              field: "quality",
+              title: "Качественные показатели товара",
+              value: "",
+              type: "input",
+              valid: {
+                required: false,
+              },
+              col: "4",
+            },
+            {
+              field: "description",
+              title: "Описание",
+              value: "",
+              type: "textarea",
+              valid: {
+                required: false,
+              },
+              col: "12",
+            },
+            {
+              field: "country",
+              title: "Страна производителя",
+              value: "",
+              type: "input",
+              valid: {
+                required: true,
+              },
+              col: "4",
+            },
+            {
+              field: "product_location",
+              title: "Местонахождение товара",
+              value: "",
+              type: "input",
+              valid: {
+                required: true,
+              },
+              col: "4",
+            },
+            {
+              field: "warranty",
+              title: "Залоги и гарантии (в %)",
+              value: "",
+              type: "input",
+              valid: {
+                required: true,
+              },
+              col: "4",
+            },
+            {
+              field: "special_conditions",
+              title: "Особые условия",
+              value: "",
+              type: "textarea",
+              valid: {
+                required: false,
+              },
+              col: "12",
+            },
+            {
+              field: "images",
+              title: "Изображение",
+              value: [],
+              type: "file",
+              valid: {
+                required: false,
+              },
+              col: "12",
+            },
+            {
+              field: "certificate",
+              title: "Сертификат или декларация соответствия",
+              value: [],
+              type: "file",
+              valid: {
+                required: false,
+              },
+              col: "12",
+            },
+          ],
+        },
+        {
+          step: 3,
+          title: "Условия и сроки поставки",
+          fields: [
+            {
+              field: "category",
+              title: "Категория",
+              value: null,
+              type: "select",
+              item: "order_categories",
+              valid: {
+                required: true,
+              },
+              col: "12",
+            },
+            {
+              field: "delivery",
+              title: "Условия доставки",
+              value: null,
+              type: "select",
+              item: "order_deliveries",
+              valid: {
+                required: true,
+              },
+              col: "6",
+            },
+            {
+              field: "delivery_date",
+              title: "Срок поставки",
+              value: "",
+              type: "date",
+              valid: {
+                required: true,
+              },
+              col: "6",
+            },
+            {
+              field: "payment",
+              title: "Условие оплаты",
+              value: null,
+              type: "select",
+              item: "order_payments",
+              valid: {
+                required: true,
+              },
+              col: "6",
+            },
+            {
+              field: "payment_date",
+              title: "Срок оплаты",
+              value: "",
+              type: "date",
+              valid: {
+                required: true,
+              },
+              col: "6",
+            },
+            {
+              field: "code_tnved",
+              title: "Введите код ТН ВЭД",
+              value: "",
+              type: "autocomplate",
+              valid: {
+                required: true,
+              },
+              col: "12",
+            },
+            {
+              field: "is_auction",
+              title: "Аукцион",
+              value: false,
+              type: "checkbox",
+              valid: {
+                required: false,
+              },
+              col: "12",
+            },
+            {
+              field: "auction_date_start",
+              title: "Дата начало",
+              value: "",
+              type: "auction_date",
+              valid: {
+                required: true,
+              },
+              col: "6",
+            },
+            {
+              field: "auction_date_end",
+              title: "Дата завершение",
+              value: "",
+              type: "auction_date",
+              valid: {
+                required: true,
+              },
+              col: "6",
+            },
+            {
+              field: "auction_time_start",
+              title: "Время начало",
+              value: "",
+              type: "auction_time",
+              valid: {
+                required: true,
+              },
+              col: "6",
+            },
+            {
+              field: "auction_time_end",
+              title: "Время завершение",
+              value: "",
+              type: "auction_time",
+              valid: {
+                required: true,
+              },
+              col: "6",
+            },
+          ],
+        },
+        {
+          step: 4,
+          title: "Цена и стоимость",
+          fields: [
+            {
+              field: "currency",
+              title: "Валюта",
+              value: null,
+              type: "select",
+              item: "order_currencies",
+              valid: {
+                required: true,
+              },
+              col: "3",
+            },
+            {
+              field: "weight",
+              title: "Единицы измерения",
+              value: null,
+              type: "select",
+              item: "order_weights",
+              valid: {
+                required: true,
+              },
+              col: "3",
+            },
+            {
+              field: "lot",
+              title: "Лот",
+              value: "",
+              type: "input",
+              valid: {
+                required: true,
+              },
+              col: "3",
+            },
+            {
+              field: "nds",
+              title: "НДС",
+              value: "0",
+              type: "input",
+              valid: {
+                required: false,
+                type: "number",
+              },
+              col: "3",
+            },
+            {
+              field: "price",
+              title: "Цена",
+              value: "",
+              type: "input",
+              valid: {
+                required: true,
+                type: "number",
+              },
+              col: "4",
+            },
+            {
+              field: "amount",
+              title: "Количество",
+              value: "",
+              type: "input",
+              valid: {
+                required: true,
+                type: "number",
+              },
+              col: "4",
+            },
+            {
+              field: "cost",
+              title: "Стоимость (с учетом НДС)",
+              value: "",
+              type: "input",
+              valid: {
+                required: true,
+                type: "number",
+              },
+              col: "4",
+            },
+            {
+              field: "cd",
+              title: "Расчеты через клиринговый счёт Биржи",
+              value: false,
+              type: "checkbox",
+              valid: {
+                required: false,
+              },
+              col: "12",
+            },
+          ],
+        },
+      ],
+      // template add edit
+      orderEdit: [
         {
           field: "category",
           title: "Категория",
@@ -497,6 +855,18 @@ export default {
         const { data } = await api.getOrderTnved(search);
         commit("SET_ORDER_TNVED", data);
         commit("SET_IS_LOADING_TNVEDS", false);
+      } catch (error) {
+        commit("message/ERROR_MESSAGE", error.response.data.error, {
+          root: true,
+        });
+      }
+    },
+    COPY_ORDER: async ({ commit, dispatch }, order) => {
+      try {
+        const { data } = await api.copyOrder({ id: order.id });
+        commit("message/SUCCESS_MESSAGE", data, { root: true });
+
+        dispatch("MY_ORDER_LIST", order);
       } catch (error) {
         commit("message/ERROR_MESSAGE", error.response.data.error, {
           root: true,

@@ -55,6 +55,7 @@ export default {
     }),
   updateOrderData: (data) => api.post("/orders/private/update", data),
   deleteImage: (id) => api.delete("/orders/private/image/" + id),
+  copyOrder: (id) => api.post("/orders/private/copy", id),
   // order api public routes
   getAllOrderListPublic: ({ type, limit }) =>
     api.get("/orders/public/type/", { params: { type, limit } }),

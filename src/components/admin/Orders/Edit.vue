@@ -3,7 +3,7 @@
     <v-dialog v-model="isEditDialog" persistent max-width="60%">
       <v-card>
         <v-card-title>
-          <span class="text-h5">Изменить</span>
+          <span class="text-h5">Редактировать</span>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -171,10 +171,23 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="closeIsEditDialog">
+          <v-btn
+            color="error"
+            dark
+            small
+            plain
+            elevation="0"
+            @click="closeIsEditDialog"
+          >
             Закрыть
           </v-btn>
-          <v-btn color="green darken-1" dark @click="updateOrderData">
+          <v-btn
+            color="#78C3CC"
+            dark
+            small
+            elevation="0"
+            @click="updateOrderData"
+          >
             Сохранить
           </v-btn>
         </v-card-actions>
@@ -209,7 +222,7 @@ export default {
       "isLoadingTnveds",
     ]),
     orderTemplate() {
-      return this.templates.orderAdd.map((t) => {
+      return this.templates.orderEdit.map((t) => {
         let data =
           t.field === "type"
             ? {

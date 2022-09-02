@@ -1,9 +1,248 @@
+
 <template>
-  <div>
-    <template>
-      <v-row justify="center">
-        <v-dialog v-model="isAddDialog" persistent max-width="60%">
-          <v-card>
+  <v-row justify="center">
+    <v-dialog v-model="isAddDialog" persistent max-width="60%">
+      <template>
+        <v-stepper v-model="e1">
+          <v-stepper-header elevation="0">
+            <template v-for="step in templates.orderAdd">
+              <v-stepper-step
+                color="#78C3CC"
+                :complete="e1 > step.step"
+                :step="step.step"
+                :key="step.step"
+              >
+                Шаг {{ step.step }}
+                <small>{{ step.title }}</small>
+              </v-stepper-step>
+            </template>
+          </v-stepper-header>
+
+          <v-stepper-items>
+            <template v-for="step in templates.orderAdd">
+              <v-form
+                :ref="'step-' + step.step"
+                v-model="valid"
+                lazy-validation
+                :key="step.step"
+              >
+                <v-stepper-content :step="step.step">
+                  <v-card>
+                    <v-card-title>
+                      {{ step.title }}
+                    </v-card-title>
+                    <v-card-text>
+                      <v-row no-gutters>
+                        <v-col
+                          v-for="(field, i) in step.fields"
+                          :key="i"
+                          :cols="field.col"
+                          class="px-2"
+                        >
+                          <template v-if="field.type == 'radio'">
+                            <v-radio-group v-model="field.value" mandatory>
+                              <v-radio
+                                v-for="type in field.types"
+                                :key="type.type"
+                                :label="type.title"
+                                :value="type.type"
+                              ></v-radio>
+                            </v-radio-group>
+                          </template>
+                          <template v-if="field.type === 'input'">
+                            <v-text-field
+                              v-model.number="field.value"
+                              dense
+                              :label="field.title"
+                              outlined
+                              :rules="
+                                field.valid.required && !field.valid.type
+                                  ? [rules.isEmpty]
+                                  : field.valid.required &&
+                                    field.valid.type == 'number'
+                                  ? [rules.isNumber, rules.isEmpty]
+                                  : []
+                              "
+                              @change="calcField(field)"
+                            ></v-text-field>
+                          </template>
+                          <template v-if="field.type === 'textarea'">
+                            <v-textarea
+                              v-model="field.value"
+                              auto-grow
+                              outlined
+                              rows="1"
+                              :label="field.title"
+                            ></v-textarea>
+                          </template>
+                          <template v-if="field.type === 'file'">
+                            <v-row class="mb-3" v-if="field.value">
+                              <v-col
+                                v-for="(file, i) in field.value"
+                                :key="i"
+                                cols="4"
+                                class="py-0"
+                              >
+                                <v-hover v-slot="{ hover }">
+                                  <v-card>
+                                    <v-img :src="fileurl(file)" height="150">
+                                      <v-overlay
+                                        absolute="absolute"
+                                        :value="hover"
+                                      >
+                                      </v-overlay>
+                                    </v-img>
+                                  </v-card>
+                                </v-hover>
+                              </v-col>
+                              <v-col>
+                                <v-file-input
+                                  v-model="field.value"
+                                  :label="field.title"
+                                  :rules="field && [rules.isMaxFile]"
+                                  multiple
+                                  outlined
+                                  dense
+                                  :append-icon="
+                                    field.field == 'certificate'
+                                      ? 'mdi-certificate'
+                                      : 'mdi-image-plus'
+                                  "
+                                >
+                                </v-file-input>
+                              </v-col>
+                            </v-row>
+                          </template>
+                          <template v-if="field.type === 'autocomplate'">
+                            <v-autocomplete
+                              v-model="field.value"
+                              :items="options.order_tnveds"
+                              :loading="isLoadingTnveds"
+                              :search-input.sync="search"
+                              item-text="title"
+                              outlined
+                              hide-selected
+                              dense
+                              item-value="id"
+                              :label="field.title"
+                              :rules="[rules.isSelecet]"
+                              placeholder="Введите названия тнвед"
+                            >
+                              <template v-slot:item="data">
+                                <v-list-item-content>
+                                  <v-list-item-title
+                                    v-html="data.item.id"
+                                  ></v-list-item-title>
+                                  <v-list-item-subtitle
+                                    v-html="data.item.title"
+                                  ></v-list-item-subtitle>
+                                </v-list-item-content>
+                              </template>
+                            </v-autocomplete>
+                          </template>
+                          <template v-if="field.type === 'select'">
+                            <v-select
+                              :items="options[field.item]"
+                              v-model="field.value"
+                              item-text="title"
+                              item-value="id"
+                              :label="field.title"
+                              dense
+                              outlined
+                              :rules="[rules.isSelecet]"
+                              @click="GET_OPTIONS(field.item)"
+                            >
+                            </v-select>
+                          </template>
+                          <template v-if="field.type === 'checkbox'">
+                            <v-checkbox
+                              v-model="field.value"
+                              :label="field.title"
+                            ></v-checkbox>
+                          </template>
+                          <template v-if="field.type === 'date'">
+                            <v-text-field
+                              v-model="field.value"
+                              :label="field.title"
+                              type="date"
+                              outlined
+                              dense
+                              :rules="[rules.isEmpty]"
+                            ></v-text-field>
+                          </template>
+                          <template v-if="field.type === 'auction_time'">
+                            <v-text-field
+                              :label="field.title"
+                              v-model="field.value"
+                              type="time"
+                              outlined
+                              dense
+                              :rules="[rules.isSelecet]"
+                            ></v-text-field>
+                          </template>
+                          <template v-if="field.type === 'auction_date'">
+                            <v-text-field
+                              v-model="field.value"
+                              :label="field.title"
+                              type="date"
+                              outlined
+                              dense
+                              :rules="[rules.isEmpty]"
+                            ></v-text-field>
+                          </template>
+                        </v-col>
+                      </v-row>
+                    </v-card-text>
+                    <v-card-actions>
+                      <v-btn
+                        color="error"
+                        dark
+                        small
+                        plain
+                        elevation="0"
+                        @click="closeIsAddDialog"
+                      >
+                        Закрыть
+                      </v-btn>
+                      <v-spacer />
+                      <v-btn
+                        v-if="e1 != 1"
+                        color="primary"
+                        dark
+                        small
+                        plain
+                        elevation="0"
+                        @click="stepBackHandler"
+                      >
+                        Назад
+                      </v-btn>
+                      <v-btn
+                        color="#78C3CC"
+                        dark
+                        small
+                        elevation="0"
+                        @click="stepNextHandler(step.step)"
+                      >
+                        {{
+                          e1 == templates.orderAdd.length
+                            ? "Добавить"
+                            : "Продолжить"
+                        }}
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-stepper-content>
+              </v-form>
+            </template>
+          </v-stepper-items>
+        </v-stepper>
+      </template></v-dialog
+    ></v-row
+  >
+</template
+    >
+
+          <!-- <v-card>
             <v-form ref="order" v-model="valid" lazy-validation>
               <v-card-title>
                 <span class="text-h5">Добавить заявку</span>
@@ -11,9 +250,8 @@
               <v-card-text>
                 <v-container>
                   <v-row cols="12" no-gutters>
-                    <!-- fields -->
                     <v-col
-                      v-for="(field, i) in templates.orderAdd"
+                      v-for="(field, i) in templates.orderEdit"
                       :key="i"
                       cols="12"
                       class="px-2"
@@ -186,7 +424,7 @@
                 <v-btn color="success" @click="saveNewOrder"> Добавить </v-btn>
               </v-card-actions>
             </v-form>
-          </v-card>
+          </v-card> -->
         </v-dialog>
       </v-row>
     </template>
@@ -203,6 +441,7 @@ export default {
     valid: true,
     search: "",
     tnved: "",
+    e1: 1,
     debounce: null,
     rules: {
       isNumber: (v) =>
@@ -226,7 +465,7 @@ export default {
       "isLoadingTnveds",
     ]),
     isAuction() {
-      let v = this.templates.orderAdd.filter((f) => f.field == "is_auction");
+      let v = this.templates.orderEdit.filter((f) => f.field == "is_auction");
       return v[0].value;
     },
   },
@@ -238,9 +477,42 @@ export default {
   methods: {
     ...mapMutations("order", ["SET_IS_ADD_DIALOG"]),
     ...mapActions("order", ["CREATE_ORDER", "GET_OPTIONS", "GET_ORDER_TNVED"]),
-
+    stepNextHandler(step) {
+      let formStep = this.templates.orderAdd.find((el) => el.step == step);
+      formStep.fields.map((el) => {
+        if (
+          (el.valid.required && el.value == "") ||
+          (el.valid.required && el.value == null)
+        ) {
+          this.valid = false;
+          return this.$refs[`step-${step}`][0].validate();
+        }
+      });
+      if (this.valid && this.e1 != this.templates.orderAdd.length) {
+        this.e1++;
+      }
+      if (this.valid && step == this.templates.orderAdd.length) {
+        let formData = new FormData();
+        this.templates.orderAdd.map(({ fields }) => {
+          fields.map(({ field, value }) => {
+            if (field == "images" || field == "certificate") {
+              value.map((img) => formData.append(field, img));
+            } else {
+              formData.append(field, value);
+            }
+          });
+        });
+        this.CREATE_ORDER(formData);
+      }
+    },
+    stepBackHandler() {
+      if (this.e1 != 1 && this.e1 > 1) {
+        this.e1--;
+        this.valid = true;
+      }
+    },
     calcField(field) {
-      let calcfields = this.templates.orderAdd.filter(
+      let calcfields = this.templates.orderEdit.filter(
         (f) =>
           f.field == "nds" ||
           f.field == "price" ||
@@ -292,33 +564,33 @@ export default {
     fileurl: (furl) => {
       return URL.createObjectURL(furl);
     },
-    saveNewOrder() {
-      let formData = new FormData();
-      this.templates.orderAdd.map(({ field, value, valid }) => {
-        if (
-          (valid.required && value == "") ||
-          (valid.required && value == null)
-        ) {
-          this.valid = false;
-          return this.$refs.order.validate();
-        } else if (field == "images" || field == "certificate") {
-          value.map((img) => formData.append(field, img));
-        }
-        // else if (
-        //   (this.isAuction && field == "auction_date_end" && value == "") ||
-        //   (this.isAuction && field == "auction_date_start" && value == "") ||
-        //   (this.isAuction && field == "auction_time_start" && value == "") ||
-        //   (this.isAuction && field == "auction_time_end" && value == "")
-        // ) {
-        //   this.valid = false;
-        //   return this.$refs.order.validate();
-        // }
-        else {
-          formData.append(field, value);
-        }
-      });
-      this.valid && this.CREATE_ORDER(formData);
-    },
+    // saveNewOrder() {
+    // let formData = new FormData();
+    // this.templates.orderEdit.map(({ field, value, valid }) => {
+    //   if (
+    //     (valid.required && value == "") ||
+    //     (valid.required && value == null)
+    //   ) {
+    //     this.valid = false;
+    //     return this.$refs.order.validate();
+    //   } else if (field == "images" || field == "certificate") {
+    //     value.map((img) => formData.append(field, img));
+    //   }
+    //   // else if (
+    //   //   (this.isAuction && field == "auction_date_end" && value == "") ||
+    //   //   (this.isAuction && field == "auction_date_start" && value == "") ||
+    //   //   (this.isAuction && field == "auction_time_start" && value == "") ||
+    //   //   (this.isAuction && field == "auction_time_end" && value == "")
+    //   // ) {
+    //   //   this.valid = false;
+    //   //   return this.$refs.order.validate();
+    //   // }
+    //   else {
+    //     formData.append(field, value);
+    //   }
+    // });
+    // this.valid && this.CREATE_ORDER(formData);
+    // },
     querySelections(v) {
       this.tnved = "";
       clearTimeout(this.debounce);
