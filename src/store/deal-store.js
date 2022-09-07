@@ -11,6 +11,8 @@ export default {
     deal_orders: [],
     offer_history: [],
     trade_list: [],
+    trade_order_from: [],
+    trade_order_to: [],
   },
   mutations: {
     SET_IS_ADD_DEAL_DIALOG: (state) =>
@@ -24,6 +26,7 @@ export default {
     SET_OFFER_HISTORY: (state, data) => (state.offer_history = data),
     SET_TRADE_LIST: (state, data) => (state.trade_list = data),
     SET_INIT_DATA: (state, data) => (state[data.data] = []),
+    SET_TRADE_ORDERS: (state, data) => (state[data.order] = data.data),
   },
   actions: {
     CREATE_DEAL: async ({ commit }, { offer_type, getFormData, offer }) => {
@@ -147,6 +150,16 @@ export default {
       try {
         const { data } = await api.getDepoDeals(date);
         commit("SET_DEALS", data);
+      } catch (error) {
+        commit("message/ERROR_MESSAGE", error.response.data.error, {
+          root: true,
+        });
+      }
+    },
+    GET_TRADE_ORDER_BY_ID: async ({ commit }, types) => {
+      try {
+        const { data } = await api.getOrderByIdPublic(types.id);
+        commit("SET_TRADE_ORDERS", { order: types.type, data });
       } catch (error) {
         commit("message/ERROR_MESSAGE", error.response.data.error, {
           root: true,

@@ -85,12 +85,12 @@
                 </td>
                 <td>{{ order.payment }}</td>
               </tr>
-              <tr class="text-caption">
+              <!-- <tr class="text-caption">
                 <td class="grey--text">
                   {{ $t(`admin.order.order_view.cd`) }}:
                 </td>
                 <td>{{ order.cd ? "Да" : "Нет" }}</td>
-              </tr>
+              </tr> -->
               <tr class="text-caption">
                 <td class="grey--text">Дата начала и завершения аукциона</td>
                 <td :class="order.auction ? 'green--text' : 'warning--text'">

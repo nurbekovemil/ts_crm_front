@@ -1,39 +1,6 @@
 <template>
   <div>
-    <template>
-      <v-row class="mb-3">
-        <v-col>
-          <v-card>
-            <v-card-subtitle
-              >Заявка -
-              <v-btn
-                text
-                small
-                class="blue--text"
-                router
-                :to="'/order/' + deal.order_from"
-                >{{ sortOrderUser(deal.order_type_from) }}</v-btn
-              >
-            </v-card-subtitle>
-          </v-card>
-        </v-col>
-        <v-col>
-          <v-card>
-            <v-card-subtitle
-              >Заявка -
-              <v-btn
-                text
-                small
-                class="blue--text"
-                router
-                :to="'/order/' + deal.order_to"
-                >{{ sortOrderUser(deal.order_type_to) }}</v-btn
-              >
-            </v-card-subtitle>
-          </v-card>
-        </v-col>
-      </v-row>
-    </template>
+    <trade-orders :deal="deal" />
     <template>
       <v-card class="pa-3 mb-3">
         <div id="printDeal">
@@ -528,10 +495,11 @@
 </template>
 
 <script>
+import TradeOrders from "./TradeOrders.vue";
 export default {
+  components: { TradeOrders },
   props: ["deal", "comments"],
   data: () => ({
-    is_deal: false,
     url_api: process.env.VUE_APP_BACK_API,
   }),
   methods: {

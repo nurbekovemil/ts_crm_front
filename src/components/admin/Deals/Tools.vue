@@ -43,14 +43,9 @@
           <v-icon left>mdi-cancel</v-icon>
           Отклонить
         </v-btn>
-        <v-btn
-          color="success"
-          small
-          elevation="0"
-          @click="updateDealStatus(deal.cd ? 5 : 2)"
-        >
+        <v-btn color="success" small elevation="0" @click="updateDealStatus(5)">
           <v-icon left>mdi-check</v-icon>
-          {{ deal.cd ? "Принять на исполнение" : "Принять" }}
+          Принять на исполнение
         </v-btn>
       </template>
       <template v-if="deal.status == 5">

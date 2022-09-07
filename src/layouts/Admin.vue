@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-app-bar app flat class="white">
+    <v-app-bar app color="#78C3CC" dark>
       <v-app-bar-nav-icon @click="drawerHandler"></v-app-bar-nav-icon>
       <v-toolbar-title>{{ this.$router.history.current.name }}</v-toolbar-title>
       <v-spacer></v-spacer>

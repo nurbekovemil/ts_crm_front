@@ -218,13 +218,33 @@ export default {
               },
               col: "12",
             },
+            // {
+            //   field: "is_auction",
+            //   title: "Аукцион",
+            //   value: false,
+            //   type: "checkbox",
+            //   valid: {
+            //     required: false,
+            //   },
+            //   col: "12",
+            // },
             {
               field: "is_auction",
-              title: "Аукцион",
-              value: false,
-              type: "checkbox",
+              title: "Выберите режим",
+              value: null,
+              type: "radio",
+              types: [
+                {
+                  type: "true",
+                  title: "Стандартный аукцион",
+                },
+                {
+                  type: "false",
+                  title: "Двойной встречный аукцион",
+                },
+              ],
               valid: {
-                required: false,
+                required: true,
               },
               col: "12",
             },
@@ -350,16 +370,16 @@ export default {
               },
               col: "4",
             },
-            {
-              field: "cd",
-              title: "Расчеты через клиринговый счёт Биржи",
-              value: false,
-              type: "checkbox",
-              valid: {
-                required: false,
-              },
-              col: "12",
-            },
+            // {
+            //   field: "cd",
+            //   title: "Расчеты через клиринговый счёт Биржи",
+            //   value: false,
+            //   type: "checkbox",
+            //   valid: {
+            //     required: false,
+            //   },
+            //   col: "12",
+            // },
           ],
         },
       ],
@@ -593,14 +613,34 @@ export default {
             type: "number",
           },
         },
+        // {
+        //   field: "is_auction",
+        //   title: "Аукцион",
+        //   value: false,
+        //   type: "checkbox",
+        //   valid: {
+        //     required: false,
+        //   },
+        // },
         {
           field: "is_auction",
-          title: "Аукцион",
-          value: false,
-          type: "checkbox",
+          title: "Выберите режим",
+          value: null,
+          type: "radio",
+          types: [
+            {
+              type: true,
+              title: "Стандартный аукцион",
+            },
+            {
+              type: false,
+              title: "Двойной встречный аукцион",
+            },
+          ],
           valid: {
-            required: false,
+            required: true,
           },
+          col: "12",
         },
         {
           field: "auction_date_start",
@@ -656,15 +696,15 @@ export default {
             required: false,
           },
         },
-        {
-          field: "cd",
-          title: "Расчеты через клиринговый счёт Биржи",
-          value: false,
-          type: "checkbox",
-          valid: {
-            required: false,
-          },
-        },
+        // {
+        //   field: "cd",
+        //   title: "Расчеты через клиринговый счёт Биржи",
+        //   value: false,
+        //   type: "checkbox",
+        //   valid: {
+        //     required: false,
+        //   },
+        // },
       ],
     },
     options: {

@@ -1,15 +1,16 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import axios from 'axios'
+import Vue from "vue";
+import Vuex from "vuex";
+import axios from "axios";
 
-import user from './user-store'
-import message from './message-store'
-import catalog from './catalog-store'
-import dashboard from './dashboard-store'
-import order from './order-store'
-import deal from './deal-store'
+import user from "./user-store";
+import message from "./message-store";
+import catalog from "./catalog-store";
+import dashboard from "./dashboard-store";
+import order from "./order-store";
+import deal from "./deal-store";
+import report from "./report-store";
 
-Vue.use(Vuex, axios)
+Vue.use(Vuex, axios);
 
 export default new Vuex.Store({
   modules: {
@@ -18,6 +19,7 @@ export default new Vuex.Store({
     user,
     catalog,
     order,
-    deal
-  }
-})
+    deal,
+    report,
+  },
+});

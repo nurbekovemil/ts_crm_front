@@ -50,8 +50,7 @@
                             field.field === 'amount' ||
                             field.field === 'cost' ||
                             field.field === 'delivery' ||
-                            field.field === 'payment' ||
-                            field.field === 'cd'
+                            field.field === 'payment'
                           "
                           :key="i"
                           :cols="
@@ -94,7 +93,9 @@
                               :label="field.title"
                               outlined
                               dense
-                              :disabled="!isAuction"
+                              :disabled="
+                                field.field == 'amount' ? false : !isAuction
+                              "
                               @change="calcField(field)"
                             >
                             </v-text-field>

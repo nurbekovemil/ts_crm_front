@@ -49,8 +49,8 @@
             </tr>
           </template>
           <template v-else>
-            <td colspan="5" class="text-center py-2 text--disabled">
-              Не найдено
+            <td colspan="6" class="text-center py-2 text--disabled">
+              Не найдено!
             </td>
           </template>
         </tbody>

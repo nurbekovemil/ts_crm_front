@@ -114,6 +114,8 @@
     <v-pagination
       v-model="page"
       :length="user_count"
+			color="#78C3CC"
+
     ></v-pagination>
   </div>
 		</v-col>

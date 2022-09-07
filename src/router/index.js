@@ -18,6 +18,7 @@ import {
   Catalog,
   TradeList,
   DepoDeals,
+  Reports,
 } from "../views/admin";
 
 // content pages
@@ -213,6 +214,11 @@ const routes = [
         meta: {
           hideOrderTools: true,
         },
+      },
+      {
+        path: "/dashboard/reports",
+        name: "Отчеты",
+        component: Reports,
       },
     ],
   },

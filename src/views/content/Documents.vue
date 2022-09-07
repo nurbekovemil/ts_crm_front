@@ -18,20 +18,22 @@
             target="_blank"
             class="text-decoration-none"
           >
-            Правила БТ ТСС КФБ
+            ПРАВИЛА БИРЖЕВОЙ ТОРГОВЛИ В ТОВАРНО-СЫРЬЕВОМ СЕКТОРЕ ЗАО «КЫРГЫЗСКАЯ
+            ФОНДОВАЯ БИРЖА»
           </a>
         </li>
 
-        <!-- <li>
+        <li>
           <a
-            href="/documents/regulationsBT.pdf"
+            href="/documents/Закон_КР_О_противодействии_финансированию_террористической_деятельности.doc"
             target="_blank"
             class="text-decoration-none"
           >
-            Правила БТ в секции ТCР ЗАО КФБ
+            Закон КР о противодействии финансированию террористической
+            деятельности
           </a>
         </li>
-        <li>
+        <!-- <li>
           <a
             href="/documents/RulesfortradingpreciousmetalsonKSE.pdf"
             target="_blank"

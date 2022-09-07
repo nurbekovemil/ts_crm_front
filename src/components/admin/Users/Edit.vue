@@ -25,6 +25,11 @@
                   v-model="item.value"
                   :label="item.title"
                   value="uguguyx"
+                  :rules="
+                    item.field == 'login' || item.field == 'password'
+                      ? [rules.isEmpty]
+                      : []
+                  "
                   outlined
                   dense
                 ></v-text-field>
@@ -67,7 +72,18 @@
 <script>
 import { mapActions, mapState, mapMutations } from "vuex";
 export default {
-  data: () => ({}),
+  data: () => ({
+    valid: true,
+    rules: {
+      isEmpty: (v) => {
+        if (v == null || v == undefined || v.trim() == "") {
+          return "Поле не может быть пустым.";
+        } else {
+          return true;
+        }
+      },
+    },
+  }),
   computed: {
     ...mapState("user", ["isEditDialog", "user", "user_view", "template"]),
     // userEditHandler() {
@@ -96,6 +112,8 @@ export default {
       let updateData = {
         id: this.user_view.id,
         info: null,
+        login: "",
+        password: "",
       };
       updateData.info = JSON.stringify(
         this.user_view.info.reduce((prev, { title, items }) => {
@@ -105,6 +123,15 @@ export default {
               title,
               items: [
                 ...items.map(({ field, title, value, type, options }) => {
+                  if (field == "login" || field == "password") {
+                    updateData[field] = value;
+                  }
+                  if (
+                    (field == "login" && value.trim() == "") ||
+                    (field == "password" && value.trim() == "")
+                  ) {
+                    this.valid = false;
+                  }
                   return {
                     field,
                     title,
@@ -118,7 +145,7 @@ export default {
           ];
         }, [])
       );
-      this.UPDATE_USER_DATA(updateData);
+      this.valid && this.UPDATE_USER_DATA(updateData);
     },
   },
 };
