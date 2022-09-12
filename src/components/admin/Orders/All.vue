@@ -1,13 +1,31 @@
 <template lang="">
 	<div>
+		<v-row>
+			<v-col cols="12" md="3">
+<v-select
+        v-model="type"
+        :items="types"
+        menu-props="auto"
+        item-text="title"
+        item-value="type"
+        label="Тип заявки"
+        dense
+        outlined
+        hide-details
+      ></v-select>
+			</v-col>
+			<v-col cols="12" md="12">
 		<v-simple-table>
 			<template v-slot:default>
 				<thead>
 					<tr>
-						<th>#</th>
 						<th class="text-left" width="40%">
 							Название
 						</th>
+            <th class="text-left" width="20%">
+							Тип заявки
+						</th>
+
 							<th  v-if="user.role == 'ADMIN'">
 							Пользователь
 							</th>
@@ -33,7 +51,6 @@
 				</thead>
 				<tbody>
 					<tr v-for="(order, i) of order_list.rows" :key="i">
-						<td>{{i+1}}</td>
 						<td>
 							<v-btn
 								rounded
@@ -45,6 +62,9 @@
 								{{ order.title }}
 							</v-btn>
 						</td>
+            <td>
+              {{order.order_type}}
+            </td>
 								<td v-if="user.role == 'ADMIN'">
 									<v-btn
 										rounded
@@ -132,13 +152,18 @@
 				</tbody>
 			</template>
 		</v-simple-table>
-		<v-pagination
+			</v-col>
+			<v-col cols="12" md="12">
+<v-pagination
 				v-if="order_list.count > limit"
         v-model="page"
         :length="order_count"
         color="#78C3CC"
         app
       ></v-pagination>
+			</v-col>
+		</v-row>
+		
 	</div>
 </template>
 <script>
@@ -146,6 +171,11 @@ import { mapState, mapActions } from "vuex";
 export default {
   props: ["status"],
   data: () => ({
+    type: 1,
+    types: [
+      { title: "Заявка на продажу", type: 1 },
+      { title: "Заявка на покупку", type: 2 },
+    ],
     page: 1,
     limit: 10,
   }),
@@ -166,7 +196,11 @@ export default {
       "UPDATE_ORDER_STATUS",
     ]),
     getAllOrderList() {
-      this.ALL_ORDER_LIST({ page: this.page, limit: this.limit });
+      this.ALL_ORDER_LIST({
+        page: this.page,
+        limit: this.limit,
+        type: this.type,
+      });
     },
     viewOrder(id) {
       this.$router.push({ path: `/dashboard/order/${id}` });
@@ -176,13 +210,16 @@ export default {
       await this.getAllOrderList();
     },
     async deleteOrder(id) {
-      await this.DELETE_ORDER({ id, type: this.type });
+      await this.DELETE_ORDER({ id });
       await this.getAllOrderList();
     },
   },
   watch: {
     page(v) {
       this.ALL_ORDER_LIST({ page: v, limit: this.limit });
+    },
+    type() {
+      this.getAllOrderList();
     },
   },
 };

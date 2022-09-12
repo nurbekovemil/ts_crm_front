@@ -92,14 +92,28 @@
                 <td>{{ order.cd ? "Да" : "Нет" }}</td>
               </tr> -->
               <tr class="text-caption">
-                <td class="grey--text">Дата начала и завершения аукциона</td>
+                <td class="grey--text">
+                  Дата начала и завершения
+                  {{
+                    order.is_auction
+                      ? "стандартного аукциона"
+                      : "встречного аукциона"
+                  }}
+                </td>
                 <td :class="order.auction ? 'green--text' : 'warning--text'">
                   {{ order.auction_date_start }} /
                   {{ order.auction_date_end }}
                 </td>
               </tr>
               <tr class="text-caption">
-                <td class="grey--text">Время начала и завершения аукциона</td>
+                <td class="grey--text">
+                  Время начала и завершения
+                  {{
+                    order.is_auction
+                      ? "стандартного аукциона"
+                      : "встречного аукциона"
+                  }}
+                </td>
                 <td :class="order.auction ? 'green--text' : 'warning--text'">
                   {{ order.auction_time_start }} /
                   {{ order.auction_time_end }}

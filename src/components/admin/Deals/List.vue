@@ -6,8 +6,8 @@
           <tr>
             <th width="5%">ID</th>
             <th width="5%" class="text-center"><v-icon>mdi-account</v-icon></th>
-            <th>Заявка от пользователя</th>
-            <th>Пользователю</th>
+            <th>Заявка</th>
+            <th>Заявка</th>
             <th width="10%">Статус</th>
             <th width="6%">Дата</th>
             <th width="8%"></th>
@@ -27,7 +27,9 @@
               </v-chip>
             </td>
             <td>
-              {{ offer.from_username }}
+              <template v-if="user.role === 'ADMIN'">
+                {{ offer.from_username }}
+              </template>
               <v-btn
                 rounded
                 plain
@@ -41,7 +43,9 @@
             </td>
 
             <td>
-              {{ offer.to_username }}
+              <template v-if="user.role === 'ADMIN'">
+                {{ offer.to_username }}
+              </template>
               <v-btn
                 rounded
                 plain
@@ -121,6 +125,7 @@ export default {
   props: ["status"],
   computed: {
     ...mapState("deal", ["deals"]),
+    ...mapState("user", ["user"]),
   },
   methods: {
     ...mapActions("deal", ["GET_DEAL_LIST", "DELETE_OFFER_BY_ID"]),

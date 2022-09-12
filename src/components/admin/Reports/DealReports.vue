@@ -49,70 +49,79 @@
     </v-row>
 
     <v-card-text>
-      <v-simple-table>
-        <template v-slot:default>
-          <thead>
-            <tr>
-              <th class="text-left">№ сделки</th>
-              <th class="text-left">Дата заключения</th>
-              <th class="text-left">Товар</th>
-              <th class="text-left">Код ТНВД</th>
-              <template v-if="is_members">
-                <th class="text-left">Продавец</th>
-                <th class="text-left">Покупатель</th>
+      <div id="reportList">
+        <v-simple-table>
+          <template v-slot:default>
+            <thead>
+              <tr>
+                <th class="text-left">№ сделки</th>
+                <th class="text-left">Дата заключения</th>
+                <th class="text-left">Товар</th>
+                <th class="text-left">Код ТНВД</th>
+                <template v-if="is_members">
+                  <th class="text-left">Продавец</th>
+                  <th class="text-left">Покупатель</th>
+                </template>
+                <th class="text-left">Кол-во Товара</th>
+                <th class="text-left">Ед. Измерения</th>
+                <th class="text-left">Цена</th>
+                <th class="text-left">Сумма сделки</th>
+              </tr>
+            </thead>
+            <tbody>
+              <template v-if="deals.length > 0">
+                <tr v-for="deal in deals" :key="deal.id">
+                  <td>{{ deal.id }}</td>
+                  <td>{{ deal.created_at }}</td>
+                  <td>{{ deal.prod_title }}</td>
+                  <td>{{ deal.code_tnved }}</td>
+                  <template v-if="is_members">
+                    <td
+                      :class="
+                        search_name == deal.user_from_name && 'green--text'
+                      "
+                    >
+                      {{ deal.user_from_name }}
+                    </td>
+                    <td
+                      :class="search_name == deal.user_to_name && 'green--text'"
+                    >
+                      {{ deal.user_to_name }}
+                    </td>
+                  </template>
+                  <td>{{ deal.amount }}</td>
+                  <td>{{ deal.prod_weight }}</td>
+                  <td>{{ deal.price }} {{ deal.symbol }}</td>
+                  <td>{{ deal.cost }} {{ deal.symbol }}</td>
+                </tr>
+                <tr class="grey lighten-2">
+                  <td colspan="4">
+                    <b>Итого</b>
+                  </td>
+                  <template v-if="is_members">
+                    <td colspan="2"></td>
+                  </template>
+                  <td>{{ dealResults("amount") }}</td>
+                  <td></td>
+                  <td>{{ dealResults("price") }}</td>
+                  <td>{{ dealResults("cost") }}</td>
+                </tr>
               </template>
-              <th class="text-left">Кол-во Товара</th>
-              <th class="text-left">Ед. Измерения</th>
-              <th class="text-left">Цена</th>
-              <th class="text-left">Сумма сделки</th>
-            </tr>
-          </thead>
-          <tbody>
-            <template v-if="deals.length > 0">
-              <tr v-for="deal in deals" :key="deal.id">
-                <td>{{ deal.id }}</td>
-                <td>{{ deal.created_at }}</td>
-                <td>{{ deal.prod_title }}</td>
-                <td>{{ deal.code_tnved }}</td>
-                <template v-if="is_members">
-                  <td
-                    :class="search_name == deal.user_from_name && 'green--text'"
-                  >
-                    {{ deal.user_from_name }}
-                  </td>
-                  <td
-                    :class="search_name == deal.user_to_name && 'green--text'"
-                  >
-                    {{ deal.user_to_name }}
-                  </td>
-                </template>
-                <td>{{ deal.amount }}</td>
-                <td>{{ deal.prod_weight }}</td>
-                <td>{{ deal.price }} {{ deal.symbol }}</td>
-                <td>{{ deal.cost }} {{ deal.symbol }}</td>
-              </tr>
-              <tr class="grey lighten-2">
-                <td colspan="4">
-                  <b>Итого</b>
+              <template v-else>
+                <td colspan="10" class="text-center py-2 text--disabled">
+                  Не найдено!
                 </td>
-                <template v-if="is_members">
-                  <td colspan="2"></td>
-                </template>
-                <td>{{ dealResults("amount") }}</td>
-                <td></td>
-                <td>{{ dealResults("price") }}</td>
-                <td>{{ dealResults("cost") }}</td>
-              </tr>
-            </template>
-            <template v-else>
-              <td colspan="10" class="text-center py-2 text--disabled">
-                Не найдено!
-              </td>
-            </template>
-          </tbody>
-        </template>
-      </v-simple-table>
+              </template>
+            </tbody>
+          </template>
+        </v-simple-table>
+      </div>
     </v-card-text>
+    <v-card-actions>
+      <v-btn elevation="0" color="#78C3CC" dark small @click="print"
+        >Печать</v-btn
+      >
+    </v-card-actions>
   </v-card>
 </template>
 
@@ -148,6 +157,12 @@ export default {
         (counter, deal) => (counter += parseInt(deal[field])),
         0
       );
+    },
+    async print() {
+      const cssOptions = {
+        styles: ["../../Print.css"],
+      };
+      await this.$htmlToPaper("reportList", cssOptions);
     },
   },
   mounted() {

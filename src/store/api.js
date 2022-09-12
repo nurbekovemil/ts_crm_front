@@ -42,8 +42,8 @@ export default {
   getMyOrderListPrivate: ({ type, page, limit }) =>
     api.get("/orders/private/type/", { params: { type, page, limit } }),
   getOrderByIdPrivate: (id) => api.get("/orders/private/" + id),
-  getAllOrderListPrivate: ({ page, limit }) =>
-    api.get("/orders/private/", { params: { page, limit } }),
+  getAllOrderListPrivate: ({ page, limit, type }) =>
+    api.get("/orders/private/", { params: { page, limit, type } }),
   updateOrderStatusPrivate: (data) =>
     api.put("/orders/private/", {}, { params: data }),
   deleteOrder: (id) => api.delete("/orders/private/" + id),

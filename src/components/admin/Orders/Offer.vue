@@ -3,7 +3,11 @@
     <v-dialog v-model="isAddDealDialog" persistent max-width="800px">
       <v-card>
         <v-card-title class="d-flex justify-center" width="100%">
-          Встречная заявка
+          {{
+            order_view.is_auction
+              ? "Стандартный аукцион"
+              : "Двойной встречный аукцион"
+          }}
         </v-card-title>
         <v-card-text>
           <v-container>
