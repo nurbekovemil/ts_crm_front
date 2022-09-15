@@ -54,7 +54,7 @@ export default {
       },
     }),
   updateOrderData: (data) => api.post("/orders/private/update", data),
-  deleteImage: (id) => api.delete("/orders/private/image/" + id),
+  deleteImage: (data) => api.post("/orders/private/files", data),
   copyOrder: (id) => api.post("/orders/private/copy", id),
   // order api public routes
   getAllOrderListPublic: ({ type, limit }) =>
@@ -99,4 +99,8 @@ export default {
 
   // reports
   getDealReports: (data) => api.post("/reports/deals", data),
+
+  // transactions
+  getUserAccounts: () => api.get("/transfers/accounts"),
+  createTransaction: (data) => api.post("/transfers", data),
 };

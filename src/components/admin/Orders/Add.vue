@@ -83,19 +83,31 @@
                                 cols="4"
                                 class="py-0"
                               >
-                                <v-hover v-slot="{ hover }">
-                                  <v-card>
+                                <v-card>
+                                  <template
+                                    v-if="
+                                      file.type.includes(
+                                        'image/jpeg',
+                                        'image/png',
+                                        'image/jpg'
+                                      )
+                                    "
+                                  >
                                     <v-img :src="fileurl(file)" height="150">
-                                      <v-overlay
-                                        absolute="absolute"
-                                        :value="hover"
-                                      >
-                                      </v-overlay>
                                     </v-img>
-                                  </v-card>
-                                </v-hover>
+                                  </template>
+                                  <template v-else>
+                                    <v-card height="150">
+                                      <v-card-title>
+                                        <v-icon large left>
+                                          mdi-file-document
+                                        </v-icon>
+                                      </v-card-title>
+                                    </v-card>
+                                  </template>
+                                </v-card>
                               </v-col>
-                              <v-col>
+                              <v-col cols="12" md="12">
                                 <v-file-input
                                   v-model="field.value"
                                   :label="field.title"
@@ -119,6 +131,9 @@
                               :items="options.order_tnveds"
                               :loading="isLoadingTnveds"
                               :search-input.sync="search"
+                              :filter="customFilter"
+                              cache-items
+                              no-data-text="Данные не найдены"
                               item-text="title"
                               outlined
                               hide-selected
@@ -126,7 +141,7 @@
                               item-value="id"
                               :label="field.title"
                               :rules="[rules.isSelecet]"
-                              placeholder="Введите названия тнвед"
+                              placeholder="Введите названия тнвэд"
                             >
                               <template v-slot:item="data">
                                 <v-list-item-content>
@@ -597,6 +612,13 @@ export default {
     },
     fileurl: (furl) => {
       return URL.createObjectURL(furl);
+    },
+    customFilter(item, queryText, itemText) {
+      const id = item.id.toLowerCase();
+      const title = item.title.toLowerCase();
+      const searchText = queryText.toLowerCase();
+
+      return id == queryText || title.indexOf(searchText) > -1;
     },
     // saveNewOrder() {
     // let formData = new FormData();

@@ -210,16 +210,16 @@
                       <td>Качественные показатели товара</td>
                       <td>{{ order.quality }}</td>
                     </tr>
-                    <tr v-if="order.cert">
+                    <tr v-if="order.certificate">
                       <td>Сертификат</td>
                       <td>
-                        <template v-for="(cert, i) in order.cert">
+                        <template v-for="(cert, i) in order.certificate">
                           <a
                             v-if="cert != null"
                             :href="`${url_api}/${cert.path}`"
                             :key="i"
                             target="_blank"
-                            >Посмотреть</a
+                            >[Посмотреть]</a
                           >
                         </template>
                       </td>

@@ -19,6 +19,7 @@ import {
   TradeList,
   DepoDeals,
   Reports,
+  AccountList,
 } from "../views/admin";
 
 // content pages
@@ -50,6 +51,9 @@ const routes = [
   {
     path: "/",
     component: Content,
+    meta: {
+      isAuth: false,
+    },
     children: [
       {
         path: "/",
@@ -220,6 +224,11 @@ const routes = [
         name: "Отчеты",
         component: Reports,
       },
+      {
+        path: "/dashboard/accounts",
+        name: "Клиринг",
+        component: AccountList,
+      },
     ],
   },
 ];
@@ -232,6 +241,11 @@ const router = new VueRouter({
     return { x: 0, y: 0 };
   },
 });
+
+const allowedRouters = (path) => {
+  return store.state.user.userMenus.some(({ route }) => route == path);
+};
+
 router.beforeEach((to, from, next) => {
   if (
     to.matched.some((record) => record.meta.isAuth) &&
@@ -240,18 +254,35 @@ router.beforeEach((to, from, next) => {
     next("/login");
     return;
   }
-  //   if (
-  //   to.matched.some((record) => record.meta.isAuth) &&
-  //   store.state.user.isAuth
-  // ) {
-  //   next("/login");
-  //   return;
-  // }
   if (to.path == "/login" && store.state.user.isAuth) {
     next("/dashboard");
     return;
   }
+  // console.log(store.state.user.userMenus);
+  // if (
+  //   allowedRouters(to.path) &&
+  //   to.matched.some((record) => record.meta.isAuth)
+  // ) {
+  //   console.log(to.path);
+  //   console.log("1 allowedRouters", allowedRouters(to.path));
+  //   next();
+  // } else if (
+  //   !allowedRouters(to.path) &&
+  //   to.matched.some((record) => record.meta.isAuth)
+  // ) {
+  //   console.log(to.path);
+  //   console.log("2 allowedRouters", allowedRouters(to.path));
+  //   next("/not-found");
+  //   return;
+  // } else if (
+  //   !allowedRouters(to.path) &&
+  //   !to.matched.some((record) => record.meta.isAuth && store.state.user.isAuth)
+  // ) {
+  //   console.log(to.path);
 
+  //   console.log("3 allowedRouters", allowedRouters(to.path));
+  //   next();
+  // }
   next();
 });
 

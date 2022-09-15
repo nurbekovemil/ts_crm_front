@@ -9,6 +9,7 @@ import dashboard from "./dashboard-store";
 import order from "./order-store";
 import deal from "./deal-store";
 import report from "./report-store";
+import transaction from "./transaction-store";
 
 Vue.use(Vuex, axios);
 
@@ -21,5 +22,6 @@ export default new Vuex.Store({
     order,
     deal,
     report,
+    transaction,
   },
 });

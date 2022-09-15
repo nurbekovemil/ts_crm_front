@@ -40,7 +40,7 @@ export default {
           fields: [
             {
               field: "title",
-              title: "Название заявки",
+              title: "Название товара",
               value: "",
               type: "input",
               valid: {
@@ -61,7 +61,7 @@ export default {
             },
             {
               field: "marking",
-              title: "Маркировка товара",
+              title: "Гост",
               value: "",
               type: "input",
               valid: {
@@ -181,7 +181,7 @@ export default {
               field: "delivery_date",
               title: "Срок поставки",
               value: "",
-              type: "date",
+              type: "input",
               valid: {
                 required: true,
               },
@@ -202,7 +202,7 @@ export default {
               field: "payment_date",
               title: "Срок оплаты",
               value: "",
-              type: "date",
+              type: "input",
               valid: {
                 required: true,
               },
@@ -448,7 +448,7 @@ export default {
 
         {
           field: "title",
-          title: "Название продукта",
+          title: "Название товара",
           value: "",
           type: "input",
           valid: {
@@ -495,7 +495,7 @@ export default {
         },
         {
           field: "marking",
-          title: "Маркировка товара",
+          title: "Гост",
           value: "",
           type: "input",
           valid: {
@@ -506,7 +506,7 @@ export default {
           field: "payment_date",
           title: "Срок оплаты",
           value: "",
-          type: "date",
+          type: "input",
           valid: {
             required: true,
           },
@@ -515,7 +515,7 @@ export default {
           field: "delivery_date",
           title: "Срок поставки",
           value: "",
-          type: "date",
+          type: "input",
           valid: {
             required: true,
           },
@@ -850,7 +850,7 @@ export default {
     },
     DELETE_IMAGE: async ({ commit, dispatch }, img) => {
       try {
-        const { data } = await api.deleteImage(img.img_id);
+        const { data } = await api.deleteImage(img);
         dispatch("GET_ORDER_BY_ID", { id: img.order_id, isAuth: img.isAuth });
         commit("message/SUCCESS_MESSAGE", data, { root: true });
       } catch (error) {

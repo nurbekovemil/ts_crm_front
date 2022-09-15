@@ -93,7 +93,10 @@
                   >
                   </v-select>
                 </template>
-                <template v-if="field.type === 'file'">
+                <template v-if="field.type == 'file'">
+                  <div class="text-body-1 px-2 my-2">
+                    {{ field.title }}
+                  </div>
                   <v-col>
                     <v-row class="mb-3" v-if="field && field.value">
                       <!-- images -->
@@ -104,20 +107,54 @@
                         class="py-0"
                       >
                         <v-hover v-slot="{ hover }">
-                          <v-card>
-                            <v-img
-                              :src="
-                                img && img.path ? `${url_api}/${img.path}` : img
-                              "
-                              height="150"
-                            >
+                          <template
+                            v-if="
+                              img.path
+                                .split('.')[1]
+                                .includes('jpeg', 'png', 'jpg')
+                            "
+                          >
+                            <v-card>
+                              <v-img
+                                :src="
+                                  img && img.path
+                                    ? `${url_api}/${img.path}`
+                                    : img
+                                "
+                                height="150"
+                              >
+                                <v-overlay absolute="absolute" :value="hover">
+                                  <v-btn
+                                    @click="deleteImage(img.id, field.field)"
+                                    icon
+                                  >
+                                    <v-icon> mdi-delete </v-icon>
+                                  </v-btn>
+                                </v-overlay>
+                              </v-img>
+                            </v-card>
+                          </template>
+                          <template v-else>
+                            <v-card height="150">
+                              <v-card-title>
+                                <v-icon large left> mdi-file-document </v-icon>
+                                <span class="text-h6 font-weight-light">{{
+                                  img.path.split(".")[1]
+                                }}</span>
+                              </v-card-title>
                               <v-overlay absolute="absolute" :value="hover">
-                                <v-btn @click="deleteImage(img.id)" icon>
+                                <v-btn
+                                  @click="deleteImage(img.id, field.field)"
+                                  icon
+                                >
                                   <v-icon> mdi-delete </v-icon>
                                 </v-btn>
+                                <v-btn icon>
+                                  <v-icon> mdi-file-eye </v-icon>
+                                </v-btn>
                               </v-overlay>
-                            </v-img>
-                          </v-card>
+                            </v-card>
+                          </template>
                         </v-hover>
                       </v-col>
                       <!-- upload image -->
@@ -126,13 +163,23 @@
                         cols="4"
                         class="d-flex justify-center align-center"
                       >
-                        <div>
+                        <div v-if="field.field == 'images'">
                           <v-file-input
                             v-model="image"
                             :rules="[rules.isMaxFile]"
-                            prepend-icon="mdi-image-plus"
+                            prepend-icon="mdi-plus"
                             hide-input
-                            @change="uploadImage"
+                            @change="uploadImage(field.field)"
+                          >
+                          </v-file-input>
+                        </div>
+                        <div v-if="field.field == 'certificate'">
+                          <v-file-input
+                            v-model="certificate"
+                            :rules="[rules.isMaxFile]"
+                            prepend-icon="mdi-plus"
+                            hide-input
+                            @change="uploadImage(field.field)"
                           >
                           </v-file-input>
                         </div>
@@ -214,6 +261,7 @@ import Vue from "vue";
 export default {
   data: () => ({
     image: [],
+    certificate: [],
     valid: true,
     url_api: process.env.VUE_APP_BACK_API,
     search: "",
@@ -345,16 +393,18 @@ export default {
       this.$forceUpdate();
       // ...
     },
-    deleteImage(id) {
+    deleteImage(id, field) {
       this.DELETE_IMAGE({
         img_id: id,
+        field,
         order_id: this.order_view.id,
         isAuth: this.isAuth,
       });
     },
-    uploadImage() {
+    uploadImage(field) {
       let formData = new FormData();
-      formData.append("images", this.image);
+      let file = field == "images" ? this.image : this.certificate;
+      formData.append(field, file);
       formData.append("order_id", this.order_view.id);
       let img = {
         order_id: this.order_view.id,

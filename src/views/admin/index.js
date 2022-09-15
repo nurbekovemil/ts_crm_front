@@ -14,3 +14,4 @@ export { default as Catalog } from "./Catalog.vue";
 export { default as TradeList } from "./TradeList.vue";
 export { default as DepoDeals } from "./DepoDeals.vue";
 export { default as Reports } from "./Reports.vue";
+export { default as AccountList } from "./AccountList.vue";
