@@ -25,6 +25,29 @@
         <v-card-text>
           <v-row>
             <v-col
+              cols="12"
+              md="12"
+              v-if="user_view.me || user.role == 'ADMIN' || user.role == 'CD'"
+              ><v-card class="pa-3 d-flex justify-space-between">
+                <v-sheet
+                  color="yellow darken-1"
+                  class="d-flex justify-center align-center"
+                  elevation="5"
+                  height="90"
+                  width="90"
+                  rounded
+                >
+                  <v-icon size="40" dark> mdi-cash</v-icon>
+                </v-sheet>
+                <div class="text-right">
+                  <div class="body-3 grey--text">Счет</div>
+                  <h3 class="display-2 font-weight-light text--primary">
+                    {{ user_view.count }} {{ user_view.symbol }}
+                  </h3>
+                </div>
+              </v-card></v-col
+            >
+            <v-col
               ><v-card class="pa-3 d-flex justify-space-between">
                 <v-sheet
                   color="info"
@@ -256,6 +279,7 @@ export default {
         this.UPDATE_USER_STATUS({ status, user_id: this.$route.params.id });
       }
     },
+
     toggleEditUserDialog() {
       this.TOGGLE_EDIT_DIALOG();
     },

@@ -1,4 +1,5 @@
 import api from "./api";
+import router from "../router";
 
 export default {
   namespaced: true,
@@ -38,9 +39,13 @@ export default {
         col: "12",
       },
     ],
+    transaction_list: [],
+    transaction: [],
   },
   mutations: {
     SET_USER_ACCOUNTS: (state, data) => (state.user_accounts = data),
+    SET_TRANSACTION_LIST: (state, data) => (state.transaction_list = data),
+    SET_TRANSACTION_BY_ID: (state, data) => (state.transaction = data),
     TOGGLE_IS_TRANSACTION: (state, data) => {
       state.user = data;
       state.isTransaction = !state.isTransaction;
@@ -60,6 +65,39 @@ export default {
     CREATE_TRANSACTION: async ({ commit }, body) => {
       try {
         const { data } = await api.createTransaction(body);
+        commit("message/SUCCESS_MESSAGE", data, { root: true });
+        commit("TOGGLE_IS_TRANSACTION", null);
+        router.push("/dashboard/transactions");
+      } catch (error) {
+        commit("message/ERROR_MESSAGE", error.response.data.error, {
+          root: true,
+        });
+      }
+    },
+    GET_TRANSACTION_LIST: async ({ commit }) => {
+      try {
+        const { data } = await api.getTransactionList();
+        commit("SET_TRANSACTION_LIST", data);
+      } catch (error) {
+        commit("message/ERROR_MESSAGE", error.response.data.error, {
+          root: true,
+        });
+      }
+    },
+    GET_TRANSACTION_BY_ID: async ({ commit }, id) => {
+      try {
+        const { data } = await api.getTransactionById(id);
+        commit("SET_TRANSACTION_BY_ID", data);
+      } catch (error) {
+        commit("message/ERROR_MESSAGE", error.response.data.error, {
+          root: true,
+        });
+      }
+    },
+    UPDATE_TRANSACTION_STATUS: async ({ commit, dispatch }, queries) => {
+      try {
+        const { data } = await api.updateTransactionStatus(queries);
+        dispatch("GET_TRANSACTION_LIST");
         commit("message/SUCCESS_MESSAGE", data, { root: true });
       } catch (error) {
         commit("message/ERROR_MESSAGE", error.response.data.error, {

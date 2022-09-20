@@ -33,9 +33,25 @@ table {
 .tb td:first-child {
   width: 50%;
 }
+
 .tb1 td:first-child {
   width: 50%;
 }
+
 p {
   font-size: 14px;
+}
+
+#transaction, div{
+  font-family: "Roboto", sans-serif;
+}
+
+#transaction, .text-title{
+  display: flex;
+  justify-content: space-between;
+}
+
+#transaction, .text-content div{
+  display: flex;
+  justify-content: space-between;
 }

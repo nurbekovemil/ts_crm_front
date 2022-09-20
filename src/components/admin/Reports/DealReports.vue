@@ -42,8 +42,17 @@
         ></v-checkbox>
       </v-col>
       <v-col cols="12" md="2" class="d-flex align-center">
-        <v-btn elevation="0" color="#78C3CC" dark small @click="getDealReports"
-          >Применить</v-btn
+        <v-spacer />
+        <v-btn
+          elevation="0"
+          color="#78C3CC"
+          class="mr-2"
+          dark
+          small
+          @click="getDealReports"
+        >
+          <v-icon left>mdi-filter</v-icon>
+          Применить</v-btn
         >
       </v-col>
     </v-row>
@@ -118,8 +127,10 @@
       </div>
     </v-card-text>
     <v-card-actions>
-      <v-btn elevation="0" color="#78C3CC" dark small @click="print"
-        >Печать</v-btn
+      <v-spacer />
+      <v-btn elevation="0" color="#78C3CC" dark small @click="print">
+        <v-icon left>mdi-printer</v-icon>
+        Печать</v-btn
       >
     </v-card-actions>
   </v-card>

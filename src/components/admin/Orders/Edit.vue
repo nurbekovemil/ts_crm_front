@@ -149,9 +149,12 @@
                                 >
                                   <v-icon> mdi-delete </v-icon>
                                 </v-btn>
-                                <v-btn icon>
+                                <a
+                                  :href="`${url_api}/${img.path}`"
+                                  target="_blank"
+                                >
                                   <v-icon> mdi-file-eye </v-icon>
-                                </v-btn>
+                                </a>
                               </v-overlay>
                             </v-card>
                           </template>

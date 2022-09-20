@@ -7,6 +7,8 @@
             <tr>
               <th class="text-left">Пользователь</th>
               <th class="text-left">Счет</th>
+              <th class="text-left">История транзакций</th>
+
               <th class="text-left" width="5%"></th>
             </tr>
           </thead>
@@ -15,6 +17,7 @@
               <tr v-for="account in user_accounts" :key="account.user_id">
                 <td>{{ account.username }}</td>
                 <td>{{ account.count }} {{ account.symbol }}</td>
+                <td>Посмотреть</td>
                 <td>
                   <v-btn icon @click="openTransactionDialog(account)">
                     <v-icon color="#78C3CC"> mdi-cash-plus </v-icon>
