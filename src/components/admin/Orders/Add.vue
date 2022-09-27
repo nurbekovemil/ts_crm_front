@@ -63,7 +63,6 @@
                                   ? [rules.isNumber, rules.isEmpty]
                                   : []
                               "
-                              @change="calcField(field)"
                             ></v-text-field>
                           </template>
                           <template v-if="field.type === 'textarea'">
@@ -526,87 +525,87 @@ export default {
         this.valid = true;
       }
     },
-    getField(f) {
-      return this.templates.orderAdd[3].fields.filter(
-        (field) => field.field == f
-      )[0].value;
-    },
-    setField(f, v) {
-      this.templates.orderAdd[3].fields.filter(
-        (field) => field.field == f
-      )[0].value = v;
-    },
-    calcField({ field, value }) {
-      let nds = this.getField("nds");
-      let price = this.getField("price");
-      let amount = this.getField("amount");
-      let cost = this.getField("cost");
-      if (field == "nds" && price > 0 && amount > 0) {
-        nds = (price * amount * value) / 100;
-        cost = price * amount;
-        this.setField("cost", cost + nds);
-      }
-      if (field == "price" && amount > 0) {
-        nds = (value * amount * nds) / 100;
-        this.setField("cost", value * amount + nds);
-      }
-      if (field == "amount" && price > 0) {
-        nds = (price * value * nds) / 100;
-        this.setField("cost", price * value + nds);
-      }
-      if (field == "cost") {
-        nds = (value * nds) / 100;
-        let without_nds = value - nds;
-        price = without_nds / amount;
-        this.setField("price", Math.floor(price));
-      }
+    // getField(f) {
+    //   return this.templates.orderAdd[3].fields.filter(
+    //     (field) => field.field == f
+    //   )[0].value;
+    // },
+    // setField(f, v) {
+    //   this.templates.orderAdd[3].fields.filter(
+    //     (field) => field.field == f
+    //   )[0].value = v;
+    // },
+    // calcField({ field, value }) {
+    //   let nds = this.getField("nds");
+    //   let price = this.getField("price");
+    //   let amount = this.getField("amount");
+    //   let cost = this.getField("cost");
+    //   if (field == "nds" && price > 0 && amount > 0) {
+    //     nds = (price * amount * value) / 100;
+    //     cost = price * amount;
+    //     this.setField("cost", cost + nds);
+    //   }
+    //   if (field == "price" && amount > 0) {
+    //     nds = (value * amount * nds) / 100;
+    //     this.setField("cost", value * amount + nds);
+    //   }
+    //   if (field == "amount" && price > 0) {
+    //     nds = (price * value * nds) / 100;
+    //     this.setField("cost", price * value + nds);
+    //   }
+    //   if (field == "cost") {
+    //     nds = (value * nds) / 100;
+    //     let without_nds = value - nds;
+    //     price = without_nds / amount;
+    //     this.setField("price", Math.floor(price));
+    //   }
 
-      /*let calcfields = this.templates.orderEdit.filter(
-        (f) =>
-          f.field == "nds" ||
-          f.field == "price" ||
-          f.field == "amount" ||
-          f.field == "cost"
-      );
+    //   /*let calcfields = this.templates.orderEdit.filter(
+    //     (f) =>
+    //       f.field == "nds" ||
+    //       f.field == "price" ||
+    //       f.field == "amount" ||
+    //       f.field == "cost"
+    //   );
 
-      if (
-        field.field == "nds" &&
-        calcfields[1].value > 0 &&
-        calcfields[2].value > 0
-      ) {
-        let nds =
-          field.value > 0
-            ? (calcfields[1].value * calcfields[2].value * field.value) / 100
-            : 0;
-        calcfields[3].value = calcfields[1].value * calcfields[2].value + nds;
-      }
-      if (field.field == "price" && calcfields[2].value > 0) {
-        let nds =
-          calcfields[0].value > 0
-            ? (calcfields[2].value * field.value * calcfields[0].value) / 100
-            : 0;
-        calcfields[3].value = field.value * calcfields[2].value + nds;
-      }
-      if (field.field == "amount") {
-        let nds =
-          calcfields[0].value > 0
-            ? (calcfields[1].value * field.value * calcfields[0].value) / 100
-            : 0;
-        calcfields[3].value = field.value * calcfields[1].value + nds;
-      }
-      if (field.field == "cost") {
-        let nds =
-          calcfields[0].value > 0
-            ? (calcfields[1].value *
-                calcfields[2].value *
-                calcfields[0].value) /
-              100
-            : 0;
-        calcfields[1].value = Math.floor(
-          (field.value - nds) / calcfields[2].value
-        );
-      }*/
-    },
+    //   if (
+    //     field.field == "nds" &&
+    //     calcfields[1].value > 0 &&
+    //     calcfields[2].value > 0
+    //   ) {
+    //     let nds =
+    //       field.value > 0
+    //         ? (calcfields[1].value * calcfields[2].value * field.value) / 100
+    //         : 0;
+    //     calcfields[3].value = calcfields[1].value * calcfields[2].value + nds;
+    //   }
+    //   if (field.field == "price" && calcfields[2].value > 0) {
+    //     let nds =
+    //       calcfields[0].value > 0
+    //         ? (calcfields[2].value * field.value * calcfields[0].value) / 100
+    //         : 0;
+    //     calcfields[3].value = field.value * calcfields[2].value + nds;
+    //   }
+    //   if (field.field == "amount") {
+    //     let nds =
+    //       calcfields[0].value > 0
+    //         ? (calcfields[1].value * field.value * calcfields[0].value) / 100
+    //         : 0;
+    //     calcfields[3].value = field.value * calcfields[1].value + nds;
+    //   }
+    //   if (field.field == "cost") {
+    //     let nds =
+    //       calcfields[0].value > 0
+    //         ? (calcfields[1].value *
+    //             calcfields[2].value *
+    //             calcfields[0].value) /
+    //           100
+    //         : 0;
+    //     calcfields[1].value = Math.floor(
+    //       (field.value - nds) / calcfields[2].value
+    //     );
+    //   }*/
+    // },
     closeIsAddDialog() {
       this.SET_IS_ADD_DIALOG();
     },
