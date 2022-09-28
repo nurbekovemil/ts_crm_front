@@ -1,19 +1,15 @@
 <template>
-  <v-container>
+  <v-container v-if="getOrderByType(type).length > 0">
     <v-row>
-      <v-col class="my-2">
-        <v-row>
-          <v-col cols="12">
-            <v-simple-table border="1" width="100%">
+      <v-col class="my-2 px-0">
+            <v-simple-table  style="border:1px solid rgba(0, 0, 0, 0.12)" border="1" width="100%">
               <thead>
                 <tr>
-                  <th>Дата</th>
-                  <th>Заявка</th>
-                  <th colspan="2">Наименование</th>
+                  <th colspan="3">Наименование</th>
                   <th>Количество</th>
                   <th>Стоимость</th>
                   <th>Статус</th>
-                  <th>
+                  <th class="text-center">
                     {{ type == 1 ? "Заявки на продажу" : "Заявки на покупку" }}
                   </th>
                 </tr>
@@ -24,13 +20,13 @@
                   :key="order.id"
                   style="padding: 50px 10px"
                 >
-                  <td>{{ order.created_at }}</td>
-                  <td>{{ order.id }}</td>
-                  <td colspan="2">
+                
+                  <td colspan="3">
                     <p
                       class="
                         text-decoration-underline
                         font-weight-bold
+                        text-subtitle-1
                         ma-0
                         pa-0
                       "
@@ -54,16 +50,21 @@
                       color="#78C3CC"
                       @click="offerTo(order.id)"
                     >
-                      Подать заявку
+                      Подать заявку 
                     </v-btn>
                   </td>
                 </tr>
               </tbody>
             </v-simple-table>
-            <v-pagination color="#78C3CC" v-model="page" :length="6">
+         
+            <v-pagination v-if="$route.name != 'Главная'" color="#78C3CC" v-model="page" :length="6">
             </v-pagination>
-          </v-col>
-        </v-row>
+        
+        <!-- <v-row>
+          <v-col class="text-center">   <router-link v-if="$route.name == 'Главная'" to="/catalog" class="view-all text-center">
+            Посмотреть еще
+          </router-link></v-col>
+        </v-row> -->
       </v-col>
     </v-row>
     <offer />
@@ -77,6 +78,7 @@ export default {
   components: { Offer },
   props: ["type", "order"],
   data: () => ({
+    requestType: true,
     page: 1,
     limit: 10,
     url_api: process.env.VUE_APP_BACK_API,
@@ -116,3 +118,10 @@ export default {
   },
 };
 </script>
+<style scoped>
+.view-all {
+  color: grey;
+  text-decoration: none;
+  font-size: 17px;
+}
+</style>

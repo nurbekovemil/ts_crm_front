@@ -19,6 +19,7 @@ import {
   TradeList,
   DepoDeals,
   Reports,
+  News,
   AccountList,
 } from "../views/admin";
 
@@ -223,6 +224,11 @@ const routes = [
         path: "/dashboard/reports",
         name: "Отчеты",
         component: Reports,
+      },
+      {
+        path: "/dashboard/news",
+        name: "Новости",
+        component: News,
       },
       {
         path: "/dashboard/accounts",

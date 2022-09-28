@@ -212,7 +212,7 @@
 </template>
 <script>
 import { mapState } from "vuex";
-import KseDate from "../components/admin/Deals/KseDate.vue";
+import KseDate from "../components/content/Date/KseDate.vue";
 export default {
   data: () => ({
     drawer: false,

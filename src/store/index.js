@@ -10,6 +10,7 @@ import order from "./order-store";
 import deal from "./deal-store";
 import report from "./report-store";
 import transaction from "./transaction-store";
+import exchangeRates from "./exchange_rates-store";
 
 Vue.use(Vuex, axios);
 
@@ -23,5 +24,6 @@ export default new Vuex.Store({
     deal,
     report,
     transaction,
+    exchangeRates
   },
 });

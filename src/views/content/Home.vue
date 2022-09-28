@@ -36,8 +36,9 @@
           </v-card>
         </v-col>
       </v-row>
-
-         <v-row class="mb-15" style="position:relative" >
+      <order-list type="1"/>
+      <order-list type="2"/>
+         <v-row class="mb-15" style="position:relative">
           <v-col cols="12">
             <h2 style="color:#868D94;" class="pt-4">С чего начать?</h2>
           </v-col>
@@ -56,18 +57,18 @@
       </v-row>
     </v-container>
   </div>
-    <!-- <order-list type="1" /> -->
-    <!-- <order-list type="2" /> -->
+  
   </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import OrderList from "../../components/content/Home/OrderList.vue";
 export default {
   data:() => ({
     exchangeRates:{
       date:'',
-      currency:[]
+      currency:[],
     },
     howStart:[
       {text:'Вход с помощью <br> Логин и Пароль',icon:'mdi-usb-flash-drive',link:'login'},
@@ -80,12 +81,12 @@ export default {
     OrderList,
   },
 methods: {
-async getCurrentExchange() {
-  fetch("https://www.nbkr.kg/XML/daily.xml")
-  .then(response => response.text())
-  .then(data => {
+  ...mapActions("exchangeRates", ["GET_CURRENT_EXCHANGE"]),
+  async getCurrentRates() {
+     await this.GET_CURRENT_EXCHANGE()
+    .then(data => {
     const parser = new DOMParser();
-    const xml = parser.parseFromString(data, "application/xml");
+    const xml = parser.parseFromString(data.data, "application/xml");
     let exDate = xml.querySelector('CurrencyRates')
     let exMoney = xml.querySelectorAll('Value')
     let exName = xml.querySelectorAll('Currency')
@@ -95,12 +96,11 @@ async getCurrentExchange() {
           {money:exMoney[i].textContent,name:exName[i].getAttribute('ISOCode')}
     )
     }
-  })
-  .catch(console.error);
-}
+    })
+  }
 },
   async mounted() {
-    await this.getCurrentExchange()
+    this.getCurrentRates()
     for(let i =0;i< this.howStart.length;i++) {
       document.querySelectorAll('.mytext')[i].innerHTML = this.howStart[i].text
     }
