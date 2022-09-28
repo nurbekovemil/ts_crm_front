@@ -1,5 +1,5 @@
 <template>
-  <v-container class="fill-height">
+  <v-container v-if="getOrderByType(type).length > 0" class="fill-height">
     <v-row>
       <v-col class="my-2">
         <div
@@ -14,7 +14,7 @@
         <v-row>
           <v-col
             class="my-3"
-            cols="6"
+            cols="12"
             sm="4"
             md="3"
             v-for="order in getOrderByType(type)"

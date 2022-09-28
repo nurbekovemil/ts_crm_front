@@ -103,6 +103,13 @@ export default {
   // transactions
   getUserAccounts: () => api.get("/transfers/accounts"),
   createTransaction: (data) => api.post("/transfers", data),
+  getCurrentExchange(){
+    return axios({
+      method: 'GET',
+      url: 'https://www.nbkr.kg/XML/daily.xml',
+    })
+  },
+
   updateTransactionStatus: (data) => api.put("/transfers", data),
   getTransactionList: () => api.get("/transfers"),
   getTransactionById: (id) => api.get("/transfers/" + id),
