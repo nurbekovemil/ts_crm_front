@@ -100,7 +100,6 @@
                               :disabled="
                                 field.field == 'amount' ? false : !isAuction
                               "
-                              @change="calcField(field)"
                             >
                             </v-text-field>
                           </template>
@@ -288,53 +287,53 @@ export default {
     loadMyOrders() {
       this.MY_ORDER_LIST(this.handleOrderType);
     },
-    calcField(field) {
-      let calcfields = this.orderTemplate.filter(
-        (f) =>
-          f.field == "nds" ||
-          f.field == "price" ||
-          f.field == "amount" ||
-          f.field == "cost"
-      );
-      if (
-        field.field == "nds" &&
-        calcfields[1].value > 0 &&
-        calcfields[2].value > 0
-      ) {
-        let nds =
-          field.value > 0
-            ? (calcfields[1].value * calcfields[2].value * field.value) / 100
-            : 0;
-        calcfields[3].value = calcfields[1].value * calcfields[2].value + nds;
-      }
-      if (field.field == "price" && calcfields[2].value > 0) {
-        let nds =
-          calcfields[0].value > 0
-            ? (calcfields[2].value * field.value * calcfields[0].value) / 100
-            : 0;
-        calcfields[3].value = field.value * calcfields[2].value + nds;
-      }
-      if (field.field == "amount") {
-        let nds =
-          calcfields[0].value > 0
-            ? (calcfields[1].value * field.value * calcfields[0].value) / 100
-            : 0;
-        calcfields[3].value = field.value * calcfields[1].value + nds;
-      }
-      if (field.field == "cost") {
-        let nds =
-          calcfields[0].value > 0
-            ? (calcfields[1].value *
-                calcfields[2].value *
-                calcfields[0].value) /
-              100
-            : 0;
-        calcfields[1].value = Math.floor(
-          (field.value - nds) / calcfields[2].value
-        );
-      }
-      this.$forceUpdate();
-    },
+    // calcField(field) {
+    //   let calcfields = this.orderTemplate.filter(
+    //     (f) =>
+    //       f.field == "nds" ||
+    //       f.field == "price" ||
+    //       f.field == "amount" ||
+    //       f.field == "cost"
+    //   );
+    //   if (
+    //     field.field == "nds" &&
+    //     calcfields[1].value > 0 &&
+    //     calcfields[2].value > 0
+    //   ) {
+    //     let nds =
+    //       field.value > 0
+    //         ? (calcfields[1].value * calcfields[2].value * field.value) / 100
+    //         : 0;
+    //     calcfields[3].value = calcfields[1].value * calcfields[2].value + nds;
+    //   }
+    //   if (field.field == "price" && calcfields[2].value > 0) {
+    //     let nds =
+    //       calcfields[0].value > 0
+    //         ? (calcfields[2].value * field.value * calcfields[0].value) / 100
+    //         : 0;
+    //     calcfields[3].value = field.value * calcfields[2].value + nds;
+    //   }
+    //   if (field.field == "amount") {
+    //     let nds =
+    //       calcfields[0].value > 0
+    //         ? (calcfields[1].value * field.value * calcfields[0].value) / 100
+    //         : 0;
+    //     calcfields[3].value = field.value * calcfields[1].value + nds;
+    //   }
+    //   if (field.field == "cost") {
+    //     let nds =
+    //       calcfields[0].value > 0
+    //         ? (calcfields[1].value *
+    //             calcfields[2].value *
+    //             calcfields[0].value) /
+    //           100
+    //         : 0;
+    //     calcfields[1].value = Math.floor(
+    //       (field.value - nds) / calcfields[2].value
+    //     );
+    //   }
+    //   this.$forceUpdate();
+    // },
     createDeal() {
       const getFormData = this.orderTemplate.reduce(
         (formData, { field, value }) => {

@@ -25,6 +25,40 @@
         <v-card-text>
           <v-row>
             <v-col
+              cols="12"
+              md="12"
+              v-if="user_view.me || user.role == 'ADMIN' || user.role == 'CD'"
+            >
+              <v-card class="pa-3 d-flex justify-space-between">
+                <v-sheet
+                  color="yellow darken-1"
+                  class="d-flex justify-center align-center"
+                  elevation="5"
+                  height="90"
+                  width="90"
+                  rounded
+                >
+                  <v-icon size="40" dark> mdi-cash</v-icon>
+                </v-sheet>
+                <div class="text-right">
+                  <div class="body-3 grey--text">Счет</div>
+                  <h3 class="display-2 font-weight-light text--primary">
+                    {{ user_view.count }} {{ user_view.symbol }}
+                  </h3>
+                  <v-btn
+                    elevation="0"
+                    text
+                    color="grey"
+                    x-small
+                    @click="openTransactionDialog"
+                  >
+                    <v-icon left> mdi-plus </v-icon>
+                    Депонировать
+                  </v-btn>
+                </div>
+              </v-card>
+            </v-col>
+            <v-col
               ><v-card class="pa-3 d-flex justify-space-between">
                 <v-sheet
                   color="info"
@@ -226,11 +260,14 @@
       </v-card>
     </v-row>
     <confirm />
+    <transaction />
   </v-container>
 </template>
 
 <script>
 import { mapActions, mapState, mapMutations } from "vuex";
+import Transaction from "../Transactions/Transaction.vue";
+
 import Confirm from "./Confirm.vue";
 export default {
   data: () => ({
@@ -238,6 +275,7 @@ export default {
   }),
   components: {
     Confirm,
+    Transaction,
   },
   computed: {
     ...mapState("user", ["user_view", "user", "isUserStatus"]),
@@ -248,13 +286,18 @@ export default {
       "TOGGLE_EDIT_DIALOG",
       "TOGGLE_IS_USER_STATUS_DIALOG",
     ]),
+    ...mapMutations("transaction", ["TOGGLE_IS_TRANSACTION"]),
     updateUserStatus(status) {
       if (this.user_view.status == 1 && status == 2) {
-        console.log(this.user_view);
         this.TOGGLE_IS_USER_STATUS_DIALOG();
       } else {
         this.UPDATE_USER_STATUS({ status, user_id: this.$route.params.id });
       }
+    },
+    openTransactionDialog() {
+      this.TOGGLE_IS_TRANSACTION({
+        user_id: this.user_view.id,
+      });
     },
     toggleEditUserDialog() {
       this.TOGGLE_EDIT_DIALOG();

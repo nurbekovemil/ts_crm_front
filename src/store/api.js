@@ -110,4 +110,7 @@ export default {
     })
   },
 
+  updateTransactionStatus: (data) => api.put("/transfers", data),
+  getTransactionList: () => api.get("/transfers"),
+  getTransactionById: (id) => api.get("/transfers/" + id),
 };

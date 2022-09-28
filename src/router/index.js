@@ -19,8 +19,9 @@ import {
   TradeList,
   DepoDeals,
   Reports,
-  News,
   AccountList,
+  TransactionList,
+  TransactionView,
 } from "../views/admin";
 
 // content pages
@@ -226,14 +227,19 @@ const routes = [
         component: Reports,
       },
       {
-        path: "/dashboard/news",
-        name: "Новости",
-        component: News,
-      },
-      {
         path: "/dashboard/accounts",
         name: "Клиринг",
         component: AccountList,
+      },
+      {
+        path: "/dashboard/transactions",
+        name: "Переводы",
+        component: TransactionList,
+      },
+      {
+        path: "/dashboard/transactions/:id",
+        name: "Детали операции",
+        component: TransactionView,
       },
     ],
   },

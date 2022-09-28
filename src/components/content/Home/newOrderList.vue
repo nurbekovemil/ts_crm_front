@@ -69,6 +69,9 @@
     </v-row>
     <offer />
   </v-container>
+  <v-container v-else>
+    <h2>Заявки в данное время отсутствуют</h2>
+  </v-container>
 </template>
 
 <script>

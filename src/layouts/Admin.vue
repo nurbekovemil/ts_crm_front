@@ -4,6 +4,7 @@
       <v-app-bar-nav-icon @click="drawerHandler"></v-app-bar-nav-icon>
       <v-toolbar-title>{{ this.$router.history.current.name }}</v-toolbar-title>
       <v-spacer></v-spacer>
+      {{ user.count }} сом
       <v-btn style="margin: 30px" router to="/" plain icon>
         <v-icon>mdi-home</v-icon>
       </v-btn>
@@ -14,7 +15,6 @@
             <img src="../assets/john.jpg" alt="avatar" />
           </v-avatar>
         </template>
-
         <v-list nav dense width="150">
           <v-list-item-group>
             <v-list-item router to="/dashboard/profile">

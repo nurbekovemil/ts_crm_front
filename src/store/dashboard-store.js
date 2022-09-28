@@ -4,20 +4,25 @@ export default {
   namespaced: true,
   state: {
     table_rows: {
-      orders: {
-        count: null,
-        title: "Все заявки",
-        icon: "mdi-file-document-multiple",
-      },
       users: {
         count: null,
         title: "Все пользователи",
         icon: "mdi-account-multiple",
       },
+      orders: {
+        count: null,
+        title: "Все заявки",
+        icon: "mdi-file-document-multiple",
+      },
       deals: {
         count: null,
         title: "Все сделки",
         icon: "mdi-handshake",
+      },
+      transactions: {
+        count: null,
+        title: "Все переводы",
+        icon: "mdi-swap-horizontal",
       },
     },
   },
