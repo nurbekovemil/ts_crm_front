@@ -168,7 +168,7 @@
                       <td>{{ order.gost }}</td>
                     </tr> -->
                     <tr>
-                      <td>Залоги и гарантия</td>
+                      <td>Условия оплаты</td>
                       <td>{{ order.warranty }}</td>
                     </tr>
 

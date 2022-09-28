@@ -111,7 +111,7 @@ export default {
             },
             {
               field: "warranty",
-              title: "Залоги и гарантии (в %)",
+              title: "Условия оплаты",
               value: "",
               type: "input",
               valid: {
@@ -477,7 +477,7 @@ export default {
         // },
         {
           field: "warranty",
-          title: "Залоги и гарантии (в %)",
+          title: "Условия оплаты",
           value: "",
           type: "input",
           valid: {
