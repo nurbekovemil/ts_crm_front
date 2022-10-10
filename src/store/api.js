@@ -103,14 +103,21 @@ export default {
   // transactions
   getUserAccounts: () => api.get("/transfers/accounts"),
   createTransaction: (data) => api.post("/transfers", data),
-  getCurrentExchange(){
+  getCurrentExchange() {
     return axios({
-      method: 'GET',
-      url: 'https://www.nbkr.kg/XML/daily.xml',
-    })
+      method: "GET",
+      url: "https://www.nbkr.kg/XML/daily.xml",
+    });
   },
 
   updateTransactionStatus: (data) => api.put("/transfers", data),
-  getTransactionList: () => api.get("/transfers"),
+  getTransactionList: (query) => api.get("/transfers", { params: query }),
   getTransactionById: (id) => api.get("/transfers/" + id),
+
+  // blogd
+
+  createBlog: (data) => api.post("/blogs", data),
+  getBlogById: (id) => api.get("/blogs/" + id),
+  getBlogList: () => api.get("/blogs"),
+  deleteBlogById: (id) => api.delete("/blogs/" + id),
 };

@@ -22,6 +22,8 @@ import {
   AccountList,
   TransactionList,
   TransactionView,
+  Blogs,
+  BlogView,
 } from "../views/admin";
 
 // content pages
@@ -40,6 +42,7 @@ import {
   Trades,
   TradeView,
   Tariffs,
+  BlogContentView,
 } from "../views/content";
 
 // layouts
@@ -130,6 +133,14 @@ const routes = [
         path: "/registration",
         name: "Регистрация",
         component: Registration,
+        meta: {
+          isAuth: false,
+        },
+      },
+      {
+        path: "/blogs/:id",
+        name: "Подробная информация",
+        component: BlogContentView,
         meta: {
           isAuth: false,
         },
@@ -233,13 +244,23 @@ const routes = [
       },
       {
         path: "/dashboard/transactions",
-        name: "Переводы",
+        name: "Транзакции",
         component: TransactionList,
       },
       {
         path: "/dashboard/transactions/:id",
         name: "Детали операции",
         component: TransactionView,
+      },
+      {
+        path: "/dashboard/blogs",
+        name: "Новости",
+        component: Blogs,
+      },
+      {
+        path: "/dashboard/blogs/:id",
+        name: "Подробная информация",
+        component: BlogView,
       },
     ],
   },

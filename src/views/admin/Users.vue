@@ -110,13 +110,14 @@
 				</v-simple-table>
 		</v-col>
 		<v-col>
-			<div class="text-center" v-if="usersList.user_count > limit">
+			<div class="text-center">
     <v-pagination
       v-model="page"
       :length="user_count"
 			color="#78C3CC"
 
     ></v-pagination>
+
   </div>
 		</v-col>
 	</v-row>

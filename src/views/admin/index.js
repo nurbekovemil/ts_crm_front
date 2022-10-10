@@ -17,3 +17,5 @@ export { default as Reports } from "./Reports.vue";
 export { default as AccountList } from "./AccountList.vue";
 export { default as TransactionList } from "./TransactionList.vue";
 export { default as TransactionView } from "./TransactionView.vue";
+export { default as Blogs } from "./Blogs.vue";
+export { default as BlogView } from "./BlogView.vue";
