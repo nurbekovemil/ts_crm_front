@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="getOrderByType(type).length > 0" class="fill-height">
+  <v-container class="fill-height" style="max-width:1400px">
     <v-row>
       <v-col class="my-2">
         <div
@@ -11,7 +11,7 @@
             >Посмотреть еще</router-link
           > -->
         </div>
-        <v-row>
+        <v-row v-if="getOrderByType(type).length > 0">
           <v-col
             class="my-3"
             cols="12"
@@ -22,11 +22,11 @@
           >
             <v-card
               @click="viewOrder(order.id)"
-              width="300"
+              width="250"
               class="rounded-lg"
               outlined
             >
-              <v-card-subtitle> {{ order.title }} </v-card-subtitle>
+              <v-card-title class="text-subtitle-2 font-weight-black"><span style="max-height:22px;overflow:hidden; text-overflow: ellipsis;white-space: nowrap;">{{ order.title }}</span>  </v-card-title>
 
               <v-img
                 :src="
@@ -34,7 +34,7 @@
                     ? `${url_api}/${order.images[0].path}`
                     : `${url_api}/static/images/default.png`
                 "
-                height="280px"
+                height="220px"
               >
               </v-img>
               <v-card-actions>
@@ -48,6 +48,11 @@
                 </v-btn>
               </v-card-actions>
             </v-card>
+          </v-col>
+        </v-row>
+        <v-row v-else>
+          <v-col>
+            <h4>Заявки отсутствуют</h4>
           </v-col>
         </v-row>
       </v-col>
