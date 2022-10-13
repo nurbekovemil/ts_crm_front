@@ -18,36 +18,32 @@
             sm="4"
             md="3"
             v-for="order in getOrderByType(type)"
-            :key="order.id"
-          >
+            :key="order.id">
             <v-card
-              @click="viewOrder(order.id)"
-              width="250"
-              class="rounded-lg"
-              outlined
+            @click="viewOrder(order.id)"
+            width="250"
+            class="rounded-lg ma-2"
+          >
+            <v-card-subtitle> {{ order.title }} </v-card-subtitle>
+
+            <v-img
+              :src="
+                order.images[0] != null
+                  ? `${url_api}/${order.images[0].path}`
+                  : `${url_api}/static/images/default.png`
+              "
+              height="280px"
             >
-              <v-card-title class="text-subtitle-2 font-weight-black"><span style="max-height:22px;overflow:hidden; text-overflow: ellipsis;white-space: nowrap;">{{ order.title }}</span>  </v-card-title>
+            </v-img>
+            <v-card-actions>
+              <div class="ml-2">
+                {{ order.price }} {{ order.currency_symbol }}
+              </div>
+              <v-spacer></v-spacer>
 
-              <v-img
-                :src="
-                  order.images[0] !== null
-                    ? `${url_api}/${order.images[0].path}`
-                    : `${url_api}/static/images/default.png`
-                "
-                height="220px"
-              >
-              </v-img>
-              <v-card-actions>
-                <div class="ml-2">
-                  {{ order.price }} {{ order.currency_symbol }}
-                </div>
-                <v-spacer></v-spacer>
-
-                <v-btn color="#78C3CC" small text @click="viewOrder(order.id)">
-                  Посмотреть
-                </v-btn>
-              </v-card-actions>
-            </v-card>
+              <v-btn color="#78C3CC" small text> Посмотреть </v-btn>
+            </v-card-actions>
+          </v-card>
           </v-col>
         </v-row>
         <v-row v-else>

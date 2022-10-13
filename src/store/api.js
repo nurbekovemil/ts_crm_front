@@ -106,7 +106,7 @@ export default {
   getCurrentExchange(){
     return axios({
       method: 'GET',
-      url: 'https://www.nbkr.kg/XML/daily.xml',
+      url: 'https://www.kse.kg/money.php',
     })
   },
 

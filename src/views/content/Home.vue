@@ -85,6 +85,7 @@ methods: {
   async getCurrentRates() {
      await this.GET_CURRENT_EXCHANGE()
     .then(data => {
+
     const parser = new DOMParser();
     const xml = parser.parseFromString(data.data, "application/xml");
     let exDate = xml.querySelector('CurrencyRates')
