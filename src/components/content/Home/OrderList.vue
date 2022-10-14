@@ -14,36 +14,40 @@
         <v-row v-if="getOrderByType(type).length > 0">
           <v-col
             class="my-3"
-            cols="12"
+            cols="6"
             sm="4"
             md="3"
             v-for="order in getOrderByType(type)"
-            :key="order.id">
-            <v-card
-            @click="viewOrder(order.id)"
-            width="250"
-            class="rounded-lg ma-2"
+            :key="order.id"
           >
-            <v-card-subtitle> {{ order.title }} </v-card-subtitle>
-
-            <v-img
-              :src="
-                order.images[0] != null
-                  ? `${url_api}/${order.images[0].path}`
-                  : `${url_api}/static/images/default.png`
-              "
-              height="280px"
+            <v-card
+              @click="viewOrder(order.id)"
+              width="250"
+              class="rounded-lg"
+              outlined
             >
-            </v-img>
-            <v-card-actions>
-              <div class="ml-2">
-                {{ order.price }} {{ order.currency_symbol }}
-              </div>
-              <v-spacer></v-spacer>
+              <v-card-title class="text-subtitle-2 font-weight-black"><span style="max-height:22px;overflow:hidden; text-overflow: ellipsis;white-space: nowrap;">{{ order.title }}</span>  </v-card-title>
 
-              <v-btn color="#78C3CC" small text> Посмотреть </v-btn>
-            </v-card-actions>
-          </v-card>
+              <v-img
+                :src="
+                  order.images[0] !== null
+                    ? `${url_api}/${order.images[0].path}`
+                    : `${url_api}/static/images/default.png`
+                "
+                height="220px"
+              >
+              </v-img>
+              <v-card-actions class="flex-column align-start flex-md-row align-md-center">
+                <div class="ml-2">
+                  {{ order.price }} {{ order.currency_symbol }}
+                </div>
+                <v-spacer></v-spacer>
+
+                <v-btn color="#78C3CC" small text @click="viewOrder(order.id)">
+                  Посмотреть
+                </v-btn>
+              </v-card-actions>
+            </v-card>
           </v-col>
         </v-row>
         <v-row v-else>

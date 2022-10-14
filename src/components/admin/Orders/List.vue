@@ -143,7 +143,6 @@
         </template>
       </v-simple-table>
       <v-pagination
-        v-if="getOrderCountByType(this.type) > limit"
         v-model="page"
         :length="order_count"
         color="#78C3CC"

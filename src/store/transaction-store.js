@@ -40,11 +40,15 @@ export default {
       },
     ],
     transaction_list: [],
+    transaction_count: 0,
     transaction: [],
   },
   mutations: {
     SET_USER_ACCOUNTS: (state, data) => (state.user_accounts = data),
-    SET_TRANSACTION_LIST: (state, data) => (state.transaction_list = data),
+    SET_TRANSACTION_LIST: (state, data) => {
+      state.transaction_list = data.list;
+      state.transaction_count = data.count;
+    },
     SET_TRANSACTION_BY_ID: (state, data) => (state.transaction = data),
     TOGGLE_IS_TRANSACTION: (state, data) => {
       state.user = data;
@@ -74,9 +78,9 @@ export default {
         });
       }
     },
-    GET_TRANSACTION_LIST: async ({ commit }) => {
+    GET_TRANSACTION_LIST: async ({ commit }, query) => {
       try {
-        const { data } = await api.getTransactionList();
+        const { data } = await api.getTransactionList(query);
         commit("SET_TRANSACTION_LIST", data);
       } catch (error) {
         commit("message/ERROR_MESSAGE", error.response.data.error, {

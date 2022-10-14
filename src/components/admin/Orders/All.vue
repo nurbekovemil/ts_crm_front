@@ -18,11 +18,11 @@
 		<v-simple-table>
 			<template v-slot:default>
 				<thead>
-					<tr>
-						<th class="text-left" width="40%">
+					<tr class="d-none d-md-table-row" style="width:100%">
+						<th class="text-left">
 							Название
 						</th>
-            <th class="text-left" width="20%">
+            <th class="text-left">
 							Тип заявки
 						</th>
 
@@ -35,13 +35,13 @@
 						<th class="text-left">
 							Дата
 						</th>
-						<th class="text-left" width="10%">
+						<th class="text-left">
 							Цена
 						</th>
 						<th class="text-left">
 							Количество
 						</th>
-						<th class="text-left" width="15%">
+						<th class="text-left" >
 							Стоимость
 						</th>
 						<th>
@@ -50,20 +50,21 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="(order, i) of order_list.rows" :key="i">
-						<td>
+					<tr class="d-flex flex-wrap d-md-table-row my-2 py-3" style="width:100%;border: 1px solid #E1E5E8; border-radius:10px;" v-for="(order, i) of order_list.rows" :key="i">
+						<td style="flex: 0 1 100%;">
 							<v-btn
 								rounded
 								plain
 								small
 								color="primary"
+                class="px-0"
 								@click="viewOrder(order.id)"
 							>
 								{{ order.title }}
 							</v-btn>
 						</td>
             <td>
-              {{order.order_type}}
+              <strong class="d-md-none">Тип: </strong> {{order.order_type}}
             </td>
 								<td v-if="user.role == 'ADMIN'">
 									<v-btn
@@ -83,10 +84,10 @@
 									{{ order.status }}
 							</v-chip>
 						</td>
-						<td>{{ order.created_at }}</td>
-						<td>{{ order.price }} {{order.symbol}}</td>
-						<td>{{ order.amount }} / {{order.weight_title}}</td>
-						<td>{{ order.cost }} {{order.symbol}}</td>
+						<td><strong class="d-md-none">Дата: </strong> {{ order.created_at }}</td>
+						<td><strong class="d-md-none">Цена: </strong> {{ order.price }} {{order.symbol}}</td>
+						<td><strong class="d-md-none">Количество: </strong> {{ order.amount }} / {{order.weight_title}}</td>
+						<td><strong class="d-md-none">Стоимость: </strong>{{ order.cost }} {{order.symbol}}</td>
 						<td v-if="user.role === 'ADMIN'">
 							<v-menu offset-y transition="slide-x-transition" bottom left>
                   <template v-slot:activator="{ on, attrs }">
@@ -224,4 +225,10 @@ export default {
   },
 };
 </script>
-<style lang=""></style>
+<style scoped>
+@media only screen and (max-width: 960px) {
+td {
+  border:none !important
+}
+}
+</style>

@@ -12,3 +12,4 @@ export { default as Order } from "./Order.vue";
 export { default as Trades } from "./TradeList.vue";
 export { default as TradeView } from "./TradeView.vue";
 export { default as Tariffs } from "./Tariffs.vue";
+export { default as BlogContentView } from "./BlogView.vue";

@@ -2,10 +2,11 @@
   <v-container v-if="getOrderByType(type).length > 0">
     <v-row>
       <v-col class="my-2 px-0">
-            <v-simple-table  style="border:1px solid rgba(0, 0, 0, 0.12)" border="1" width="100%">
+            <v-simple-table style="">
+              <template v-slot:default>
               <thead>
-                <tr>
-                  <th colspan="3">Наименование</th>
+                <tr class="d-none d-md-table-row">
+                  <th class="text-left" colspan="3">Наименование</th>
                   <th>Количество</th>
                   <th>Стоимость</th>
                   <th>Статус</th>
@@ -18,13 +19,11 @@
                 <tr
                   v-for="order in getOrderByType(type)"
                   :key="order.id"
-                  style="padding: 50px 10px"
-                >
-                
-                  <td colspan="3">
+                  class="d-flex flex-wrap d-md-table-row my-2 py-3"
+                  style="width: 100%;border: 1px solid #E1E5E8;border-radius: 10px;">
+                  <td colspan="3" width="100%" style="height:70px;">
                     <p
                       class="
-                        text-decoration-underline
                         font-weight-bold
                         text-subtitle-1
                         ma-0
@@ -35,14 +34,14 @@
                     >
                       {{ order.title }}
                     </p>
-                    <p class="body-2 my-0">
+                    <p class="body-2 my-0" v-if="order.code_tnved">
                       ТН ВЭД ЕАЭС {{ order.code_tnved }}
                     </p>
-                    <p class="caption ma-0">Создано {{ order.created_at }}</p>
+                    <p class="caption ma-0">Создано: {{ order.created_at }}</p>
                   </td>
-                  <td>{{ order.amount }} {{ order.weight_title }}</td>
-                  <td>{{ order.cost }}{{ order.currency_symbol }}</td>
-                  <td>{{ order.status }}</td>
+                  <td> <strong class="d-md-none">Количество: </strong> {{ order.amount }} {{ order.weight_title }}</td>
+                  <td> <strong class="d-md-none">Стоимость: </strong>{{ order.cost }}{{ order.currency_symbol }}</td>
+                  <td><strong class="d-md-none">Статус: </strong> {{ order.status }}</td>
                   <td class="text-center">
                     <v-btn
                       class="white--text"
@@ -55,6 +54,7 @@
                   </td>
                 </tr>
               </tbody>
+            </template>
             </v-simple-table>
          
             <v-pagination v-if="$route.name != 'Главная'" color="#78C3CC" v-model="page" :length="6">
@@ -126,5 +126,10 @@ export default {
   color: grey;
   text-decoration: none;
   font-size: 17px;
+}
+@media only screen and (max-width: 960px) {
+td {
+  border:none !important
+}
 }
 </style>

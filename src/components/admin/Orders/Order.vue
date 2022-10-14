@@ -129,7 +129,7 @@
     </v-row>
     <v-row>
       <v-col v-if="order.status != 8">
-        <v-tabs v-model="tab" left>
+        <v-tabs v-model="tab" class="tabbb">
           <v-tab v-for="item in itemsTab" :key="item">
             {{ item }}
           </v-tab>
@@ -168,7 +168,7 @@
                       <td>{{ order.gost }}</td>
                     </tr> -->
                     <tr>
-                      <td>Залоги и гарантия</td>
+                      <td>Условия оплаты</td>
                       <td>{{ order.warranty }}</td>
                     </tr>
 
@@ -256,4 +256,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style>
+div[class="v-slide-group__prev v-slide-group__prev--disabled"] {
+  display: none !important;
+}
+</style>

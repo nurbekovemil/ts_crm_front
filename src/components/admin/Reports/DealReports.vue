@@ -56,7 +56,6 @@
         >
       </v-col>
     </v-row>
-
     <v-card-text>
       <div id="reportList">
         <v-simple-table>

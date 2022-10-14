@@ -1,7 +1,7 @@
 
 <template>
   <v-row justify="center">
-    <v-dialog v-model="isAddDialog" persistent max-width="60%">
+    <v-dialog v-model="isAddDialog" persistent width="700px">
       <template>
         <v-stepper v-model="e1">
           <v-stepper-header elevation="0">
@@ -657,4 +657,6 @@ export default {
   },
 };
 </script>
-<style></style>
+<style scoped>
+
+</style>

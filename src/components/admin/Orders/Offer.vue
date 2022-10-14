@@ -92,7 +92,7 @@
                               field.type === 'textarea'
                             "
                           >
-                            <v-text-field
+                            <!-- <v-text-field
                               v-model="field.value"
                               :label="field.title"
                               outlined
@@ -100,6 +100,14 @@
                               :disabled="
                                 field.field == 'amount' ? false : !isAuction
                               "
+                            >
+                            </v-text-field> -->
+                            <v-text-field
+                              v-model="field.value"
+                              :label="field.title"
+                              outlined
+                              dense
+                              disabled
                             >
                             </v-text-field>
                           </template>
