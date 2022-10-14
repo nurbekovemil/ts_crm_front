@@ -129,106 +129,109 @@
     </v-row>
     <v-row>
       <v-col v-if="order.status != 8">
-        <v-tabs v-model="tab" left>
+        <v-tabs v-model="tab" left fixed-tabs>
           <v-tab v-for="item in itemsTab" :key="item">
             {{ item }}
           </v-tab>
         </v-tabs>
-
         <v-tabs-items v-model="tab">
-          <v-tab-item>
-            <v-row>
-              <offer-history />
-            </v-row>
-          </v-tab-item>
-          <v-tab-item>
-            <v-row>
-              <v-col>
-                <p>
-                  {{ order.description }}
-                </p>
-              </v-col>
-            </v-row>
-          </v-tab-item>
-          <v-tab-item>
-            <v-row>
-              <v-col md="12">
-                <v-simple-table class="rt">
-                  <tbody>
-                    <tr>
-                      <td>Категория</td>
-                      <td>{{ order.category }}</td>
-                    </tr>
-                    <tr>
-                      <td>НДС</td>
-                      <td>{{ order.nds }} %</td>
-                    </tr>
-                    <!-- <tr>
+          <v-container>
+            <v-tab-item>
+              <v-row>
+                <offer-history />
+              </v-row>
+            </v-tab-item>
+
+            <v-tab-item>
+              <v-row>
+                <v-col>
+                  <p>
+                    {{ order.description }}
+                  </p>
+                </v-col>
+              </v-row>
+            </v-tab-item>
+
+            <v-tab-item>
+              <v-row>
+                <v-col md="12">
+                  <v-simple-table class="rt">
+                    <tbody>
+                      <tr>
+                        <td>Категория</td>
+                        <td>{{ order.category }}</td>
+                      </tr>
+                      <tr>
+                        <td>НДС</td>
+                        <td>{{ order.nds }} %</td>
+                      </tr>
+                      <!-- <tr>
                       <td>ГОСТ</td>
                       <td>{{ order.gost }}</td>
                     </tr> -->
-                    <tr>
-                      <td>Условия оплаты</td>
-                      <td>{{ order.warranty }}</td>
-                    </tr>
+                      <tr>
+                        <td>Условия оплаты</td>
+                        <td>{{ order.warranty }}</td>
+                      </tr>
 
-                    <tr>
-                      <td>Особые условия</td>
-                      <td>{{ order.special_conditions }}</td>
-                    </tr>
+                      <tr>
+                        <td>Особые условия</td>
+                        <td>{{ order.special_conditions }}</td>
+                      </tr>
 
-                    <tr>
-                      <td>Страна</td>
-                      <td>{{ order.country }}</td>
-                    </tr>
+                      <tr>
+                        <td>Страна</td>
+                        <td>{{ order.country }}</td>
+                      </tr>
 
-                    <tr>
-                      <td>Местонахождение товара</td>
-                      <td>{{ order.product_location }}</td>
-                    </tr>
-                    <tr>
-                      <td>КОД ТН ВЭД</td>
-                      <td>{{ order.code_tnved }}</td>
-                    </tr>
-                    <tr>
-                      <td>ЛОТ</td>
-                      <td>{{ order.lot }}</td>
-                    </tr>
-                    <tr>
-                      <td>Маркировка товара</td>
-                      <td>{{ order.marking }}</td>
-                    </tr>
-                    <tr>
-                      <td>Срок оплаты</td>
-                      <td>{{ order.payment_date }}</td>
-                    </tr>
-                    <tr>
-                      <td>Срок поставки</td>
-                      <td>{{ order.delivery_date }}</td>
-                    </tr>
-                    <tr>
-                      <td>Качественные показатели товара</td>
-                      <td>{{ order.quality }}</td>
-                    </tr>
-                    <tr v-if="order.certificate">
-                      <td>Сертификат</td>
-                      <td>
-                        <template v-for="(cert, i) in order.certificate">
-                          <a
-                            v-if="cert != null"
-                            :href="`${url_api}/${cert.path}`"
-                            :key="i"
-                            target="_blank"
-                            >[Посмотреть]</a
-                          >
-                        </template>
-                      </td>
-                    </tr>
-                  </tbody>
-                </v-simple-table>
-              </v-col>
-            </v-row>
-          </v-tab-item>
+                      <tr>
+                        <td>Местонахождение товара</td>
+                        <td>{{ order.product_location }}</td>
+                      </tr>
+                      <tr>
+                        <td>КОД ТН ВЭД</td>
+                        <td>{{ order.code_tnved }}</td>
+                      </tr>
+                      <tr>
+                        <td>ЛОТ</td>
+                        <td>{{ order.lot }}</td>
+                      </tr>
+                      <tr>
+                        <td>Маркировка товара</td>
+                        <td>{{ order.marking }}</td>
+                      </tr>
+                      <tr>
+                        <td>Срок оплаты</td>
+                        <td>{{ order.payment_date }}</td>
+                      </tr>
+                      <tr>
+                        <td>Срок поставки</td>
+                        <td>{{ order.delivery_date }}</td>
+                      </tr>
+                      <tr>
+                        <td>Качественные показатели товара</td>
+                        <td>{{ order.quality }}</td>
+                      </tr>
+                      <tr v-if="order.certificate">
+                        <td>Сертификат</td>
+                        <td>
+                          <template v-for="(cert, i) in order.certificate">
+                            <a
+                              v-if="cert != null"
+                              :href="`${url_api}/${cert.path}`"
+                              :key="i"
+                              target="_blank"
+                              >[Посмотреть]</a
+                            >
+                          </template>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </v-simple-table>
+                </v-col>
+              </v-row>
+            </v-tab-item>
+          </v-container>
         </v-tabs-items>
       </v-col>
     </v-row>

@@ -58,11 +58,12 @@
 								small
 								color="primary"
 								@click="viewOrder(order.id)"
+                class="text-xs-caption"
 							>
 								{{ order.title }}
 							</v-btn>
 						</td>
-            <td>
+            <td :style="breakpoint == 'xs' && 'font-size: 10px;'">
               {{order.order_type}}
             </td>
 								<td v-if="user.role == 'ADMIN'">
@@ -85,8 +86,8 @@
 						</td>
 						<td>{{ order.created_at }}</td>
 						<td>{{ order.price }} {{order.symbol}}</td>
-						<td>{{ order.amount }} / {{order.weight_title}}</td>
-						<td>{{ order.cost }} {{order.symbol}}</td>
+						<td >{{ order.amount }} / {{order.weight_title}}</td>
+						<td :style="breakpoint == 'xs' && 'font-size: 11px;'">{{ order.cost }} {{order.symbol}}</td>
 						<td v-if="user.role === 'ADMIN'">
 							<v-menu offset-y transition="slide-x-transition" bottom left>
                   <template v-slot:activator="{ on, attrs }">
@@ -187,6 +188,9 @@ export default {
     ...mapState("user", ["user", "isAuth"]),
     order_count() {
       return Math.ceil(this.order_list.count / this.limit);
+    },
+    breakpoint() {
+      return this.$vuetify.breakpoint.name;
     },
   },
   methods: {

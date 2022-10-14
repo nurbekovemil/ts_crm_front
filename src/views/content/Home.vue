@@ -10,10 +10,12 @@
           gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
         >
           <v-container>
-            <p class="text-h4 font-weight-bold text-sm-h4 text-md-h3">
+            <p
+              class="text-md-h4 text-h5 font-weight-bold text-sm-h4 text-md-h3"
+            >
               Развивайте свой бизнес с нами!
               <br />
-              <span class="text-h5 text-md-h5">
+              <span class="text-h6 text-md-h5">
                 Находите новые сделки, новых партнёров!
               </span>
             </p>
@@ -23,38 +25,45 @@
     </v-row>
     <div style="background: #f5f6f7">
       <v-container>
-        <v-row style="height: 100px" class="wrapper-tskse-info">
-          <v-col class="wrap-tskse-info" cols="12">
-            <v-card
-              class="text-center rounded-lg py-3"
-              style="vertical-align: text-top"
-            >
-              <div class="tskse-info">
-                <div
-                  v-for="item in exchangeRates.currency"
-                  :key="item.key"
-                  class="info-box"
-                >
+        <v-row v-if="currensies && currensies.Currency">
+          <v-col cols="12">
+            <v-card class="py-2">
+              <h3
+                :style="breakpoint == 'xs' && 'font-size: 10px;'"
+                class="text-md-subtitle-2 mb-2 grey--text d-flex justify-center"
+              >
+                Официальные курсы валют Национального банка КР на
+                {{ currensies["@attributes"].Date }} года
+              </h3>
+              <div class="d-flex justify-space-around">
+                <div v-for="(item, i) in currensies.Currency" :key="i">
                   <h3 style="color: #78c3cc; font-weight: bold">
-                    {{ item.name }}
+                    {{ item["@attributes"].ISOCode }}
                   </h3>
-                  <p class="mb-0">{{ item.money }}</p>
+                  <p class="mb-0">{{ item.Value }}</p>
                 </div>
               </div>
-              <h3 style="color: gray" class="subtitle-2">
-                Официальные курсы валют Национального банка КР на
-                {{ exchangeRates.date }} года
-              </h3>
             </v-card>
           </v-col>
-        </v-row>
-        <order-list type="1" />
-        <order-list type="2" />
-        <v-row class="mb-15" style="position: relative">
           <v-col cols="12">
-            <h2 style="color: #868d94" class="pt-4">С чего начать?</h2>
+            <order-list type="1" />
           </v-col>
-          <v-col v-for="item in howStart" :key="item.key" cols="12" md="3">
+          <v-col cols="12">
+            <order-list type="2" />
+          </v-col>
+        </v-row>
+
+        <v-row class="mb-15">
+          <v-col cols="12" class="py-0">
+            <h2 style="color: #868d94">С чего начать?</h2>
+          </v-col>
+          <v-col
+            v-for="item in howStart"
+            :key="item.key"
+            cols="12"
+            sm="6"
+            md="3"
+          >
             <v-card
               class="
                 text-center
@@ -66,6 +75,7 @@
               "
               height="100%"
               :href="item.link"
+              outlined
             >
               <v-icon
                 large
@@ -79,14 +89,14 @@
               >
                 {{ item.icon }}
               </v-icon>
-              <v-card-title
-                class="body-1 font-weight-black mytext"
-              ></v-card-title>
+              <v-card-title class="body-2">
+                {{ item.text }}
+              </v-card-title>
             </v-card>
           </v-col>
           <template v-if="blogs.length > 0">
-            <v-col cols="12">
-              <h2 style="color: #868d94" class="pt-4">Новости</h2>
+            <v-col cols="12" class="py-0">
+              <h2 style="color: #868d94">Новости</h2>
             </v-col>
             <v-col>
               <v-sheet class="mx-auto" elevation="2" max-width="100%">
@@ -129,29 +139,24 @@ import OrderList from "../../components/content/Home/OrderList.vue";
 export default {
   data: () => ({
     modelBlog: null,
-
-    exchangeRates: {
-      date: "",
-      currency: [],
-    },
     howStart: [
       {
-        text: "Вход с помощью <br> Логин и Пароль",
+        text: "Вход с помощью  Логин и Пароль",
         icon: "mdi-usb-flash-drive",
         link: "login",
       },
       {
-        text: "Ознакомиться <br> с Правилами <br> торгов",
+        text: "Ознакомиться с Правилами торгов",
         icon: "mdi-file-document-multiple",
         link: "ksedocuments",
       },
       {
-        text: "Начать торговать <br> на Бирже",
+        text: "Начать торговать на Бирже",
         icon: "mdi-account-box",
         link: "catalog",
       },
       {
-        text: "Подать заявку на <br> участие торгах",
+        text: "Подать заявку на участие торгах",
         icon: "mdi-currency-usd",
         link: "registration",
       },
@@ -162,41 +167,26 @@ export default {
   },
   computed: {
     ...mapState("blog", ["blogs"]),
+    ...mapState("exchangeRates", ["currensies"]),
+    breakpoint() {
+      return this.$vuetify.breakpoint.name;
+    },
   },
   methods: {
     ...mapActions("exchangeRates", ["GET_CURRENT_EXCHANGE"]),
     ...mapActions("blog", ["GET_BLOG_LIST"]),
-    async getCurrentRates() {
-      await this.GET_CURRENT_EXCHANGE().then((data) => {
-        const parser = new DOMParser();
-        const xml = parser.parseFromString(data.data, "application/xml");
-        let exDate = xml.querySelector("CurrencyRates");
-        let exMoney = xml.querySelectorAll("Value");
-        let exName = xml.querySelectorAll("Currency");
-        this.exchangeRates.date = exDate.getAttribute("Date");
-        for (let i = 0; i < exMoney.length; i++) {
-          this.exchangeRates.currency.push({
-            money: exMoney[i].textContent,
-            name: exName[i].getAttribute("ISOCode"),
-          });
-        }
-      });
-    },
     viewBlog(id) {
       this.$router.push("/blogs/" + id);
     },
   },
   async mounted() {
-    this.getCurrentRates();
-    for (let i = 0; i < this.howStart.length; i++) {
-      document.querySelectorAll(".mytext")[i].innerHTML = this.howStart[i].text;
-    }
+    this.GET_CURRENT_EXCHANGE();
     this.GET_BLOG_LIST();
   },
 };
 </script>
 <style scoped>
-.icon-wrapper {
+/* .icon-wrapper {
   border: 1px solid #78c3cc;
   padding: 10px;
 }
@@ -229,5 +219,5 @@ export default {
   .info-box {
     min-height: 86px;
   }
-}
+} */
 </style>

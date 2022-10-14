@@ -42,9 +42,9 @@
                 </v-sheet>
                 <div class="text-right">
                   <div class="body-3 grey--text">Счет</div>
-                  <h3 class="display-2 font-weight-light text--primary">
+                  <div class="text-md-h2 font-weight-light text--primary">
                     {{ user_view.count }} {{ user_view.symbol }}
-                  </h3>
+                  </div>
                   <v-btn
                     elevation="0"
                     text

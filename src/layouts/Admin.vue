@@ -2,10 +2,12 @@
   <v-app id="inspire">
     <v-app-bar app color="#78C3CC" dark>
       <v-app-bar-nav-icon @click="drawerHandler"></v-app-bar-nav-icon>
-      <v-toolbar-title>{{ this.$router.history.current.name }}</v-toolbar-title>
+      <div class="text-xs-body-2 text-md-body-1">
+        {{ this.$router.history.current.name }}
+      </div>
       <v-spacer></v-spacer>
       {{ user.count }} сом
-      <v-btn style="margin: 30px" router to="/" plain icon>
+      <v-btn class="mx-1" router to="/" plain icon>
         <v-icon>mdi-home</v-icon>
       </v-btn>
 

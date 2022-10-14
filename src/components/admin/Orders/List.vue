@@ -42,6 +42,7 @@
                   color="primary"
                   router
                   :to="`/dashboard/order/${order.id}`"
+                  class="text-h1"
                 >
                   {{ order.title }}
                 </v-btn>

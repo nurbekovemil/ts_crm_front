@@ -1,7 +1,7 @@
 <template>
-  <div class="mt-3" v-if="latest_orders.length > 0">
+  <div class="ma-3" v-if="latest_orders.length > 0">
     <v-sheet elevation="0">
-      <div class="my-2">Недвно посмотрели</div>
+      <div class="ma-2">Недвно посмотрели</div>
       <v-slide-group>
         <v-slide-item v-for="order in latest_orders" :key="order.id">
           <v-card
