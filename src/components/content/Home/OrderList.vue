@@ -11,16 +11,53 @@
             >Посмотреть еще</router-link
           > -->
       </h2>
-      <v-row v-if="getOrderByType(type).length > 0">
+      <v-row v-if="getOrderByType(type).length > 0" class="my-1">
         <v-col
-          class="my-3"
           cols="12"
           sm="4"
           md="3"
-          v-for="order in getOrderByType(type)"
-          :key="order.id"
+          v-for="item in getOrderByType(type)"
+          :key="item.id"
         >
-          <v-card @click="viewOrder(order.id)" class="rounded-lg" outlined>
+          <v-card>
+            <div class="d-flex flex-no-wrap justify-space-between">
+              <div>
+                <v-card-title class="text-h6">
+                  {{
+                    item.title.length > 7
+                      ? item.title.slice(0, 7) + "..."
+                      : item.title
+                  }}
+                </v-card-title>
+
+                <v-card-subtitle class="text-caption"
+                  >{{ item.price }} {{ item.currency_symbol }}</v-card-subtitle
+                >
+
+                <v-card-actions class="pl-4">
+                  <v-btn
+                    color="#78C3CC"
+                    class="pa-0"
+                    small
+                    text
+                    @click="viewOrder(item.id)"
+                  >
+                    Посмотреть
+                  </v-btn>
+                </v-card-actions>
+              </div>
+              <v-avatar class="ma-3" size="120" tile>
+                <v-img
+                  :src="
+                    item.images[0] !== null
+                      ? `${url_api}/${item.images[0].path}`
+                      : `${url_api}/static/images/default.png`
+                  "
+                ></v-img>
+              </v-avatar>
+            </div>
+          </v-card>
+          <!-- <v-card @click="viewOrder(order.id)" class="rounded-lg" outlined>
             <v-card-title class="text-subtitle-2 font-weight-black"
               ><span
                 style="
@@ -52,7 +89,7 @@
                 Посмотреть
               </v-btn>
             </v-card-actions>
-          </v-card>
+          </v-card> -->
         </v-col>
       </v-row>
       <v-row v-else>
@@ -96,7 +133,7 @@ export default {
     },
   },
   mounted() {
-    this.ALL_ORDER_LIST_HOME_PAGE({ type: this.type, limit: 7 });
+    this.ALL_ORDER_LIST_HOME_PAGE({ type: this.type, limit: 8 });
   },
 };
 </script>

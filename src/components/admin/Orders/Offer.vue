@@ -107,7 +107,13 @@
                               :label="field.title"
                               outlined
                               dense
-                              disabled
+                              :disabled="
+                                field.field == 'amount' ||
+                                field.field == 'price' ||
+                                field.field == 'cost'
+                                  ? false
+                                  : true
+                              "
                             >
                             </v-text-field>
                           </template>

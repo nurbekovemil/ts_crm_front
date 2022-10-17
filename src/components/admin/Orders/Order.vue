@@ -259,4 +259,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style>
+div[class="v-slide-group__prev v-slide-group__prev--disabled"] {
+  display: none !important;
+}
+</style>
