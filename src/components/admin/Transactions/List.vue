@@ -40,7 +40,7 @@
         <v-simple-table>
           <template v-slot:default>
             <thead>
-              <tr class="d-none d-md-table-row" style="width:100%">
+              <tr class="d-none d-md-table-row" style="width: 100%">
                 <th class="text-left">ID</th>
                 <th class="text-left" width="10%">Тип перевода</th>
                 <th class="text-left">Дата</th>
@@ -57,17 +57,35 @@
             </thead>
             <tbody>
               <template v-if="transaction_list.length > 0">
-                <tr v-for="list in transaction_list" :key="list.id" class="d-flex flex-wrap d-md-table-row my-2 py-3">
+                <tr
+                  v-for="list in transaction_list"
+                  :key="list.id"
+                  class="d-flex flex-wrap d-md-table-row my-2 py-3"
+                >
                   <td><strong class="d-md-none">ID: </strong> {{ list.id }}</td>
-                  <td><strong class="d-md-none">Тип перевода: </strong>{{ list.type_title }}</td>
-                  <td><strong class="d-md-none">Дата: </strong>{{ list.created_at }}</td>
+                  <td>
+                    <strong class="d-md-none">Тип перевода: </strong
+                    >{{ list.type_title }}
+                  </td>
+                  <td>
+                    <strong class="d-md-none">Дата: </strong
+                    >{{ list.created_at }}
+                  </td>
                   <td>
                     <v-chip small :color="list.status_color" text-color="white">
                       {{ list.status_title }}
                     </v-chip>
                   </td>
-                  <td><strong class="d-md-none"><v-icon> mdi-tray-arrow-up </v-icon> : </strong>{{ list.user_from_name }}</td>
-                  <td><strong class="d-md-none"><v-icon> mdi-tray-arrow-down </v-icon> : </strong>{{ list.user_to_name }}</td>
+                  <td>
+                    <strong class="d-md-none"
+                      ><v-icon> mdi-tray-arrow-up </v-icon> : </strong
+                    >{{ list.user_from_name }}
+                  </td>
+                  <td>
+                    <strong class="d-md-none"
+                      ><v-icon> mdi-tray-arrow-down </v-icon> : </strong
+                    >{{ list.user_to_name }}
+                  </td>
                   <td
                     :class="
                       list.type == 1 || list.type == 3
@@ -75,7 +93,7 @@
                         : 'error--text'
                     "
                   >
-                  <strong class="d-md-none">Сумма</strong>
+                    <strong class="d-md-none">Сумма</strong>
                     {{ list.type == 1 || list.type == 3 ? "+" : "-"
                     }}{{ list.amount }} сом
                   </td>
@@ -148,12 +166,8 @@
 import { mapState, mapActions } from "vuex";
 export default {
   data: () => ({
-    date_from: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-      .toISOString()
-      .substr(0, 10),
-    date_to: new Date(Date.now() - new Date().getTimezoneOffset() * 120000)
-      .toISOString()
-      .substr(0, 10),
+    date_from: "",
+    date_to: "",
     page: 1,
     limit: 10,
   }),
@@ -193,10 +207,10 @@ export default {
 </script>
 
 
-<style scoped> 
+<style scoped>
 @media only screen and (max-width: 960px) {
-td {
-  border:none !important
-}
+  td {
+    border: none !important;
+  }
 }
 </style>

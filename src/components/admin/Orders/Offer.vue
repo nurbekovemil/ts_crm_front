@@ -85,7 +85,6 @@
                               @click="GET_OPTIONS(field.item)"
                             />
                           </template>
-
                           <template
                             v-if="
                               field.type === 'input' ||
@@ -108,9 +107,11 @@
                               outlined
                               dense
                               :disabled="
-                                field.field == 'amount' ||
-                                field.field == 'price' ||
-                                field.field == 'cost'
+                                !isAuction && field.field == 'price'
+                                  ? true
+                                  : field.field == 'amount' ||
+                                    field.field == 'price' ||
+                                    field.field == 'cost'
                                   ? false
                                   : true
                               "

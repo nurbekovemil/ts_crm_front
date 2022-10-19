@@ -19,12 +19,6 @@
         </template>
         <v-list nav dense width="150">
           <v-list-item-group>
-            <v-list-item class="d-md-none">
-              <strong style="font-size: 14px; border-bottom: 1px solid #e1e5e8"
-                >{{ user.count }} сом</strong
-              >
-            </v-list-item>
-
             <v-list-item router to="/dashboard/profile">
               <v-list-item-content>
                 <v-list-item-title> {{ user.username }}</v-list-item-title>

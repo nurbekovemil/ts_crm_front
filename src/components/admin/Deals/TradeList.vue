@@ -71,6 +71,7 @@ export default {
   }),
   computed: {
     ...mapState("deal", ["trade_list"]),
+    ...mapState("user", ["user"]),
   },
   methods: {
     ...mapActions("deal", ["GET_TRADE_LIST"]),
@@ -78,7 +79,11 @@ export default {
       this.GET_TRADE_LIST(v);
     },
     viewDeal(id) {
-      this.$router.push("/trade/" + id);
+      if (this.user.role == "ADMIN" || this.user.role == "CD") {
+        this.$router.push("/dashboard/deal/" + id);
+      } else {
+        this.$router.push("/trade/" + id);
+      }
     },
   },
   mounted() {

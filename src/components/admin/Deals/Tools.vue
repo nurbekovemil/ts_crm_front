@@ -71,7 +71,12 @@
           Отправить повторно
         </v-btn>
       </template>
-      <v-btn @click="print" v-if="deal.status == 2" color="success" small>
+      <v-btn
+        @click="print"
+        v-if="deal.status == 2 || deal.status == 5 || deal.status == 6"
+        color="success"
+        small
+      >
         <v-icon left>mdi-printer</v-icon>
         Печать
       </v-btn>

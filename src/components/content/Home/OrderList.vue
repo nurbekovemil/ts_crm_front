@@ -16,10 +16,10 @@
           cols="12"
           sm="4"
           md="3"
-          v-for="item in getOrderByType(type)"
-          :key="item.id"
+          v-for="order in getOrderByType(type)"
+          :key="order.id"
         >
-          <v-card>
+          <!-- <v-card>
             <div class="d-flex flex-no-wrap justify-space-between">
               <div>
                 <v-card-title class="text-h6">
@@ -56,8 +56,8 @@
                 ></v-img>
               </v-avatar>
             </div>
-          </v-card>
-          <!-- <v-card @click="viewOrder(order.id)" class="rounded-lg" outlined>
+          </v-card> -->
+          <v-card @click="viewOrder(order.id)" class="rounded-lg" outlined>
             <v-card-title class="text-subtitle-2 font-weight-black"
               ><span
                 style="
@@ -89,7 +89,7 @@
                 Посмотреть
               </v-btn>
             </v-card-actions>
-          </v-card> -->
+          </v-card>
         </v-col>
       </v-row>
       <v-row v-else>

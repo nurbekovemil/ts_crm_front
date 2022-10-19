@@ -139,12 +139,8 @@
 import { mapState, mapActions } from "vuex";
 export default {
   data: () => ({
-    date_from: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-      .toISOString()
-      .substr(0, 10),
-    date_to: new Date(Date.now() - new Date().getTimezoneOffset() * 120000)
-      .toISOString()
-      .substr(0, 10),
+    date_from: "",
+    date_to: "",
     search_name: "",
     tab: 1,
     is_members: false,

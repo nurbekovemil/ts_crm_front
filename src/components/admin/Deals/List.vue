@@ -6,8 +6,8 @@
           <tr>
             <th width="5%">ID</th>
             <th width="5%" class="text-center"><v-icon>mdi-account</v-icon></th>
-            <th>Заявка</th>
-            <th>Заявка</th>
+            <th>Предложение</th>
+            <th>На заявку</th>
             <th width="10%">Статус</th>
             <th width="6%">Дата</th>
             <th width="8%"></th>

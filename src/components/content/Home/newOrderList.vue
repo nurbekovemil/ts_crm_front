@@ -2,64 +2,75 @@
   <v-container v-if="getOrderByType(type).length > 0">
     <v-row>
       <v-col class="my-2 px-0">
-            <v-simple-table style="">
-              <template v-slot:default>
-              <thead>
-                <tr class="d-none d-md-table-row">
-                  <th class="text-left" colspan="3">Наименование</th>
-                  <th>Количество</th>
-                  <th>Стоимость</th>
-                  <th>Статус</th>
-                  <th class="text-center">
-                    {{ type == 1 ? "Заявки на продажу" : "Заявки на покупку" }}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="order in getOrderByType(type)"
-                  :key="order.id"
-                  class="d-flex flex-wrap d-md-table-row my-2 py-3"
-                  style="width: 100%;border: 1px solid #E1E5E8;border-radius: 10px;">
-                  <td colspan="3" width="100%" style="height:70px;">
-                    <p
-                      class="
-                        font-weight-bold
-                        text-subtitle-1
-                        ma-0
-                        pa-0
-                      "
-                      style="cursor: pointer"
-                      @click="viewOrder(order.id)"
-                    >
-                      {{ order.title }}
-                    </p>
-                    <p class="body-2 my-0" v-if="order.code_tnved">
-                      ТН ВЭД ЕАЭС {{ order.code_tnved }}
-                    </p>
-                    <p class="caption ma-0">Создано: {{ order.created_at }}</p>
-                  </td>
-                  <td> <strong class="d-md-none">Количество: </strong> {{ order.amount }} {{ order.weight_title }}</td>
-                  <td> <strong class="d-md-none">Стоимость: </strong>{{ order.cost }}{{ order.currency_symbol }}</td>
-                  <td><strong class="d-md-none">Статус: </strong> {{ order.status }}</td>
-                  <td class="text-center">
-                    <v-btn
-                      class="white--text"
-                      small
-                      color="#78C3CC"
-                      @click="offerTo(order.id)"
-                    >
-                      Подать заявку 
-                    </v-btn>
-                  </td>
-                </tr>
-              </tbody>
-            </template>
-            </v-simple-table>
-         
-            <v-pagination v-if="$route.name != 'Главная'" color="#78C3CC" v-model="page" :length="6">
-            </v-pagination>
-        
+        <v-simple-table style="">
+          <template v-slot:default>
+            <thead>
+              <tr class="d-none d-md-table-row">
+                <th class="text-left" colspan="3">Наименование</th>
+                <th>Количество</th>
+                <th>Стоимость</th>
+                <th>Статус</th>
+                <th class="text-center">
+                  {{ type == 1 ? "Заявки на продажу" : "Заявки на покупку" }}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="order in getOrderByType(type)"
+                :key="order.id"
+                class="d-flex flex-wrap d-md-table-row my-2 py-3"
+                style="
+                  width: 100%;
+                  border: 1px solid #e1e5e8;
+                  border-radius: 10px;
+                "
+              >
+                <td colspan="3" width="100%" style="height: 70px">
+                  <p
+                    class="font-weight-bold text-subtitle-1 ma-0 pa-0"
+                    style="cursor: pointer"
+                    @click="viewOrder(order.id)"
+                  >
+                    {{ order.title }}
+                  </p>
+                  <p class="body-2 my-0">ТН ВЭД ЕАЭС: {{ order.code_tnved }}</p>
+                  <p class="caption ma-0">Создано: {{ order.created_at }}</p>
+                </td>
+                <td>
+                  <strong class="d-md-none">Количество: </strong>
+                  {{ order.amount }} {{ order.weight_title }}
+                </td>
+                <td>
+                  <strong class="d-md-none">Стоимость: </strong>{{ order.cost
+                  }}{{ order.currency_symbol }}
+                </td>
+                <td>
+                  <strong class="d-md-none">Статус: </strong> {{ order.status }}
+                </td>
+                <td class="text-center">
+                  <v-btn
+                    class="white--text"
+                    small
+                    color="#78C3CC"
+                    @click="offerTo(order.id)"
+                  >
+                    Подать заявку
+                  </v-btn>
+                </td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
+
+        <v-pagination
+          v-if="$route.name != 'Главная'"
+          color="#78C3CC"
+          v-model="page"
+          :length="6"
+        >
+        </v-pagination>
+
         <!-- <v-row>
           <v-col class="text-center">   <router-link v-if="$route.name == 'Главная'" to="/catalog" class="view-all text-center">
             Посмотреть еще
@@ -128,8 +139,8 @@ export default {
   font-size: 17px;
 }
 @media only screen and (max-width: 960px) {
-td {
-  border:none !important
-}
+  td {
+    border: none !important;
+  }
 }
 </style>
