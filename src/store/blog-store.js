@@ -26,6 +26,28 @@ export default {
         },
         col: "12",
       },
+      // {
+      //   field: "created_at",
+      //   title: "Дата",
+      //   value: "",
+      //   type: "date",
+      //   hint: "По умолчанию будет текущая дата",
+      //   valid: {
+      //     required: false,
+      //   },
+      //   col: "6",
+      // },
+      // {
+      //   field: "time",
+      //   title: "Время",
+      //   value: "",
+      //   type: "time",
+      //   hint: "По умолчанию будет текущая время",
+      //   valid: {
+      //     required: false,
+      //   },
+      //   col: "6",
+      // },
       {
         field: "blogs",
         title: "Изображение",

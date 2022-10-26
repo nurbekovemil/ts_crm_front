@@ -54,7 +54,7 @@
         </v-row>
 
         <v-row class="mb-15">
-          <v-col cols="12" class="py-0">
+          <!-- <v-col cols="12" class="py-0">
             <h2 style="color: #868d94">С чего начать?</h2>
           </v-col>
           <v-col
@@ -93,7 +93,7 @@
                 {{ item.text }}
               </v-card-title>
             </v-card>
-          </v-col>
+          </v-col> -->
           <template v-if="blogs.length > 0">
             <v-col cols="12" class="py-0">
               <h2 style="color: #868d94">Новости</h2>
@@ -105,22 +105,27 @@
                     <v-card
                       class="ma-4"
                       @click="viewBlog(blog.id)"
-                      height="200"
+                      height="250"
                       width="400"
                     >
+                      <v-img
+                        :src="
+                          blog.images[0] != null
+                            ? `${url_api}/${blog.images[0].path}`
+                            : `${url_api}/static/images/default.png`
+                        "
+                        height="140px"
+                      ></v-img>
                       <v-card-title>
-                        {{ blog.title }}
+                        {{
+                          blog.title.length > 30
+                            ? blog.title.slice(0, 30) + "..."
+                            : blog.title
+                        }}
                       </v-card-title>
                       <v-card-subtitle>
-                        {{ blog.created_at }}
+                        Опубликовано: {{ blog.created_at }}
                       </v-card-subtitle>
-                      <v-card-text>
-                        {{
-                          blog.description.length > 200
-                            ? blog.description.slice(0, 215) + "..."
-                            : blog.description
-                        }}
-                      </v-card-text>
                     </v-card>
                   </v-slide-item>
                 </v-slide-group>
@@ -139,6 +144,7 @@ import OrderList from "../../components/content/Home/OrderList.vue";
 export default {
   data: () => ({
     modelBlog: null,
+    url_api: process.env.VUE_APP_BACK_API,
     howStart: [
       {
         text: "Вход с помощью  Логин и Пароль",

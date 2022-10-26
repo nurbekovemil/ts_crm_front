@@ -46,6 +46,7 @@
               </v-list-item>
             </v-list>
           </v-menu>
+          <v-btn plain small router to="/blogs"> Новости </v-btn>
           <v-btn plain small router to="/catalog"> Каталог товаров </v-btn>
           <v-btn plain small router to="/categories"> Категории </v-btn>
           <v-btn plain small router to="/handbooks"> Справочник</v-btn>
@@ -87,11 +88,11 @@
               <v-btn elevation="0" plain small> Главная </v-btn>
             </v-list-item-title>
           </v-list-item>
-          <!-- <v-list-item>
+          <v-list-item>
             <v-list-item-title>
-              <v-btn plain small router to="/about"> О Бирже </v-btn>
+              <v-btn plain small router to="/blogs">Новости</v-btn>
             </v-list-item-title>
-          </v-list-item> -->
+          </v-list-item>
           <v-list-group no-action>
             <template v-slot:activator>
               <v-list-item-title>
@@ -139,6 +140,7 @@
               <v-btn plain small> Каталог товаров </v-btn>
             </v-list-item-title>
           </v-list-item>
+
           <v-list-item router to="/login">
             <v-list-item-title>
               <v-btn plain small>

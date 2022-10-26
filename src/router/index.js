@@ -43,6 +43,7 @@ import {
   TradeView,
   Tariffs,
   BlogContentView,
+  ContentBlogs,
 } from "../views/content";
 
 // layouts
@@ -141,6 +142,14 @@ const routes = [
         path: "/blogs/:id",
         name: "Подробная информация",
         component: BlogContentView,
+        meta: {
+          isAuth: false,
+        },
+      },
+      {
+        path: "/blogs",
+        name: "Новости",
+        component: ContentBlogs,
         meta: {
           isAuth: false,
         },

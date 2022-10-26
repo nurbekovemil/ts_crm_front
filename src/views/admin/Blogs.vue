@@ -7,6 +7,7 @@
           color="#78C3CC"
           class="mr-2"
           dark
+          small
           @click="openAddBlog"
         >
           <v-icon left>mdi-plus</v-icon>

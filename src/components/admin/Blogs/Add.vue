@@ -13,14 +13,34 @@
                 class="px-2"
               >
                 <template v-if="field.type === 'textarea'">
-                  <v-textarea
+                  <ckeditor
+                    :editor="editor"
                     v-model="field.value"
-                    auto-grow
-                    outlined
-                    rows="6"
-                    :label="field.title"
-                  ></v-textarea>
+                    :config="editorConfig"
+                  ></ckeditor>
                 </template>
+                <!-- <template v-if="field.type === 'date'">
+                  <v-text-field
+                    v-model="field.value"
+                    :label="field.title"
+                    type="date"
+                    outlined
+                    dense
+                    :hint="field.hint"
+                    persistent-hint
+                  ></v-text-field>
+                </template>
+                <template v-if="field.type === 'time'">
+                  <v-text-field
+                    v-model="field.value"
+                    :label="field.title"
+                    type="time"
+                    outlined
+                    dense
+                    :hint="field.hint"
+                    persistent-hint
+                  ></v-text-field>
+                </template> -->
                 <template v-if="field.type === 'input'">
                   <v-text-field
                     v-model="field.value"
@@ -91,6 +111,7 @@
               >Опубликовать</v-btn
             >
           </v-card-actions>
+          <div id="blog"></div>
         </v-card>
       </v-form>
     </v-dialog>
@@ -99,20 +120,70 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
+import CKEditor from "@ckeditor/ckeditor5-vue2";
+
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+
 export default {
-  data: () => ({
-    valid: true,
-    isEmpty: (v) => {
-      if (v == null || v == undefined || v == "" || v.trim() == "") {
-        return "Поле не может быть пустым.";
-      } else {
-        return true;
-      }
-    },
-    isMaxFile: (v) => v.length <= 3 || `Выберите максимум 3 файла`,
-  }),
+  data() {
+    return {
+      valid: true,
+      editor: ClassicEditor,
+      editorConfig: {
+        toolbar: {
+          items: [
+            "selectAll",
+            "heading",
+            "|",
+            "fontfamily",
+            "fontsize",
+            "|",
+            "alignment",
+            "|",
+            "fontColor",
+            "fontBackgroundColor",
+            "|",
+            "bold",
+            "italic",
+            "strikethrough",
+            "underline",
+            "subscript",
+            "superscript",
+            "|",
+            "outdent",
+            "indent",
+            "|",
+            "bulletedList",
+            "numberedList",
+            "todoList",
+            "|",
+            "code",
+            "codeBlock",
+            "|",
+            "blockQuote",
+            "|",
+            "undo",
+            "redo",
+          ],
+          shouldNotGroupWhenFull: true,
+        },
+      },
+      isEmpty: (v) => {
+        if (v == null || v == undefined || v == "" || v.trim() == "") {
+          return "Поле не может быть пустым.";
+        } else {
+          return true;
+        }
+      },
+      isMaxFile: (v) => v.length <= 3 || `Выберите максимум 3 файла`,
+    };
+  },
+
   computed: {
     ...mapState("blog", ["isAddDialog", "blogTemplate"]),
+  },
+  components: {
+    ckeditor: CKEditor.component,
   },
   methods: {
     ...mapMutations("blog", ["SET_IS_ADD_DIALOG"]),
@@ -123,6 +194,7 @@ export default {
     fileurl: (furl) => {
       return URL.createObjectURL(furl);
     },
+
     createBlog() {
       let formData = new FormData();
       this.blogTemplate.map(({ field, value, valid }) => {
@@ -132,6 +204,8 @@ export default {
         ) {
           this.valid = false;
           return this.$refs.blogAdd.validate();
+        } else if (field == "blogs") {
+          value.map((img) => formData.append(field, img));
         } else if (field == "blogs") {
           value.map((img) => formData.append(field, img));
         } else {
@@ -145,4 +219,8 @@ export default {
 </script>
 
 <style>
+.ck-editor__editable {
+  min-height: 200px;
+  margin-bottom: 20px;
+}
 </style>

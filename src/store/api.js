@@ -96,6 +96,7 @@ export default {
   deleteCatalogItem: (data) => api.delete("/catalog/table", { data: data }),
   // dashboard api
   getTableRows: (table) => api.get("/dashboard/rows/" + table),
+  getInProcessingOffers: () => api.get("/dashboard/offers"),
 
   // reports
   getDealReports: (data) => api.post("/reports/deals", data),
