@@ -24,6 +24,9 @@ import {
   TransactionView,
   Blogs,
   BlogView,
+  Tenders,
+  TenderView,
+  MyTenders,
 } from "../views/admin";
 
 // content pages
@@ -270,6 +273,21 @@ const routes = [
         path: "/dashboard/blogs/:id",
         name: "Подробная информация",
         component: BlogView,
+      },
+      {
+        path: "/dashboard/tenders",
+        name: "Тендеры, конкурсы, гранты и аукционы",
+        component: Tenders,
+      },
+      {
+        path: "/dashboard/tenders/:id",
+        name: "Подробная информация",
+        component: TenderView,
+      },
+      {
+        path: "/dashboard/mytenders",
+        name: "Мои объявление",
+        component: MyTenders,
       },
     ],
   },

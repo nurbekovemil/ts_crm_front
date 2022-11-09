@@ -5,6 +5,7 @@ export default {
 
   state: {
     templates: {
+      // в будущем данные "orderAdd" надо вывести в базу данных
       // template order add
       orderAdd: [
         {
@@ -383,6 +384,7 @@ export default {
           ],
         },
       ],
+      // в будущем данные "orderEdit" надо вывести в базу данных
       // template add edit
       orderEdit: [
         {

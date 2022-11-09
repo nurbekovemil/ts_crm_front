@@ -7,6 +7,7 @@ export default {
     user: null,
     user_accounts: [],
     isTransaction: false,
+    // в будущем данные "transactionTemplate" надо вывести в базу данных
     transactionTemplate: [
       {
         field: "transaction_type",

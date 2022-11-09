@@ -12,6 +12,7 @@ import report from "./report-store";
 import transaction from "./transaction-store";
 import exchangeRates from "./exchange_rates-store";
 import blog from "./blog-store";
+import tender from "./tender-store";
 
 Vue.use(Vuex, axios);
 
@@ -27,5 +28,6 @@ export default new Vuex.Store({
     transaction,
     exchangeRates,
     blog,
+    tender,
   },
 });

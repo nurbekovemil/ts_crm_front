@@ -5,6 +5,7 @@ export default {
   namespaced: true,
   state: {
     isAddDialog: false,
+    //  в будущем данные "blogTemplate" надо вывести в базу данных
     blogTemplate: [
       {
         field: "title",

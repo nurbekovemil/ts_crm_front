@@ -60,7 +60,6 @@ export default {
   getAllOrderListPublic: ({ type, limit }) =>
     api.get("/orders/public/type/", { params: { type, limit } }),
   getOrderByIdPublic: (id) => api.get("/orders/public/" + id),
-
   // Deal api
   createDeal: (data) => api.post("/deals", data),
   getDealById: (id) => api.get("/deals/" + id),
@@ -78,7 +77,6 @@ export default {
   getTradeList: (date) => api.get("/deals/trade-list/" + date),
   getTradeById: (id) => api.get("/deals/trade/" + id),
   getDepoDeals: (date) => api.get("/deals/depo-deals/" + date),
-
   // categories api
   getOptions: (option) =>
     api.get("/orders/private/options/", { params: { option } }),
@@ -97,10 +95,8 @@ export default {
   // dashboard api
   getTableRows: (table) => api.get("/dashboard/rows/" + table),
   getInProcessingOffers: () => api.get("/dashboard/offers"),
-
   // reports
   getDealReports: (data) => api.post("/reports/deals", data),
-
   // transactions
   getUserAccounts: () => api.get("/transfers/accounts"),
   createTransaction: (data) => api.post("/transfers", data),
@@ -111,15 +107,17 @@ export default {
       url: "https://www.kse.kg/moneyTS.php",
     });
   },
-
   updateTransactionStatus: (data) => api.put("/transfers", data),
   getTransactionList: (query) => api.get("/transfers", { params: query }),
   getTransactionById: (id) => api.get("/transfers/" + id),
-
-  // blogd
-
+  // blog
   createBlog: (data) => api.post("/blogs", data),
   getBlogById: (id) => api.get("/blogs/" + id),
   getBlogList: () => api.get("/blogs"),
   deleteBlogById: (id) => api.delete("/blogs/" + id),
+  // tenders
+  createTender: (data) => api.post("/tenders", data),
+  getTenderList: () => api.get("/tenders"),
+  getTenderById: (id) => api.get("/tenders/" + id),
+  getTenderAllList: (i) => api.get("/tenders/all"),
 };

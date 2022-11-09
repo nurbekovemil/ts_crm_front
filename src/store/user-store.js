@@ -15,15 +15,19 @@ export default {
       users: [],
       user_count: 0,
     },
+    // в будущем данные "user_type" надо вывести в базу данных
     user_type: [
       { title: "Биржевой дилер", type: 1 },
       { title: "Биржевой брокер", type: 2 },
+      { title: "Специалист по закупкам", type: 3 },
     ],
+    // в будущем данные "roles" надо вывести в базу данных
     roles: [
       { type: 2, title: "Пользователь" },
       { type: 1, title: "Администратор" },
       { type: 3, title: "Депозитарий" },
     ],
+    // в будущем данные "userAddTemplate" надо вывести в базу данных
     userAddTemplate: [
       { field: "username", title: "Логин", type: "input", value: "" },
       { field: "password", title: "Пароль", type: "input", value: "" },

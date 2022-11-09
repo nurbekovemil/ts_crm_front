@@ -19,3 +19,6 @@ export { default as TransactionList } from "./TransactionList.vue";
 export { default as TransactionView } from "./TransactionView.vue";
 export { default as Blogs } from "./Blogs.vue";
 export { default as BlogView } from "./BlogView.vue";
+export { default as Tenders } from "./Tenders.vue";
+export { default as TenderView } from "./TenderView.vue";
+export { default as MyTenders } from "./MyTenders.vue";

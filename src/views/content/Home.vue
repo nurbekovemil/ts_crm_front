@@ -25,8 +25,8 @@
     </v-row>
     <div style="background: #f5f6f7">
       <v-container>
-        <v-row v-if="currensies && currensies.Currency">
-          <v-col cols="12">
+        <v-row>
+          <v-col cols="12" v-if="currensies && currensies.Currency">
             <v-card class="py-2">
               <h3
                 :style="breakpoint == 'xs' && 'font-size: 10px;'"
